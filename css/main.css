@@ -1,0 +1,78 @@
+.container {
+	width: auto;
+	min-width: 100px;
+	max-width: 500px;
+	min-height: 400px;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+
+.container h3 {
+	font-size: 30px;
+	font-weight: normal;
+	text-align: center;
+	color: #999999;
+}
+
+ul.item-list {
+	padding: 0;
+}
+
+ul.item-list li {
+	font-size: 20px;
+	text-align: center;
+	list-style: none;
+}
+
+ul.item-list a:link,ul.item-list a:visited,ul.item-list a:active {
+	display: block;
+	color: #5FB7E9;
+	text-decoration: none;
+	line-height: 36px;
+	height: 36px;
+	-webkit-transition: background 500ms ease-in-out 0ms, color 500ms
+		ease-in-out 0ms;
+	-moz-transition: background 500ms ease-in-out 0ms, color 500ms
+		ease-in-out 0ms;
+	-ms-transition: background 500ms ease-in-out 0ms, color 500ms
+		ease-in-out 0ms;
+	-o-transition: background 500ms ease-in-out 0ms, color 500ms ease-in-out
+		0ms;
+	transition: background 500ms ease-in-out 0ms, color 500ms ease-in-out
+		0ms;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+}
+
+ul.item-list a:hover,ul.item-list a:focus {
+	outline: none;
+	color: white;
+	background: #BBD631;
+	-webkit-transition: background 250ms ease-in-out 0ms, color 250ms
+		ease-in-out 0ms;
+	-moz-transition: background 250ms ease-in-out 0ms, color 250ms
+		ease-in-out 0ms;
+	-ms-transition: background 250ms ease-in-out 0ms, color 250ms
+		ease-in-out 0ms;
+	-o-transition: background 250ms ease-in-out 0ms, color 250ms ease-in-out
+		0ms;
+	transition: background 250ms ease-in-out 0ms, color 250ms ease-in-out
+		0ms;
+}
+
+.item-list .new {
+	color: #FF0052;
+	font-size: 12px;
+	margin: auto 0 0 10px;
+	vertical-align: super;
+}
+
+.item-list .remark {
+	color: rgb(86, 238, 0);
+	font-size: 12px;
+	margin: auto 0 0 10px;
+	vertical-align: super;
+}
