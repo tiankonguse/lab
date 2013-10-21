@@ -29,7 +29,7 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
 				<div class="create-pw-box clearfix">
 					<div class="create-pw-box-title left">密码长度：</div>
 					<div class="create-pw-box-content left">
-						<input id="create-pw-length" value="6">&nbsp;&nbsp;(3-36位,默认6位)
+						<input id="create-pw-length" value="6">&nbsp;&nbsp;(6-31位,默认6位)
 					</div>
 				</div>
 				<div class="create-pw-box clearfix">

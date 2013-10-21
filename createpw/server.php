@@ -16,24 +16,52 @@ if ((! $conn || ! $result) && $ret) {
             break;
     }
 }
-// data.length = $length.val();
-// data.number = $number.val();
-// data.bigAlphabet = $bigAlphabet.val();
-// data.smallAlphabet = $smallAlphabet.val();
-// data.other = $other.val();
+
 function create_pw() {
     $server_ip = "127.0.0.1";
     $port = 8888;
     
-    $length = intval($_POST ["length"]);
-    $number = $_POST ["number"];
-    $bigAlphabet = $_POST ["bigAlphabet"];
-    $smallAlphabet = $_POST ["smallAlphabet"];
-    $other = $_POST ["other"];
+    $length = intval ( $_POST ["length"] );
+    $number = intval ( $_POST ["number"] ) == 1 ? 1 : 0;
+    $bigAlphabet = intval ( $_POST ["bigAlphabet"] ) == 1 ? 1 : 0;
+    $smallAlphabet = intval ( $_POST ["smallAlphabet"] ) == 1 ? 1 : 0;
+    $other = intval ( $_POST ["other"] ) == 1 ? 1 : 0;
     
+    if ($length < 6) {
+        $length = 6;
+    }
+    if ($length > 31) {
+        $length = 31;
+    }
     
+    $state = $length << 4 | $number << 3 | $bigAlphabet << 2 | $smallAlphabet << 1 | $other;
     
-    return output ( OUTPUT_SUCCESS, "123456 " . $length . " | " .$number." | ".$number." | ".$bigAlphabet." | ".$smallAlphabet." | " .$other );
+    $inBuf = "".$state;
+    
+    $sock = @socket_create ( AF_INET, SOCK_DGRAM, 0 );
+    
+    $outBuf = "";
+    
+    if (! $sock) {
+        $outBuf .= "socket create failure<br/>";
+        return output ( OUTPUT_SUCCESS, $outBuf);
+    }
+    
+    if (! @socket_sendto ( $sock, $inBuf, strlen ( $inBuf ), 0, $server_ip, $port )) {
+        $outBuf .= "send error<br/>";
+        socket_close ( $sock );
+        return output ( OUTPUT_SUCCESS, $outBuf);
+    }
+    
+    if (! @socket_recvfrom ( $sock, $outBuf, 256, 0, &$server_ip, &$port )) {
+        $outBuf .= "recvieve error!";
+        socket_close ( $sock );
+        return output ( OUTPUT_SUCCESS, $outBuf);
+    }
+        
+    socket_close ( $sock );
+    
+    return output ( OUTPUT_SUCCESS, $outBuf );
 }
 
  
