@@ -1,0 +1,29 @@
+.body-bg {
+	background-color: #F7F8F8;
+}
+
+.lay-position {
+	margin: 0px;
+	position: relative;
+	height: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.page-base {
+	margin: 5px;
+	border-radius: 2px;
+	border-style: dashed;;
+	border-width: 2px;
+	border-color: #DEDEDE;
+	background-color: white;
+	position: relative;
+	height: auto;
+	_zoom: 1;
+}
+
+.page-frame {
+	width: 100%;
+	min-height: 700px;
+	height: auto;
+}

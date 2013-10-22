@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+
+#magnifier {
+	width: 342px;
+	height: 422px;
+	position: relative;
+	font-size: 0;
+	border: 1px solid #000;
+	cursor: crosshair;
+}
+
+#img {
+	width: 340px;
+	height: 420px;
+}
+
+#Browser {
+	border: 1px solid #000;
+	z-index: 100;
+	position: relative;
+	background: #555;
+}
+
+#mag {
+	border: 1px solid #000;
+	overflow: hidden;
+	z-index: 100;
+}

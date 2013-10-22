@@ -1,0 +1,397 @@
+.editor-core-container {
+	border: 1px solid #F1F1F1;
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	min-width: 835px;
+	min-height: 810px;
+	height: auto;
+	margin-bottom: 10px;
+}
+
+.editor-core-toolbar {
+	width: 100%;
+	height: auto;
+}
+
+.editor-core-toolbar-wrap {
+	width: 100%;
+	z-index: 10;
+	position: relative;
+	top: auto;
+	border-bottom: 1px solid #C4C7CF;
+	visibility: visible;
+}
+
+.toolbar-container {
+	overflow: hidden;
+	position: relative;
+	border-bottom: 1px solid white;
+	background: url("../img/toolbarbg.png") repeat-x;
+}
+
+.toolbar-base {
+	width: auto;
+}
+
+.toolbar-extra {
+	display: none;
+}
+
+.toolbar-clear {
+	clear: both;
+}
+
+.toolbar-common {
+	display: block;
+	float: left;
+	cursor: pointer;
+	float: left;
+	width: 27px;
+	height: 22px;
+	margin-right: 1px;
+	overflow: hidden;
+	background-image: url("../img/bg.png");
+	background-repeat: no-repeat;
+}
+
+.toolbar {
+	overflow: hidden;
+	margin: 4px 2px 1px 2px;
+	float: left;
+	height: 25px;
+}
+
+.toolbar-list {
+	overflow: hidden;
+	display: block;
+	float: left;
+	font-size: 15px;
+	z-index: 13;
+	width: 82px;
+}
+
+.toolbar-list-current {
+	width: 60px;
+	float: left;
+	height: 22px;
+	overflow: hidden;
+	line-height: 22px;
+	text-align: center;
+	background: url("../img/bg.png") no-repeat -81px 0;
+}
+
+.toolbar-list-downicon {
+	display: block;
+	width: 22px;
+	height: 22px;
+	background: url("../img/bg.png") no-repeat -194px 0;
+	float: left;
+	overflow: hidden;
+}
+
+.toolbar-submit {
+	width: 81px;
+	height: 25px;
+	margin-right: 3px;
+	font-size: 14px;
+	line-height: 20px;
+	color: white;
+	text-align: center;
+	background: url("../img/submit_blog_btn_notext.gif") no-repeat 0 0;
+}
+
+.toolbar-save {
+	background-position: 0 0;
+}
+
+.toolbar-undo {
+	display: none;
+	background-position: -27px 0;
+}
+
+.toolbar-redo {
+	background-position: -54px 0;
+}
+
+.toolbar-fontname {
+	margin: 0 2px;
+}
+
+.toolbar-fontsize {
+	margin: 0 2px;
+}
+
+.toolbar-bold {
+	margin-right: 0;
+	background-position: -580px 0;
+}
+
+.toolbar-italic {
+	margin-right: 0;
+	background-position: -608px 0;
+}
+
+.toolbar-underline {
+	width: 29px;
+	background-position: -636px 0;
+}
+
+.toolbar-color {
+	background-position: -665px 0;
+}
+
+.toolbar-glowfont {
+	background-position: -216px 0;
+}
+
+.toolbar-justifyleft {
+	margin-right: 0;
+	background-position: -243px 0;
+}
+
+.toolbar-justifycenter {
+	margin-right: 0;
+	background-position: -270px 0;
+}
+
+.toolbar-justifyright {
+	margin-right: 0;
+	background-position: -297px 0;
+}
+
+.toolbar-justifyfull {
+	display: none;
+	margin-right: 0;
+	width: 29px;
+	background-position: -324px -44px;
+}
+
+.toolbar-listol {
+	background-position: -722px 0;
+	width: 27px;
+	margin-right: 0;
+}
+
+.toolbar-listul {
+	width: 26px;
+	margin-right: 0;
+	background-position: -749px 0;
+}
+
+.toolbar-tableft {
+	background-position: -775px 0;
+	width: 27px;
+	margin-right: 0;
+}
+
+.toolbar-tabright {
+	background-position: -802px 0;
+	width: 26px;
+}
+
+.toolbar-link {
+	width: 27px;
+	background-position: -461px 0;
+}
+
+.toolbar-image {
+	background-position: -380px 0;
+	width: 27px;
+}
+
+.toolbar-emotion {
+	background-position: -353px 0;
+	width: 27px;
+}
+
+.toolbar-switcher {
+	background: url("../img/toolbarbg.png") repeat-x;
+	width: auto;
+	height: 20px;
+	text-indent: 7px;
+	line-height: 20px;
+	color: #666;
+	display: inline-block;
+	margin-left: 1px;
+	margin-top: 1px;
+	_margin-top: 1px;
+	float: left;
+}
+
+.toolbar-removeformat {
+	width: 23px;
+	background-position: -488px 0;
+}
+
+.toolbar-html {
+	width: 47px;
+	background-position: -828px 0;
+}
+
+.toolbar-fullscreen {
+	background-position: -412px -90px;
+}
+
+.toolbar-screen {
+	width: 27px;
+	background-position: -1113px 0;
+}
+
+.toolbar-video {
+	background-position: -407px 0;
+}
+
+.toolbar-flash {
+	background-position: -1059px 0;
+}
+
+.toolbar-music {
+	background-position: -434px 0;
+}
+
+.editor-core-main .editor-core-main-inner {
+	height: auto;
+}
+
+.editor-core-main .main-title-warp {
+	margin-bottom: 5px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 10px;
+	height: auto;
+}
+
+.editor-core-main .main-title-warp input {
+	display: block;
+	height: 40px;
+	font-size: 26px;
+	border: 1px solid transparent;
+	background: transparent;
+	width: 100%;
+	text-align: center;
+}
+
+.editor-core-main .main-title-warp .main-title-input {
+	border: 1px dashed #CCC
+}
+
+.editor-core-main  .main-title-warp input.focus {
+	border: 2px solid #FFC600;
+	outline: 0 none;
+	margin: -1px;
+	box-shadow: inset 0 2px 3px rgba(200, 200, 200, .6);
+	background-color: transparent
+}
+
+.editor-core-main .main-title-warp input:hover {
+	border: 2px solid #FFC600;
+	outline: 0 none;
+	margin: -1px;
+	box-shadow: inset 0 2px 3px rgba(200, 200, 200, .6);
+	background-color: transparent
+}
+
+.main-title-input {
+	color: #666;
+}
+
+.editor-core-main .main-content-warp {
+	border: 1px dashed #CCC;
+	height: auto;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+
+.main-content-iframe {
+	margin:20px;
+	width: 770px;
+	min-height: 200px;
+	height: 800px;
+}
+
+.main-content-html {
+	border-radius: 0px !important;
+	_margin-left: 0px;
+	min-height: 700px;
+	height: auto;
+	width: 100%;
+	border: 1px solid rgb(204, 204, 204);
+	font-size: 14px;
+	background-color: transparent;
+	color: rgb(51, 68, 85);
+	word-break: break-all;
+	display: none;
+}
+
+.toolbar-fontname-list {
+	cursor: pointer;
+	position: absolute;
+	background-color: rgba(235, 236, 230, 0.30);
+	display: none;
+}
+
+.toolbar-fontsize-list {
+	display: none;
+	cursor: pointer;
+	position: absolute;
+	background-color: rgba(235, 236, 230, 0.30);
+}
+
+.toolbar-list-item:hover {
+	background-color: rgba(141, 145, 126, 0.30);
+}
+
+.toolbar-list-item {
+	background-color: rgba(235, 236, 230, 0.30);
+}
+
+.toolbar-color-board {
+	margin-top: 10px;
+	margin-left: 10px;
+	width: 320px;
+	border: 1px solid rgb(204, 204, 204);
+	margin-left: 10px;
+}
+
+.toolbar-color-board-main {
+	margin-top: 5px;
+	margin-left: 5px;
+	float: left;
+}
+
+.toolbar-color-board-canvas-main {
+	width: 255px;
+	height: 255px;
+}
+
+.toolbar-color-board-left {
+	margin: 5px;
+	width: 44px;
+	float: left;
+}
+
+.toolbar-color-board-canvas-left {
+	border: 1px dashed blue;
+	z-index: 13;
+	margin-left: 1px;
+}
+
+.toolbar-color-board-canvas-left:HOVER {
+	cursor: pointer;
+}
+
+.toolbar-color-board-left-drag {
+	border: 1px solid black;
+	position: relative;
+	width: 42px;
+	height: 2px;
+	top: 3px;
+	left: 0px;
+	z-index: 15;
+}
+
+.toolbar-color-board-left-drag:HOVER {
+	cursor: pointer;
+}

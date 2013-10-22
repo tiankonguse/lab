@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="RegexApp" class="ng-scope"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" href="./main.css" rel="stylesheet">
+<script type="text/javascript" src="./main.js"></script>
+
+</head>
+<body>
+	<div ng-controller="LightRegexCtrl" class="ng-scope">
+		<div ng-controller="LightTestStringCtrl" class="ng-scope">
+			
+		<div ng-controller="LightNFACtrl" class="ng-scope">
+				<div ng-controller="HiliteRegexCtrl" class="ng-scope">
+					<div ng-controller="MarkerRegexCtrl" ng-init="reTrigger()"
+						class="ng-scope">
+						<div class="sidepadded">
+							<div class="slidearea" ng-init="mReModel.cls=dbxDirModel.reColor"
+								title="Regular Expression editor" dbx-model-val="reModel.val"
+								dbx-model-pos="mReModel.pos" dbx-model-init="reModel.init"
+								dbx-dir="dbxDirModel" dbx-trigger-func="reTrigger()"
+								dbx-hilites="hReModel.hilites" dbx-markers="mReModel"
+								dbx-placeholder="My regular expression">
+								<span class="ng-scope"> </span>
+						
+							</div>
+
+							
+							<div class="nfadiagram nfamarkerdiagram"
+								style="min-height: 250px" dbx-nfa="nfaModel.val"
+								dbx-dir="dbxDirModel" dbx-markers="mReModel">
+							
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+ </body></html>

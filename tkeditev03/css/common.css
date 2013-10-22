@@ -1,0 +1,492 @@
+h1 {
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+}
+
+h2 {
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+}
+
+h3 {
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+}
+
+h4 {
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+}
+
+h5 {
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+}
+
+h6 {
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+}
+
+p {
+	margin: 12px 0 0 0;
+    line-height: 150%;
+	margin: 0;
+	padding: 0;
+}
+
+blockquote {
+	margin: 0;
+	padding: 0;
+}
+
+pre {
+    width:580px;
+    margin: 10px 0 0 0;
+    padding: 10px;
+    border: 0;
+    border: 1px dotted #785;
+    background: #f5f5f5;
+    font-family: "Courier New",monospace;
+    font-size: 12px;
+}
+
+a {
+	text-decoration: none;
+	margin: 0;
+	padding: 0;
+}
+
+a:active {
+	text-decoration: underline;
+	color: #ff0000;
+	background: transparent;
+}
+
+a:HOVER {
+	text-decoration: underline;
+	color: #ff0000;
+	background: transparent;
+	cursor: pointer;
+}
+
+a:VISITED {
+	text-decoration: none;
+	color: black;
+	background: transparent;
+}
+
+a:-webkit-any-link {
+	color: -webkit-link;
+	text-decoration: underline;
+	cursor: auto;
+}
+
+a:LINK {
+	text-decoration: underline;
+	color: rgba(67, 54, 204, 0.71);
+	background: transparent;
+	cursor:pointer;
+}
+
+abbr {
+	margin: 0;
+	padding: 0;
+}
+
+acronym {
+	margin: 0;
+	padding: 0;
+}
+
+address {
+	margin: 0;
+	padding: 0;
+}
+
+big {
+	margin: 0;
+	padding: 0;
+}
+
+cite {
+	margin: 0;
+	padding: 0;
+}
+
+code {
+	margin: 0;
+	padding: 0;
+}
+
+del {
+	margin: 0;
+	padding: 0;
+}
+
+dfn {
+	margin: 0;
+	padding: 0;
+}
+
+em {
+	font-style:normal;
+    font-weight:bold;
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	border-width: 0;
+	border-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ins {
+	margin: 0;
+	padding: 0;
+}
+
+kbd {
+	margin: 0;
+	padding: 0;
+}
+
+q {
+	margin: 0;
+	padding: 0;
+}
+
+s {
+	margin: 0;
+	padding: 0;
+}
+
+samp {
+	margin: 0;
+	padding: 0;
+}
+
+small {
+	margin: 0;
+	padding: 0;
+}
+
+strike {
+	margin: 0;
+	padding: 0;
+}
+
+strong {
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+}
+
+sub {
+	margin: 0;
+	padding: 0;
+}
+
+sup {
+	margin: 0;
+	padding: 0;
+}
+
+tt {
+	margin: 0;
+	padding: 0;
+}
+
+var {
+	margin: 0;
+	padding: 0;
+}
+
+b {
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+}
+
+u {
+	margin: 0;
+	padding: 0;
+}
+
+i {
+	margin: 0;
+	padding: 0;
+}
+
+center {
+	margin: 0;
+	padding: 0;
+}
+
+dl {
+	margin: 0;
+	padding: 0;
+}
+
+dt {
+	margin: 0;
+	padding: 0;
+}
+
+dd {
+	margin: 0;
+	padding: 0;
+}
+
+ol {
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	margin: 0;
+	padding: 0;
+}
+
+fieldset {
+	border-width: 0;
+	border-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+form {
+	display: block;
+	margin-top: 0em;
+	margin-bottom: 1em;
+	margin: 0;
+	padding: 0;
+}
+
+label {
+	margin: 0;
+	padding: 0;
+}
+
+legend {
+	margin: 0;
+	padding: 0;
+}
+
+table {
+	margin: 0;
+	padding: 0;
+}
+
+caption {
+	margin: 0;
+	padding: 0;
+}
+
+tbody {
+	margin: 0;
+	padding: 0;
+}
+
+tfoot {
+	margin: 0;
+	padding: 0;
+}
+
+thead {
+	margin: 0;
+	padding: 0;
+}
+
+tr {
+	margin: 0;
+	padding: 0;
+}
+
+th {
+	margin: 0;
+	padding: 0;
+}
+
+td {
+	margin: 0;
+	padding: 0;
+}
+
+article {
+	margin: 0;
+	padding: 0;
+}
+
+aside {
+	margin: 0;
+	padding: 0;
+}
+
+canvas {
+	margin: 0;
+	padding: 0;
+}
+
+details {
+	margin: 0;
+	padding: 0;
+}
+
+figcaption {
+	margin: 0;
+	padding: 0;
+}
+
+figure {
+	margin: 0;
+	padding: 0;
+}
+
+footer {
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	margin: 0;
+	padding: 0;
+}
+
+hgroup {
+	margin: 0;
+	padding: 0;
+}
+
+menu {
+	margin: 0;
+	padding: 0;
+}
+
+nav {
+	margin: 0;
+	padding: 0;
+}
+
+section {
+	margin: 0;
+	padding: 0;
+}
+
+summary {
+	margin: 0;
+	padding: 0;
+}
+
+time {
+	margin: 0;
+	padding: 0;
+}
+
+mark {
+	margin: 0;
+	padding: 0;
+}
+
+audio {
+	margin: 0;
+	padding: 0;
+}
+
+video {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	margin: 0;
+	padding: 0;
+	overflow: scroll;
+	overflow-x: hidden;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	color: #444;
+	font: 12px Verdana, Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	font-weight: normal;
+	line-height: 1.333;
+}
+
+div {
+	margin: 0;
+	padding: 0;
+	display: block;
+}
+
+span {
+	margin: 0;
+	padding: 0;
+}
+
+applet {
+	margin: 0;
+	padding: 0;
+}
+
+object {
+	margin: 0;
+	padding: 0;
+}
+
+iframe {
+	border-width: 0;
+	border-style: none;
+	overflow: scroll;
+	margin: 0;
+	padding: 0;
+}
+
+button {
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	font-weight: normal;
+	font-family: inherit;
+}
+
+select {
+	font-size: 12px;
+	font-weight: normal;
+	font-family: inherit;
+}
+
+input {
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	font-weight: normal;
+	font-family: inherit;
+}
+
+textarea {
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	font-weight: normal;
+	font-family: inherit;
+	resize: vertical;
+	overflow-y: auto;
+	border: 0 none;
+	background: transparent;
+}
