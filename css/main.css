@@ -76,3 +76,28 @@ ul.item-list a:hover,ul.item-list a:focus {
 	margin: auto 0 0 10px;
 	vertical-align: super;
 }
+
+pre.prettyprint {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 25px;
+	margin-right: 30px;
+	padding: 6px 12px;
+	color: #85FF00;
+	overflow: auto;
+	word-wrap: break-word;
+	font: 12px/1.5 Monaco, "Andale Mono", "Lucida Console",
+		"Bitstream Vera Sans Mono", "Courier New", monospace;
+	border: 1px dashed #CCC;
+	background-color: #5C5C5C;
+}
+
+.fixed-header {
+	position: fixed;
+	background-color: white;
+	width: 100%;
+}
+
+.fixed-content {
+	padding-top: 60px;
+}

@@ -22,18 +22,19 @@ require BASE_INC . 'head.inc.php';
 			<h3>我们正在做的实验</h3>
 			<ul class="item-list">
 				<li><a target="_blank"
-					href="<?php echo MAIN_DOMAIN; ?>createpw/index.php">密码生成器 <span
-						class="new">新</span>
-				</a></li>
+					href="<?php echo MAIN_DOMAIN; ?>createpw/index.php">密码生成器</a></li>
 				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>problems.pdf">成都站现场赛题目
-						<span class="new">新</span>
 				</a></li>
 				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>pdf/">pdf阅读器
-						<span class="new">新</span>
 				</a></li>
 				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>zoomImg/">放大图片
-						<span class="new">新</span>
 				</a></li>
+				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>latex/">latex学习
+				</a></li>
+				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>acm/">acm模版 </a></li>
+				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>earth/">
+						canvas 画地球</a></li>
+
 			</ul>
 		</div>
 	</section>
