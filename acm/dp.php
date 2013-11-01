@@ -204,7 +204,9 @@ n个球 m个盒子
 					Different &amp; No &amp; $C\left( {n - 1,m - 1} \right)$ \\ \hline
 					Same &amp; Same &amp; Yes &amp; $F\left( {n,m} \right)$ \\ \hline
 					Same &amp; Same &amp; No &amp; $F\left( {n - m,m} \right)$ \\
-					\hline \end{tabular} \end{table} \subsubsection{相同的球 相同的盒子 至少一个}
+					\hline \end{tabular} \end{table} 
+					
+					\subsubsection{相同的球 相同的盒子 至少一个}
 					<pre class="prettyprint">
 整数拆分：分为第一个数是 1 和不是 1 \\
 公式：S1 [n,m]= S1 [n-1,m-1]+ S1 [n-m,m]

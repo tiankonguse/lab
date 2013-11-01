@@ -9,7 +9,7 @@ require ("../inc/common.php");
 if (isset ( $_GET ["url"] )) {
     $url = $_GET ["url"];
 } else {
-    $url = MAIN_DOMAIN . "tiankonguse_04.pdf";
+    $url = MAIN_DOMAIN . "problems2.pdf";
 }
 
 if (isset ( $_GET ["title"] )) {

@@ -1,0 +1,52 @@
+.section {
+	border: 1px dotted greenyellow;
+	margin: 5px;
+	padding: 1px;
+}
+
+.subsection {
+	margin-left: 20px;
+	margin-right: 20px;
+	border: 1px dotted rgb(102, 85, 85);
+	margin-top: 5px;
+}
+
+.subsubsection {
+	margin-left: 40px;
+	margin-right: 40px;
+	border: 1px dotted rgb(102, 85, 85);
+	margin-top: 5px;
+}
+
+section {
+	margin: 20px;
+	margin-top: 50px;
+}
+
+ul,ol {
+	margin-bottom: 20px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 20px;
+	padding-bottom: 0px;
+	padding-left: 40px;
+	padding-right: 0px;
+	padding-top: 0px;
+}
+
+li,section {
+	font-size: 12pt;
+	font-style: normal;
+	font-family: "宋体";
+	line-height: normal;
+}
+
+li a:-webkit-any-link {
+	color: -webkit-link;
+	text-decoration: underline;
+}
+
+
+.red{
+	color: red;
+}

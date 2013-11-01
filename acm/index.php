@@ -40,7 +40,12 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
 	<header>
 		<div class="title">
 			<a href="<?php echo MAIN_DOMAIN; ?>">acm模版 </a>
+			<div class="sub-title">
+				<a href="<?php echo MAIN_DOMAIN; ?>acm/info">目前正在整理算法的讲解内容，详见这里</a>
+			</div>
 		</div>
+
+
 	</header>
 
 	<section>
@@ -52,6 +57,8 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
 					href="<?php echo MAIN_DOMAIN; ?>acm/struct.php">struct </a></li>
 				<li><a target="_blank"
 					href="<?php echo MAIN_DOMAIN; ?>acm/search.php">search </a></li>
+				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>acm/dp.php">DP
+				</a></li>
 				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>acm/stl.php">stl
 				</a></li>
 				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>acm/game.php">博弈

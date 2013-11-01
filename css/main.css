@@ -1,7 +1,6 @@
 .container {
 	width: auto;
 	min-width: 100px;
-	max-width: 500px;
 	min-height: 400px;
 	margin: 0 auto;
 	margin-top: 50px;
@@ -10,7 +9,6 @@
 .container h3 {
 	font-size: 30px;
 	font-weight: normal;
-	text-align: center;
 	color: #999999;
 }
 

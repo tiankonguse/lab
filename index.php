@@ -24,6 +24,8 @@ require BASE_INC . 'head.inc.php';
 				<li><a target="_blank"
 					href="<?php echo MAIN_DOMAIN; ?>createpw/index.php">密码生成器</a></li>
 				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>problems.pdf">成都站现场赛题目
+				</a></li>				
+				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>problems2.pdf">杭州站站现场赛题目
 				</a></li>
 				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>pdf/">pdf阅读器
 				</a></li>
