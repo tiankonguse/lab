@@ -33,7 +33,23 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN;?>";
 	<section>
 		<div class="container">
 			<header style="text-align: center;">枚举</header>
+			<div class="section">
+				<div>枚举法</div>
+				<ol>
+					<li>又叫穷举法,它利用了计算机计算速度快且准确的特点,是最为朴素和有效的一种 算法。</li>
+					<li>不是办法的办法</li>
+					<li>但有时却是最好的办法</li>
+				</ol>
+			</div>
 
+			<div class="section">
+				<div>对简单模拟的一点理解</div>
+				<ol>
+					<li>共同的特点：数据量特别小</li>
+					<li>共同的思想：尝试所有可能的元素</li>
+					<li>核心：确定并枚举所有可能解的集合</li>
+				</ol>
+			</div>
 
 			<div class="section">
 				<div>对简单模拟的一点理解</div>

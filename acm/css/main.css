@@ -50,3 +50,7 @@ li a:-webkit-any-link {
 .red{
 	color: red;
 }
+
+.section div{
+	margin: 10px;
+}

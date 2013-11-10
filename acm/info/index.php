@@ -28,6 +28,7 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
 			<ul>
 				<li>前言</li>
 				<li>目录</li>
+				<li><a href="<?php echo MAIN_DOMAIN; ?>acm/info/feedback.php">反馈 </a></li>
 				<li>
 					<ol>
 						<li>图论
@@ -54,25 +55,55 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
 									href="<?php echo MAIN_DOMAIN; ?>acm/info/CombinatorialMathematics.php">组合计数</a></li>
 							</ol>
 						</li>
+
+						<li>DP
+							<ol>
+								<li><a href="<?php echo MAIN_DOMAIN; ?>acm/info/dp_theory.php">DP理论</a></li>
+								<li><a href="<?php echo MAIN_DOMAIN; ?>acm/info/dp_problem.php">DP经典问题</a></li>
+							</ol>
+						</li>
+
 						<li>数据结构
 							<ol>
 								<li><a
 									href="<?php echo MAIN_DOMAIN; ?>acm/info/struct_factorial.php">阶乘</a></li>
+								<li><a
+									href="<?php echo MAIN_DOMAIN; ?>acm/info/struct_block_list.php">块状链表</a></li>
 							</ol>
 						</li>
+
 						<li>STL
 							<ol>
-								<li><a href="<?php echo MAIN_DOMAIN; ?>acm/info/stl_set.php">set</a></li>
+								<li>容器
+									<ol>
+										<li>概念
+											<ol>
+												<li><a
+													href="<?php echo MAIN_DOMAIN; ?>acm/info/STL_Concepts_GeneralConcepts.php">一般的概念</a></li>
+												<li><a
+													href="<?php echo MAIN_DOMAIN; ?>acm/info/STL_Concepts_Sequence.php">顺序容器</a></li>
+												<li><a href="<?php echo MAIN_DOMAIN; ?>acm/info/stl_set.php">关联容器</a></li>
+											</ol>
+										</li>
+									</ol>
+								</li>
 							</ol>
 						</li>
+
 						<li>杂题
 							<ol>
 								<li><a href="<?php echo MAIN_DOMAIN; ?>acm/info/acm_guide.php">ACM入门</a></li>
+								<li><a
+									href="<?php echo MAIN_DOMAIN; ?>acm/info/questions_class.php">问题分类</a></li>
 								<li><a href="<?php echo MAIN_DOMAIN; ?>acm/info/simulation.php">模拟</a></li>
 								<li><a href="<?php echo MAIN_DOMAIN; ?>acm/info/enumerate.php">枚举</a></li>
+								<li><a href="<?php echo MAIN_DOMAIN; ?>acm/info/hash.php">哈希</a></li>
 								<li><a href="<?php echo MAIN_DOMAIN; ?>acm/info/greedy.php">贪心</a></li>
 								<li><a href="<?php echo MAIN_DOMAIN; ?>acm/info/IO.php">输入与输出</a></li>
 								<li><a href="<?php echo MAIN_DOMAIN; ?>acm/info/complexity.php">复杂度</a></li>
+								<li><a href="<?php echo MAIN_DOMAIN; ?>acm/info/poj_class.php">POJ题目分类</a></li>
+								<li><a
+									href="<?php echo MAIN_DOMAIN; ?>acm/info/networkResources.php">网络资源</a></li>
 							</ol>
 						</li>
 

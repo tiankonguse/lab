@@ -19,13 +19,21 @@ require BASE_INC . 'head.inc.php';
 
 	<section>
 		<div class="container">
-			<h3>我们正在做的实验</h3>
 			<ul class="item-list">
 				<li><a target="_blank"
 					href="<?php echo MAIN_DOMAIN; ?>createpw/index.php">密码生成器</a></li>
-				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>problems.pdf">成都站现场赛题目
-				</a></li>				
-				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>problems2.pdf">杭州站站现场赛题目
+				<li><a target="_blank"
+					href="<?php echo MAIN_DOMAIN; ?>girlfriend/index.php">女朋友</a></li>
+				<li><a target="_blank"
+					href="<?php echo MAIN_DOMAIN; ?>network/index.php">网络实验</a></li>
+				<li><a target="_blank"
+					href="<?php echo MAIN_DOMAIN; ?>acm/file/2013chengdu.pdf">成都站现场赛题目
+				</a></li>
+				<li><a target="_blank"
+					href="<?php echo MAIN_DOMAIN; ?>acm/file/2013hangzhou.pdf">杭州站现场赛题目
+				</a></li>
+				<li><a target="_blank"
+					href="<?php echo MAIN_DOMAIN; ?>acm/file/2013nanjing.pdf">南京站现场赛题目
 				</a></li>
 				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>pdf/">pdf阅读器
 				</a></li>

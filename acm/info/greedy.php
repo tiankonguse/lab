@@ -33,6 +33,17 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN;?>";
 	<section>
 		<div class="container">
 			<header style="text-align: center;">贪心</header>
+
+			<div class="section">
+				<div>贪心法(Greedy)</div>
+				<ul>
+					<li>枚举法的时间效率很低,贪心法恰恰与其相反。并且贪心法的程序也很好实现。</li>
+					<li>无数论文都指责贪心法往往得不到问题的最优解。</li>
+					<li>绝世高手与普通高手的差距所在。</li>
+					<li>矩阵胚理论(详情请参考算法导论)</li>
+				</ul>
+			</div>
+
 			<div class="section">
 
 				<ul>
