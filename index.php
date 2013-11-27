@@ -23,6 +23,8 @@ require BASE_INC . 'head.inc.php';
 				<li><a target="_blank"
 					href="<?php echo MAIN_DOMAIN; ?>createpw/index.php">密码生成器</a></li>
 				<li><a target="_blank"
+					href="<?php echo MAIN_DOMAIN; ?>cloudLink/baidu.php">百度网盘外链分析</a></li>
+				<li><a target="_blank"
 					href="<?php echo MAIN_DOMAIN; ?>girlfriend/index.php">女朋友</a></li>
 				<li><a target="_blank"
 					href="<?php echo MAIN_DOMAIN; ?>network/index.php">网络实验</a></li>
@@ -34,6 +36,9 @@ require BASE_INC . 'head.inc.php';
 				</a></li>
 				<li><a target="_blank"
 					href="<?php echo MAIN_DOMAIN; ?>acm/file/2013nanjing.pdf">南京站现场赛题目
+				</a></li>
+				<li><a target="_blank"
+					href="<?php echo MAIN_DOMAIN; ?>acm/file/2013AizuAllProblems.pdf">会津大学现场赛题目
 				</a></li>
 				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>pdf/">pdf阅读器
 				</a></li>

@@ -71,6 +71,8 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
 				</a></li>
 				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>acm/vici.php">小舟学长的模版
 				</a></li>
+				<li><a target="_blank" href="<?php echo MAIN_DOMAIN; ?>acm/paper/">国家集训队论文
+				</a></li>
 
 			</ul>
 

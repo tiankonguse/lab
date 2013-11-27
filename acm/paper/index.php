@@ -26,17 +26,12 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
 	<section>
 		<div class="container">
 			<ul>
-				<li>前言</li>
-				<li>目录</li>
-				<li><a href="<?php echo MAIN_DOMAIN; ?>acm/info/feedback.php">反馈 </a></li>
-				<li>
-					<ol>
-						<li>
-							<a href="<?php echo MAIN_DOMAIN; ?>pdf/viewer.html?url=<?php echo MAIN_DOMAIN; ?>acm/paper/2013.pdf">2013 年信息学奥林匹克</a>
-						</li>
-					</ol>
+				<li><a
+					href="<?php echo MAIN_DOMAIN; ?>pdf/viewer.html?url=<?php echo MAIN_DOMAIN; ?>acm/paper/2013中国国家队候选队员论文集.pdf">2013中国国家队候选队员论文集</a>
 				</li>
-
+				<li><a
+					href="<?php echo MAIN_DOMAIN; ?>pdf/viewer.html?url=<?php echo MAIN_DOMAIN; ?>acm/paper/统计的力量——线段树详细教程.pdf">统计的力量——线段树详细教程</a>
+				</li>
 			</ul>
 
 		</div>

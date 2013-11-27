@@ -19,7 +19,7 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
 <body>
 	<header>
 		<div class="title">
-			<a href="<?php echo MAIN_DOMAIN; ?>">tiankonguse &amp; vincent 的实验室 </a>
+			<a href="<?php echo MAIN_DOMAIN; ?>">tiankonguse 的实验室 </a>
 		</div>
 	</header>
 
