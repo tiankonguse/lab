@@ -35,14 +35,12 @@ $path = $parse_url["path"];
 switch($host) {
     case HOST_BAIDUPAN : {
         //百度网盘
-        $uri = "/baidupan/";
+        $uri = "/baidupan.php?url=/";
 
         if (isset($parse_url["query"])) {
             parse_str($parse_url["query"]);
         } else {
-        	
             $src = curl_get_contents($url);
-
             preg_match('|shareid="(\d+).+uk="(\d+)|', $src, $res);
             $res or exit(ERRCODE(ERR_UNKNOW));
             list($shareid, $uk) = array_slice($res, 1, 2);
@@ -52,7 +50,7 @@ switch($host) {
         break;
     } case HOST_WEIYUN : {
         //腾讯微云
-        $uri = "/weiyun/";
+        $uri = "/weiyun.php?url=/";
         $uri .= end(explode("/", trim($path, "/")));
         break;
     } default : {

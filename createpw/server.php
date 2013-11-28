@@ -1,8 +1,11 @@
  <?php
+ set_time_limit(1);
 session_start ();
 require ("../inc/common.php");
 
 $json = new Services_JSON ();
+
+
 
 if ((! $conn || ! $result) && $ret) {
     echo $json->encode ( $ret );
@@ -38,22 +41,30 @@ function create_pw() {
     
     $inBuf = "".$state;
     
-    $sock = @socket_create ( AF_INET, SOCK_DGRAM, 0 );
+    ;
+    
     
     $outBuf = "";
     
-    if (! $sock) {
-        $outBuf .= "socket create failure<br/>";
-        return output ( OUTPUT_SUCCESS, $outBuf);
+    if (! ($sock = socket_create ( AF_INET, SOCK_DGRAM, SOL_TCP ))) {
+    	$outBuf .= "socket create failure<br/>";
+    	return output ( OUTPUT_SUCCESS, $outBuf);
+    }
+//     socket_set_option($socket,SOL_SOCKET,SO_RCVTIMEO,array("sec"=>1, "usec"=>0 ) );
+//     socket_set_option($socket,SOL_SOCKET,SO_SNDTIMEO,array("sec"=>1, "usec"=>0 ) );
+    
+    if(!($conn=socket_connect($sock, $server_ip,$port))){
+    	$outBuf .= "cannot connect server<br/>";
+    	return output ( OUTPUT_SUCCESS, $outBuf);
     }
     
-    if (! @socket_sendto ( $sock, $inBuf, strlen ( $inBuf ), 0, $server_ip, $port )) {
+    if (! socket_sendto ( $sock, $inBuf, strlen ( $inBuf ), 0, $server_ip, $port )) {
         $outBuf .= "send error<br/>";
         socket_close ( $sock );
         return output ( OUTPUT_SUCCESS, $outBuf);
     }
     
-    if (! @socket_recvfrom ( $sock, $outBuf, 256, 0, &$server_ip, &$port )) {
+    if (! socket_recvfrom ( $sock, $outBuf, 256, 0, &$server_ip, &$port )) {
         $outBuf .= "recvieve error!";
         socket_close ( $sock );
         return output ( OUTPUT_SUCCESS, $outBuf);

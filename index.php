@@ -23,7 +23,7 @@ require BASE_INC . 'head.inc.php';
 				<li><a target="_blank"
 					href="<?php echo MAIN_DOMAIN; ?>createpw/index.php">密码生成器</a></li>
 				<li><a target="_blank"
-					href="<?php echo MAIN_DOMAIN; ?>cloudLink/baidu.php">百度网盘外链分析</a></li>
+					href="<?php echo MAIN_DOMAIN; ?>cloudLink/">网盘外链分析</a></li>
 				<li><a target="_blank"
 					href="<?php echo MAIN_DOMAIN; ?>girlfriend/index.php">女朋友</a></li>
 				<li><a target="_blank"

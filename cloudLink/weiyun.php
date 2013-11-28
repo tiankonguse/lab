@@ -1,13 +1,18 @@
 <?php
+
+
 //构造微云分享地址
 preg_match('|\/.+\/(\w+)\.|', $_SERVER['REQUEST_URI'], $res);
 $key = $res ? $res[1] : exit("Url format error!");
 $url = "http://share.weiyun.com/$key";
 
+
 //获取源码，匹配出下载地址
 $src = curl_get_contents($url);
 preg_match('|http://.+sharekey[^"]+|', $src, $res);
 $url = $res ? $res[0] : exit("Unable to get source code!");
+
+
 
 //从响应信息头匹配出文件下载地址
 $src = curl_get_contents($url);

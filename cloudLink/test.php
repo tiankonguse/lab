@@ -2,8 +2,8 @@
 
 // 构造百度网盘分享网址
 $uri = $_SERVER ["REQUEST_URI"];
+preg_match ( '|baidupan\/(\d+)\/(\d+)\.|', $uri, $res );
 
-preg_match ( '|\/(\d+)\/(\d+)\.|', $uri, $res );
 if ($res) {
 	list ( $uk, $shareid ) = array_slice ( $res, 1, 2 );
 	$url = "http://pan.baidu.com/share/link?shareid=$shareid&uk=$uk";
@@ -15,14 +15,15 @@ if ($res) {
 // 匹配源码里面的音乐地址并跳转
 $src = curl_get_contents ( $url );
 preg_match ( '|http://.+file.+sign[^"]+|', $src, $res );
+
 $songurl = html_entity_decode ( $res [0] );
 
 if ($songurl) {
 	header ( "location:$songurl" );
 } else {
 	preg_match ( '|url3[^h]+([^"]*)|', $src, $res );
-	$res [1] = str_replace ( "\\", "", $res [1] );
-	$imgurl = html_entity_decode ( $res [1] );
+	$res[1] = str_replace("\\","",$res[1]);
+	$imgurl = html_entity_decode($res[1]);
 	header ( "location:$imgurl" );
 }
 
@@ -31,6 +32,7 @@ function curl_get_contents($url) {
 	$curl = curl_init ( $url );
 	curl_setopt ( $curl, CURLOPT_HEADER, 1 );
 	curl_setopt ( $curl, CURLOPT_RETURNTRANSFER, 1 );
+	// curl_setopt($curl, CURLOPT_REFERER, "http://pan.baidu.com/share/manage");
 	curl_setopt ( $curl, CURLOPT_USERAGENT, "BlackBerry/3.6.0" );
 	curl_setopt ( $curl, CURLOPT_TIMEOUT, 10 );
 	$src = curl_exec ( $curl );
