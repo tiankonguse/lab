@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!--[if IE]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<!--[if IE 8]>   
+ <html class="no-js ie8 oldie" lang="en"> 
+ <![endif]-->
+<!--[if gt IE 8]>
+<!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<link rel="stylesheet" href="css/style.css"> 
+
+<title>下雪了</title>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+    <section class="snow">
+    <header>
+    <div class="jumbotron">			
+  		  <h1 class="tlt" data-in-effect="bounceInDown">Merry Christmas</h1>
+  	</div>
+ 
+    </header>
+    <p><img src="img/luffy.png"><span class="shadow"></span></p>
+    </section>
+</div>
+<!--! end of #container -->
+
+
+
+<script type="text/javascript">
+(function () {
+
+  var COUNT = 300;
+  var snow = document.querySelector('.snow');
+  var canvas = document.createElement('canvas');
+  var ctx = canvas.getContext('2d');
+  var width = snow.clientWidth;
+  var height = snow.clientHeight;
+  var i = 0;
+  var active = false;
+
+  function onResize() {
+    width = snow.clientWidth;
+    height = snow.clientHeight;
+    canvas.width = width;
+    canvas.height = height;
+    ctx.fillStyle = '#FFF';
+
+    var wasActive = active;
+    active = width > 600;
+
+    if (!wasActive && active)
+      requestAnimFrame(update);
+  }
+
+  var Snowflake = function () {
+    this.x = 0;
+    this.y = 0;
+    this.vy = 0;
+    this.vx = 0;
+    this.r = 0;
+
+    this.reset();
+  }
+
+  Snowflake.prototype.reset = function() {
+    this.x = Math.random() * width;
+    this.y = Math.random() * -height;
+    this.vy = 1 + Math.random() * 3;
+    this.vx = 0.5 - Math.random();
+    this.r = 1 + Math.random() * 5;
+    this.o = 0.5 + Math.random() * 0.5;
+  }
+
+  canvas.style.position = 'absolute';
+  canvas.style.left = canvas.style.top = '0';
+
+  var snowflakes = [], snowflake;
+  for (i = 0; i < COUNT; i++) {
+    snowflake = new Snowflake();
+    snowflake.reset();
+    snowflakes.push(snowflake);
+  }
+
+  function update() {
+
+    ctx.clearRect(0, 0, width, height);
+
+    if (!active)
+      return;
+
+    for (i = 0; i < COUNT; i++) {
+      snowflake = snowflakes[i];
+      snowflake.y += snowflake.vy;
+      snowflake.x += snowflake.vx;
+
+      ctx.globalAlpha = snowflake.o;
+      ctx.beginPath();
+      ctx.arc(snowflake.x, snowflake.y, snowflake.r, 0, Math.PI * 2, false);
+      ctx.closePath();
+      ctx.fill();
+
+      if (snowflake.y > height) {
+        snowflake.reset();
+      }
+    }
+    requestAnimFrame(update);
+  }
+  // shim layer with setTimeout fallback
+  window.requestAnimFrame = (function(){
+    return  window.requestAnimationFrame       ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            function( callback ){
+              window.setTimeout(callback, 1000 / 60);
+            };
+  })();
+
+  onResize();
+  window.addEventListener('resize', onResize, false);
+
+  snow.appendChild(canvas);
+})();
+</script>
+
+<!-- jQuery -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="assets/jquery.fittext.js"></script>
+<script src="assets/jquery.lettering.js"></script>
+<script src="js/jquery.textillate.js"></script>
+
+<script type="text/javascript">
+$(function (){
+
+var animateClasses = 'bounceInDown';
+
+$('.jumbotron h1')
+.fitText(1, { maxFontSize: 300})
+.textillate({ initialDelay: 1000, in: { delay: 3, shuffle: true } });
+
+});
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+@import url(http://fonts.googleapis.com/css?family=Mountains+of+Christmas);
+@import url("animate.css");
+
+/*
+Licensed under the ☺ license (http://ilikecss.com)
+*/
+
+/* RESET */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, figure {
+    margin: 0;
+    padding: 0;
+}
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { 
+    display:block;
+}
+ul {
+    list-style: none;
+}
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}   
+img{
+	border: none;
+}
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+/* DEMO HEADER */
+body{
+	font: 12px/20px Arial, Helvetica, sans-serif;
+	color: #444;
+	border-top: 3px solid #444;
+	background:#231a2b;
+	overflow-x:hidden;
+}
+a{
+	color:#DDDDDD;
+	text-decoration:none;
+}
+a:hover{
+	color:#777777;
+	text-decoration:none;
+	-webkit-transition: color .25s ease-out;
+	-moz-transition: color .25s ease-out;
+	-o-transition: color .25s ease-out;
+	transition: color .25s ease-out;
+}
+/* DEMO BODY */
+#wrapper { margin:0 auto;}
+footer {
+	width:100%;
+	bottom:0;
+	position: fixed;
+	*position: relative; 
+	_position: absolute;
+	padding:10px;
+	text-align: center;
+	clear: both;
+	background:#222222;
+	overflow:hidden;
+}
+footer p { 
+	letter-spacing:1px; 
+	color:#DDDDDD;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+}
+footer p a { letter-spacing:0;}
+
+/* DEMO STAR */
+header h1 { font-weight: bold;  text-align: center; color:#FFF; font-family: 'Mountains of Christmas', cursive;}
+.snow { position:relative;}
+.snow p { height:550px; text-align: center; position: relaive; margin:0 auto; position: relative;}
+.shadow {
+	width: 20%;
+	height:100px;
+	background: rgba(255,255,255,0.06);
+	left:525px;
+	top:285px;
+	border-radius: 100%;
+	position: absolute;
+	cursor:pointer;
+}
+.jumbotron {
+	position: relative;
+	text-align: center;
+	padding: 6em 0 10em; 
+}
+.jumbotron h1 {
+  text-shadow: 0.1em 0.1em 0.1em rgba(255, 0, 0, 1);
+  visibility: hidden;
+  text-align: center;
+  line-height: 100px; 
+}
