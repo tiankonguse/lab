@@ -1,6 +1,6 @@
 (function() {
 	$(document).ready(function() {
-		//监听滚动
+		// 监听滚动
 		$(window).scroll(function(event) {
 			if ($(window).scrollTop() > 20) {
 				_topShow();
@@ -8,7 +8,7 @@
 			}
 			_topHide();
 		});
-		//滚动到顶部
+		// 滚动到顶部
 		$('.top-btn').click(function(e) {
 			_scrollTop();
 		});
@@ -18,7 +18,8 @@
 		$('.top-btn').removeClass('top-hide').addClass('top-show');
 	};
 	var _topHide = function() {
-		if ($('.top-btn').attr('class') != undefined && $('.top-btn').attr('class').indexOf('top-show') != -1)
+		if ($('.top-btn').attr('class') != undefined
+				&& $('.top-btn').attr('class').indexOf('top-show') != -1)
 			$('.top-btn').addClass('top-hide');
 	};
 	var _scrollTop = function() {

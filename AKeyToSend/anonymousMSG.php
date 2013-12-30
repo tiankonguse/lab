@@ -18,10 +18,8 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
 <body>
 	<header>
 		<div class="title">
-			<a href="<?php echo MAIN_DOMAIN; ?>AKeyToSend/">给制定的电话发短信 </a>
-			<div class="sub-title ">
-				目测只支持移动的电话
-			</div>
+			<a href="<?php echo MAIN_DOMAIN; ?>AKeyToSend/">给指定的电话发短信 </a>
+			<!-- <div class="sub-title ">目测只支持移动的电话</div> -->
 		</div>
 	</header>
 
