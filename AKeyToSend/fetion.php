@@ -1,6 +1,6 @@
 <?php 
 ! defined ( "PHONE_TIANKONGUSE" ) &&  define('PHONE_TIANKONGUSE','13944097701');
-! defined ( "PHONE_DEBUG" ) &&  define('PHONE_DEBUG', 0);
+! defined ( "PHONE_DEBUG" ) &&  define('PHONE_DEBUG', 1);
 ! defined ( "OUTPUT_SUCCESS" ) && define('OUTPUT_SUCCESS','0');
 ! defined ( "OUTPUT_ERROR" ) && define('OUTPUT_ERROR','1');
 
@@ -122,11 +122,10 @@ function toChatMsg($touserid){
  * @param number $phone
  * @return mixed
  *	{"tip":"请求已发送，请等待对方回应"}
- *	{"tip":"对方已经是你的好友，不能重复添加"}"
+ *	{"tip":"对不起,该用户已经是你的好友"}
  *	{"tip":"加友失败，请稍候重试"}  此时可能没有开通飞信，或飞信开通后又关闭
  */
 function addFriendSubmit($phone){
-	login();
 	return post("http://f.10086.cn/im5/user/addFriendSubmit.action", array(
 			'number' => $phone,
 			'type' => 0,
@@ -248,19 +247,31 @@ function sendToPhone(){
 				}
 
 				$ret = $json->decode($ret);
-				if(strcmp($ret->tip,"") == 0 && false){
-					return output(OUTPUT_ERROR, "这个电话不是tiankonguse的飞信好友，不能给他发送信息。" );
+				if(strcmp($ret->tip,"") == 0){
+					//可能不是飞信好友，或者是，但对方没有开通飞信。
+					$addRet = addFriendSubmit($phone);
+
+					$addRet = $json->decode($addRet);
+					if(PHONE_DEBUG){
+						var_dump($addRet);
+					}
+					if(strcmp($addRet->tip,"请求已发送，请等待对方回应") == 0){
+						return output(OUTPUT_ERROR, "这个电话不是tiankonguse的飞信好友，发送添加好友申请，请在对方接受后再发送。" );
+					}
 				}
 
 				$touserid = $ret->userinfo->idUser;
 
 				$ret = toChatMsg($touserid);
+				$ret = $json->decode($ret);
 				if(PHONE_DEBUG){
 					var_dump($ret);
 				}
-				$ret = $json->decode($ret);
-				if(strcmp($ret->blocked,"Y") == 0){
-					return output(OUTPUT_ERROR, $ret->tip);
+				if(strcmp($ret->blocked,"Y") == 0 || strcmp($ret->isStranger,"Y") == 0 ){
+					if(strcmp($ret->tip,"") == 0){
+						$ret->tip = "飞信好友请求已发送，但对方尚未接受";
+					}
+					//return output(OUTPUT_ERROR, $ret->tip);
 				}
 
 				$ret = sendNewMsg("【tiankonguse信使】".$context, $touserid);
