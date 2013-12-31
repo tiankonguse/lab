@@ -1,6 +1,6 @@
 <?php 
 ! defined ( "PHONE_TIANKONGUSE" ) &&  define('PHONE_TIANKONGUSE','13944097701');
-! defined ( "PHONE_DEBUG" ) &&  define('PHONE_DEBUG', 1);
+! defined ( "PHONE_DEBUG" ) &&  define('PHONE_DEBUG', 0);
 ! defined ( "OUTPUT_SUCCESS" ) && define('OUTPUT_SUCCESS','0');
 ! defined ( "OUTPUT_ERROR" ) && define('OUTPUT_ERROR','1');
 
