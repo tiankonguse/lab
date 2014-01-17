@@ -1,46 +1,43 @@
- <?php
-	session_start ();
-	require ("../inc/common.php");
-	?>
 <!DOCTYPE HTML>
 <html lang="zh-cn">
 <head>
- <?php
-	$title = "别人的地球，借来学学";
-	require BASE_INC . 'head.inc.php';
-	?>
-<link href="<?php echo MAIN_DOMAIN;?>css/main.css" rel="stylesheet">
-</head>
+<?php
+session_start ();
+require ("../inc/common.php");
+$title = "别人的地球，借来学学";
+require BASE_INC . 'head.inc.php';
+?>
 <script type="text/javascript">
-var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
+	var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
+	TK.loader.loadCSS({url:"<?php echo MAIN_PATH;?>css/main.css"});
 </script>
+</head>
 <body>
 	<header>
 		<div class="title">
-			<a href="<?php echo MAIN_DOMAIN; ?>">tiankonguse &amp; vincent 的实验室 </a>
+			<a href="<?php echo MAIN_DOMAIN; ?>"><?php echo $title;?> </a>
 		</div>
 	</header>
 
 	<section>
 		<div class="container">
-			<h3><?php echo $title;?></h3>
 			<canvas id="bncanvas"
-				style="width: 100%; height: 100%; min-height: 400px;">
+				style="width: 100%; height: 100%; min-height: 600px;">
 	    	若看到这个文字，说明浏览器不支持WebGL!
 		</canvas>
 		</div>
 	</section>
-
-	<script src="<?php echo DOMAIN_JS;?>jquery.js"></script>
+	<script type="text/javascript">
+TK.loader.loadJS({url:"<?php echo PATH_JS;?>main.js"});
+TK.loader.loadJS({url:"<?php echo MAIN_PATH;?>earth/js/Matrix.js"});
+TK.loader.loadJS({url:"<?php echo MAIN_PATH;?>earth/js/MatrixState.js"});
+TK.loader.loadJS({url:"<?php echo MAIN_PATH;?>earth/js/GLUtil.js"});
+TK.loader.loadJS({url:"<?php echo MAIN_PATH;?>earth/js/ObjObject.js"});
+TK.loader.loadJS({url:"<?php echo MAIN_PATH;?>earth/js/earth.js"});
+</script>
 	<footer>
-     <?php  require BASE_INC . 'footer.inc.php'; ?>
-     </footer>
-	<script src="<?php echo DOMAIN_JS;?>main.js"></script>
-	<script src="<?php echo MAIN_DOMAIN; ?>earth/js/Matrix.js"></script>
-	<script src="<?php echo MAIN_DOMAIN; ?>earth/js/MatrixState.js"></script>
-	<script src="<?php echo MAIN_DOMAIN; ?>earth/js/GLUtil.js"></script>
-	<script src="<?php echo MAIN_DOMAIN; ?>earth/js/ObjObject.js"></script>
-	<script src="<?php echo MAIN_DOMAIN; ?>earth/js/earth.js"></script>
+		<?php  require BASE_INC . 'footer.inc.php'; ?>
+	</footer>
 	<script id="vshader" type="x-shader/x-vertex">
 		uniform mat4 uMVPMatrix; //总变换矩阵
 		uniform mat4 uMMatrix; //变换矩阵
@@ -199,11 +196,9 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
 	        if (currentAngle > 360)
 	            currentAngle -= 360;            
 	    }   
-	    
-	    $(document).ready(function(){
+	    jQuery(document).ready(function(){
 	    	start();
 	    });
-	    
 	</script>
 
 </body>
