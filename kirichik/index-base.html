@@ -4,43 +4,22 @@
     	<title>个人简历</title>
         <meta name="author" content="tiankonguse">
         <meta charset="utf-8">
-        <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-		<link rel="stylesheet" href="css/color.css" />      
 		<link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/style.css"> 
-		<link rel="stylesheet" href="css/awwwards.css" />    
-        <!--[if lt IE 9]>
-            <link rel="stylesheet" href="css/ie-fix.css">
-        <![endif]-->
+		<link rel="stylesheet" href="css/awwwards.css" />      
         <script src="js/jquery.min.js"></script>
-        <script src="js/desktop-animate.js"></script>
         <script src="js/jquery.easing.1.3.js"></script>
-        <!--[if lt IE 9]>
-            <script src="js/html5.js"></script>
-            <script src="js/css3-mediaqueries.js"></script>
-        <![endif]-->
-        <script src="js/modernizr.custom.53252.js"></script>
-        <!--[if lt IE 9]>
-            <script>
-            Modernizr.load({
-            test: Modernizr.touch,
-            nope: ['js/desktop-animate.js']
-            });
-            </script>
-        <![endif]-->
 		<script src="js/all.js"></script>
-    	<script src="js/d-animate.js"></script>
-    	<script src="js/jquery.viewport.mini.js"></script>
+		<script src="js/jquery.viewport.mini.js"></script>
 		<script src="js/jquery.scrollTo.min.js"></script>
 		<script src="js/jquery.localScroll.min.js"></script>   
-        <script src="js/jquery.ba-hashchange.min.js"></script>
     </head>
     <body>
         <div class="start-overlay">
             <div class="loader-1">&nbsp;</div>
             <div class="loader-2">Welcome</div>
         </div>
-        <section id="home" class="home-page home">
+        <section id="home" class="home-page">
             <div class="half-screen" style="z-index: 2;">
 			<div class="light-screen">           	
                 <div class="hs-content">
@@ -91,14 +70,14 @@
             	</div>
                 <nav class="side-menu">
                     <ul class="animate">
-                        	<li class="side-home"><a href="#home">Home</a></li>
-                            <li class="side-about"><a href="#about">关于我</a></li>
-                            <li class="side-honor"><a href="#honor">获得奖励</a></li>
-                            <li class="side-educate"><a href="#educate">教育培训</a></li>
-                            <li class="side-project"><a href="#project">个人经历</a></li>
-                            <li class="side-skill"><a href="#skill">职业技能</a></li>
-                            <li class="side-evaluate"><a href="#evaluate">个人评价</a></li>
-                            <li class="side-contact"><a href="#contact">联系方式</a></li>
+                        	<li class="home"><a href="#home">Home</a></li>
+                            <li><a href="#about">关于我</a></li>
+                            <li><a href="#honor">获得奖励</a></li>
+                            <li><a href="#educate">教育培训</a></li>
+                            <li><a href="#project">个人经历</a></li>
+                            <li><a href="#skill">职业技能</a></li>
+                            <li><a href="#evaluate">个人评价</a></li>
+                            <li><a href="#contact">联系方式</a></li>
                     </ul>
                 </nav>
             </aside>
@@ -126,7 +105,7 @@
                 <section id="honor" class="pg-item">
                     <h2>获得奖励</h2>
                     <div class="row">
-                        <div class="message">
+                        <div >
                             <p><span class="e-year">2013.6</span> ACM-ICPC 东北四省赛(二等奖), 吉林省赛(一等奖)</p>
                             <p><span class="e-year">2013.5</span> ACM-ICPC 亚洲区 通化站邀请赛(银牌)</p>
                             <p><span class="e-year">2012.11</span> ACM-ICPC 亚洲区 杭州站(银牌)</p>
@@ -139,8 +118,8 @@
                 <section id="educate" class="pg-item">
                     <h2>教育培训</h2>
                     <div class="row">
-                        <div class="message">
-                            <p><span class="e-year">20010.9～2014.7</span>  东北师范大学 计算机科学与技术 本科</p>
+                        <div class="education">
+                            <p><span class="e-year">20010.9～2014.7</span>  <span class="e-univ">东北师范大学 计算机科学与技术 本科</span></p>
                         </div> 
                     </div>
                 </section>
@@ -165,22 +144,22 @@
                 <section id="skill" class="pg-item">
                     <h2>职业技能</h2>
                     <div class="row">
-                        <div class="message">
-                            <p>精通数据结构、算法等相关知识,了解 c/c++语言,php 语言, html + css + javascript 开发,熟悉 linux.</p>
-                            <p>了解 Java 语言及其在 Web 开发中的应用,了解 MVC 架构。</p>
-                            <p>具有一定的项目经验和代码量</p>
+                        <div class="education">
+                            <p><span class="e-univ">精通数据结构、算法等相关知识,了解 c/c++语言,php 语言, html + css + javascript 开发,熟悉 linux.</span></p>
+                            <p><span class="e-univ">了解 Java 语言及其在 Web 开发中的应用,了解 MVC 架构。</span></p>
+                            <p><span class="e-univ">具有一定的项目经验和代码量</span></p>
                         </div> 
                     </div>
                 </section>
                 <section id="evaluate" class="pg-item">
                     <h2>个人评价</h2>
                     <div class="row">
-                        <div class="message">
-                            <p>学习能力、动手能力强,大学期间勤奋好学,成绩优良。</p>
-                            <p>善于思考、刻苦专研、敢于突破常规思维面对挑战。</p>
-                            <p>有很强的代码编写能力、对数据结构有充分了解。</p>
-                            <p>具有端正的工作态度和较强的责任心,能够承受工作压力</p>
-                            <p>思维灵活,涉猎广泛。</p>
+                        <div class="education">
+                            <p><span class="e-univ">学习能力、动手能力强,大学期间勤奋好学,成绩优良。</span></p>
+                            <p><span class="e-univ">善于思考、刻苦专研、敢于突破常规思维面对挑战。</span></p>
+                            <p><span class="e-univ">有很强的代码编写能力、对数据结构有充分了解。</span></p>
+                            <p><span class="e-univ">具有端正的工作态度和较强的责任心,能够承受工作压力</span></p>
+                            <p><span class="e-univ">思维灵活,涉猎广泛。</span></p>
                         </div> 
                     </div>
                 </section>

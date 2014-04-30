@@ -1,0 +1,90 @@
+.slw-logo{
+     height: 100% !important;
+}
+
+
+.sidebar, .side-logo-wrap, .slw-logo, .side-menu, .side-menu ul, .side-menu li, .side-menu a{
+    border-top: 0px !important;
+    border-bottom: 0px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+    padding-top: 0px !important;
+    padding-right: 0px !important;
+    padding-bottom: 0px !important;
+    padding-left: 0px !important;
+    margin-top: 0px !important;
+    margin-right: 0px !important;
+    margin-bottom: 0px !important;
+    margin-left: 0px !important;
+}
+.side-logo-wrap, .slw-logo, .side-menu, .side-menu ul, .side-menu li, .side-menu a{
+    width: 100% !important;
+}
+
+.side-home, .side-home a{
+    background: #A93536 !important;
+}
+
+.side-about, .side-about a{
+    background: #149CA8 !important;
+}
+
+.side-honor, .side-honor a{
+    background: #33495F !important;
+}
+
+.side-educate, .side-educate a{
+    background: #7C9C71 !important;
+}
+
+.side-project, .side-project a{
+    background: #746386 !important;
+}
+
+.side-skill, .side-skill a{
+    background: #CCB361 !important;
+}
+
+.side-contact, .side-contact a{
+    background: #FD5253 !important;
+}
+
+.side-evaluate, .side-evaluate a{
+    background: #20C059 !important;
+}
+
+.page-sections .pg-item{
+    padding: 3% 5.5%;
+    margin: 0px;
+    background-size: cover;
+}
+
+#about{
+    background: #CCD361  !important;
+}
+
+#honor{
+    background: #7CAC71 !important;
+}
+
+#educate{
+    background: #70F648 !important;
+}
+
+#project{
+    background: #14BCA8 !important;
+}
+
+#skill{
+    background: #33795F !important;
+}
+
+#evaluate{
+    background: #FD8253 !important;
+}
+
+
+#contact{
+    background: #EB32BF !important;
+}
+

@@ -614,8 +614,8 @@ only screen and (min-resolution: 2dppx) {
 	background-color: #fff;
 }
 .side-menu{
-	position: relative;
-    top: 100px;
+	position: absolute;
+    top: 200px;
     font-weight: 600;
 	font-size: 12px;
 	text-transform: uppercase;
@@ -671,6 +671,7 @@ only screen and (min-resolution: 2dppx) {
 .side-menu{
 	display: table-cell;
 	vertical-align: middle;
+    width: 100%;
 }
 .side-menu ul li a.active{
 	position: relative;
@@ -810,7 +811,8 @@ only screen and (min-resolution: 2dppx) {
 	border-bottom: 1px solid #ebebeb;
 }
 .slw-logo{
-	margin-right: -110px;
+    margin: 0;
+    top: 0;
 }
 .slw-dark{
 	right: 0;
@@ -1603,3 +1605,118 @@ only screen and (max-height: 259px) and (max-width: 767px){
     }
 
 }
+
+
+
+/* Button Learn More */
+
+.btn {
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight:400;
+    font-size: 14px;
+    color: white;
+    background: none;
+    cursor: pointer;
+    padding: 17px 35px;
+    display: inline-block;
+    margin: 100px 0px 0px 0px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    outline: none;
+    position: relative;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    z-index:90;
+    opacity:0;
+}
+
+.anim {
+    margin-top: 60px;
+    opacity:1;    
+}
+
+.btn:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.btn:before {
+    font-family: 'unicons';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+}
+
+.icon-arrow:before {
+    content: "\e096";
+}
+
+.btn-arrow {
+    border-radius: 50px;
+    border: 2px solid #fff;
+    color: #fff;
+    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.btn-arrow:active {
+    background: #7c378a;
+    top: 2px;
+}
+
+.btn-arrow span {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    -webkit-transition: all 0.3s;
+    -webkit-backface-visibility: hidden;
+    -moz-transition: all 0.3s;
+    -moz-backface-visibility: hidden;
+    transition: all 0.3s;
+    backface-visibility: hidden;
+}
+
+.btn-arrow:before {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    line-height: 2.5;
+    font-size: 180%;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.btn-arrow:active:before {
+    color: #5d2369;
+}
+
+.btn-arrowb:hover span {
+    -webkit-transform: translateY(200%);
+    -moz-transform: translateY(200%);
+    -ms-transform: translateY(200%);
+    transform: translateY(200%);
+}
+
+.btn-arrowb:before {
+    left: 0;
+    top: -100%;
+}
+
+.btn-arrowb:hover:before {
+    top: -2px;
+}
+/* //Button Learn More */

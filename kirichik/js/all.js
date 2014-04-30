@@ -70,11 +70,11 @@ $(document).ready(function(){
             }
         }
 
-        $(document).bind('mousewheel', function(event){
+        $(document).bind('mousewheel DOMMouseScroll', function(event){
             if(lock == 1){
                 return false;
             }
-            var delta = event.originalEvent.wheelDelta;
+            var delta = event.originalEvent.wheelDelta || (0 - event.originalEvent.detail);
             if(delta < 0){
                 //down
                 page_down();
@@ -84,6 +84,8 @@ $(document).ready(function(){
             }
             return false;
         });
+
+        
 
         $(document).keydown(function(event){
             if(lock == 1){
@@ -143,5 +145,60 @@ $(document).ready(function(){
         duration: 1230,
         esing: "easeInOutExpo"
     });
+});
+
+// Mobile menu
+//---------------------------------------------
+
+$(document).ready(function(){
+
+    $(".ps-icon-menu, .ps-menu-toggle").click(function(){
+        if ($(".sidebar").hasClass("opened")) {
+        
+            $(".sidebar").animate({
+                left: "-350px"
+            }, "easeOutCirc");
+            $(".ps-icon-menu").removeClass("actived");
+            $(".ps-icon-menu b").animate({
+                right: "50%",
+                marginRight: "-17px"
+            });
+            $(".white-overlay").fadeOut();
+            $(".sidebar").removeClass("opened");
+            
+        }
+        else {
+        
+            $(".white-overlay").fadeIn();
+            $(".sidebar").animate({
+                left: 0
+            }, 300, "easeOutCirc");
+            $(".ps-icon-menu").addClass("actived");
+            $(".ps-icon-menu b").animate({
+                right: "10px",
+                marginRight: 0
+            });
+            $(".sidebar").addClass("opened");
+            
+        }
+    });
+    
+    $(window).scroll(function(){
+        if ($(".sidebar").hasClass("opened")) {
+        
+            $(".sidebar").animate({
+                left: "-350px"
+            }, "easeOutCirc");
+            $(".ps-icon-menu").removeClass("actived");
+            $(".ps-icon-menu b").animate({
+                right: "50%",
+                marginRight: "-17px"
+            });
+            $(".white-overlay").fadeOut();
+            $(".sidebar").removeClass("opened");
+            
+        }
+    });
+    
 });
 

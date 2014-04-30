@@ -1,0 +1,9 @@
+/*This CSS file needed if you are using Animated Edition of this theme.
+Please see documentation for more info about the usage*/
+
+.fx{
+	opacity: 0;
+}
+.animated{
+    opacity: 1 !important;
+}
