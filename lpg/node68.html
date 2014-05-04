@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>Kernel shmid_ds structure</TITLE>
+<META NAME="description" CONTENT="Kernel shmid_ds structure">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1221" HREF="node69.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1219" HREF="node67.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1215" HREF="node67.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1223" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1222" HREF="node69.html">SYSTEM CALL: shmget()</A>
+<B>Up:</B> <A NAME="tex2html1220" HREF="node67.html">Internal and User Data </A>
+<B> Previous:</B> <A NAME="tex2html1216" HREF="node67.html">Internal and User Data </A>
+<BR> <P>
+<H4><A NAME="SECTION00744210000000000000">Kernel <TT>shmid_ds</TT> structure</A></H4>
+<P>
+As with message queues and semaphore sets, the kernel maintains a special internal data structure for
+each shared memory segment which exists within its addressing space.  This structure is of type
+<TT>shmid_ds</TT>, and is defined in <TT>linux/shm.h</TT> as follows:
+<P>
+<P>
+<HR><PRE>        /* One shmid data structure for each shared memory segment in the system. */
+        struct shmid_ds {
+                struct ipc_perm shm_perm;        /* operation perms */
+                int     shm_segsz;               /* size of segment (bytes) */
+                time_t  shm_atime;               /* last attach time */
+                time_t  shm_dtime;               /* last detach time */
+                time_t  shm_ctime;               /* last change time */
+                unsigned short  shm_cpid;        /* pid of creator */
+                unsigned short  shm_lpid;        /* pid of last operator */
+                short   shm_nattch;              /* no. of current attaches */
+
+                                                 /* the following are private */
+
+                unsigned short   shm_npages;     /* size of segment (pages) */
+                unsigned long   *shm_pages;      /* array of ptrs to frames -&gt; SHMMAX */ 
+                struct vm_area_struct *attaches; /* descriptors for attaches */
+        };</PRE> 
+<HR>Operations on this structure are performed by a special system call, and
+should not be tinkered with directly.  Here are descriptions of the more pertinent fields:
+<P>
+<DL ><DT><STRONG><TT>shm_perm</TT></STRONG>
+<DD> 
+<P>
+This is an instance of the <TT>ipc_perm</TT> structure, which is defined
+for us in <TT>linux/ipc.h</TT>.  This holds the permission information for
+the segment, including the access permissions, and information
+about the creator of the segment (uid, etc).
+<P>
+<DT><STRONG><TT>shm_segsz</TT></STRONG>
+<DD> 
+<P>
+Size of the segment (measured in bytes).
+<P>
+<DT><STRONG><TT>shm_atime</TT></STRONG>
+<DD> 
+<P>
+Time the last process attached the segment.
+<P>
+<DT><STRONG><TT>shm_dtime</TT></STRONG>
+<DD> 
+<P>
+Time the last process detached the segment.
+<P>
+<DT><STRONG><TT>shm_ctime</TT></STRONG>
+<DD> 
+<P>
+Time of the last change to this structure (mode change, etc).
+<P>
+<DT><STRONG><TT>shm_cpid</TT></STRONG>
+<DD> 
+<P>
+The PID of the creating process.
+<P>
+<DT><STRONG><TT>shm_lpid</TT></STRONG>
+<DD> 
+<P>
+The PID of the last process to operate on the segment.
+<P>
+<DT><STRONG><TT>shm_nattch</TT></STRONG>
+<DD> 
+<P>
+Number of processes currently attached to the segment.
+<P>
+ </DL><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

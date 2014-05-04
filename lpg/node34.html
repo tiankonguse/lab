@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>SYSTEM CALL: msgget()</TITLE>
+<META NAME="description" CONTENT="SYSTEM CALL: msgget()">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html802" HREF="node35.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html800" HREF="node27.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html794" HREF="node33.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html804" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html803" HREF="node35.html">SYSTEM CALL: msgsnd()</A>
+<B>Up:</B> <A NAME="tex2html801" HREF="node27.html">6.4.2 Message Queues</A>
+<B> Previous:</B> <A NAME="tex2html795" HREF="node33.html">Kernel ipc_perm structure</A>
+<BR> <P>
+<H3><A NAME="SECTION00742300000000000000">SYSTEM CALL: msgget()</A></H3>
+<P>
+In order to create a new message queue, or access an existing queue, the
+<TT>msgget()</TT> system call is used.
+<P>
+<P>
+<HR><PRE>  SYSTEM CALL: msgget();                                                          
+
+  PROTOTYPE: int msgget ( key_t key, int msgflg );                                             
+    RETURNS: message queue identifier on success                                                       
+             -1 on error: errno = EACCESS (permission denied)
+                                  EEXIST (Queue exists, cannot create)
+                                  EIDRM (Queue is marked for deletion)
+                                  ENOENT (Queue does not exist)
+                                  ENOMEM (Not enough memory to create queue)
+                                  ENOSPC (Maximum queue limit exceeded)
+  NOTES:</PRE> 
+<HR>The first argument to <TT>msgget()</TT> is the key value (in our case returned
+by a call to <TT>ftok()</TT>).  This key value is then compared to existing key
+values that exist within the kernel for other message queues.  At that point,  
+the open or access operation is dependent upon the contents of the <TT>msgflg</TT>
+argument.
+<P>
+<DL ><DT><STRONG>IPC_CREAT</STRONG>
+<DD> 
+<P>
+Create the queue if it doesn't already exist in the kernel.
+<P>
+<DT><STRONG>IPC_EXCL</STRONG>
+<DD> 
+<P>
+When used with IPC_CREAT, fail if queue already exists.
+<P>
+ </DL>
+<P>
+If <TT>IPC_CREAT</TT> is used alone, <TT>msgget()</TT> either returns the message queue
+identifier for a newly created message queue, or returns the identifier for a queue
+which exists with the same key value.  If <TT>IPC_EXCL</TT> is used along with <TT>IPC_CREAT</TT>,
+then either a new queue is created, or if the queue exists, the call fails with -1.
+<TT>IPC_EXCL</TT> is useless by itself, but when combined with <TT>IPC_CREAT</TT>, it can
+be used as a facility to guarantee that no existing queue is opened for access.
+<P>
+An optional octal mode may be OR'd into the mask, since each IPC object has
+permissions that are similar in functionality to file permissions on a UNIX
+file system!
+<P>
+Let's create a quick wrapper function for opening or creating message queue:
+<P>
+<P>
+<HR><PRE>int open_queue( key_t keyval )
+{
+        int     qid;
+        
+        if((qid = msgget( keyval, IPC_CREAT | 0660 )) == -1)
+        {
+                return(-1);
+        }
+        
+        return(qid);
+}</PRE> 
+<HR>Note the use of the explicit permissions of <TT>0660</TT>.  This small function either returns
+a message queue identifier (<TT>int</TT>), or -1 on error.  The key value must be passed to
+it as its only argument.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.6.2 Insert Characters/Lines</TITLE>
+<META NAME="description" CONTENT="8.6.2 Insert Characters/Lines">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1657" HREF="node103.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1655" HREF="node100.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1649" HREF="node101.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1659" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1658" HREF="node103.html">8.6.3 Delete Characters/Lines</A>
+<B>Up:</B> <A NAME="tex2html1656" HREF="node100.html">8.6 Output</A>
+<B> Previous:</B> <A NAME="tex2html1650" HREF="node101.html">8.6.1 Formatted Output</A>
+<BR> <P>
+<H2><A NAME="SECTION00962000000000000000">8.6.2 Insert Characters/Lines</A></H2>
+<P>
+<UL><LI> <TT>int insch(c)</TT> <A NAME="fun_insch">&#160;</A><BR> 
+        <TT>int winsch(win, c)</TT> <A NAME="fun_winsch">&#160;</A><BR> 
+        <TT>int mvinsch(y,x,c)</TT> <A NAME="fun_mvinsch">&#160;</A><BR> 
+        <TT>int mvwinsch(win,y,x,c)</TT> <A NAME="fun_mvwinsch">&#160;</A><BR> 
+        Character <TT>ch</TT> is inserted to the left of the cursor and all
+        characters are moved one position to the right. The character on 
+        the right end of the line may be lost).<LI> <TT>int insertln()</TT> <A NAME="fun_insertln">&#160;</A><BR> 
+        <TT>int winsertln(win)</TT> <A NAME="fun_winsertln">&#160;</A><BR> 
+        Insert a blank line above the current one. (The bottom line will be 
+        lost).<LI> <TT>int insdelln(n)</TT> <A NAME="fun_insdelln">&#160;</A><BR> 
+        <TT>int winsdelln(win, n)</TT> <A NAME="fun_winsdelln">&#160;</A><BR> 
+        For positive <TT>n</TT> these functions will insert n lines above
+        the cursor in the appropriate window (so the n bottom lines will be
+        lost). When <TT>n</TT> is negative,
+        n lines under the cursor will be deleted and the rest will moved
+        up.<LI> <TT>int insstr(str)</TT> <A NAME="fun_insstr">&#160;</A><BR> 
+        <TT>int insnstr(str, n)</TT> <A NAME="fun_insnstr">&#160;</A><BR> 
+        <TT>int winsstr(win, str)</TT> <A NAME="fun_winsstr">&#160;</A><BR> 
+        <TT>int winsnstr(win, str, n)</TT> <A NAME="fun_winsnstr">&#160;</A><BR> 
+        <TT>int mvinsstr(y, x, str)</TT> <A NAME="fun_mvinsstr">&#160;</A><BR> 
+        <TT>int mvinsnstr(y, x, str, n)</TT> <A NAME="fun_mvinsnstr">&#160;</A><BR> 
+        <TT>int mvwinsstr(win, y, x, str)</TT> <A NAME="fun_mvwinsstr">&#160;</A><BR> 
+        <TT>int mvwinsnstr(win, y, x, str, n)</TT> <A NAME="fun_mvwinsnstr">&#160;</A><BR> 
+        These functions will insert <TT>str</TT> in the current line left from
+        the cursor (as many characters as fit to the line). The characters
+        on the right of the cursor are moved right and will be lost when the
+        end of the line is reached. The cursor position is not changed.
+<P>
+        <TT>y</TT> and <TT>x</TT> are the coordinates to which the cursor is 
+        moved before <TT>str</TT> will be inserted, <TT>n</TT> is the number
+        of characters to insert (with <TT>n</TT>=0 the entire string is 
+        inserted).
+</UL><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

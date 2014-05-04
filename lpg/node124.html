@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.20 Terminfo Functions</TITLE>
+<META NAME="description" CONTENT="8.20 Terminfo Functions">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1896" HREF="node125.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1894" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1888" HREF="node123.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1898" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1897" HREF="node125.html">8.21 Debug Function</A>
+<B>Up:</B> <A NAME="tex2html1895" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1889" HREF="node123.html">8.19 Termcap Emulation</A>
+<BR> <P>
+<H1><A NAME="SECTION009200000000000000000">8.20 Terminfo Functions</A></H1>
+<P>
+<UL><LI> <TT>int setupterm(char *term, int fildes, int *errret)</TT> <A NAME="fun_setupterm">&#160;</A><BR><LI> <TT>int setterm(char *term)</TT> <A NAME="fun_setterm">&#160;</A><BR><LI> <TT>int set_curterm(TERMINAL *nterm)</TT> <A NAME="fun_set_curterm">&#160;</A><BR><LI> <TT>int del_curterm(TERMINAL *oterm)</TT> <A NAME="fun_del_curterm">&#160;</A><BR><LI> <TT>int restartterm(char *term, int fildes, int *errret)</TT> <A NAME="fun_restartterm">&#160;</A><BR> 
+        (<B>Note:</B> not implemented yet.)<LI> <TT>char *tparm(char *str, p1, p2, p3, p4, p5, p6, p7, p8, p9)</TT> <A NAME="fun_tparm">&#160;</A><BR> 
+        p1 - p9 long int.<LI> <TT>int tputs(char *str, int affcnt, int (*putc)(char))</TT> <A NAME="fun_tputs">&#160;</A><BR><LI> <TT>int putp(char *str)</TT> <A NAME="fun_putp">&#160;</A><BR><LI> <TT>int vidputs(chtype attr, int (*putc)(char))</TT> <A NAME="fun_vidputs">&#160;</A><BR><LI> <TT>int vidattr(chtype attr)</TT> <A NAME="fun_vidattr">&#160;</A><BR><LI> <TT>int mvcur(int oldrow, int oldcol, int newrow, int newcol)</TT> <A NAME="fun_mvcur">&#160;</A><BR><LI> <TT>int tigetflag(char *capname)</TT> <A NAME="fun_tigetflag">&#160;</A><BR><LI> <TT>int tigetnum(char *capname)</TT> <A NAME="fun_tigetnum">&#160;</A><BR><LI> <TT>int tigetstr(char *capname)</TT> <A NAME="fun_tigetstr">&#160;</A><BR> 
+</UL><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

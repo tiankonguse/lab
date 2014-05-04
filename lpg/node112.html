@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.8.3 Use Options</TITLE>
+<META NAME="description" CONTENT="8.8.3 Use Options">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1764" HREF="node113.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1762" HREF="node108.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1758" HREF="node111.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1766" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1765" HREF="node113.html">8.9 Clear Window and </A>
+<B>Up:</B> <A NAME="tex2html1763" HREF="node108.html">8.8 Options</A>
+<B> Previous:</B> <A NAME="tex2html1759" HREF="node111.html">8.8.2 Terminal Attributes</A>
+<BR> <P>
+<H2><A NAME="SECTION00983000000000000000">8.8.3 Use Options</A></H2>
+<P>
+Now we have seen the window options and terminal modes it is time to
+describe their use.
+<P>
+First, on Linux you should enable the keypad. This will allow
+use of the cursor keys and the numeric block on the PC keyboard.
+<P>
+<P><P>
+<P>
+Now, there are two main types of input.
+<P>
+<OL><LI> The program wants the user to enter a
+        key and then will call a function depend
+        on this key. (For example, something like &quot;press 'q' for quit&quot; and wait
+        for <I>q</I>)<LI> The program wants a string of characters typed by the user in a mask
+        on the screen.  For example: a directory or an address in a database.
+</OL>
+<P>
+For the first we use the following options and modes and the while loop will
+work correctly.
+<P>
+<P><P>
+<P>
+The program will hang until a key is pressed. If the key was
+<I>q</I> we call our quit function else we wait for other input.
+<P>
+The switch statement can be expanded until we have an input function that
+fits our wishes. Use the KEY_* macros to check special keys, for instance
+<P>
+<P><P>
+<P>
+for the cursor keys on the keyboard.
+For a file viewer the loop can look like this:
+<P>
+<P><P>
+<P>
+For the second, we only need to set <B>echo()</B> and the characters typed
+by the user will be printed to the screen. To have the characters printed
+on the position you want, use <B>move(...)</B> or <B>wmove(...)</B>.
+<P>
+Or, we could open a window with a mask in it
+(some other colors than those of the window
+will do this) and ask the user to input a string:
+<P>
+<P><P>
+<P>
+See .c in the example directory for more explanation.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

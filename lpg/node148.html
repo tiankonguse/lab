@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>10.5 Portable conditional compilation</TITLE>
+<META NAME="description" CONTENT="10.5 Portable conditional compilation">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2177" HREF="node149.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2175" HREF="node136.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2169" HREF="node147.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2179" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html2178" HREF="node149.html">10.6 Additional Comments</A>
+<B>Up:</B> <A NAME="tex2html2176" HREF="node136.html">10 Porting Applications to </A>
+<B> Previous:</B> <A NAME="tex2html2170" HREF="node147.html">10.4.3 Process control under </A>
+<BR> <P>
+<H1><A NAME="SECTION001150000000000000000">10.5 Portable conditional compilation</A></H1>
+<P>
+If you need to make modifications to existing code in order to port
+it to Linux, you may need to use <TT>ifdef</TT>...<TT>endif</TT> pairs
+to surround parts of Linux-specific code--or, for that matter, code
+corresponding to other implementations. No real standard for selecting
+portions of code to be compiled based on the operating system exists,
+but many programs use a convention such as defining <TT>SVR4</TT> for System
+V code, <TT>BSD</TT> for BSD code, and <TT>linux</TT> for Linux-specific code.
+<P>
+The GNU C library used by Linux allows you to turn on various features
+of the library by defining various macros at compile time. These
+are:
+<UL><LI> <TT>__STRICT_ANSI__</TT>: For ANSI C features only<LI> <TT>_POSIX_SOURCE</TT>: For POSIX.1 features<LI> <TT>_POSIX_C_SOURCE</TT>: If defined as 1, POSIX.1 features;
+if defined as 2, POSIX.2 features.<LI> <TT>_BSD_SOURCE</TT>: ANSI, POSIX, and BSD features.<LI> <TT>_SVID_SOURCE</TT>: ANSI, POSIX, and System V features.<LI> <TT>_GNU_SOURCE</TT>: ANSI, POSIX, BSD, SVID, and GNU extensions.
+This is the default if none of the above are defined.
+</UL>
+<P>
+If you define <TT>_BSD_SOURCE</TT> yourself, the additional definition
+<TT>_FAVOR_BSD</TT> will be defined for the library. This will
+cause BSD behavior for certain things to be selected over POSIX or
+SVR4. For example, if <TT>_FAVOR_BSD</TT> is defined, <EM>setjmp</EM> and
+<EM>longjmp</EM> will save and restore the signal mask, and <EM>getpgrp</EM>
+will accept a PID argument. Note that you must still link against
+<TT>libbsd</TT> to get BSD-like behavior for the features mentioned 
+earlier in this paper.
+<P>
+Under Linux, <TT>gcc</TT> defines a number of macros automatically
+which you can use in your program. These are:
+<UL><LI> <TT>__GNUC__</TT> (major GNU C version, e.g., 2)<LI> <TT>__GNUC_MINOR__</TT> (minor GNU C version, e.g., 5)<LI> <TT>unix</TT><LI> <TT>i386</TT><LI> <TT>linux</TT><LI> <TT>__unix__</TT><LI> <TT>__i386__</TT><LI> <TT>__linux__</TT><LI> <TT>__unix</TT><LI> <TT>__i386</TT><LI> <TT>__linux</TT>
+</UL>
+Many programs use 
+<PRE>  #ifdef linux</PRE> 
+to surround Linux-specific code. Using these compile-time macros
+you can easily adapt existing code to include or exclude changes
+necessary to port the program to Linux, Note that because Linux
+supports more System V-like features in general, the best code
+base to start from with a program written for both System V and
+BSD is probably the System V version. Alternately, you can start
+from the BSD base and link against <TT>libbsd</TT>.
+<P>
+<HR><A NAME="tex2html2177" HREF="node149.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2175" HREF="node136.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2169" HREF="node147.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2179" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html2178" HREF="node149.html">10.6 Additional Comments</A>
+<B>Up:</B> <A NAME="tex2html2176" HREF="node136.html">10 Porting Applications to </A>
+<B> Previous:</B> <A NAME="tex2html2170" HREF="node147.html">10.4.3 Process control under </A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

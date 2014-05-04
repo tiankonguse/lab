@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.9 Clear Window and Lines</TITLE>
+<META NAME="description" CONTENT="8.9 Clear Window and Lines">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1775" HREF="node114.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1773" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1767" HREF="node112.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1777" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1776" HREF="node114.html">8.10 Updating the Terminal</A>
+<B>Up:</B> <A NAME="tex2html1774" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1768" HREF="node112.html">8.8.3 Use Options</A>
+<BR> <P>
+<H1><A NAME="SECTION00990000000000000000">8.9 Clear Window and Lines</A></H1>
+<P>
+<UL><LI> <TT>int erase()</TT> <A NAME="fun_erase">&#160;</A><BR> 
+        <TT>int werase(win)</TT> <A NAME="fun_werase">&#160;</A><BR> 
+        <B>werase(...)</B> and <B>erase()</B> will copy blanks to every position
+        on the window <TT>win</TT> or . For instance, when you set
+        color attributes to a window and call <B>werase()</B> the window would be
+        colored. I had some problems with COLOR_PAIRS when I defined other
+        attributes then black on white so I wrote my own erase function (this is
+        a low level access to the WINDOW structure):
+<P>
+<P><P>
+<P>
+        The problem is, that ncurses sometimes makes no use of the window 
+        attributes when
+        blanking the screen. For instance, in _clrtoeol.c, is 
+        BLANK defined as
+<P><P>
+        so that the other window attributes get lost while the line is 
+        erased.<LI> <TT>int clear()</TT> <A NAME="fun_clear">&#160;</A><BR> 
+        <TT>int wclear(win)</TT> <A NAME="fun_wclear">&#160;</A><BR> 
+        The same as <B>erase()</B>, but will also set <B>clearok()</B> (the screen
+        will be cleared with the next refresh).<LI> <TT>int clrtobot()</TT> <A NAME="fun_clrtobot">&#160;</A><BR> 
+        <TT>int wclrtobot(win)</TT> <A NAME="fun_wclrtobot">&#160;</A><BR> 
+        Clearing the current cursor line (start is one character right from the
+        cursor) and the line below the cursor.<LI> <TT>int clrtoeol()</TT> <A NAME="fun_clrtoeol">&#160;</A><BR> 
+        <TT>int wclrtoeol(win)</TT> <A NAME="fun_wclrtoeol">&#160;</A><BR> 
+        Clear the current line right from the cursor up to its end.
+</UL><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

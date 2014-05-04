@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>10.2.1 Signals under SVR4, BSD, and POSIX.1</TITLE>
+<META NAME="description" CONTENT="10.2.1 Signals under SVR4, BSD, and POSIX.1">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2079" HREF="node140.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2077" HREF="node138.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2071" HREF="node138.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2081" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html2080" HREF="node140.html">10.2.2 Linux signal options</A>
+<B>Up:</B> <A NAME="tex2html2078" HREF="node138.html">10.2 Signal handling</A>
+<B> Previous:</B> <A NAME="tex2html2072" HREF="node138.html">10.2 Signal handling</A>
+<BR> <P>
+<H2><A NAME="SECTION001121000000000000000">10.2.1 Signals under SVR4, BSD, and POSIX.1</A></H2>
+<P>
+The SVR4 implementation of signals incorporates the functions
+<EM>signal</EM>, <EM>sigset</EM>, <EM>sighold</EM>, <EM>sigrelse</EM>, <EM>sigignore</EM>,
+and <EM>sigpause</EM>. The <EM>signal</EM> function under SVR4 is 
+identical to the classic UNIX V7 signals, providing only unreliable
+signals. The other functions do provide signals with automatic
+reinstallation of the signal handler, but no system call restarting
+is supported.
+<P>
+Under BSD, the functions <EM>signal</EM>, <EM>sigvec</EM>, <EM>sigblock</EM>,
+<EM>sigsetmask</EM>, and <EM>sigpause</EM> are supported. All of the functions
+provide reliable signals with system call restarting by default, but
+that behavior can be disabled if the programmer wishes.
+<P>
+Under POSIX.1, <EM>sigaction</EM>, <EM>sigprocmask</EM>, <EM>sigpending</EM>,
+and <EM>sigsuspend</EM> are provided. Note that there is no <EM>signal</EM>
+function, and according to POSIX.1 it is depreciated. These functions
+provide reliable signals, but system call restart behavior is not
+defined by POSIX. If <EM>sigaction</EM> is used under SVR4 and BSD, 
+system call restarting is disabled by default, but it can be turned
+on if the signal flag <TT>SA_RESTART</TT> is specified.
+<P>
+Therefore, the ``best'' way to use signals in a program is to use
+<EM>sigaction</EM>, which allows you to explicitly specify the behavior
+of signal handlers. However, <EM>signal</EM> is still used in many 
+applications, and as we can see above <EM>signal</EM> provides different
+semantics under SVR4 and BSD.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

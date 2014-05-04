@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>4 System calls</TITLE>
+<META NAME="description" CONTENT="4 System calls">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html336" HREF="node6.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html334" HREF="lpg.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html328" HREF="node4.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html338" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html337" HREF="node6.html">5 The ``swiss army </A>
+<B>Up:</B> <A NAME="tex2html335" HREF="lpg.html">e</A>
+<B> Previous:</B> <A NAME="tex2html329" HREF="node4.html">3 The Linux libc </A>
+<BR> <P>
+<H1><A NAME="SECTION00500000000000000000">4 System calls</A></H1>
+<P>
+ A system call is usually a request to the operating system (kernel) to
+ do a hardware/system-specific or privileged operation.  As of
+ Linux-1.2, 140 system calls have been defined.  System calls like
+ close() are implemented in the Linux libc.  This implementation often
+ involves calling a macro which eventually calls syscall().  Parameters
+ passed to syscall() are the number of the system call followed by the
+ needed arguments.  The actual system call numbers can be found in
+ &lt;<I>linux</I>/<I>unistd</I>.<I>h</I>&gt; while &lt;<I>sys</I>/<I>syscall</I>.<I>h</I>&gt; gets updated with a new
+ libc.  If new calls appear that don't have a stub in libc yet, you can
+ use syscall().  As an example, you can close a file using syscall()
+ like this (not advised):
+<P>
+<PRE>#include &lt;syscall.h&gt;
+
+extern int syscall(int, ...);
+
+int my_close(int filedescriptor)
+{
+   return syscall(SYS_close, filedescriptor);
+}</PRE>
+<P>
+ On the i386 architecture, system calls are limited to 5 arguments
+ besides the system call number because of the number of hardware
+ registers.  If you use Linux on another architecture you can check
+ &lt;<I>asm</I>/<I>unistd</I>.<I>h</I>&gt; for the _syscall macros to see how many arguments
+ your hardware supports or how many the developers chose to support.
+ These _syscall macros can be used instead of syscall(), but this is
+ not recommended since such a macro expands to a full function which
+ might already exist in a library. Therefore, only kernel hackers
+ should play with the _syscall macros.  To demonstrate, here is the
+ close() example using a _syscall macro.
+<P>
+<PRE>#include &lt;linux/unistd.h&gt;
+
+_syscall1(int, close, int, filedescriptor);</PRE>
+<P>
+ The _syscall1 macro expands revealing the close() function.  Thus we
+ have close() twice-once in libc and once in our program.  The return
+ value of syscall() or a _syscall macro is -1 if the system call
+ failed and 0 or greater on success.  Take a look at the global
+ variable errno to see what happened if a system call failed.
+<P>
+ The following system calls that are available on BSD and SYS V are
+ not available on Linux: <BR> audit(), auditon(), auditsvc(), fchroot(),
+ getauid(), getdents(), getmsg(), mincore(), poll(), putmsg(),
+ setaudit(), setauid().
+<P>
+<HR><A NAME="tex2html336" HREF="node6.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html334" HREF="lpg.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html328" HREF="node4.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html338" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html337" HREF="node6.html">5 The ``swiss army </A>
+<B>Up:</B> <A NAME="tex2html335" HREF="lpg.html">e</A>
+<B> Previous:</B> <A NAME="tex2html329" HREF="node4.html">3 The Linux libc </A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

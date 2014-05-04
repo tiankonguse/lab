@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.2.1 Introduction</TITLE>
+<META NAME="description" CONTENT="8.2.1 Introduction">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1521" HREF="node91.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1519" HREF="node89.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1513" HREF="node89.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1523" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1522" HREF="node91.html">8.2.2 Find a Terminal </A>
+<B>Up:</B> <A NAME="tex2html1520" HREF="node89.html">8.2 The Termcap Library</A>
+<B> Previous:</B> <A NAME="tex2html1514" HREF="node89.html">8.2 The Termcap Library</A>
+<BR> <P>
+<H2><A NAME="SECTION00921000000000000000">8.2.1 Introduction</A></H2>
+<P>
+The termcap library is an API to the termcap database which can be
+found in <I>/etc/termcap/</I>. The library functions allow
+the following actions:
+<P>
+<UL><LI> Get a description of the current terminal: <B>tgetent(...)</B>.<LI> Search the description for information:
+        <B>tgetnum(...)</B>, <B>tgetflag(...)</B>, 
+        <B>tgetstr(...)</B>.<LI> Encode numeric parameters in a terminal specific form:
+        <B>tparam(...)</B>, <B>tgoto(...)</B>.<LI> Compute and perform padding <B>tputs(...)</B>.
+</UL>
+<P>
+Programs using the termcap library must include .h
+and should be linked with:
+<P><B><PRE>
+    gcc [flags] files -ltermcap
+</PRE></B>
+<P>
+Termcap functions are terminal independent routines but only give
+the programmer low level access to the terminal.
+For a higher level package, curses or ncurses should be used.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

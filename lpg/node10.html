@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6.2.1 Basic Concepts</TITLE>
+<META NAME="description" CONTENT="6.2.1 Basic Concepts">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html457" HREF="node11.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html455" HREF="node9.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html449" HREF="node9.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html459" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html458" HREF="node11.html">6.2.2 Creating Pipes in </A>
+<B>Up:</B> <A NAME="tex2html456" HREF="node9.html">6.2 Half-duplex UNIX Pipes</A>
+<B> Previous:</B> <A NAME="tex2html450" HREF="node9.html">6.2 Half-duplex UNIX Pipes</A>
+<BR> <P>
+<H2><A NAME="SECTION00721000000000000000">6.2.1 Basic Concepts</A></H2>
+<P>
+Simply put, a <EM>pipe</EM> is a method of connecting the <EM>standard output</EM> of one
+process to the <EM>standard input</EM> of another.  Pipes are the eldest of the IPC
+tools, having been around since the earliest incarnations of the UNIX
+operating system.  They provide a method of one-way communications (hence
+the term half-duplex) between processes.
+<P>
+This feature is widely used, even on the UNIX command line (in the shell).
+<P>
+<P><B><PRE>
+        ls | sort | lp
+</PRE></B>
+<P>
+The above sets up a pipeline, taking the output of ls as the input of 
+sort, and the output of sort as the input of lp.  The data is running through a
+half duplex pipe, traveling (visually) left to right through the pipeline.
+<P>
+Although most of us use pipes quite religiously in shell script programming, 
+we often do so without giving a second thought to what transpires at the kernel
+level.
+<P>
+When a process creates a pipe, the kernel sets up two file descriptors for use
+by the pipe.  One descriptor is used to allow a path of input into the pipe (write),
+while the other is used to obtain data from the pipe (read).  At this point, the
+pipe is of little practical use, as the creating process can only use the pipe to
+communicate with itself.  Consider this representation of a process and the
+kernel after a pipe has been created:
+<P>
+<P> <IMG WIDTH=534 HEIGHT=174 ALIGN=BOTTOM ALT="picture41666" SRC="img5.gif"  > <P>
+<P>
+From the above diagram, it is easy to see how the descriptors are connected
+together.  If the process sends data through the pipe (fd0), it has the ability
+to obtain (read) that information from fd1.  However, there is a much larger
+objective of the simplistic sketch above.  While a pipe initially connects a 
+process to itself, data traveling through the pipe moves through the kernel.
+Under Linux, in particular, pipes are actually represented internally with a
+valid inode.  Of course, this inode resides within the kernel itself, and not
+within the bounds of any physical file system.  This particular point will
+open up some pretty handy I/O doors for us, as we will see a bit later on.
+<P>
+At this point, the pipe is fairly useless.  After all, why go to the trouble of
+creating a pipe if we are only going to talk to ourself?  At this point, the 
+creating process typically forks a child process.  Since a child process will
+inherit any open file descriptors from the parent, we now have the basis for
+multiprocess communication (between parent and child).  Consider this updated
+version of our simple sketch:
+<P>
+<P> <IMG WIDTH=506 HEIGHT=145 ALIGN=BOTTOM ALT="picture41666" SRC="img4.gif"  > <P>
+<P>
+
+<P>
+Above, we see that both processes now have access to the file descriptors which
+constitute the pipeline.  It is at this stage, that a critical decision must be
+made.  In which direction do we desire data to travel?  Does the child process
+send information to the parent, or vice-versa?  The two processes mutually agree
+on this issue, and proceed to ``close'' the end of the pipe that they are not
+concerned with.  For discussion purposes, let's say the child performs some
+processing, and sends information back through the pipe to the parent.  Our
+newly revised sketch would appear as such:
+<P>
+<P> <IMG WIDTH=501 HEIGHT=142 ALIGN=BOTTOM ALT="picture44468" SRC="img6.gif"  > <P>
+<P>
+
+<P>
+Construction of the pipeline is now complete!  The only thing left to do is
+make use of the pipe.  To access a pipe directly, the same system calls that
+are used for low-level file I/O can be used (recall that pipes are actually
+represented internally as a valid inode).
+<P>
+To send data to the pipe, we use the write() system call, and to retrieve data
+from the pipe, we use the read() system call.  Remember, low-level file I/O
+system calls work with file descriptors!  However, keep in mind that certain
+system calls, such as lseek(), do not work with descriptors to pipes.
+<P>
+<HR><A NAME="tex2html457" HREF="node11.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html455" HREF="node9.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html449" HREF="node9.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html459" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html458" HREF="node11.html">6.2.2 Creating Pipes in </A>
+<B>Up:</B> <A NAME="tex2html456" HREF="node9.html">6.2 Half-duplex UNIX Pipes</A>
+<B> Previous:</B> <A NAME="tex2html450" HREF="node9.html">6.2 Half-duplex UNIX Pipes</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

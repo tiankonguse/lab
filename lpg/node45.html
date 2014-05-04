@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>The Source</TITLE>
+<META NAME="description" CONTENT="The Source">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html929" HREF="node46.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html927" HREF="node37.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html923" HREF="node44.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html931" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html930" HREF="node46.html">6.4.3 Semaphores</A>
+<B>Up:</B> <A NAME="tex2html928" HREF="node37.html">msgtool: An interactive message </A>
+<B> Previous:</B> <A NAME="tex2html924" HREF="node44.html">Examples</A>
+<BR> <P>
+<H4><A NAME="SECTION00742640000000000000">The Source</A></H4>
+<P>
+The following is the source code for the <TT>msgtool</TT> facility.  It should compile clean
+on any recent (decent) kernel revision that supports System V IPC.  Be sure to enable
+System V IPC in your kernel when doing a rebuild!
+<P>
+On a side note, this utility will <EM>create</EM> a message queue if it does not exist, no 
+matter what type of action is requested.
+<P>
+<BLOCKQUOTE> <B>NOTE:</B> <EM>Since this tool uses the ftok() function to generate IPC key values, you may
+encounter directory conflicts.  If you change directories at any point in your script, it probably 
+won't work.  Another solution would be to hardcode a more complete path into msgtool, such as 
+``/tmp/msgtool'', or possibly even allow the path to be passed on the command line, along with
+the operational arguments. </EM>
+</BLOCKQUOTE>
+<P>
+<P>
+<HR><PRE>/*****************************************************************************
+ Excerpt from &quot;Linux Programmer's Guide - Chapter 6&quot;
+ (C)opyright 1994-1995, Scott Burkett
+ ***************************************************************************** 
+ MODULE: msgtool.c
+ *****************************************************************************
+ A command line tool for tinkering with SysV style Message Queues
+ *****************************************************************************/
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;ctype.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/ipc.h&gt;
+#include &lt;sys/msg.h&gt;
+
+#define MAX_SEND_SIZE 80
+
+struct mymsgbuf {
+        long mtype;
+        char mtext[MAX_SEND_SIZE];
+};
+
+void send_message(int qid, struct mymsgbuf *qbuf, long type, char *text);
+void read_message(int qid, struct mymsgbuf *qbuf, long type);
+void remove_queue(int qid);
+void change_queue_mode(int qid, char *mode);
+void usage(void);
+
+
+int main(int argc, char *argv[])
+{
+        key_t key;
+        int   msgqueue_id;
+        struct mymsgbuf qbuf;
+
+        if(argc == 1)
+                usage();
+
+        /* Create unique key via call to ftok() */
+        key = ftok(&quot;.&quot;, 'm');
+
+        /* Open the queue - create if necessary */
+        if((msgqueue_id = msgget(key, IPC_CREAT|0660)) == -1) {
+                perror(&quot;msgget&quot;);
+                exit(1);
+        }
+        
+        switch(tolower(argv[1][0]))
+        {
+                case 's': send_message(msgqueue_id, (struct mymsgbuf *)&amp;qbuf,
+                                       atol(argv[2]), argv[3]); 
+                          break;
+                case 'r': read_message(msgqueue_id, &amp;qbuf, atol(argv[2])); 
+                          break;
+                case 'd': remove_queue(msgqueue_id); 
+                          break;        
+                case 'm': change_queue_mode(msgqueue_id, argv[2]); 
+                          break;
+
+                 default: usage();
+
+        }
+        
+        return(0);
+}
+
+void send_message(int qid, struct mymsgbuf *qbuf, long type, char *text)
+{
+        /* Send a message to the queue */
+        printf(&quot;Sending a message ...\n&quot;);
+        qbuf-&gt;mtype = type;
+        strcpy(qbuf-&gt;mtext, text);
+
+        if((msgsnd(qid, (struct msgbuf *)qbuf,
+                strlen(qbuf-&gt;mtext)+1, 0)) ==-1)
+        {
+                perror(&quot;msgsnd&quot;);
+                exit(1);
+        }
+}
+
+void read_message(int qid, struct mymsgbuf *qbuf, long type)
+{
+        /* Read a message from the queue */
+        printf(&quot;Reading a message ...\n&quot;);
+        qbuf-&gt;mtype = type;
+        msgrcv(qid, (struct msgbuf *)qbuf, MAX_SEND_SIZE, type, 0);
+        
+        printf(&quot;Type: %ld Text: %s\n&quot;, qbuf-&gt;mtype, qbuf-&gt;mtext);
+}
+
+void remove_queue(int qid)
+{
+        /* Remove the queue */
+        msgctl(qid, IPC_RMID, 0);
+}
+
+void change_queue_mode(int qid, char *mode)
+{
+        struct msqid_ds myqueue_ds;
+
+        /* Get current info */
+        msgctl(qid, IPC_STAT, &amp;myqueue_ds);
+
+        /* Convert and load the mode */
+        sscanf(mode, &quot;%ho&quot;, &amp;myqueue_ds.msg_perm.mode);
+
+        /* Update the mode */
+        msgctl(qid, IPC_SET, &amp;myqueue_ds);
+}
+
+void usage(void)
+{
+        fprintf(stderr, &quot;msgtool - A utility for tinkering with msg queues\n&quot;);
+        fprintf(stderr, &quot;\nUSAGE: msgtool (s)end &lt;type&gt; &lt;messagetext&gt;\n&quot;);
+        fprintf(stderr, &quot;               (r)ecv &lt;type&gt;\n&quot;);
+        fprintf(stderr, &quot;               (d)elete\n&quot;);
+        fprintf(stderr, &quot;               (m)ode &lt;octal mode&gt;\n&quot;);
+        exit(1);
+}</PRE> 
+<HR><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

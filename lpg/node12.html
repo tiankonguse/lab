@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6.2.3 Pipes the Easy Way!</TITLE>
+<META NAME="description" CONTENT="6.2.3 Pipes the Easy Way!">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html479" HREF="node13.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html477" HREF="node9.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html471" HREF="node11.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html481" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html480" HREF="node13.html">6.2.4 Atomic Operations with </A>
+<B>Up:</B> <A NAME="tex2html478" HREF="node9.html">6.2 Half-duplex UNIX Pipes</A>
+<B> Previous:</B> <A NAME="tex2html472" HREF="node11.html">6.2.2 Creating Pipes in </A>
+<BR> <P>
+<H2><A NAME="SECTION00723000000000000000">6.2.3 Pipes the Easy Way!</A></H2>
+<P>
+If all of the above ramblings seem like a very round-about way of creating
+and utilizing pipes, there is an alternative.
+<P>
+<P>
+<HR><PRE>  LIBRARY FUNCTION: popen();                                                    
+
+  PROTOTYPE: FILE *popen ( char *command, char *type);                          
+    RETURNS: new file stream on success                                         
+             NULL on unsuccessful fork() or pipe() call                         
+
+  NOTES: creates a pipe, and performs fork/exec operations using &quot;command&quot;</PRE> 
+<HR>This standard library function creates a half-duplex pipeline by calling
+pipe() internally.  It then forks a child process, execs the Bourne shell,
+and executes the &quot;command&quot; argument within the shell.  Direction of data
+flow is determined by the second argument, &quot;type&quot;.  It can be &quot;r&quot; or &quot;w&quot;, for
+&quot;read&quot; or &quot;write&quot;.  It cannot be both!  Under Linux, the pipe will be opened
+up in the mode specified by the first character of the &quot;type&quot; argument.  So,
+if you try to pass &quot;rw&quot;, it will only open it up in &quot;read&quot; mode.
+<P>
+While this library function performs quite a bit of the dirty work for you, 
+there is a substantial tradeoff.  You lose the fine control you once had
+by using the pipe() system call, and handling the fork/exec yourself.  However,
+since the Bourne shell is used directly, shell metacharacter expansion
+(including wildcards) is permissible within the &quot;command&quot; argument.
+<P>
+Pipes which are created with popen() must be closed with pclose().  By now,
+you have probably realized that popen/pclose share a striking resemblance
+to the standard file stream I/O functions fopen() and fclose().
+<P>
+<P>
+<HR><PRE>  LIBRARY FUNCTION: pclose();                                                   
+
+  PROTOTYPE: int pclose( FILE *stream );                                        
+    RETURNS: exit status of wait4() call                                        
+             -1 if &quot;stream&quot; is not valid, or if wait4() fails                   
+
+  NOTES: waits on the pipe process to terminate, then closes the stream.</PRE> 
+<HR>The pclose() function performs a wait4() on the process forked by popen().
+When it returns, it destroys the pipe and the file stream.  Once again, it is
+synonymous with the fclose() function for normal stream-based file I/O.
+<P>
+Consider this example, which opens up a pipe to the sort command, and proceeds
+to sort an array of strings:
+<P>
+<PRE>/*****************************************************************************
+ Excerpt from &quot;Linux Programmer's Guide - Chapter 6&quot;
+ (C)opyright 1994-1995, Scott Burkett
+ ***************************************************************************** 
+ MODULE: popen1.c
+ *****************************************************************************/
+  
+#include &lt;stdio.h&gt;
+
+#define MAXSTRS 5
+
+int main(void)
+{
+        int  cntr;
+        FILE *pipe_fp;
+        char *strings[MAXSTRS] = { &quot;echo&quot;, &quot;bravo&quot;, &quot;alpha&quot;,
+                                  &quot;charlie&quot;, &quot;delta&quot;};
+
+        /* Create one way pipe line with call to popen() */
+        if (( pipe_fp = popen(&quot;sort&quot;, &quot;w&quot;)) == NULL)
+        {
+                perror(&quot;popen&quot;);
+                exit(1);
+        }
+
+        /* Processing loop */
+        for(cntr=0; cntr&lt;MAXSTRS; cntr++) {
+                fputs(strings[cntr], pipe_fp);
+                fputc('\n', pipe_fp);
+        }
+
+        /* Close the pipe */
+        pclose(pipe_fp);
+        
+        return(0);
+}</PRE>
+<P>
+Since <TT>popen()</TT> uses the shell to do its bidding, all shell expansion
+characters and metacharacters are available for use!  In addition, more  
+advanced techniques such as redirection, and even output piping, can be utilized
+with <TT>popen()</TT>.  Consider the following sample calls:
+<P>
+<PRE>        popen(&quot;ls ~scottb&quot;, &quot;r&quot;);
+        popen(&quot;sort &gt; /tmp/foo&quot;, &quot;w&quot;);
+        popen(&quot;sort | uniq | more&quot;, &quot;w&quot;);</PRE>
+<P>
+As another example of popen(), consider this small program, which opens
+up two pipes (one to the ls command, the other to sort):
+<P>
+<PRE>/*****************************************************************************
+ Excerpt from &quot;Linux Programmer's Guide - Chapter 6&quot;
+ (C)opyright 1994-1995, Scott Burkett
+ ***************************************************************************** 
+ MODULE: popen2.c
+ *****************************************************************************/
+
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+        FILE *pipein_fp, *pipeout_fp;
+        char readbuf[80];
+
+        /* Create one way pipe line with call to popen() */
+        if (( pipein_fp = popen(&quot;ls&quot;, &quot;r&quot;)) == NULL)
+        {
+                perror(&quot;popen&quot;);
+                exit(1);
+        }
+
+        /* Create one way pipe line with call to popen() */
+        if (( pipeout_fp = popen(&quot;sort&quot;, &quot;w&quot;)) == NULL)
+        {
+                perror(&quot;popen&quot;);
+                exit(1);
+        }
+
+        /* Processing loop */
+        while(fgets(readbuf, 80, pipein_fp))
+                fputs(readbuf, pipeout_fp);
+
+        /* Close the pipes */
+        pclose(pipein_fp);
+        pclose(pipeout_fp);
+
+        return(0);
+}</PRE>
+<P>
+For our final demonstration of popen(), let's create a generic program that
+opens up a pipeline between a passed command and filename:
+<P>
+<PRE>/*****************************************************************************
+ Excerpt from &quot;Linux Programmer's Guide - Chapter 6&quot;
+ (C)opyright 1994-1995, Scott Burkett
+ ***************************************************************************** 
+ MODULE: popen3.c
+ *****************************************************************************/
+
+#include &lt;stdio.h&gt;
+
+int main(int argc, char *argv[])
+{
+        FILE *pipe_fp, *infile;
+        char readbuf[80];
+
+        if( argc != 3) {
+                fprintf(stderr, &quot;USAGE:  popen3 [command] [filename]\n&quot;);       
+                exit(1);
+        }
+
+        /* Open up input file */
+        if (( infile = fopen(argv[2], &quot;rt&quot;)) == NULL)
+        {
+                perror(&quot;fopen&quot;);
+                exit(1);        
+        }
+
+        /* Create one way pipe line with call to popen() */
+        if (( pipe_fp = popen(argv[1], &quot;w&quot;)) == NULL)
+        {
+                perror(&quot;popen&quot;);
+                exit(1);
+        }
+
+        /* Processing loop */
+        do { 
+                fgets(readbuf, 80, infile);
+                if(feof(infile)) break;
+
+                fputs(readbuf, pipe_fp);
+        } while(!feof(infile));
+
+        fclose(infile); 
+        pclose(pipe_fp);
+
+        return(0);
+}</PRE>
+<P>
+Try this program out, with the following invocations:
+<PRE>        popen3 sort popen3.c
+        popen3 cat popen3.c
+        popen3 more popen3.c
+        popen3 cat popen3.c | grep main</PRE>
+<P>
+<HR><A NAME="tex2html479" HREF="node13.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html477" HREF="node9.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html471" HREF="node11.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html481" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html480" HREF="node13.html">6.2.4 Atomic Operations with </A>
+<B>Up:</B> <A NAME="tex2html478" HREF="node9.html">6.2 Half-duplex UNIX Pipes</A>
+<B> Previous:</B> <A NAME="tex2html472" HREF="node11.html">6.2.2 Creating Pipes in </A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

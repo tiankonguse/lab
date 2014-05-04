@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6 Linux Interprocess Communications</TITLE>
+<META NAME="description" CONTENT="6 Linux Interprocess Communications">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html358" HREF="node8.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html356" HREF="lpg.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html350" HREF="node6.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html360" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html359" HREF="node8.html">6.1 Introduction</A>
+<B>Up:</B> <A NAME="tex2html357" HREF="lpg.html">e</A>
+<B> Previous:</B> <A NAME="tex2html351" HREF="node6.html">5 The ``swiss army </A>
+<BR> <P>
+<A NAME="scott">&#160;</A><H1><A NAME="SECTION00700000000000000000">6 Linux Interprocess Communications</A></H1>
+<P>
+<H3 CLASS=ABSTRACT>Abstract:</H3>
+<P CLASS=ABSTRACT>A detailed overview of the IPC (interprocess communication facilities) facilities
+implemented in the Linux Operating System.</P><P>
+<P>
+<BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html361" HREF="node8.html#SECTION00710000000000000000">6.1 Introduction</A>
+<LI> <A NAME="tex2html362" HREF="node9.html#SECTION00720000000000000000">6.2 Half-duplex UNIX Pipes</A>
+<UL> 
+<LI> <A NAME="tex2html363" HREF="node10.html#SECTION00721000000000000000">6.2.1 Basic Concepts</A>
+<LI> <A NAME="tex2html364" HREF="node11.html#SECTION00722000000000000000">6.2.2 Creating Pipes in C</A>
+<LI> <A NAME="tex2html365" HREF="node12.html#SECTION00723000000000000000">6.2.3 Pipes the Easy Way!</A>
+<LI> <A NAME="tex2html366" HREF="node13.html#SECTION00724000000000000000">6.2.4 Atomic Operations with Pipes</A>
+<LI> <A NAME="tex2html367" HREF="node14.html#SECTION00725000000000000000">6.2.5 Notes on half-duplex pipes:</A>
+</UL> 
+<LI> <A NAME="tex2html368" HREF="node15.html#SECTION00730000000000000000">6.3 Named Pipes (FIFOs - First In First Out)</A>
+<UL> 
+<LI> <A NAME="tex2html369" HREF="node16.html#SECTION00731000000000000000">6.3.1 Basic Concepts</A>
+<LI> <A NAME="tex2html370" HREF="node17.html#SECTION00732000000000000000">6.3.2 Creating a FIFO</A>
+<LI> <A NAME="tex2html371" HREF="node18.html#SECTION00733000000000000000">6.3.3 FIFO Operations</A>
+<LI> <A NAME="tex2html372" HREF="node19.html#SECTION00734000000000000000">6.3.4 Blocking Actions on a FIFO</A>
+<LI> <A NAME="tex2html373" HREF="node20.html#SECTION00735000000000000000">6.3.5 The Infamous SIGPIPE Signal</A>
+</UL> 
+<LI> <A NAME="tex2html374" HREF="node21.html#SECTION00740000000000000000">6.4 System V IPC</A>
+<UL> 
+<LI> <A NAME="tex2html375" HREF="node22.html#SECTION00741000000000000000">6.4.1 Fundamental Concepts</A>
+<UL> 
+<LI> <A NAME="tex2html376" HREF="node23.html#SECTION00741100000000000000">IPC Identifiers</A>
+<LI> <A NAME="tex2html377" HREF="node24.html#SECTION00741200000000000000">IPC Keys</A>
+<LI> <A NAME="tex2html378" HREF="node25.html#SECTION00741300000000000000">The <TT>ipcs</TT> Command</A>
+<LI> <A NAME="tex2html379" HREF="node26.html#SECTION00741400000000000000">The <TT>ipcrm</TT> Command</A>
+</UL> 
+<LI> <A NAME="tex2html380" HREF="node27.html#SECTION00742000000000000000">6.4.2 Message Queues</A>
+<UL> 
+<LI> <A NAME="tex2html381" HREF="node28.html#SECTION00742100000000000000">Basic Concepts</A>
+<LI> <A NAME="tex2html382" HREF="node29.html#SECTION00742200000000000000">Internal and User Data Structures</A>
+<UL> 
+<LI> <A NAME="tex2html383" HREF="node30.html#SECTION00742210000000000000">Message buffer</A>
+<LI> <A NAME="tex2html384" HREF="node31.html#SECTION00742220000000000000">Kernel <TT>msg</TT> structure</A>
+<LI> <A NAME="tex2html385" HREF="node32.html#SECTION00742230000000000000">Kernel <TT>msqid_ds</TT> structure</A>
+<LI> <A NAME="tex2html386" HREF="node33.html#SECTION00742240000000000000">Kernel <TT>ipc_perm</TT> structure</A>
+</UL> 
+<LI> <A NAME="tex2html387" HREF="node34.html#SECTION00742300000000000000">SYSTEM CALL: msgget()</A>
+<LI> <A NAME="tex2html388" HREF="node35.html#SECTION00742400000000000000">SYSTEM CALL: msgsnd()</A>
+<LI> <A NAME="tex2html389" HREF="node36.html#SECTION00742500000000000000">SYSTEM CALL: msgctl()</A>
+<LI> <A NAME="tex2html390" HREF="node37.html#SECTION00742600000000000000">msgtool: An interactive message queue manipulator</A>
+<UL> 
+<LI> <A NAME="tex2html391" HREF="node38.html#SECTION00742610000000000000">Background</A>
+<LI> <A NAME="tex2html392" HREF="node39.html#SECTION00742620000000000000">Command Line Syntax</A>
+<LI> <A NAME="tex2html393" HREF="node44.html#SECTION00742630000000000000">Examples</A>
+<LI> <A NAME="tex2html394" HREF="node45.html#SECTION00742640000000000000">The Source</A>
+</UL> 
+</UL> 
+<LI> <A NAME="tex2html395" HREF="node46.html#SECTION00743000000000000000">6.4.3 Semaphores</A>
+<UL> 
+<LI> <A NAME="tex2html396" HREF="node47.html#SECTION00743100000000000000">Basic Concepts</A>
+<LI> <A NAME="tex2html397" HREF="node48.html#SECTION00743200000000000000">Internal Data Structures</A>
+<UL> 
+<LI> <A NAME="tex2html398" HREF="node49.html#SECTION00743210000000000000">Kernel <TT>semid_ds</TT> structure</A>
+<LI> <A NAME="tex2html399" HREF="node50.html#SECTION00743220000000000000">Kernel <TT>sem</TT> structure</A>
+</UL> 
+<LI> <A NAME="tex2html400" HREF="node51.html#SECTION00743300000000000000">SYSTEM CALL: semget()</A>
+<LI> <A NAME="tex2html401" HREF="node52.html#SECTION00743400000000000000">SYSTEM CALL: semop()</A>
+<LI> <A NAME="tex2html402" HREF="node53.html#SECTION00743500000000000000">SYSTEM CALL: semctl()</A>
+<LI> <A NAME="tex2html403" HREF="node54.html#SECTION00743600000000000000">semtool: An interactive semaphore manipulator</A>
+<UL> 
+<LI> <A NAME="tex2html404" HREF="node55.html#SECTION00743610000000000000">Background</A>
+<LI> <A NAME="tex2html405" HREF="node56.html#SECTION00743620000000000000">Command Line Syntax</A>
+<LI> <A NAME="tex2html406" HREF="node62.html#SECTION00743630000000000000">Examples</A>
+<LI> <A NAME="tex2html407" HREF="node63.html#SECTION00743640000000000000">The Source</A>
+</UL> 
+<LI> <A NAME="tex2html408" HREF="node64.html#SECTION00743700000000000000">semstat: A semtool companion program</A>
+</UL> 
+<LI> <A NAME="tex2html409" HREF="node65.html#SECTION00744000000000000000">6.4.4 Shared Memory</A>
+<UL> 
+<LI> <A NAME="tex2html410" HREF="node66.html#SECTION00744100000000000000">Basic Concepts</A>
+<LI> <A NAME="tex2html411" HREF="node67.html#SECTION00744200000000000000">Internal and User Data Structures</A>
+<UL> 
+<LI> <A NAME="tex2html412" HREF="node68.html#SECTION00744210000000000000">Kernel <TT>shmid_ds</TT> structure</A>
+</UL> 
+<LI> <A NAME="tex2html413" HREF="node69.html#SECTION00744300000000000000">SYSTEM CALL: shmget()</A>
+<LI> <A NAME="tex2html414" HREF="node70.html#SECTION00744400000000000000">SYSTEM CALL: shmat()</A>
+<LI> <A NAME="tex2html415" HREF="node71.html#SECTION00744500000000000000">SYSTEM CALL: shmctl()</A>
+<LI> <A NAME="tex2html416" HREF="node72.html#SECTION00744600000000000000">SYSTEM CALL: shmdt()</A>
+<LI> <A NAME="tex2html417" HREF="node73.html#SECTION00744700000000000000">shmtool: An interactive shared memory manipulator</A>
+<UL> 
+<LI> <A NAME="tex2html418" HREF="node74.html#SECTION00744710000000000000">Background</A>
+<LI> <A NAME="tex2html419" HREF="node75.html#SECTION00744720000000000000">Command Line Syntax</A>
+<LI> <A NAME="tex2html420" HREF="node80.html#SECTION00744730000000000000">Examples</A>
+<LI> <A NAME="tex2html421" HREF="node81.html#SECTION00744740000000000000">The Source</A>
+</UL>
+</UL>
+</UL>
+</UL>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.11 Video Attributes and Color</TITLE>
+<META NAME="description" CONTENT="8.11 Video Attributes and Color">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1797" HREF="node116.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1795" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1789" HREF="node114.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1799" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1798" HREF="node116.html">8.12 Cursor and Window </A>
+<B>Up:</B> <A NAME="tex2html1796" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1790" HREF="node114.html">8.10 Updating the Terminal</A>
+<BR> <P>
+<H1><A NAME="SECTION009110000000000000000">8.11 Video Attributes and Color</A></H1>
+<P>
+Attributes are special terminal capabilities used when printing characters
+to the screen.  Characters can be printed bold, underlined, blinking, etc.
+In ncurses you have the ability to turn attributes on or off to get
+better looking output. Possible attributes are listed in the following table.
+<P>
+<P><A NAME="49679">&#160;</A><A NAME="tab_attr">&#160;</A><BR>
+<STRONG>Table 8.4:</STRONG> Ncurses - attributes<BR>
+<P>
+<P>
+Ncurses defines eight colors you can use on a terminal with color support.
+First, initialize the color data structures with <B>start_color()</B>, then
+check the terminal capabilities with <B>has_colors()</B>.
+<B>start_color()</B> will initialize <I>COLORS</I>, the maximum colors
+the terminal supports, and <I>COLOR_PAIR</I>, the maximum number of color
+pairs you can define.
+<P>
+<P><A NAME="49695">&#160;</A><A NAME="tab_color">&#160;</A><BR>
+<STRONG>Table 8.5:</STRONG> Ncurses - colors<BR>
+<P>
+<P>
+The attributes can be combined with the OR operator
+'<A NAME="fun_init_pair">&#160;</A><A NAME="fun_start_color">&#160;</A><A NAME="fun_can_change_color">&#160;</A><A NAME="fun_has_colors">&#160;</A><A NAME="fun_getattrs">&#160;</A><A NAME="fun_wstandend">&#160;</A><A NAME="fun_wstandout">&#160;</A><A NAME="fun_standend">&#160;</A><A NAME="fun_standout">&#160;</A><A NAME="fun_wattrset">&#160;</A><A NAME="fun_attrset">&#160;</A><A NAME="fun_wattron">&#160;</A><A NAME="fun_attron">&#160;</A><A NAME="fun_wattroff">&#160;</A><A NAME="fun_attroff">&#160;</A>COLORPAIRS-1<A NAME="fun_init_color">&#160;</A><A NAME="fun_pair_content">&#160;</A>COLORS-1.
+<P>
+  <TT>int color_content(color, r, g, b)</TT> <A NAME="fun_color_content">&#160;</A><BR> 
+        Get the color components <TT>r</TT>, <TT>g</TT> and <TT>b</TT> for
+        <TT>color</TT>.
+<P>
+And how to combine attributes and colors? Some terminals, as the console
+in Linux, have colors and some not (xterm, vs100 etc). The following
+code should solve the problem:
+<P>
+<P><P>
+<P>
+First, the function <I>CheckColor</I> initializes the colors with
+<B>start_color()</B>, then the function <B>has_colors()</B>
+will return TRUE if the current terminal has colors.
+We check this and call <B>init_pair(...)</B> to combine foreground and
+background colors and <B>wattrset(...)</B> to set these pairs for the
+specified window.  Alternatively, we can use <B>wattrset(...)</B>
+alone to set attributes if we have a black and white terminal.
+<P>
+To get colors in an xterm the best way I found out is to use the
+ansi_xterm with the patched terminfo entries from the Midnight Commander.
+Just get the sources of ansi_xterm and Midnight Commander (mc-x.x.tar.gz).
+Then compile the ansi_xterm and use tic with xterm.ti and vt100.ti from
+the mc-x.x.tar.gz archive. Execute ansi_xterm and test it out.
+<P>
+<HR><A NAME="tex2html1797" HREF="node116.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1795" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1789" HREF="node114.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1799" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1798" HREF="node116.html">8.12 Cursor and Window </A>
+<B>Up:</B> <A NAME="tex2html1796" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1790" HREF="node114.html">8.10 Updating the Terminal</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

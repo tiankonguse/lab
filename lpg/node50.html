@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>Kernel sem structure</TITLE>
+<META NAME="description" CONTENT="Kernel sem structure">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1002" HREF="node51.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1000" HREF="node48.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html996" HREF="node49.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1004" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1003" HREF="node51.html">SYSTEM CALL: semget()</A>
+<B>Up:</B> <A NAME="tex2html1001" HREF="node48.html">Internal Data Structures</A>
+<B> Previous:</B> <A NAME="tex2html997" HREF="node49.html">Kernel semid_ds structure</A>
+<BR> <P>
+<H4><A NAME="SECTION00743220000000000000">Kernel <TT>sem</TT> structure</A></H4>
+<P>
+In the <TT>semid_ds</TT> structure, there exists a pointer to the base of the semaphore array
+itself.  Each array member is of the <TT>sem</TT> structure type.  It is also defined in 
+<TT>linux/sem.h</TT>:
+<P>
+<P>
+<HR><PRE>        /* One semaphore structure for each semaphore in the system. */
+        struct sem {
+                short   sempid;         /* pid of last operation */
+                ushort  semval;         /* current value */
+                ushort  semncnt;        /* num procs awaiting increase in semval */
+                ushort  semzcnt;        /* num procs awaiting semval = 0 */
+        };</PRE> 
+<HR><DL ><DT><STRONG><TT>sem_pid</TT></STRONG>
+<DD> 
+<P>
+The PID (process ID) that performed the last operation
+<P>
+<DT><STRONG><TT>sem_semval</TT></STRONG>
+<DD> 
+<P>
+The current value of the semaphore
+<P>
+<DT><STRONG><TT>sem_semncnt</TT></STRONG>
+<DD> 
+<P>
+Number of processes waiting for resources to become available
+<P>
+<DT><STRONG><TT>sem_semzcnt</TT></STRONG>
+<DD> 
+<P>
+Number of processes waiting for 100% resource utilization
+<P>
+ </DL><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

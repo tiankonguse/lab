@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>Kernel semid_ds structure</TITLE>
+<META NAME="description" CONTENT="Kernel semid_ds structure">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html993" HREF="node50.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html991" HREF="node48.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html985" HREF="node48.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html995" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html994" HREF="node50.html">Kernel sem structure</A>
+<B>Up:</B> <A NAME="tex2html992" HREF="node48.html">Internal Data Structures</A>
+<B> Previous:</B> <A NAME="tex2html986" HREF="node48.html">Internal Data Structures</A>
+<BR> <P>
+<H4><A NAME="SECTION00743210000000000000">Kernel <TT>semid_ds</TT> structure</A></H4>
+<P>
+As with message queues, the kernel maintains a special internal data structure for each semaphore
+set which exists within its addressing space.  This structure is of type <TT>semid_ds</TT>, and
+is defined in <TT>linux/sem.h</TT> as follows:
+<P>
+<P>
+<HR><PRE>        /* One semid data structure for each set of semaphores in the system. */
+        struct semid_ds {
+                struct ipc_perm sem_perm;       /* permissions .. see ipc.h */
+                time_t          sem_otime;      /* last semop time */
+                time_t          sem_ctime;      /* last change time */
+                struct sem      *sem_base;      /* ptr to first semaphore in array */
+                struct wait_queue *eventn;
+                struct wait_queue *eventz;
+                struct sem_undo  *undo;         /* undo requests on this array */
+                ushort          sem_nsems;      /* no. of semaphores in array */
+        };</PRE> 
+<HR>As with message queues, operations on this structure are performed by a special system call, and
+should not be tinkered with directly.  Here are descriptions of the more pertinent fields:
+<P>
+<DL ><DT><STRONG><TT>sem_perm</TT></STRONG>
+<DD> 
+<P>
+This is an instance of the <TT>ipc_perm</TT> structure, which is defined
+for us in <TT>linux/ipc.h</TT>.  This holds the permission information for
+the semaphore set, including the access permissions, and information
+about the creator of the set (uid, etc).
+<P>
+<DT><STRONG><TT>sem_otime</TT></STRONG>
+<DD> 
+<P>
+Time of the last <TT>semop()</TT> operation (more on this in a moment)
+<P>
+<DT><STRONG><TT>sem_ctime</TT></STRONG>
+<DD> 
+<P>
+Time of the last change to this structure (mode change, etc)
+<P>
+<DT><STRONG><TT>sem_base</TT></STRONG>
+<DD> 
+<P>
+Pointer to the first semaphore in the array (see next structure)
+<P>
+<DT><STRONG><TT>sem_undo</TT></STRONG>
+<DD> 
+<P>
+Number of <EM>undo</EM> requests in this array (more on this in a moment)
+<P>
+<DT><STRONG><TT>sem_nsems</TT></STRONG>
+<DD> 
+<P>
+Number of semaphores in the semaphore set (the array)
+<P>
+ </DL><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

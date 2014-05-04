@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>10.2.4 Signals supported by Linux</TITLE>
+<META NAME="description" CONTENT="10.2.4 Signals supported by Linux">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2110" HREF="node143.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2108" HREF="node138.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2104" HREF="node141.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2112" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html2111" HREF="node143.html">10.3 Terminal I/O</A>
+<B>Up:</B> <A NAME="tex2html2109" HREF="node138.html">10.2 Signal handling</A>
+<B> Previous:</B> <A NAME="tex2html2105" HREF="node141.html">10.2.3 signal under Linux</A>
+<BR> <P>
+<H2><A NAME="SECTION001124000000000000000">10.2.4 Signals supported by Linux</A></H2>
+<P>
+Linux supports nearly every signal provided by SVR4, BSD, and POSIX, 
+with few exceptions:
+<UL><LI> <TT>SIGEMT</TT> is not supported; it corresponds to a hardware fault
+under SVR4 and BSD.<LI> <TT>SIGINFO</TT> is not supported; it is used for keyboard information
+requests under SVR4.<LI> <TT>SIGSYS</TT> is not supported; it refers to an invalid system call
+in SVR4 and BSD. If you link with <TT>libbsd</TT>, this signal is redefined
+to <TT>SIGUNUSED</TT>.<LI> <TT>SIGABRT</TT> and <TT>SIGIOT</TT> are identical.<LI> <TT>SIGIO</TT>, <TT>SIGPOLL</TT>, and <TT>SIGURG</TT> are identical.<LI> <TT>SIGBUS</TT> is defined as <TT>SIGUNUSED</TT>. Technically there is
+no ``bus error'' in the Linux environment. 
+</UL><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

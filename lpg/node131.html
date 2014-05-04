@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>9 Programming I/O ports</TITLE>
+<META NAME="description" CONTENT="9 Programming I/O ports">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1972" HREF="node132.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1970" HREF="lpg.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1964" HREF="node130.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1974" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1973" HREF="node132.html">9.1 Mouse Programming</A>
+<B>Up:</B> <A NAME="tex2html1971" HREF="lpg.html">e</A>
+<B> Previous:</B> <A NAME="tex2html1965" HREF="node130.html">8.23 [N]Curses Function Overview</A>
+<BR> <P>
+<H1><A NAME="SECTION001000000000000000000">9 Programming I/O ports</A></H1>
+<P>
+Usually a PC at least has 2 serial and 1 parallel interfaces.
+These interfaces are special devices and are mapped as follows:
+<UL><LI> <BR> 
+these are the RS232 serial devices 0-<B>n</B> where <B>n</B> depends on your hardware.<LI> <BR> 
+these are the RS232 serial devices 0-<B>n</B> where <B>n</B> depends on your hardware.<LI> <BR> 
+these are the parallel devices 0-<B>n</B> where <B>n</B> depends on your hardware.<LI> <BR> 
+these are the joystick devices 0-<B>n</B> where .
+</UL>
+<P>
+The difference between the /<I>dev</I>/<I>ttyS</I>* and /<I>dev</I>/<I>cua</I>* devices is how
+a call to open() is handled. The /<I>dev</I>/<I>cua</I>* devices are supposed to be used
+as callout devices and thus get other default settings by a call to open()
+than the /<I>dev</I>/<I>ttyS</I>* devices which will be initalized for incoming and
+outgoing calls. By default the devices are controlling devices for the
+process that opened them.
+Normally ioctl() requests should handle all these special devices, but
+POSIX preferred to define new functions to handle asynchronous
+terminals heavily depending on the struct termios. Both methods require
+including &lt;<I>termios</I>.<I>h</I>&gt;.<BR> 
+<OL><LI> method ioctl:<BR> 
+TCSBRK, TCSBRKP, TCGETA (get attributes), TCSETA (set attributes)<BR> 
+Terminal I/O control (TIOC) requests:<BR> 
+TIOCGSOFTCAR (set soft carrier), TIOCSSOFTCAR (get soft carrier), 
+TIOCSCTTY (set controlling tty), 
+TIOCMGET (get modemlines), TIOCMSET (set modemlines), 
+TIOCGSERIAL, TIOCSSERIAL, TIOCSERCONFIG, TIOCSERGWILD, TIOCSERSWILD, 
+TIOCSERGSTRUCT, TIOCMBIS, TIOCMBIC, ...<BR><LI> method POSIX:<BR> 
+tcgetattr(), tcsetattr(), tcsendbreak(), tcdrain(), tcflush(), tcflow(), 
+tcgetpgrp(), tcsetpgrp()<BR> 
+cfsetispeed(), cfgetispeed(), cfsetospeed(), cfgetospeed()<BR><LI> other methods:<BR> 
+outb,inb for hardware near programming like using the printer
+port not for a printer.<BR> 
+</OL>
+<P>
+<BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html1975" HREF="node132.html#SECTION001010000000000000000">9.1 Mouse Programming</A>
+<LI> <A NAME="tex2html1976" HREF="node133.html#SECTION001020000000000000000">9.2 Modem Programming</A>
+<LI> <A NAME="tex2html1977" HREF="node134.html#SECTION001030000000000000000">9.3 Printer Programming</A>
+<LI> <A NAME="tex2html1978" HREF="node135.html#SECTION001040000000000000000">9.4 Joystick Programming</A>
+</UL>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

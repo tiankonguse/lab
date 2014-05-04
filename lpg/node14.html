@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6.2.5 Notes on half-duplex pipes:</TITLE>
+<META NAME="description" CONTENT="6.2.5 Notes on half-duplex pipes:">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html499" HREF="node15.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html497" HREF="node9.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html493" HREF="node13.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html501" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html500" HREF="node15.html">6.3 Named Pipes (FIFOs </A>
+<B>Up:</B> <A NAME="tex2html498" HREF="node9.html">6.2 Half-duplex UNIX Pipes</A>
+<B> Previous:</B> <A NAME="tex2html494" HREF="node13.html">6.2.4 Atomic Operations with </A>
+<BR> <P>
+<H2><A NAME="SECTION00725000000000000000">6.2.5 Notes on half-duplex pipes:</A></H2>
+<P>
+<UL><LI> Two way pipes can be created by opening up two pipes, and properly
+reassigning the file descriptors in the child process.<LI> The pipe() call must be made BEFORE a call to fork(), or the descriptors 
+will not be inherited by the child!  (same for popen()).<LI> With half-duplex pipes, any connected processes must share a related
+ancestry.  Since the pipe resides within the confines of the kernel, any
+process that is not in the ancestry for the creator of the pipe has no
+way of addressing it.  This is not the case with named pipes (FIFOS).
+</UL><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

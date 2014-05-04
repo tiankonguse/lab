@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>SYSTEM CALL: shmget()</TITLE>
+<META NAME="description" CONTENT="SYSTEM CALL: shmget()">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1232" HREF="node70.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1230" HREF="node65.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1224" HREF="node68.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1234" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1233" HREF="node70.html">SYSTEM CALL: shmat()</A>
+<B>Up:</B> <A NAME="tex2html1231" HREF="node65.html">6.4.4 Shared Memory</A>
+<B> Previous:</B> <A NAME="tex2html1225" HREF="node68.html">Kernel shmid_ds structure</A>
+<BR> <P>
+<H3><A NAME="SECTION00744300000000000000">SYSTEM CALL: shmget()</A></H3>
+<P>
+In order to create a new message queue, or access an existing queue, the
+<TT>shmget()</TT> system call is used.
+<P>
+<P>
+<HR><PRE>  SYSTEM CALL: shmget();                                                          
+
+  PROTOTYPE: int shmget ( key_t key, int size, int shmflg );                                             
+    RETURNS: shared memory segment identifier on success                                                       
+             -1 on error: errno = EINVAL (Invalid segment size specified)
+                                  EEXIST (Segment exists, cannot create)
+                                  EIDRM (Segment is marked for deletion, or was removed)
+                                  ENOENT (Segment does not exist)
+                                  EACCES (Permission denied)
+                                  ENOMEM (Not enough memory to create segment)
+  NOTES:</PRE> 
+<HR>This particular call should almost seem like old news at this point.  It is strikingly similar to
+the corresponding <TT>get</TT> calls for message queues and semaphore sets.
+<P>
+The first argument to <TT>shmget()</TT> is the key value (in our case returned
+by a call to <TT>ftok()</TT>).  This key value is then compared to existing key
+values that exist within the kernel for other shared memory segments.  At that point,  
+the open or access operation is dependent upon the contents of the <TT>shmflg</TT>
+argument.
+<P>
+<DL ><DT><STRONG>IPC_CREAT</STRONG>
+<DD> 
+<P>
+Create the segment if it doesn't already exist in the kernel.
+<P>
+<DT><STRONG>IPC_EXCL</STRONG>
+<DD> 
+<P>
+When used with IPC_CREAT, fail if segment already exists.
+<P>
+ </DL>
+<P>
+If <TT>IPC_CREAT</TT> is used alone, <TT>shmget()</TT> either returns the segment
+identifier for a newly created segment, or returns the identifier for a segment
+which exists with the same key value.  If <TT>IPC_EXCL</TT> is used along with <TT>IPC_CREAT</TT>,
+then either a new segment is created, or if the segment exists, the call fails with -1.
+<TT>IPC_EXCL</TT> is useless by itself, but when combined with <TT>IPC_CREAT</TT>, it can
+be used as a facility to guarantee that no existing segment is opened for access.
+<P>
+Once again, an optional octal mode may be OR'd into the mask.
+<P>
+Let's create a wrapper function for locating or creating a shared memory segment :
+<P>
+<P>
+<HR><PRE>int open_segment( key_t keyval, int segsize )
+{
+        int     shmid;
+        
+        if((shmid = shmget( keyval, segsize, IPC_CREAT | 0660 )) == -1)
+        {
+                return(-1);
+        }
+        
+        return(shmid);
+}</PRE> 
+<HR>Note the use of the explicit permissions of <TT>0660</TT>.  This small function either returns
+a shared memory segment identifier (<TT>int</TT>), or -1 on error.  The key value and requested
+segment size (in bytes) are passed as arguments.
+<P>
+Once a process has a valid IPC identifier for a given segment, the next step is for the process to
+<TT>attach</TT> or map the segment into its own addressing space.
+<P>
+<HR><A NAME="tex2html1232" HREF="node70.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1230" HREF="node65.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1224" HREF="node68.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1234" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1233" HREF="node70.html">SYSTEM CALL: shmat()</A>
+<B>Up:</B> <A NAME="tex2html1231" HREF="node65.html">6.4.4 Shared Memory</A>
+<B> Previous:</B> <A NAME="tex2html1225" HREF="node68.html">Kernel shmid_ds structure</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

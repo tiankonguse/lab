@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>SYSTEM CALL: shmat()</TITLE>
+<META NAME="description" CONTENT="SYSTEM CALL: shmat()">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1243" HREF="node71.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1241" HREF="node65.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1235" HREF="node69.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1245" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1244" HREF="node71.html">SYSTEM CALL: shmctl()</A>
+<B>Up:</B> <A NAME="tex2html1242" HREF="node65.html">6.4.4 Shared Memory</A>
+<B> Previous:</B> <A NAME="tex2html1236" HREF="node69.html">SYSTEM CALL: shmget()</A>
+<BR> <P>
+<H3><A NAME="SECTION00744400000000000000">SYSTEM CALL: shmat()</A></H3>
+<P>
+<P>
+<HR><PRE>  SYSTEM CALL: shmat();                                                          
+
+  PROTOTYPE: int shmat ( int shmid, char *shmaddr, int shmflg);
+    RETURNS: address at which segment was attached to the process, or
+             -1 on error: errno = EINVAL (Invalid IPC ID value or attach address passed)
+                                  ENOMEM (Not enough memory to attach segment)
+                                  EACCES (Permission denied)
+  NOTES:</PRE> 
+<HR>If the addr argument is zero (0), the kernel tries to find an unmapped region.  This is the recommended
+method.  An address can be specified, but is typically only used to facilitate proprietary hardware or
+to resolve conflicts with other apps.  The SHM_RND flag can be OR'd into the flag argument to force
+a passed address to be page aligned (rounds down to the nearest page size).
+<P>
+In addition, if the SHM_RDONLY flag is OR'd in with the flag argument, then the shared memory segment
+will be mapped in, but marked as readonly.
+<P>
+This call is perhaps the simplest to use.  Consider this wrapper function, which is passed a valid
+IPC identifier for a segment, and returns the address that the segment was attached to:
+<P>
+<P>
+<HR><PRE>char *attach_segment( int shmid )
+{
+        return(shmat(shmid, 0, 0));
+}</PRE> 
+<HR>Once a segment has been properly attached, and a process has a pointer to the start of that
+segment, reading and writing to the segment become as easy as simply referencing or dereferencing
+the pointer!  Be careful not to lose the value of the original pointer!  If this happens, you will
+have no way of accessing the base (start) of the segment.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

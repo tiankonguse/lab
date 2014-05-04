@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6.3.3 FIFO Operations</TITLE>
+<META NAME="description" CONTENT="6.3.3 FIFO Operations">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html548" HREF="node19.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html546" HREF="node15.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html540" HREF="node17.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html550" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html549" HREF="node19.html">6.3.4 Blocking Actions on </A>
+<B>Up:</B> <A NAME="tex2html547" HREF="node15.html">6.3 Named Pipes (FIFOs </A>
+<B> Previous:</B> <A NAME="tex2html541" HREF="node17.html">6.3.2 Creating a FIFO</A>
+<BR> <P>
+<H2><A NAME="SECTION00733000000000000000">6.3.3 FIFO Operations</A></H2>
+<P>
+I/O operations on a FIFO are essentially the same as for normal pipes, with
+once major exception.  An ``open'' system call or library function should be 
+used to physically open up a channel to the pipe.  With half-duplex pipes,
+this is unnecessary, since the pipe resides in the kernel and not on a physical
+filesystem.  In our examples, we will treat the pipe as a stream, opening it
+up with fopen(), and closing it with fclose().
+<P>
+Consider a simple server process:
+<P>
+<PRE>/*****************************************************************************
+ Excerpt from &quot;Linux Programmer's Guide - Chapter 6&quot;
+ (C)opyright 1994-1995, Scott Burkett
+ ***************************************************************************** 
+ MODULE: fifoserver.c
+ *****************************************************************************/
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;unistd.h&gt;
+
+#include &lt;linux/stat.h&gt;
+
+#define FIFO_FILE       &quot;MYFIFO&quot;
+
+int main(void)
+{
+        FILE *fp;
+        char readbuf[80];
+
+        /* Create the FIFO if it does not exist */
+        umask(0);
+        mknod(FIFO_FILE, S_IFIFO|0666, 0);
+
+        while(1)
+        {
+                fp = fopen(FIFO_FILE, &quot;r&quot;);
+                fgets(readbuf, 80, fp);
+                printf(&quot;Received string: %s\n&quot;, readbuf);
+                fclose(fp);
+        }
+
+        return(0);
+}</PRE>
+<P>
+Since a FIFO blocks by default, run the server in the background after you
+compile it:
+<P>
+<PRE>        $ fifoserver&amp;</PRE>
+<P>
+We will discuss a FIFO's blocking action in a moment.  First, consider the
+following simple client frontend to our server:
+<P>
+<PRE>/*****************************************************************************
+ Excerpt from &quot;Linux Programmer's Guide - Chapter 6&quot;
+ (C)opyright 1994-1995, Scott Burkett
+ ***************************************************************************** 
+ MODULE: fifoclient.c
+ *****************************************************************************/
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+#define FIFO_FILE       &quot;MYFIFO&quot;
+
+int main(int argc, char *argv[])
+{
+        FILE *fp;
+
+        if ( argc != 2 ) {
+                printf(&quot;USAGE: fifoclient [string]\n&quot;);
+                exit(1);
+        }
+
+        if((fp = fopen(FIFO_FILE, &quot;w&quot;)) == NULL) {
+                perror(&quot;fopen&quot;);
+                exit(1);
+        }
+
+        fputs(argv[1], fp);
+
+        fclose(fp);
+        return(0);
+}</PRE>
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

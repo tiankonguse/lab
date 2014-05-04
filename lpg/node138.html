@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>10.2 Signal handling</TITLE>
+<META NAME="description" CONTENT="10.2 Signal handling">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2064" HREF="node139.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2062" HREF="node136.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2056" HREF="node137.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2066" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html2065" HREF="node139.html">10.2.1 Signals under SVR4</A>
+<B>Up:</B> <A NAME="tex2html2063" HREF="node136.html">10 Porting Applications to </A>
+<B> Previous:</B> <A NAME="tex2html2057" HREF="node137.html">10.1 Introduction</A>
+<BR> <P>
+<H1><A NAME="SECTION001120000000000000000">10.2 Signal handling</A></H1>
+<P>
+Over the years, the definition and semantics of signals have been 
+modified in various ways by different implementations of UNIX.
+Today, there are two major classes of symbols: <EM>unreliable</EM>
+and <EM>reliable</EM>. Unreliable signals are those for which the
+signal handler does not remain installed once called. These ``one-shot''
+signals must re-install the signal handler within the signal handler
+itself, if the program wishes the signal to remain installed. Because
+of this, there is a race condition in which the signal can arrive 
+again before the handler is re-installed, which can cause the signal
+to either be lost or for the original behavior of the signal to be
+triggered (such as killing the process). Therefore, these signals
+are ``unreliable'' because the signal catching and handler re-installation
+operations are nonatomic.
+<P>
+Under unreliable signal semantics, system calls are not restarted
+automatically when interrupted by a signal. Therefore, in order for
+a program to account for all cases, the program would need to check
+the value of <EM>errno</EM> after every system call, and reissue the
+system call if its value is <EM>EINTR</EM>.
+<P>
+Along similar lines, unreliable signal semantics don't provide
+an easy way to get an atomic pause operation (put the process to
+sleep until a signal arrives). Because of the unreliable nature of
+reinstalling signal handlers, there are cases in which a signal can
+arrive without the program realizing this.
+<P>
+Under reliable signal semantics, on the other hand, the signal
+handler remains installed when called, and the race condition for
+reinstallation is avoided. Also, certain system calls can be
+restarted, and an atomic pause operation is available via the
+POSIX <EM>sigsuspend</EM> function.
+<P>
+<BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html2067" HREF="node139.html#SECTION001121000000000000000">10.2.1 Signals under SVR4, BSD, and POSIX.1</A>
+<LI> <A NAME="tex2html2068" HREF="node140.html#SECTION001122000000000000000">10.2.2 Linux signal options</A>
+<LI> <A NAME="tex2html2069" HREF="node141.html#SECTION001123000000000000000">10.2.3 <EM>signal</EM> under Linux</A>
+<LI> <A NAME="tex2html2070" HREF="node142.html#SECTION001124000000000000000">10.2.4 Signals supported by Linux</A>
+</UL>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

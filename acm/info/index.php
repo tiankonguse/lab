@@ -40,6 +40,7 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
 										算法</a></li>
 								<li>A* 算法</li>
 								<li>SPFA 算法</li>
+								<li><a href="<?php echo MAIN_DOMAIN; ?>acm/info/tarjan.php">tarjan算法</a></li>
 								<li><a
 									href="<?php echo MAIN_DOMAIN; ?>acm/info/Bellman-Ford.php">Bellman-Ford
 										算法</a></li>
@@ -109,7 +110,6 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
 
 					</ol>
 				</li>
-
 			</ul>
 
 		</div>

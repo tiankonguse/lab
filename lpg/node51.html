@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>SYSTEM CALL: semget()</TITLE>
+<META NAME="description" CONTENT="SYSTEM CALL: semget()">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1013" HREF="node52.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1011" HREF="node46.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1005" HREF="node50.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1015" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1014" HREF="node52.html">SYSTEM CALL: semop()</A>
+<B>Up:</B> <A NAME="tex2html1012" HREF="node46.html">6.4.3 Semaphores</A>
+<B> Previous:</B> <A NAME="tex2html1006" HREF="node50.html">Kernel sem structure</A>
+<BR> <P>
+<H3><A NAME="SECTION00743300000000000000">SYSTEM CALL: semget()</A></H3>
+<P>
+In order to create a new semaphore set, or access an existing set, the
+<TT>semget()</TT> system call is used.
+<P>
+<P>
+<HR><PRE>  SYSTEM CALL: semget();                                                          
+
+  PROTOTYPE: int semget ( key_t key, int nsems, int semflg );                                             
+    RETURNS: semaphore set IPC identifier on success
+             -1 on error: errno = EACCESS (permission denied)
+                                  EEXIST (set exists, cannot create (IPC_EXCL))
+                                  EIDRM (set is marked for deletion)
+                                  ENOENT (set does not exist, no IPC_CREAT was used)
+                                  ENOMEM (Not enough memory to create new set)
+                                  ENOSPC (Maximum set limit exceeded)
+  NOTES:</PRE> 
+<HR>The first argument to <TT>semget()</TT> is the key value (in our case returned
+by a call to <TT>ftok()</TT>).  This key value is then compared to existing key
+values that exist within the kernel for other semaphore sets.  At that point,  
+the open or access operation is dependent upon the contents of the <TT>semflg</TT>
+argument.
+<P>
+<DL ><DT><STRONG>IPC_CREAT</STRONG>
+<DD> 
+<P>
+Create the semaphore set if it doesn't already exist in the kernel.
+<P>
+<DT><STRONG>IPC_EXCL</STRONG>
+<DD> 
+<P>
+When used with IPC_CREAT, fail if semaphore set already exists.
+<P>
+ </DL>
+<P>
+If <TT>IPC_CREAT</TT> is used alone, <TT>semget()</TT> either returns the semaphore set
+identifier for a newly created set, or returns the identifier for a set
+which exists with the same key value.  If <TT>IPC_EXCL</TT> is used along with <TT>IPC_CREAT</TT>,
+then either a new set is created, or if the set exists, the call fails with -1.
+<TT>IPC_EXCL</TT> is useless by itself, but when combined with <TT>IPC_CREAT</TT>, it can
+be used as a facility to guarantee that no existing semaphore set is opened for access.
+<P>
+As with the other forms of System V IPC, an optional octal mode may be OR'd
+into the mask to form the permissions on the semaphore set.
+<P>
+The <TT>nsems</TT> argument specifies the number of semaphores that should be created in
+a new set.  This represents the number of printers in our fictional print room described
+earlier.  The maximum number of semaphores in a set is defined in ``linux/sem.h'' as:
+<P>
+<PRE>        #define SEMMSL  32      /* &lt;=512 max num of semaphores per id */</PRE>
+<P>
+Note that the <TT>nsems</TT> argument is ignored if you are explicitly opening an
+existing set.
+<P>
+Let's create a wrapper function for opening or creating semaphore sets:
+<P>
+<P>
+<HR><PRE>int open_semaphore_set( key_t keyval, int numsems )
+{
+        int     sid;
+
+        if ( ! numsems )
+                return(-1);
+        
+        if((sid = semget( mykey, numsems, IPC_CREAT | 0660 )) == -1)
+        {
+                return(-1);
+        }
+        
+        return(sid);
+}</PRE> 
+<HR>Note the use of the explicit permissions of <TT>0660</TT>.  This small function either returns
+a semaphore set identifier (<TT>int</TT>), or -1 on error.  The key value must be passed to
+it, as well as the number of semaphores to allocate space for if creating a new set.  In the example
+presented at the end of this section, notice the use of the IPC_EXCL flag to determine whether or
+not the semaphore set exists or not.
+<P>
+<HR><A NAME="tex2html1013" HREF="node52.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1011" HREF="node46.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1005" HREF="node50.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1015" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1014" HREF="node52.html">SYSTEM CALL: semop()</A>
+<B>Up:</B> <A NAME="tex2html1012" HREF="node46.html">6.4.3 Semaphores</A>
+<B> Previous:</B> <A NAME="tex2html1006" HREF="node50.html">Kernel sem structure</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

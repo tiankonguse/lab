@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>10.2.3 signal under Linux</TITLE>
+<META NAME="description" CONTENT="10.2.3 signal under Linux">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2101" HREF="node142.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2099" HREF="node138.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2093" HREF="node140.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2103" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html2102" HREF="node142.html">10.2.4 Signals supported by </A>
+<B>Up:</B> <A NAME="tex2html2100" HREF="node138.html">10.2 Signal handling</A>
+<B> Previous:</B> <A NAME="tex2html2094" HREF="node140.html">10.2.2 Linux signal options</A>
+<BR> <P>
+<H2><A NAME="SECTION001123000000000000000">10.2.3 <EM>signal</EM> under Linux</A></H2>
+<P>
+Under Linux, the <EM>signal</EM> function is equivalent to using
+<EM>sigaction</EM> with the <TT>SA_ONESHOT</TT> and <TT>SA_NOMASK</TT>
+options; that is, it corresponds to the classic, unreliable
+signal semantics as used under SVR4.
+<P>
+If you wish <EM>signal</EM> to use BSD semantics, most Linux systems
+provide a BSD compatibility library which can be linked with. To use
+this library, you could add the options
+<PRE>  -I/usr/include/bsd -lbsd</PRE>
+to the compilation command line. When porting applications using
+<EM>signal</EM>, pay close attention to what assumptions the program makes
+about use of signal handlers, and modify the code (or compile with the
+appropriate definitions) to get the right behavior.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

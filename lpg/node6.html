@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>5 The ``swiss army knife'' ioctl</TITLE>
+<META NAME="description" CONTENT="5 The ``swiss army knife'' ioctl">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html347" HREF="node7.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html345" HREF="lpg.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html339" HREF="node5.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html349" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html348" HREF="node7.html">6 Linux Interprocess Communications</A>
+<B>Up:</B> <A NAME="tex2html346" HREF="lpg.html">e</A>
+<B> Previous:</B> <A NAME="tex2html340" HREF="node5.html">4 System calls</A>
+<BR> <P>
+<H1><A NAME="SECTION00600000000000000000">5 The ``swiss army knife'' ioctl</A></H1>
+<P>
+ioctl stands for input/output control and is used to manipulate a
+character device via a filedescriptor. The format of ioctl is<BR> 
+<I>ioctl(unsigned int fd, unsigned int request, unsigned long argument)</I>.<BR> 
+The return value is -1 if an error occured and a value greater or
+equal than 0 if the request succeeded just like other system calls.
+The kernel distinguishes special and regular files.
+Special files are mainly found in /dev and /proc. They differ from
+regular files in that way that they hide an interface to a driver
+and not to a real (regular) file that contains text or binary data.
+This is the UNIX philosophy and allows to use normal read/write
+operations on every file. But if you need to do more with a special
+file or a regular file you can do it with ... yes, ioctl. You more
+often need ioctl for special files than for regular files, but it's
+possible to use ioctl on regular files as well.
+<P>
+%<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8 Character Cell Graphics</TITLE>
+<META NAME="description" CONTENT="8 Character Cell Graphics">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1414" HREF="node86.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1412" HREF="lpg.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1406" HREF="node84.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1416" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1415" HREF="node86.html">8.1 I/O Function in </A>
+<B>Up:</B> <A NAME="tex2html1413" HREF="lpg.html">e</A>
+<B> Previous:</B> <A NAME="tex2html1407" HREF="node84.html">7.2 Programming a sound </A>
+<BR> <P>
+<A NAME="vdm">&#160;</A><H1><A NAME="SECTION00900000000000000000">8 Character Cell Graphics</A></H1>
+<P>
+This chapter deals with screen input and output that is not
+pixel based, but character based. When we say character, we mean
+a composition of pixels that can be changed depending on a charset.
+Your graphic card already offers one or more charsets and operates
+by default in text (charset) mode because text can be processed
+much faster than pixel graphic.  There is more to do with terminals
+than to use them as simple (dumb) and boring text displays. I will
+describe how to use the special features that your linux terminal,
+especially the linux console, offers.
+<P>
+<UL><LI> <B>printf, sprintf, fprintf, scanf, sscanf, fscanf</B> <BR> 
+        With these functions from  you can output formatted 
+        strings to  (standard output), 
+        (standard error) or other streams defined as <TT>FILE *stream</TT> (files,
+        for example). <B>Scanf(...)</B> provides a similar way to read
+        formatted input from .<LI> <B>termcap</B> <BR> 
+	The TERMinal CAPabilitie database is a set of terminal
+	description entries in the ASCII file /etc/termcap.  Here you
+	can find information about how to display special characters,
+	how to perform operations (delete, insert characters or lines
+	etc) and how to initialize a terminal. The database is used,
+	for example, by the editor vi. There are view library functions
+	to read and use the terminal capabilities (termcap(3x)).
+	With this database, programs can work with a variety of
+	terminals with the same code. Using the termcap database and
+	library functions provides only low level access to the
+	terminal. Changing attributes or colors, parameterized output
+	and optimization must be done by the programmer himself.<LI>  <B>terminfo database</B> <BR> 
+	The TERMinal INFOrmation database is based on the termcap
+	database and also describes terminal capabilities, but on a
+	higher level than termcap.  Using terminfo, the program can
+	easily change screen attributes, use special keys such as
+	function keys and more. The database can be found in 
+	<I>/usr/lib/terminfo/[A-z,0-9]*</I>. Every file describes one
+	terminal.<LI> <B>curses</B> <BR> 
+	Terminfo is a good base to use for terminal handling in a
+	program. The (BSD-)CURSES library gives you
+	high level access to the terminal and is based on the terminfo
+	database. Curses allows you to open and manipulate windows on
+	the screen, provides a complete set of input and output
+	functions, and can alter video attributes in a terminal
+	independent manner on more than 150 terminals. The curses
+	library can be found in <I>/usr/lib/libcurses.a</I>.
+	This is the BSD version of curses.<LI> <B>ncurses</B> <BR> 
+        Ncurses is the next improvement. In version 1.8.6 it should be
+        compatible with AT&amp;T curses as defined in SYSVR4 and has some
+        extensions such as color manipulation, special optimization for
+        output, terminal specific optimizations,  and more. It has been
+        tested on a lot of systems such as Sun-OS, HP and Linux.
+        I recommend using ncurses instead of the others. On SYSV Unix
+        systems (such as Sun's Solaris) there should exist a curses
+        library with
+        the same functionality as ncurses (actually the solaris curses
+        has some more functions and mouse support).
+</UL>
+<P>
+	In the following sections I will describe how to use the
+	different packages to access a terminal. With Linux we have the
+	GNU-version of termcap and we can use ncurses instead of
+	curses.
+<P>
+<BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html1417" HREF="node86.html#SECTION00910000000000000000">8.1 I/O Function in libc</A>
+<UL> 
+<LI> <A NAME="tex2html1418" HREF="node87.html#SECTION00911000000000000000">8.1.1 Formatted Output</A>
+<LI> <A NAME="tex2html1419" HREF="node88.html#SECTION00912000000000000000">8.1.2 Formatted Input</A>
+</UL> 
+<LI> <A NAME="tex2html1420" HREF="node89.html#SECTION00920000000000000000">8.2 The Termcap Library</A>
+<UL> 
+<LI> <A NAME="tex2html1421" HREF="node90.html#SECTION00921000000000000000">8.2.1 Introduction</A>
+<LI> <A NAME="tex2html1422" HREF="node91.html#SECTION00922000000000000000">8.2.2 Find a Terminal Description</A>
+<LI> <A NAME="tex2html1423" HREF="node92.html#SECTION00923000000000000000">8.2.3 Look at a Terminal Description</A>
+<LI> <A NAME="tex2html1424" HREF="node93.html#SECTION00924000000000000000">8.2.4 Termcap Capabilities</A>
+<UL> 
+<LI> <A NAME="tex2html1425" HREF="node94.html#SECTION00924100000000000000">Boolean Capabilities</A>
+<LI> <A NAME="tex2html1426" HREF="node95.html#SECTION00924200000000000000">Numeric Capabilities</A>
+<LI> <A NAME="tex2html1427" HREF="node96.html#SECTION00924300000000000000">String Capabilities</A>
+</UL> 
+</UL> 
+<LI> <A NAME="tex2html1428" HREF="node97.html#SECTION00930000000000000000">8.3 Ncurses - Introduction</A>
+<LI> <A NAME="tex2html1429" HREF="node98.html#SECTION00940000000000000000">8.4 Initializing</A>
+<LI> <A NAME="tex2html1430" HREF="node99.html#SECTION00950000000000000000">8.5 Windows</A>
+<LI> <A NAME="tex2html1431" HREF="node100.html#SECTION00960000000000000000">8.6 Output</A>
+<UL> 
+<LI> <A NAME="tex2html1432" HREF="node101.html#SECTION00961000000000000000">8.6.1 Formatted Output</A>
+<LI> <A NAME="tex2html1433" HREF="node102.html#SECTION00962000000000000000">8.6.2 Insert Characters/Lines</A>
+<LI> <A NAME="tex2html1434" HREF="node103.html#SECTION00963000000000000000">8.6.3 Delete Characters/Lines</A>
+<LI> <A NAME="tex2html1435" HREF="node104.html#SECTION00964000000000000000">8.6.4 Boxes and Lines</A>
+<LI> <A NAME="tex2html1436" HREF="node105.html#SECTION00965000000000000000">8.6.5 Background Character</A>
+</UL> 
+<LI> <A NAME="tex2html1437" HREF="node106.html#SECTION00970000000000000000">8.7 Input</A>
+<UL> 
+<LI> <A NAME="tex2html1438" HREF="node107.html#SECTION00971000000000000000">8.7.1 Formated Input</A>
+</UL> 
+<LI> <A NAME="tex2html1439" HREF="node108.html#SECTION00980000000000000000">8.8 Options</A>
+<UL> 
+<LI> <A NAME="tex2html1440" HREF="node109.html#SECTION00980100000000000000">Output Options</A>
+<LI> <A NAME="tex2html1441" HREF="node110.html#SECTION00981000000000000000">8.8.1 Input Options</A>
+<LI> <A NAME="tex2html1442" HREF="node111.html#SECTION00982000000000000000">8.8.2 Terminal Attributes</A>
+<LI> <A NAME="tex2html1443" HREF="node112.html#SECTION00983000000000000000">8.8.3 Use Options</A>
+</UL> 
+<LI> <A NAME="tex2html1444" HREF="node113.html#SECTION00990000000000000000">8.9 Clear Window and Lines</A>
+<LI> <A NAME="tex2html1445" HREF="node114.html#SECTION009100000000000000000">8.10 Updating the Terminal</A>
+<LI> <A NAME="tex2html1446" HREF="node115.html#SECTION009110000000000000000">8.11 Video Attributes and Color</A>
+<LI> <A NAME="tex2html1447" HREF="node116.html#SECTION009120000000000000000">8.12 Cursor and Window Coordinates</A>
+<LI> <A NAME="tex2html1448" HREF="node117.html#SECTION009130000000000000000">8.13 Scrolling</A>
+<LI> <A NAME="tex2html1449" HREF="node118.html#SECTION009140000000000000000">8.14 Pads</A>
+<LI> <A NAME="tex2html1450" HREF="node119.html#SECTION009150000000000000000">8.15 Soft-labels</A>
+<LI> <A NAME="tex2html1451" HREF="node120.html#SECTION009160000000000000000">8.16 Miscellaneous</A>
+<LI> <A NAME="tex2html1452" HREF="node121.html#SECTION009170000000000000000">8.17 Low-level Access</A>
+<LI> <A NAME="tex2html1453" HREF="node122.html#SECTION009180000000000000000">8.18 Screen Dump</A>
+<LI> <A NAME="tex2html1454" HREF="node123.html#SECTION009190000000000000000">8.19 Termcap Emulation</A>
+<LI> <A NAME="tex2html1455" HREF="node124.html#SECTION009200000000000000000">8.20 Terminfo Functions</A>
+<LI> <A NAME="tex2html1456" HREF="node125.html#SECTION009210000000000000000">8.21 Debug Function</A>
+<LI> <A NAME="tex2html1457" HREF="node126.html#SECTION009220000000000000000">8.22 Terminfo Capabilities</A>
+<UL> 
+<LI> <A NAME="tex2html1458" HREF="node127.html#SECTION009221000000000000000">8.22.1 Boolean Capabilities</A>
+<LI> <A NAME="tex2html1459" HREF="node128.html#SECTION009222000000000000000">8.22.2 Numbers</A>
+<LI> <A NAME="tex2html1460" HREF="node129.html#SECTION009223000000000000000">8.22.3 Strings</A>
+</UL> 
+<LI> <A NAME="tex2html1461" HREF="node130.html#SECTION009230000000000000000">8.23 [N]Curses Function Overview</A>
+</UL>
+<HR><A NAME="tex2html1414" HREF="node86.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1412" HREF="lpg.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1406" HREF="node84.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1416" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1415" HREF="node86.html">8.1 I/O Function in </A>
+<B>Up:</B> <A NAME="tex2html1413" HREF="lpg.html">e</A>
+<B> Previous:</B> <A NAME="tex2html1407" HREF="node84.html">7.2 Programming a sound </A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

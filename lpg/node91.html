@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.2.2 Find a Terminal Description</TITLE>
+<META NAME="description" CONTENT="8.2.2 Find a Terminal Description">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1532" HREF="node92.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1530" HREF="node89.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1524" HREF="node90.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1534" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1533" HREF="node92.html">8.2.3 Look at a </A>
+<B>Up:</B> <A NAME="tex2html1531" HREF="node89.html">8.2 The Termcap Library</A>
+<B> Previous:</B> <A NAME="tex2html1525" HREF="node90.html">8.2.1 Introduction</A>
+<BR> <P>
+<H2><A NAME="SECTION00922000000000000000">8.2.2 Find a Terminal Description</A></H2>
+<P>
+<UL><LI> <TT>int tgetent(void *buffer, const char *termtype)</TT> <A NAME="fun_tgetent">&#160;</A><BR> 
+      On the Linux operating system the current terminal name is
+      contained in the environment variable . So,
+      <TT>termtype</TT> is the result of a call to (3).
+<P>
+      For <TT>buffer</TT>, no memory has to be allocated when using the GNU
+      version of termcap.  This is what we can assume under Linux!
+      Otherwise, you'll have to allocate 2048 Bytes.
+      (Formerly, <TT>buffer</TT> only needed to be 1024 Bytes, but
+      the size has doubled).
+<P>
+     <B>tgetent(...)</B> returns 1 on success and 0 when the
+     database is found but has no entry for TERM. Other errors will
+     return different values.
+<P>
+     The following example should explain how to use <B>tgetent(...)</B>:
+<P>
+<P><B><PRE>
+#define buffer 0
+char *termtype=getenv("TERM");
+int ok;
+
+ok=tgetent(buffer,termtype);
+if(ok==1)
+  /* all right, we have the entry */
+else if(ok==0)
+ /* uups, something wrong with TERM
+  * check termtype first, then termcap database
+  */
+else
+ /* huuu, fatal error */
+</PRE></B>
+<P>
+	By, default termcap uses <I>/etc/termcap/</I> as the database.
+	If the environment variable TERMCAP is set, with
+	<I>$HOME/mytermcap</I>
+	for instance, all functions will use 
+	instead of <I>/etc/termcap</I>.  With no leading
+	slash in TERMCAP, the defined value is used as a name for a
+	terminal.  </UL><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

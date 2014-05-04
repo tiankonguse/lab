@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.22.2 Numbers</TITLE>
+<META NAME="description" CONTENT="8.22.2 Numbers">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1943" HREF="node129.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1941" HREF="node126.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1935" HREF="node127.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1945" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1944" HREF="node129.html">8.22.3 Strings</A>
+<B>Up:</B> <A NAME="tex2html1942" HREF="node126.html">8.22 Terminfo Capabilities</A>
+<B> Previous:</B> <A NAME="tex2html1936" HREF="node127.html">8.22.1 Boolean Capabilities</A>
+<BR> <P>
+<H2><A NAME="SECTION009222000000000000000">8.22.2 Numbers</A></H2>
+<P>
+<PRE><TT> 
+<B>Variable</B> 		 <B>Cap.</B> 		 <B>Int.</B>  		 <B>Description</B>
+<P>
+               		 <B>Name</B> 		 <B>Code</B>
+<P>
+bit_image_entwining      		 <TT>bitwin</TT>  		 <TT>Yo</TT> 		    Undocumented in SYSV
+<P>
+buffer_capacity           		 <TT>bufsz</TT>   		 <TT>Ya</TT> 		    numbers of bytes buffered before printing
+<P>
+columns                    		 <TT>cols</TT>    		 <TT>co</TT> 		    Number of columns in a line
+<P>
+dot_vert_spacing         		 <TT>spinv</TT>   		 <TT>Yb</TT> 		    spacing of dots horizontally in dots per inch
+<P>
+dot_horz_spacing         		 <TT>spinh</TT>   		 <TT>Yc</TT> 		    spacing of pins vertically in pins per inch
+<P>
+init_tabs                 		 <TT>it</TT>      		 <TT>it</TT> 		    Tabs initially every # spaces
+<P>
+label_height              		 <TT>lh</TT>      		 <TT>lh</TT> 		    rows in each label
+<P>
+label_width               		 <TT>lw</TT>      		 <TT>lw</TT> 		    columns in each label
+<P>
+lines                      		 <TT>lines</TT>   		 <TT>li</TT> 		    Number of lines on screen or page
+<P>
+lines_of_memory          		 <TT>lm</TT>      		 <TT>lm</TT> 		    Lines of memory if &gt; lines.  0 means varies
+<P>
+magic_cookie_glitch      		 <TT>xmc</TT>     		 <TT>sg</TT> 		    Number of blank chars left by smso or rmso
+<P>
+max_colors                		 <TT>colors</TT>  		 <TT>Co</TT> 		    maximum numbers of colors on screen
+<P>
+max_micro_address        		 <TT>maddr</TT>   		 <TT>Yd</TT> 		    maximum value in micro_..._address
+<P>
+max_micro_jump           		 <TT>mjump</TT>   		 <TT>Ye</TT> 		    maximum value in parm_..._micro
+<P>
+max_pairs                 		 <TT>pairs</TT>   		 <TT>pa</TT> 		    maximum number of color-pairs on the screen
+<P>
+micro_col_size           		 <TT>mcs</TT>     		 <TT>Yf</TT> 		    Character step size when in micro mode
+<P>
+micro_line_size          		 <TT>mls</TT>     		 <TT>Yg</TT> 		    Line step size when in micro mode
+<P>
+no_color_video           		 <TT>ncv</TT>     		 <TT>NC</TT> 		    video attributes that can't be used with colors
+<P>
+number_of_pins           		 <TT>npins</TT>   		 <TT>Yh</TT> 		    numbers of pins in print-head
+<P>
+num_labels                		 <TT>nlab</TT>    		 <TT>Nl</TT> 		    number of labels on screen
+<P>
+output_res_char          		 <TT>orc</TT>     		 <TT>Yi</TT> 		    horizontal resolution in units per line
+<P>
+output_res_line          		 <TT>orl</TT>     		 <TT>Yj</TT> 		    vertical resolution in units per line
+<P>
+output_res_horz_inch    		 <TT>orhi</TT>    		 <TT>Yk</TT> 		    horizontal resolution in units per inch
+<P>
+output_res_vert_inch    		 <TT>orvi</TT>    		 <TT>Yl</TT> 		    vertical resolution in units per inch
+<P>
+padding_baud_rate        		 <TT>pb</TT>      		 <TT>pb</TT> 		    Lowest baud where cr/nl padding is needed
+<P>
+virtual_terminal          		 <TT>vt</TT>      		 <TT>vt</TT> 		    Virtual terminal number (UNIX system)
+<P>
+width_status_line        		 <TT>wsl</TT>     		 <TT>ws</TT> 		    No. columns in status line
+<P>
+</TT></PRE>
+(The following numeric capabilities are present in the SYSV term structure,
+but are not yet documented in the man page. Comments are from the term
+structure header.)
+<PRE><TT> 
+bit_image_type           		 <TT>bitype</TT>  		 <TT>Yp</TT> 		  Type of bit-image device
+<P>
+buttons                    		 <TT>btns</TT>    		 <TT>BT</TT> 		  Number of mouse buttons
+<P>
+max_attributes            		 <TT>ma</TT>      		 <TT>ma</TT> 		  Max combined attributes terminal can handle
+<P>
+maximum_windows           		 <TT>wnum</TT>    		 <TT>MW</TT> 		  Max number of definable windows
+<P>
+print_rate                		 <TT>cps</TT>     		 <TT>Ym</TT> 		  Print rate in chars per second
+<P>
+wide_char_size           		 <TT>widcs</TT>   		 <TT>Yn</TT> 		  Char step size in double wide mode
+<P>
+</TT></PRE><HR><A NAME="tex2html1943" HREF="node129.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1941" HREF="node126.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1935" HREF="node127.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1945" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1944" HREF="node129.html">8.22.3 Strings</A>
+<B>Up:</B> <A NAME="tex2html1942" HREF="node126.html">8.22 Terminfo Capabilities</A>
+<B> Previous:</B> <A NAME="tex2html1936" HREF="node127.html">8.22.1 Boolean Capabilities</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

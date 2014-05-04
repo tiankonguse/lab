@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6.3.2 Creating a FIFO</TITLE>
+<META NAME="description" CONTENT="6.3.2 Creating a FIFO">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html537" HREF="node18.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html535" HREF="node15.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html529" HREF="node16.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html539" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html538" HREF="node18.html">6.3.3 FIFO Operations</A>
+<B>Up:</B> <A NAME="tex2html536" HREF="node15.html">6.3 Named Pipes (FIFOs </A>
+<B> Previous:</B> <A NAME="tex2html530" HREF="node16.html">6.3.1 Basic Concepts</A>
+<BR> <P>
+<H2><A NAME="SECTION00732000000000000000">6.3.2 Creating a FIFO</A></H2>
+<P>
+There are several ways of creating a named pipe.  The first two can be done
+directly from the shell.
+<P>
+<PRE>        mknod MYFIFO p
+        mkfifo a=rw MYFIFO</PRE>
+<P>
+The above two commands perform identical operations, with one exception.  The
+mkfifo command provides a hook for altering the permissions on the FIFO file
+directly after creation.  With mknod, a quick call to the chmod command will
+be necessary.
+<P>
+FIFO files can be quickly identified in a physical file system by the ``p''
+indicator seen here in a long directory listing:
+<P>
+<PRE>        $ ls -l MYFIFO
+        prw-r--r--   1 root     root            0 Dec 14 22:15 MYFIFO|</PRE>
+<P>
+Also notice the vertical bar (``pipe sign'') located directly after the file
+name.  Another great reason to run Linux, eh?
+<P>
+To create a FIFO in C, we can make use of the mknod() system call:
+<P>
+<P>
+<HR><PRE>  LIBRARY FUNCTION: mknod();                                                    
+
+  PROTOTYPE: int mknod( char *pathname, mode_t mode, dev_t dev);                
+    RETURNS: 0 on success,                                                      
+             -1 on error: errno = EFAULT (pathname invalid)                     
+                                  EACCES (permission denied)                    
+                                  ENAMETOOLONG (pathname too long)              
+                                  ENOENT (invalid pathname)                     
+                                  ENOTDIR (invalid pathname)                    
+                                  (see man page for mknod for others)           
+
+  NOTES: Creates a filesystem node (file, device file, or FIFO)</PRE> 
+<HR>I will leave a more detailed discussion of mknod() to the man page, but let's
+consider a simple example of FIFO creation from C:
+<P>
+<PRE>                mknod(&quot;/tmp/MYFIFO&quot;, S_IFIFO|0666, 0);</PRE>
+<P>
+In this case, the file ``/tmp/MYFIFO'' is created as a FIFO file.  The requested
+permissions are ``0666'', although they are affected by the umask setting as  
+follows:
+<P>
+<PRE>                final_umask = requested_permissions &amp; ~original_umask</PRE>
+<P>
+A common trick is to use the umask() system call to temporarily zap the 
+umask value:
+<P>
+<PRE>                umask(0);
+                mknod(&quot;/tmp/MYFIFO&quot;, S_IFIFO|0666, 0);</PRE>
+<P>
+In addition, the third argument to mknod() is ignored unless we are creating
+a device file.  In that instance, it should specify the major and minor
+numbers of the device file.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

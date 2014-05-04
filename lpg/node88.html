@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.1.2 Formatted Input</TITLE>
+<META NAME="description" CONTENT="8.1.2 Formatted Input">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1492" HREF="node89.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1490" HREF="node86.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1486" HREF="node87.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1494" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1493" HREF="node89.html">8.2 The Termcap Library</A>
+<B>Up:</B> <A NAME="tex2html1491" HREF="node86.html">8.1 I/O Function in </A>
+<B> Previous:</B> <A NAME="tex2html1487" HREF="node87.html">8.1.1 Formatted Output</A>
+<BR> <P>
+<H2><A NAME="SECTION00912000000000000000">8.1.2 Formatted Input</A></H2>
+<A NAME="sec_formin">&#160;</A>
+<P>
+Just as <B>printf(...)</B> is used for formatted output you can use 
+<B>scanf(...)</B> for formatted input.
+<P>
+<UL><LI> <TT>int fscanf(FILE *stream, const char *format, ...)</TT> <A NAME="fun_fscanf">&#160;</A><BR> 
+        <B>fscanf(...)</B> reads from <TT>stream</TT> and will transform the
+        input with the rules defined in <TT>format</TT>. The results will be
+        placed in the arguments given by <TT>...</TT>(<B>Note:</B> the arguments
+        <B>must</B> be pointer.). The read ends, when no more transformation
+        rules are in <TT>format</TT>. <B>fscanf(...)</B> will return EOF
+        when the first transformation reached the file end or some error
+        occured. Otherwise it will return the number of transformed arguments.
+<P>
+        <TT>format</TT> can include rules on how to format the input arguments
+        (see table <A HREF="node88.html#tab_scanf">8.2</A> on page <A HREF="node88.html#tab_scanf"><IMG  ALIGN=BOTTOM ALT="gif" SRC="cross_ref_motif.gif"></A>). It can also include:
+        <UL><LI> Spaces or tabs, which are ignored.<LI> any normal character (except %). The characters must be in the
+                input on the corresponding position.<LI> transformation rules, which assembled with a <I>%</I>, the
+                optional character <I>*</I> (this will permit <B>fscanf(...)</B>
+                to assign
+                to an argument), an optional number, an optional character
+                <I>h, l or L</I> (this is for the length of the target) and the
+                transformation character.
+  </UL><LI> <TT>int scanf(const char *format, ...)</TT> <A NAME="fun_scanf">&#160;</A><BR> 
+        The same as <B>fscanf(stdin,...)</B>.<LI> <TT>int sscanf(char *str, const char *format, ...)</TT> <A NAME="fun_sscanf">&#160;</A><BR> 
+        As <B>scanf(...)</B>, but the input comes from <TT>str</TT>.
+</UL>
+<P>
+<P><A NAME="47836">&#160;</A><A NAME="tab_scanf">&#160;</A> <IMG WIDTH=429 HEIGHT=356 ALIGN=BOTTOM ALT="table47835" SRC="img8_2.gif"  > <BR>
+<STRONG>Table 8.2:</STRONG> Libc - scanf transformations<BR>
+<P><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

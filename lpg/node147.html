@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>10.4.3 Process control under Linux</TITLE>
+<META NAME="description" CONTENT="10.4.3 Process control under Linux">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2166" HREF="node148.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2164" HREF="node144.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2160" HREF="node146.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2168" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html2167" HREF="node148.html">10.5 Portable conditional compilation</A>
+<B>Up:</B> <A NAME="tex2html2165" HREF="node144.html">10.4 Process information and </A>
+<B> Previous:</B> <A NAME="tex2html2161" HREF="node146.html">10.4.2 ptrace and the </A>
+<BR> <P>
+<H2><A NAME="SECTION001143000000000000000">10.4.3 Process control under Linux</A></H2>
+<P>
+Under Linux, the <EM>ptrace</EM> system call is supported for process
+control, and it works as in 4.3BSD. To obtain process and system
+information, Linux also provides a <EM>/proc</EM> filesystem, but with
+very different semantics. Under Linux, <EM>/proc</EM> consists of a 
+number of files providing general system information, such as
+memory usage, load average, loaded module statistics, and network
+statistics. These files are generally accessed using <EM>read</EM>
+and <EM>write</EM> and their contents can be parsed using <EM>scanf</EM>.
+The <EM>/proc</EM> filesystem under Linux also provides a directory 
+entry for each running process, named by process ID, which
+contains file entries for information such as the command line, links
+to the current working directory and executable file, open file
+descriptors, and so forth. The kernel provides all of this information
+on the fly in response to <EM>read</EM> requests. This implementation
+is not unlike the <EM>/proc</EM> filesystem found in Plan 9, but it
+does have its drawbacks--for example, for a tool such as <EM>ps</EM>
+to list a table of information on all running processes, many
+directories must be traversed and many files opened and read. 
+By comparison, the <EM>kvm</EM> routines used on other UNIX systems
+read kernel data structures directly with only a few system calls.
+<P>
+Obviously, each implementation is so vastly different that porting
+applications which use them can prove to be a real task. It should
+be pointed out that the SVR4 <EM>/proc</EM> filesystem is a very
+different beast than that found in Linux, and they may not be used
+in the same context. Arguably, any program which uses the <EM>kvm</EM>
+routines or SVR4 <EM>/proc</EM> filesystem is not really portable, and
+those sections of code should be rewritten for each operating system.
+<P>
+The Linux <EM>ptrace</EM> call is nearly identical to that found in BSD,
+but there are a few differences:
+<UL><LI> The requests <TT>PTRACE_PEEKUSER</TT> and <TT>PTRACE_POKEUSER</TT> under
+BSD are named <TT>PTRACE_PEEKUSR</TT> and <TT>PTRACE_POKEUSR</TT>, respectively,
+under Linux.<LI> Process registers can be set using the <TT>PTRACE_POKEUSR</TT> request
+with offsets found in <TT>/usr/include/linux/ptrace.h</TT>.<LI> The SunOS requests <TT>PTRACE_{READ,WRITE}{TEXT,DATA}</TT> are
+not supported, nor are <TT>PTRACE_SETACBKPT</TT>, <TT>PTRACE_SETWRBKPT</TT>,
+<TT>PTRACE_CLRBKPT</TT>, or <TT>PTRACE_DUMPCORE</TT>.
+These missing requests should only affect a small number of existing
+programs.
+</UL>
+<P>
+Linux does <EM>not</EM> provide the <EM>kvm</EM> routines for reading the
+kernel address space from a user program, but some programs (most
+notably <EM>kmem_ps</EM>) implement their own versions of these routines.
+In general, these are not portable, and any code which uses the 
+<EM>kvm</EM> routines is probably depending upon the availability of
+certain symbols or data structures in the kernel--not a safe assumption
+to make. Use of <EM>kvm</EM> routines should be considered architecture-specific.
+<P>
+<HR><A NAME="tex2html2166" HREF="node148.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2164" HREF="node144.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2160" HREF="node146.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2168" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html2167" HREF="node148.html">10.5 Portable conditional compilation</A>
+<B>Up:</B> <A NAME="tex2html2165" HREF="node144.html">10.4 Process information and </A>
+<B> Previous:</B> <A NAME="tex2html2161" HREF="node146.html">10.4.2 ptrace and the </A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

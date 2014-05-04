@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>9.1 Mouse Programming</TITLE>
+<META NAME="description" CONTENT="9.1 Mouse Programming">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1987" HREF="node133.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1985" HREF="node131.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1979" HREF="node131.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1989" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1988" HREF="node133.html">9.2 Modem Programming</A>
+<B>Up:</B> <A NAME="tex2html1986" HREF="node131.html">9 Programming I/O ports</A>
+<B> Previous:</B> <A NAME="tex2html1980" HREF="node131.html">9 Programming I/O ports</A>
+<BR> <P>
+<H1><A NAME="SECTION001010000000000000000">9.1 Mouse Programming</A></H1>
+<P>
+A mouse is either connected to a serial port or directly to the
+AT bus and different types of mouse send distinct kinds of data, which makes
+mouse programming a bit harder.
+But, Andrew Haylett was so kind as to put a generous copyright on his
+selection program which means you can use his mouse routines for
+your own programs. Included in this guide you can find the pre-release
+of selection-1.8 with the COPYRIGHT notice.
+X11 already offers a comfortable mouse API, so Andrew's routines should
+be used for non-X11 applications only.<BR> 
+You only need the modules mouse.c and mouse.h from the selection package.
+To get mouse events you basically have to call ms_init() and get_ms_event().
+ms_init needs the following 10 arguments:<BR> 
+<OL><LI> <I>int acceleration</I><BR> 
+is the acceleration factor. If you move the mouse more than
+<I>delta</I> pixels, motion becomes faster depending on this value.<LI> <I>int baud</I> <BR> 
+is the bps rate your mouse uses (normally 1200).<LI> <I>int delta</I><BR> 
+this is the number of pixels that you have to move the mouse before
+the acceleration starts.<LI> <I>char *device</I><BR> 
+is the name of your mouse device (e.g. /dev/mouse).<LI> <I>int toggle</I><BR> 
+toggle the DTR, RTS or both DTR and RTS mouse modem lines on 
+initialization (normally 0).<LI> <I>int sample</I><BR> 
+the resolution (dpi) of your mouse (normally 100).<LI> <I>mouse_type mouse</I><BR> 
+the identifier of the connected mouse like P_MSC (Mouse Systems Corp.)
+for my mouse ;).<LI> <I>int slack</I><BR> 
+amount of slack for wraparound which means if slack is -1 a try to move the
+mouse over the screen border will leave the mouse at the border.
+Values &gt;= 0 mean that the mouse cursor will wrap to the other end after
+moving the mouse <I>slack</I> pixels against the border.<LI> <I>int maxx</I><BR> 
+the resolution of your current terminal in x direction. With the 
+default font, a char is 10 pixels wide, and therefore the overall
+x screen resolution is 10*80-1.<LI> <I>int maxy</I><BR> 
+the resolution of your current terminal in y direction. With the 
+default font, a char is 12 pixels high and therefore the overall
+y screen resolution is 12*25-1.
+</OL>
+get_ms_event() just needs a pointer to a struct ms_event.
+If get_ms_event() returns -1, an error occured. On success, it
+returns 0, and the struct ms_event will contain the actual mouse state.
+<P>
+<HR><A NAME="tex2html1987" HREF="node133.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1985" HREF="node131.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1979" HREF="node131.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1989" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1988" HREF="node133.html">9.2 Modem Programming</A>
+<B>Up:</B> <A NAME="tex2html1986" HREF="node131.html">9 Programming I/O ports</A>
+<B> Previous:</B> <A NAME="tex2html1980" HREF="node131.html">9 Programming I/O ports</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

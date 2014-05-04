@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>The Source</TITLE>
+<META NAME="description" CONTENT="The Source">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1155" HREF="node64.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1153" HREF="node54.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1149" HREF="node62.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1157" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1156" HREF="node64.html">semstat: A semtool companion </A>
+<B>Up:</B> <A NAME="tex2html1154" HREF="node54.html">semtool: An interactive semaphore </A>
+<B> Previous:</B> <A NAME="tex2html1150" HREF="node62.html">Examples</A>
+<BR> <P>
+<H4><A NAME="SECTION00743640000000000000">The Source</A></H4>
+<P>
+<P>
+<HR><PRE>/*****************************************************************************
+ Excerpt from &quot;Linux Programmer's Guide - Chapter 6&quot;
+ (C)opyright 1994-1995, Scott Burkett
+ ***************************************************************************** 
+ MODULE: semtool.c
+ *****************************************************************************
+ A command line tool for tinkering with SysV style Semaphore Sets
+
+ *****************************************************************************/
+
+#include &lt;stdio.h&gt;
+#include &lt;ctype.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/ipc.h&gt;
+#include &lt;sys/sem.h&gt;
+
+#define SEM_RESOURCE_MAX        1       /* Initial value of all semaphores */
+
+void opensem(int *sid, key_t key);
+void createsem(int *sid, key_t key, int members);
+void locksem(int sid, int member);
+void unlocksem(int sid, int member);
+void removesem(int sid);
+unsigned short get_member_count(int sid);
+int getval(int sid, int member);
+void dispval(int sid, int member);
+void changemode(int sid, char *mode);
+void usage(void);
+
+int main(int argc, char *argv[])
+{
+        key_t key;
+        int   semset_id;
+
+        if(argc == 1)
+                usage();
+
+        /* Create unique key via call to ftok() */
+        key = ftok(&quot;.&quot;, 's');
+
+        switch(tolower(argv[1][0]))
+        {
+                case 'c': if(argc != 3)
+                                usage();
+                          createsem(&amp;semset_id, key,  atoi(argv[2]));
+                          break;
+                case 'l': if(argc != 3)
+                                usage();
+                          opensem(&amp;semset_id, key);
+                          locksem(semset_id, atoi(argv[2]));
+                          break;
+                case 'u': if(argc != 3)
+                                usage();
+                          opensem(&amp;semset_id, key);
+                          unlocksem(semset_id, atoi(argv[2]));
+                          break;
+                case 'd': opensem(&amp;semset_id, key);
+                          removesem(semset_id);
+                          break;        
+                case 'm': opensem(&amp;semset_id, key);
+                          changemode(semset_id, argv[2]);
+                          break;        
+                 default: usage();
+
+        }
+        
+        return(0);
+}
+
+void opensem(int *sid, key_t key)
+{
+        /* Open the semaphore set - do not create! */
+
+        if((*sid = semget(key, 0, 0666)) == -1) 
+        {
+                printf(&quot;Semaphore set does not exist!\n&quot;);
+                exit(1);
+        }
+
+}
+
+void createsem(int *sid, key_t key, int members)
+{
+        int cntr;
+        union semun semopts;
+
+        if(members &gt; SEMMSL) {
+                printf(&quot;Sorry, max number of semaphores in a set is %d\n&quot;,
+                        SEMMSL);
+                exit(1);
+        }
+
+        printf(&quot;Attempting to create new semaphore set with %d members\n&quot;,
+                                members);
+
+        if((*sid = semget(key, members, IPC_CREAT|IPC_EXCL|0666))
+                        == -1) 
+        {
+                fprintf(stderr, &quot;Semaphore set already exists!\n&quot;);
+                exit(1);
+        }
+
+        semopts.val = SEM_RESOURCE_MAX;
+        
+        /* Initialize all members (could be done with SETALL) */        
+        for(cntr=0; cntr&lt;members; cntr++)
+                semctl(*sid, cntr, SETVAL, semopts);
+}
+
+void locksem(int sid, int member)
+{
+        struct sembuf sem_lock={ 0, -1, IPC_NOWAIT};
+
+        if( member&lt;0 || member&gt;(get_member_count(sid)-1))
+        {
+                fprintf(stderr, &quot;semaphore member %d out of range\n&quot;, member);
+                return;
+        }
+
+        /* Attempt to lock the semaphore set */
+        if(!getval(sid, member))
+        {
+                fprintf(stderr, &quot;Semaphore resources exhausted (no lock)!\n&quot;);
+                exit(1);
+        }
+        
+        sem_lock.sem_num = member;
+        
+        if((semop(sid, &amp;sem_lock, 1)) == -1)
+        {
+                fprintf(stderr, &quot;Lock failed\n&quot;);
+                exit(1);
+        }
+        else
+                printf(&quot;Semaphore resources decremented by one (locked)\n&quot;);
+
+        dispval(sid, member);
+}
+
+void unlocksem(int sid, int member)
+{
+        struct sembuf sem_unlock={ member, 1, IPC_NOWAIT};
+        int semval;
+
+        if( member&lt;0 || member&gt;(get_member_count(sid)-1))
+        {
+                fprintf(stderr, &quot;semaphore member %d out of range\n&quot;, member);
+                return;
+        }
+
+        /* Is the semaphore set locked? */
+        semval = getval(sid, member);
+        if(semval == SEM_RESOURCE_MAX) {
+                fprintf(stderr, &quot;Semaphore not locked!\n&quot;);
+                exit(1);
+        }
+
+        sem_unlock.sem_num = member;
+
+        /* Attempt to lock the semaphore set */
+        if((semop(sid, &amp;sem_unlock, 1)) == -1)
+        {
+                fprintf(stderr, &quot;Unlock failed\n&quot;);
+                exit(1);
+        }
+        else
+                printf(&quot;Semaphore resources incremented by one (unlocked)\n&quot;);
+
+        dispval(sid, member);
+}
+
+void removesem(int sid)
+{
+        semctl(sid, 0, IPC_RMID, 0);
+        printf(&quot;Semaphore removed\n&quot;);
+}
+
+unsigned short get_member_count(int sid)
+{
+        union semun semopts;
+        struct semid_ds mysemds;
+
+        semopts.buf = &amp;mysemds;
+
+        /* Return number of members in the semaphore set */
+        return(semopts.buf-&gt;sem_nsems);
+}
+
+int getval(int sid, int member)
+{
+        int semval;
+
+        semval = semctl(sid, member, GETVAL, 0);
+        return(semval);
+}
+
+void changemode(int sid, char *mode)
+{
+        int rc;
+        union semun semopts;
+        struct semid_ds mysemds;
+
+        /* Get current values for internal data structure */
+        semopts.buf = &amp;mysemds;
+
+        rc = semctl(sid, 0, IPC_STAT, semopts);
+
+        if (rc == -1) {
+                perror(&quot;semctl&quot;);
+                exit(1);
+        }
+                
+        printf(&quot;Old permissions were %o\n&quot;, semopts.buf-&gt;sem_perm.mode);
+                
+        /* Change the permissions on the semaphore */
+        sscanf(mode, &quot;%ho&quot;, &amp;semopts.buf-&gt;sem_perm.mode);
+
+        /* Update the internal data structure */
+        semctl(sid, 0, IPC_SET, semopts);
+
+        printf(&quot;Updated...\n&quot;);
+
+}
+
+void dispval(int sid, int member)
+{
+        int semval;
+
+        semval = semctl(sid, member, GETVAL, 0);
+        printf(&quot;semval for member %d is %d\n&quot;, member, semval);
+}
+
+void usage(void)
+{
+        fprintf(stderr, &quot;semtool - A utility for tinkering with semaphores\n&quot;);
+        fprintf(stderr, &quot;\nUSAGE:  semtool4 (c)reate &lt;semcount&gt;\n&quot;);
+        fprintf(stderr, &quot;                 (l)ock &lt;sem #&gt;\n&quot;);
+        fprintf(stderr, &quot;                 (u)nlock &lt;sem #&gt;\n&quot;);
+        fprintf(stderr, &quot;                 (d)elete\n&quot;);
+        fprintf(stderr, &quot;                 (m)ode &lt;mode&gt;\n&quot;);
+        exit(1);
+}</PRE> 
+<HR><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

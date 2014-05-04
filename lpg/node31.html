@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>Kernel msg structure</TITLE>
+<META NAME="description" CONTENT="Kernel msg structure">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html771" HREF="node32.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html769" HREF="node29.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html763" HREF="node30.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html773" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html772" HREF="node32.html">Kernel msqid_ds structure</A>
+<B>Up:</B> <A NAME="tex2html770" HREF="node29.html">Internal and User Data </A>
+<B> Previous:</B> <A NAME="tex2html764" HREF="node30.html">Message buffer</A>
+<BR> <P>
+<H4><A NAME="SECTION00742220000000000000">Kernel <TT>msg</TT> structure</A></H4>
+<P>
+The kernel stores each message in the queue within the framework of the <TT>msg</TT> structure.
+It is defined for us in <TT>linux/msg.h</TT> as follows:
+<P>
+<P>
+<HR><PRE>/* one msg structure for each message */
+struct msg {
+    struct msg *msg_next;   /* next message on queue */
+    long  msg_type;          
+    char *msg_spot;         /* message text address */
+    short msg_ts;           /* message text size */
+};</PRE> 
+<HR><DL ><DT><STRONG><TT>msg_next</TT></STRONG>
+<DD> 
+<P>
+This is a pointer to the next message in the queue.  They are stored as a
+singly linked list within kernel addressing space.
+<P>
+<DT><STRONG><TT>msg_type</TT></STRONG>
+<DD> 
+<P>
+This is the message type, as assigned in the user structure <TT>msgbuf</TT>.
+<P>
+<DT><STRONG><TT>msg_spot</TT></STRONG>
+<DD> 
+<P>
+A pointer to the beginning of the message body.
+<P>
+<DT><STRONG><TT>msg_ts</TT></STRONG>
+<DD> 
+<P>
+The length of the message text, or body.
+<P>
+ </DL><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

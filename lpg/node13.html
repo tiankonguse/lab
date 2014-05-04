@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6.2.4 Atomic Operations with Pipes</TITLE>
+<META NAME="description" CONTENT="6.2.4 Atomic Operations with Pipes">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html490" HREF="node14.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html488" HREF="node9.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html482" HREF="node12.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html492" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html491" HREF="node14.html">6.2.5 Notes on half-duplex </A>
+<B>Up:</B> <A NAME="tex2html489" HREF="node9.html">6.2 Half-duplex UNIX Pipes</A>
+<B> Previous:</B> <A NAME="tex2html483" HREF="node12.html">6.2.3 Pipes the Easy </A>
+<BR> <P>
+<H2><A NAME="SECTION00724000000000000000">6.2.4 Atomic Operations with Pipes</A></H2>
+<P>
+In order for an operation to be considered ``atomic'', it must not be interrupted
+for any reason at all.  The entire operation occurs at once.  The POSIX 
+standard dictates in /usr/include/posix1_lim.h that the maximum buffer size
+for an atomic operation on a pipe is:
+<P>
+<PRE>        #define _POSIX_PIPE_BUF         512</PRE>
+<P>
+Up to 512 bytes can be written or retrieved from a pipe atomically.  Anything
+that crosses this threshold will be split, and not atomic.  Under Linux,  
+however, the atomic operational limit is defined in ``linux/limits.h'' as:
+<P>
+<PRE>        #define PIPE_BUF        4096</PRE>
+<P>
+As you can see, Linux accommodates the minimum number of bytes required by
+POSIX, quite considerably I might add.  The atomicity of a pipe operation
+becomes important when more than one process is involved (FIFOS).  For
+example, if the number of bytes written to a pipe exceeds the atomic limit
+for a single operation, and multiple processes are writing to the pipe,
+the data will be ``interleaved'' or ``chunked''.  In other words, one process
+may insert data into the pipeline between the writes of another.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

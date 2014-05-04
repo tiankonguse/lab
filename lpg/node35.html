@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>SYSTEM CALL: msgsnd()</TITLE>
+<META NAME="description" CONTENT="SYSTEM CALL: msgsnd()">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html813" HREF="node36.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html811" HREF="node27.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html805" HREF="node34.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html815" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html814" HREF="node36.html">SYSTEM CALL: msgctl()</A>
+<B>Up:</B> <A NAME="tex2html812" HREF="node27.html">6.4.2 Message Queues</A>
+<B> Previous:</B> <A NAME="tex2html806" HREF="node34.html">SYSTEM CALL: msgget()</A>
+<BR> <P>
+<H3><A NAME="SECTION00742400000000000000">SYSTEM CALL: msgsnd()</A></H3>
+<P>
+Once we have the queue identifier, we can begin performing operations on it.  To deliver a message
+to a queue, you use the <TT>msgsnd</TT> system call:
+<P>
+<P>
+<HR><PRE>  SYSTEM CALL: msgsnd();                                                          
+
+  PROTOTYPE: int msgsnd ( int msqid, struct msgbuf *msgp, int msgsz, int msgflg );
+    RETURNS: 0 on success
+             -1 on error: errno = EAGAIN (queue is full, and IPC_NOWAIT was asserted)
+                                  EACCES (permission denied, no write permission)
+                                  EFAULT (msgp address isn't accessable - invalid)
+                                  EIDRM  (The message queue has been removed)
+                                  EINTR  (Received a signal while waiting to write)
+                                  EINVAL (Invalid message queue identifier, nonpositive
+                                          message type, or invalid message size) 
+                                  ENOMEM (Not enough memory to copy message buffer)
+  NOTES:</PRE> 
+<HR>The first argument to <TT>msgsnd</TT> is our queue identifier, returned by a previous
+call to <TT>msgget</TT>.  The second argument, <TT>msgp</TT>, is a pointer to our
+redeclared and loaded message buffer.  The <TT>msgsz</TT> argument contains the size
+of the message in bytes, excluding the length of the message type (4 byte long).
+<P>
+The <TT>msgflg</TT> argument can be set to 0 (ignored), or:
+<P>
+<DL ><DT><STRONG>IPC_NOWAIT</STRONG>
+<DD> 
+<P>
+If the message queue is full, then the message is not written to the
+queue, and control is returned to the calling process.  If not
+specified, then the calling process will suspend (block) until the
+message can be written.
+<P>
+ </DL>
+<P>
+Let's create another wrapper function for sending messages:
+<P>
+<P>
+<HR><PRE>int send_message( int qid, struct mymsgbuf *qbuf )
+{
+        int     result, length;
+
+        /* The length is essentially the size of the structure minus sizeof(mtype) */
+        length = sizeof(struct mymsgbuf) - sizeof(long);        
+
+        if((result = msgsnd( qid, qbuf, length, 0)) == -1)
+        {
+                return(-1);
+        }
+        
+        return(result);
+}</PRE> 
+<HR>This small function attempts to send the message residing at the passed address (<TT>qbuf</TT>) 
+to the message queue designated by the passed queue identifier (<TT>qid</TT>).  Here is
+a sample code snippet utilizing the two wrapper functions we have developed so far:
+<P>
+<P>
+<HR><PRE>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;linux/ipc.h&gt;
+#include &lt;linux/msg.h&gt;
+
+main()
+{
+        int    qid;
+        key_t  msgkey;
+        struct mymsgbuf {
+                long    mtype;          /* Message type */
+                int     request;        /* Work request number */
+                double  salary;         /* Employee's salary */
+        } msg;
+
+        /* Generate our IPC key value */
+        msgkey = ftok(&quot;.&quot;, 'm');
+
+        /* Open/create the queue */
+        if(( qid = open_queue( msgkey)) == -1) {
+                perror(&quot;open_queue&quot;);
+                exit(1);
+        }
+
+        /* Load up the message with arbitrary test data */
+        msg.mtype   = 1;        /* Message type must be a positive number! */   
+        msg.request = 1;        /* Data element #1 */
+        msg.salary  = 1000.00;  /* Data element #2 (my yearly salary!) */
+        
+        /* Bombs away! */
+        if((send_message( qid, &amp;msg )) == -1) {
+                perror(&quot;send_message&quot;);
+                exit(1);
+        }
+}</PRE> 
+<HR>After creating/opening our message queue, we proceed to load up the message buffer
+with test data (<EM>note the lack of character data to illustrate our point about
+sending binary information</EM>).  A quick call to <TT>send_message</TT> merrily
+distributes our message out to the message queue.
+<P>
+Now that we have a message on our queue, try the <TT>ipcs</TT> command to view the status
+of your queue.  Now let's turn the discussion to actually retrieving the message from
+the queue.  To do this, you use the <TT>msgrcv()</TT> system call:
+<P>
+<P>
+<HR><PRE>  SYSTEM CALL: msgrcv();                                                          
+  PROTOTYPE: int msgrcv ( int msqid, struct msgbuf *msgp, int msgsz, long mtype, int msgflg );
+    RETURNS: Number of bytes copied into message buffer
+             -1 on error: errno = E2BIG  (Message length is greater than msgsz, no MSG_NOERROR)
+                                  EACCES (No read permission)
+                                  EFAULT (Address pointed to by msgp is invalid)
+                                  EIDRM  (Queue was removed during retrieval)
+                                  EINTR  (Interrupted by arriving signal)
+                                  EINVAL (msgqid invalid, or msgsz less than 0)
+                                  ENOMSG (IPC_NOWAIT asserted, and no message exists
+                                          in the queue to satisfy the request) 
+  NOTES:</PRE> 
+<HR>Obviously, the first argument is used to specify the queue to be used during the message
+retrieval process (should have been returned by an earlier call to <TT>msgget</TT>).  The
+second argument (<TT>msgp</TT>) represents the address of a message buffer variable to store
+the retrieved message at.  The third argument (<TT>msgsz</TT>) represents the size of the
+message buffer structure, excluding the length of the <TT>mtype</TT> member.  Once again,
+this can easily be calculated as:
+<P>
+<P>
+<HR><PRE>msgsz = sizeof(struct mymsgbuf) - sizeof(long);</PRE> 
+<HR>The fourth argument (<TT>mtype</TT>) specifies the <EM>type</EM> of message to retrieve from
+the queue.  The kernel will search the queue for the oldest message having a matching type,
+and will return a copy of it in the address pointed to by the <TT>msgp</TT> argument.  One
+special case exists.  If the <TT>mtype</TT> argument is passed with a value of zero, then
+the oldest message on the queue is returned, regardless of type.
+<P>
+If <B>IPC_NOWAIT</B> is passed as a flag, and no messages are available, the call
+returns ENOMSG to the calling process.  Otherwise, the calling process blocks until a message
+arrives in the queue that satisfies the <TT>msgrcv()</TT> parameters.  If the queue is deleted
+while a client is waiting on a message, EIDRM is returned.  EINTR is returned if a signal is
+caught while the process is in the middle of blocking, and waiting for a message to arrive.
+<P>
+Let's examine a quick wrapper function for retrieving a message from our queue:
+<P>
+<P>
+<HR><PRE>int read_message( int qid, long type, struct mymsgbuf *qbuf )
+{
+        int     result, length;
+
+        /* The length is essentially the size of the structure minus sizeof(mtype) */
+        length = sizeof(struct mymsgbuf) - sizeof(long);        
+
+        if((result = msgrcv( qid, qbuf, length, type,  0)) == -1)
+        {
+                return(-1);
+        }
+        
+        return(result);
+}</PRE> 
+<HR>After successfully retrieving a message from the queue, the message entry within the queue
+is destroyed.
+<P>
+The <B>MSG_NOERROR</B> bit in the <TT>msgflg</TT> argument provides some additional capabilities.
+If the size of the physical message data is greater than <TT>msgsz</TT>, and <B>MSG_NOERROR</B>
+is asserted, then the message is truncated, and only <TT>msgsz</TT> bytes are returned.  Normally,
+the <TT>msgrcv()</TT> system call returns -1 (<B>E2BIG</B>), and the message will remain on the
+queue for later retrieval.  This behavior can used to create another wrapper function, which will allow
+us to ``peek'' inside the queue, to see if a message has arrived that satisfies our request:
+<P>
+<P>
+<HR><PRE>int peek_message( int qid, long type )
+{
+        int     result, length;
+
+        if((result = msgrcv( qid, NULL, 0, type,  IPC_NOWAIT)) == -1)
+        {
+                if(errno == E2BIG)
+                        return(TRUE);
+        }
+        
+        return(FALSE);
+}</PRE> 
+<HR>Above, you will notice the lack of a buffer address and a length.  In this particular
+case, we <EM>want</EM> the call to fail.  However, we check for the return of <B>E2BIG</B> which
+indicates that a message does exist which matches our requested type.  The wrapper function
+returns <B>TRUE</B> on success, <B>FALSE</B> otherwise.  Also note the use of the <B>IPC_NOWAIT</B>
+flag, which prevents the blocking behavior described earlier.
+<P>
+<HR><A NAME="tex2html813" HREF="node36.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html811" HREF="node27.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html805" HREF="node34.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html815" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html814" HREF="node36.html">SYSTEM CALL: msgctl()</A>
+<B>Up:</B> <A NAME="tex2html812" HREF="node27.html">6.4.2 Message Queues</A>
+<B> Previous:</B> <A NAME="tex2html806" HREF="node34.html">SYSTEM CALL: msgget()</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

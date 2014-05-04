@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>10.3 Terminal I/O</TITLE>
+<META NAME="description" CONTENT="10.3 Terminal I/O">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2121" HREF="node144.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2119" HREF="node136.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2113" HREF="node142.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2123" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html2122" HREF="node144.html">10.4 Process information and </A>
+<B>Up:</B> <A NAME="tex2html2120" HREF="node136.html">10 Porting Applications to </A>
+<B> Previous:</B> <A NAME="tex2html2114" HREF="node142.html">10.2.4 Signals supported by </A>
+<BR> <P>
+<H1><A NAME="SECTION001130000000000000000">10.3 Terminal I/O</A></H1>
+<P>
+As with signals, terminal I/O control has three different implementations
+under SVR4, BSD, and POSIX.1.
+<P>
+SVR4 uses the <TT>termio</TT> structure, and various <EM>ioctl</EM> calls 
+(such as <TT>TCSETA</TT>, <TT>TCGETA</TT>, and so forth) on a terminal 
+device to obtain and set parameters with the <TT>termio</TT> structure.
+This structure looks like:
+<PRE>  struct termio {
+    unsigned short c_iflag;  /* Input modes */
+    unsigned short c_oflag;  /* Output modes */
+    unsigned short c_cflag;  /* Control modes */
+    unsigned short c_lflag;  /* Line discipline modes */
+    char c_line;             /* Line discipline */
+    unsigned char c_cc[NCC]; /* Control characters */
+  };</PRE>
+<P>
+Under BSD, the <TT>sgtty</TT> structure is used with various <EM>ioctl</EM>
+calls, such as <TT>TIOCGETP</TT>, <TT>TIOCSETP</TT>, and so forth.
+<P>
+Under POSIX, the <TT>termios</TT> struct is used, along with various functions
+defined by POSIX.1, such as <EM>tcsetattr</EM> and <TT>tcgetattr</TT>. The
+<TT>termios</TT> structure is identical to <TT>struct termio</TT> used by SVR4,
+but the types are renamed (such as <TT>tcflag_t</TT> instead of <TT>unsigned
+short</TT>), and <TT>NCCS</TT> is used for the size of the <TT>c_cc</TT> array.
+<P>
+Under Linux, both POSIX.1 <EM>termios</EM> and SVR4 <EM>termio</EM> are supported
+directly by the kernel. This means that if your program uses either of
+these methods for accessing terminal I/O, it should compile directly under
+Linux. If you're ever in doubt, it's easy to modify code using 
+<TT>termio</TT> to use <TT>termios</TT>, using a bit of knowledge of both
+methods. Hopefully, this shouldn't ever be necessary. But, do pay attention
+if a program attempts to use the <TT>c_line</TT> field in the <TT>termio</TT>
+structure. For nearly all applications, this should be <TT>N_TTY</TT>, and
+if the program assumes that some other line discipline is available
+you might have trouble.
+<P>
+If your program uses the BSD <EM>sgtty</EM> implementation, you can link
+against <TT>libbsd.a</TT> as described above. This will provide a replacement
+for <EM>ioctl</EM> which will resubmit the terminal I/O requests in terms of
+the POSIX <TT>termios</TT> calls used by the kernel. When compiling such
+a program, if symbols such as <TT>TIOCGETP</TT> are undefined, you will
+need to link against <TT>libbsd</TT>.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

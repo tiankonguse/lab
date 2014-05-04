@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.1.1 Formatted Output</TITLE>
+<META NAME="description" CONTENT="8.1.1 Formatted Output">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1483" HREF="node88.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1481" HREF="node86.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1475" HREF="node86.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1485" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1484" HREF="node88.html">8.1.2 Formatted Input</A>
+<B>Up:</B> <A NAME="tex2html1482" HREF="node86.html">8.1 I/O Function in </A>
+<B> Previous:</B> <A NAME="tex2html1476" HREF="node86.html">8.1 I/O Function in </A>
+<BR> <P>
+<H2><A NAME="SECTION00911000000000000000">8.1.1 Formatted Output</A></H2>
+<A NAME="sec_formout">&#160;</A>
+<P>
+The <B>printf(...)</B> functions in  provide formatted output
+and allow transformations of the arguments.
+<P>
+<UL><LI> <TT>int fprintf(FILE *stream, const char *format, ...),</TT> <A NAME="fun_fprintf">&#160;</A><BR> 
+        will transform the output (arguments to fill in <TT>...</TT>) and 
+        write it to <TT>stream</TT>. The format defined in <TT>format</TT>
+        will be written, too. The function will return the number of written
+        characters or a negative value on error.
+<P>
+        <TT>format</TT> contains two kinds of objects
+        <OL><LI>  normal characters for the output and<LI>  information how to transform or format the arguments.
+        </OL>
+<P>
+        Format information must begin with <I>%</I> followed by values for the
+        format followed by a character for the translation (to print % by
+        itself use <I>%%</I>). Possible values for the format are:
+<P>
+<UL><LI> Flags
+  <UL><LI> <TT>-</TT> <BR> 
+    The formatted argument will be printed on the left margin (default is
+    the right margin in the argument field).<LI> <TT>+</TT> <BR> 
+    Every number will be printed with a sign, e.g. <TT>+12</TT> or <TT>-2.32</TT>.
+  </UL><LI> Blank <BR> 
+  When the first character is not a sign, a blank will be inserted.<LI> <TT>0</TT> <BR> 
+  For numeric transformation the field width will be filled up with <TT>0</TT>'s
+  on the left side.<LI> <TT>#</TT> <BR> 
+  Alternate output depending on the transformation for the argument
+  <UL><LI>  For <I>o</I> the first number is a <I>0</I>.<LI>  For <I>x</I> or <I>X</I> <I>0x</I> or <I>0X</I> will be printed in
+    front of the argument.<LI>  For <I>e</I>, <I>E</I>, <I>f</I> or <I>F</I> the output has a decimal
+    point.<LI>  For <I>g</I> or <I>G</I> zeroes on the end of the argument are
+    printed.
+  </UL><LI> A number for the minimal field width.<BR> 
+  The transformed argument is printed in a field which is at least as big as
+  the argument itself. With a number you can make the field width bigger.
+  If the formatted argument is smaller, then the field width will be filled
+  with zeroes or blanks.<LI>  A point to separate the field width and the precision.<LI>  A number for the precision.
+</UL>
+<P>
+        Possible values for the transformation are in table <B>8.1</B> below.<LI> <TT>int printf(const char *format, ...)</TT> <A NAME="fun_printf">&#160;</A><BR> 
+        Same as <B>fprintf(stdout, ...)</B>.<LI> <TT>int sprintf(char *s, const char *format, ...)</TT> <A NAME="fun_sprintf">&#160;</A><BR> 
+        Same as <B>printf(...)</B>, except that the output will be written
+        to the the character pointer <TT>s</TT> (with a following 
+        <I><code>\</code>0</I>).
+<P>
+        (<B>Note:</B> You must allocate enough memory for <TT>s</TT>.)<LI> <TT>vprintf(const char *format, va_list arg)</TT> <A NAME="fun_vprintf">&#160;</A><BR> 
+      <TT>vfprintf(FILE *stream, const char *format, va_list arg)</TT> <A NAME="fun_vfprintf">&#160;</A><BR> 
+      <TT>vsprintf(char *s, const char *format, va_list arg)</TT> <A NAME="fun_vsprintf">&#160;</A><BR> 
+      The same as the functions above, only the argument list is set to
+      <TT>arg</TT>.
+</UL>
+<P>
+<P><A NAME="47783">&#160;</A><A NAME="tab_printf">&#160;</A><BR>
+<IMG WIDTH=421 HEIGHT=257 ALIGN=BOTTOM ALT="table47835" SRC="img8_1.gif"  >
+<P><HR><A NAME="tex2html1483" HREF="node88.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1481" HREF="node86.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1475" HREF="node86.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1485" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1484" HREF="node88.html">8.1.2 Formatted Input</A>
+<B>Up:</B> <A NAME="tex2html1482" HREF="node86.html">8.1 I/O Function in </A>
+<B> Previous:</B> <A NAME="tex2html1476" HREF="node86.html">8.1 I/O Function in </A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

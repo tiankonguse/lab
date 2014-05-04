@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>Basic Concepts</TITLE>
+<META NAME="description" CONTENT="Basic Concepts">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html969" HREF="node48.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html967" HREF="node46.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html961" HREF="node46.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html971" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html970" HREF="node48.html">Internal Data Structures</A>
+<B>Up:</B> <A NAME="tex2html968" HREF="node46.html">6.4.3 Semaphores</A>
+<B> Previous:</B> <A NAME="tex2html962" HREF="node46.html">6.4.3 Semaphores</A>
+<BR> <P>
+<H3><A NAME="SECTION00743100000000000000">Basic Concepts</A></H3>
+<P>
+Semaphores can best be described as counters used to control access to shared resources by multiple processes.
+They are most often used as a locking mechanism to prevent processes from accessing a particular resource
+while another process is performing operations on it.  Semaphores are often dubbed the most difficult to
+grasp of the three types of System V IPC objects.  In order to fully understand semaphores, we'll discuss
+them briefly before engaging any system calls and operational theory.
+<P>
+The name <EM>semaphore</EM> is actually an old railroad term, referring to the crossroad ``arms''
+that prevent cars from crossing the tracks at intersections.  The same can be said about a simple
+semaphore set.  If the semaphore is <EM>on</EM> (the arms are up), then a resource is available (cars may
+cross the tracks).  However, if the semaphore is <EM>off</EM> (the arms are down), then resources are
+not available (the cars must wait).
+<P>
+While this simple example may stand to introduce the concept, it is important to realize that
+semaphores are actually implemented as <EM>sets</EM>, rather than as single entities.  Of course, a
+given semaphore set might only have one semaphore, as in our railroad example.
+<P>
+Perhaps another approach to the concept of semaphores, is to think of them as <EM>resource counters</EM>.
+Let's apply this concept to another real world scenario.  Consider a print spooler, capable of
+handling multiple printers, with each printer handling multiple print requests.  A hypothetical print
+spool manager will utilize semaphore sets to monitor access to each printer.
+<P>
+Assume that in our corporate print room, we have 5 printers online.  Our print spool manager allocates
+a semaphore set with 5 semaphores in it, one for each printer on the system.  Since each printer is
+only physically capable of printing one job at a time, each of our five semaphores in our set will
+be initialized to a value of 1 (one), meaning that they are all online, and accepting requests.
+<P>
+John sends a print request to the spooler.  The print manager looks at the semaphore set, and finds
+the first semaphore which has a value of one.  Before sending John's request to the physical device,
+the print manager <EM>decrements</EM> the semaphore for the corresponding printer by a value of negative
+one (-1).  Now, that semaphore's value is zero.  In the world of System V semaphores, a value of
+zero represents 100% resource utilization on that semaphore.  In our example, no other request can
+be sent to that printer until it is no longer equal to zero.
+<P>
+When John's print job has completed, the print manager <EM>increments</EM> the value of the semaphore
+which corresponds to the printer.  Its value is now back up to one (1), which means it is available again.
+Naturally, if all 5 semaphores had a value of zero, that would indicate that they are all busy printing requests, and
+that no printers are available.
+<P>
+Although this was a simple example, please do not be confused by the initial value of one (1) which
+was assigned to each semaphore in the set.  Semaphores, when thought of as resource counters, may 
+be initialized to <EM>any positive</EM> integer value, and are not limited to either being zero or one.  If it
+were possible for each of our five printers to handle 10 print jobs at a time, we could initialize each
+of our semaphores to 10, decrementing by one for every new job, and incrementing by one whenever a print 
+job was finished.  As you will discover in the next chapter, semaphores have a close working relationship
+with shared memory segments, acting as a <EM>watchdog</EM> to prevent multiple writes to the same memory
+segment.
+<P>
+Before delving into the associated system calls, lets take a brief tour through the various internal data
+structures utilized during semaphore operations.
+<P>
+<HR><A NAME="tex2html969" HREF="node48.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html967" HREF="node46.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html961" HREF="node46.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html971" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html970" HREF="node48.html">Internal Data Structures</A>
+<B>Up:</B> <A NAME="tex2html968" HREF="node46.html">6.4.3 Semaphores</A>
+<B> Previous:</B> <A NAME="tex2html962" HREF="node46.html">6.4.3 Semaphores</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

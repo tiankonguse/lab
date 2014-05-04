@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>SYSTEM CALL: semctl()</TITLE>
+<META NAME="description" CONTENT="SYSTEM CALL: semctl()">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1035" HREF="node54.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1033" HREF="node46.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1027" HREF="node52.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1037" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1036" HREF="node54.html">semtool: An interactive semaphore </A>
+<B>Up:</B> <A NAME="tex2html1034" HREF="node46.html">6.4.3 Semaphores</A>
+<B> Previous:</B> <A NAME="tex2html1028" HREF="node52.html">SYSTEM CALL: semop()</A>
+<BR> <P>
+<H3><A NAME="SECTION00743500000000000000">SYSTEM CALL: semctl()</A></H3>
+<P>
+<P>
+<HR><PRE>  SYSTEM CALL: semctl();                                                          
+  PROTOTYPE: int semctl ( int semid, int semnum, int cmd, union semun arg );
+    RETURNS: positive integer on success 
+             -1 on error: errno = EACCESS (permission denied)
+                                  EFAULT (invalid address pointed to by arg argument)
+                                  EIDRM (semaphore set was removed)
+                                  EINVAL (set doesn't exist, or semid is invalid)
+                                  EPERM (EUID has no privileges for cmd in arg)
+                                  ERANGE (semaphore value out of range)
+  NOTES: Performs control operations on a semaphore set</PRE> 
+<HR>The <EM>semctl</EM> system call is used to perform control operations on a semaphore set.  This
+call is analogous to the <EM>msgctl</EM> system call which is used for operations on message
+queues.  If you compare the argument lists of the two system calls, you will notice that the list
+for <EM>semctl</EM> varies slightly from that of <EM>msgctl</EM>.  Recall that semaphores are
+actually implemented as sets, rather than as single entities.  With semaphore operations, not only 
+does the IPC key need to be passed, but the target semaphore within the set as well.
+<P>
+Both system calls utilize a <EM>cmd</EM> argument, for specification of the command to be performed
+on the IPC object.  The remaining difference lies in the final argument to both calls.  In <EM>msgctl</EM>,
+the final argument represents a copy of the internal data structure used by the kernel.  Recall that we
+used this structure to retrieve internal information about a message queue, as well as to set or change
+permissions and ownership of the queue.  With semaphores, additional operational commands are supported,
+thus requiring a more complex data type as the final argument.  The use of a <EM>union</EM> confuses many
+neophyte semaphore programmers to a substantial degree.  We will dissect this structure carefully, in
+an effort to prevent any confusion.
+<P>
+The first argument to <TT>semctl()</TT> is the key value (in our case returned by a call
+to <TT>semget</TT>).  The second argument (<TT>semun</TT>) is the semaphore number that 
+an operation is targeted towards.  In essence, this can be thought of as an <EM>index</EM> into 
+the semaphore set, with the first semaphore (or only one) in the set being represented by a 
+value of zero (0).
+<P>
+The <TT>cmd</TT> argument represents the command to be performed against the set.  As you can see,
+the familiar IPC_STAT/IPC_SET commands are present, along with a wealth of additional commands
+specific to semaphore sets:
+<P>
+<DL ><DT><STRONG><B>IPC_STAT</B></STRONG>
+<DD> 
+<P>
+Retrieves the semid_ds structure for a set, and stores it in
+the address of the buf argument in the semun union.
+<P>
+<DT><STRONG><B>IPC_SET</B></STRONG>
+<DD> 
+<P>
+Sets the value of the ipc_perm member of the semid_ds structure for
+a set.  Takes the values from the buf argument of the semun union.
+<P>
+<DT><STRONG><B>IPC_RMID</B></STRONG>
+<DD> 
+<P>
+Removes the set from the kernel.
+<P>
+<DT><STRONG><B>GETALL</B></STRONG>
+<DD> 
+<P>
+Used to obtain the values of all semaphores in a set.  The integer values are
+stored in an array of unsigned short integers pointed to by the <EM>array</EM> member of the union.
+<P>
+<DT><STRONG><B>GETNCNT</B></STRONG>
+<DD> 
+<P>
+Returns the number of processes currently waiting for resources.
+<P>
+<DT><STRONG><B>GETPID</B></STRONG>
+<DD> 
+<P>
+Returns the PID of the process which performed the last <EM>semop</EM> call.
+<P>
+<DT><STRONG><B>GETVAL</B></STRONG>
+<DD> 
+<P>
+Returns the value of a single semaphore within the set.
+<P>
+<DT><STRONG><B>GETZCNT</B></STRONG>
+<DD> 
+<P>
+Returns the number of processes currently waiting for 100% resource utilization.
+<P>
+<DT><STRONG><B>SETALL</B></STRONG>
+<DD> 
+<P>
+Sets all semaphore values with a set to the matching values contained in the
+<EM>array</EM> member of the union.
+<P>
+<DT><STRONG><B>SETVAL</B></STRONG>
+<DD> 
+<P>
+Sets the value of an individual semaphore within the set to the <EM>val</EM> member of
+the union.
+<P>
+ </DL>
+<P>
+The <TT>arg</TT> argument represents an instance of type <TT>semun</TT>.  This particular union is
+declared in <TT>linux/sem.h</TT> as follows:
+<P>
+<P>
+<HR><PRE>        /* arg for semctl system calls. */
+        union semun {
+                int val;                /* value for SETVAL */
+                struct semid_ds *buf;   /* buffer for IPC_STAT &amp; IPC_SET */
+                ushort *array;          /* array for GETALL &amp; SETALL */
+                struct seminfo *__buf;  /* buffer for IPC_INFO */
+                void *__pad;
+        };</PRE> 
+<HR><DL ><DT><STRONG><TT>val</TT></STRONG>
+<DD> 
+<P>
+Used when the SETVAL command is performed.  Specifies the value to set the semaphore to.
+<P>
+<DT><STRONG><TT>buf</TT></STRONG>
+<DD> 
+<P>
+Used in the IPC_STAT/IPC_SET commands.  Represents a copy of the internal semaphore data
+structure used in the kernel.
+<P>
+<DT><STRONG><TT>array</TT></STRONG>
+<DD> 
+<P>
+A pointer used in the GETALL/SETALL commands.  Should point to an array of integer values
+to be used in setting or retrieving all semaphore values in a set.
+<P>
+ </DL>
+<P>
+The remaining arguments <EM>__buf</EM> and <EM>__pad</EM> are used internally in the semaphore code within
+the kernel, and are of little or no use to the application developer.  As a matter of fact, these two
+arguments are specific to the Linux operating system, and are not found in other UNIX implementations.
+<P>
+Since this particular system call is arguably the most difficult to grasp of all the System V IPC calls,
+we'll examine multiple examples of it in action.
+<P>
+The following snippet returns the value of the passed semaphore.  The final argument (the union) is
+ignored when the GETVAL command is used:
+<P>
+<P>
+<HR><PRE>int get_sem_val( int sid, int semnum )
+{
+        return( semctl(sid, semnum, GETVAL, 0));
+}</PRE> 
+<HR>To revisit the printer example, let's say the status of all five printers was required:
+<P>
+<P>
+<HR><PRE>        #define MAX_PRINTERS 5
+
+        printer_usage()
+        {
+                int x;
+
+                for(x=0; x&lt;MAX_PRINTERS; x++)
+                        printf(&quot;Printer %d: %d\n\r&quot;, x, get_sem_val( sid, x ));
+        }</PRE> 
+<HR>Consider the following function, which could be used to initialize a new semaphore value:
+<P>
+<P>
+<HR><PRE>void init_semaphore( int sid, int semnum, int initval)
+{
+        union semun semopts;    
+
+        semopts.val = initval;
+        semctl( sid, semnum, SETVAL, semopts);
+}</PRE> 
+<HR>Note that the final argument of <EM>semctl</EM> is a copy of the union, rather than a pointer to it.
+While we're on the subject of the union as an argument, allow me to demonstrate a rather common mistake
+when using this system call.
+<P>
+Recall from the msgtool project that the IPC_STAT and IPC_SET commands were used to alter permissions
+on the queue.  While these commands are supported in the semaphore implementation, their usage is a
+bit different, as the internal data structure is retrieved and copied from a member of the union, rather
+than as a single entity.  Can you locate the bug in this code?
+<P>
+<P>
+<HR><PRE>/* Required permissions should be passed in as text (ex: &quot;660&quot;) */
+
+void changemode(int sid, char *mode)
+{
+        int rc;
+        struct semid_ds mysemds;
+
+        /* Get current values for internal data structure */
+        if((rc = semctl(sid, 0, IPC_STAT, semopts)) == -1)
+        {
+                perror(&quot;semctl&quot;);
+                exit(1);
+        }
+                
+        printf(&quot;Old permissions were %o\n&quot;, semopts.buf-&gt;sem_perm.mode);
+                
+        /* Change the permissions on the semaphore */
+        sscanf(mode, &quot;%o&quot;, &amp;semopts.buf-&gt;sem_perm.mode);
+
+        /* Update the internal data structure */
+        semctl(sid, 0, IPC_SET, semopts);
+
+        printf(&quot;Updated...\n&quot;);
+}</PRE> 
+<HR>The code is attempting to make a local copy of the internal data structure for the set, modify the
+permissions, and IPC_SET them back to the kernel.  However, the first call to <EM>semctl</EM> promptly
+returns EFAULT, or bad address for the last argument (the union!).  In addition, if we hadn't checked for
+errors from that call, we would have gotten a memory fault.  Why?
+<P>
+Recall that the IPC_SET/IPC_STAT commands use the <EM>buf</EM> member of the union, which is a <EM>pointer</EM>
+to a type <EM>semid_ds</EM>.  Pointers are pointers are pointers are pointers!  The <EM>buf</EM> member must
+point to some valid storage location in order for our function to work properly.  Consider this revamped
+version:
+<P>
+<P>
+<HR><PRE>void changemode(int sid, char *mode)
+{
+        int rc;
+        struct semid_ds mysemds;
+
+        /* Get current values for internal data structure */
+
+        /* Point to our local copy first! */
+        semopts.buf = &amp;mysemds;
+
+        /* Let's try this again! */
+        if((rc = semctl(sid, 0, IPC_STAT, semopts)) == -1)
+        {
+                perror(&quot;semctl&quot;);
+                exit(1);
+        }
+                
+        printf(&quot;Old permissions were %o\n&quot;, semopts.buf-&gt;sem_perm.mode);
+                
+        /* Change the permissions on the semaphore */
+        sscanf(mode, &quot;%o&quot;, &amp;semopts.buf-&gt;sem_perm.mode);
+
+        /* Update the internal data structure */
+        semctl(sid, 0, IPC_SET, semopts);
+
+        printf(&quot;Updated...\n&quot;);
+}</PRE> 
+<HR><HR><A NAME="tex2html1035" HREF="node54.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1033" HREF="node46.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1027" HREF="node52.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1037" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1036" HREF="node54.html">semtool: An interactive semaphore </A>
+<B>Up:</B> <A NAME="tex2html1034" HREF="node46.html">6.4.3 Semaphores</A>
+<B> Previous:</B> <A NAME="tex2html1028" HREF="node52.html">SYSTEM CALL: semop()</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

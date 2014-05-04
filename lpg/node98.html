@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.4 Initializing</TITLE>
+<META NAME="description" CONTENT="8.4 Initializing">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1608" HREF="node99.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1606" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1600" HREF="node97.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1610" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1609" HREF="node99.html">8.5 Windows</A>
+<B>Up:</B> <A NAME="tex2html1607" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1601" HREF="node97.html">8.3 Ncurses - Introduction</A>
+<BR> <P>
+<H1><A NAME="SECTION00940000000000000000">8.4 Initializing</A></H1>
+<P>
+<UL><LI> <TT>WINDOW *initscr()</TT> <A NAME="fun_initscr">&#160;</A><BR> 
+        This is the first function usually called from a program using ncurses.
+        In some cases it is useful to call <B>slk_init(int)</B>, 
+        <B>filter()</B>, <B>ripoffline(...)</B> or <B>use_env(bf)</B>
+        before <B>initscr()</B>. When using multiple terminals (or perhaps
+        testing capabilities), you can use <B>newterm(...)</B> instead
+        of <B>initscr()</B>.
+<P>
+        <B>initscr()</B> will read the proper terminfo file and initialize
+        the ncurses data structures, allocate memory for  and
+         and set  and  to the values the
+        terminal has. It will return a pointer to  or ERR when
+        an error has occured. You don't need to initialize the pointer with:
+<P><P>
+        <B>initscr()</B> will do this for you. If the return value is 
+        ERR, your program should exit because no ncurses function will work:
+<P><P><LI> <TT>SCREEN *newterm(char *type, FILE *outfd, FILE *infd)</TT> <A NAME="fun_newterm">&#160;</A><BR> 
+        For multiple terminal output call <B>newterm(...)</B> for every
+        terminal you would access with ncurses instead of <B>initscr()</B>. 
+        <TT>type</TT> is the name of the terminal as contained in $TERM (ansi,
+        xterm, vt100, for example), <TT>outfd</TT> is the output pointer and
+        <TT>infd</TT> is the pointer used for input. Call <B>endwin()</B>
+        for every terminal opened with <B>newterm(...)</B>.<LI> <TT>SCREEN *set_term(SCREEN *new)</TT> <A NAME="fun_set_term">&#160;</A><BR> 
+        With <B>set_term(SCREEN)</B> you can switch the current terminal.
+        All functions will affect the current terminal which is set with
+        <B>set_term(SCREEN)</B>.<LI> <TT>int endwin()</TT> <A NAME="fun_endwin">&#160;</A><BR> 
+        <B>endwin()</B> will do the cleanup, restore the terminal modes in
+        the state they had before calling <B>initscr()</B> and move the
+        cursor to the lower left corner. Don't forget to close all opened 
+        windows before you call <B>endwin()</B> to exit your
+        program.
+<P>
+        An additional call to <B>refresh()</B> after <B>endwin()</B>
+        will restore the terminal to the status it had before calling
+        <B>initscr()</B> (visual-mode) otherwise it will be cleared
+        (non-visual-mode).<LI> <TT>int isendwin()</TT> <A NAME="fun_isendwin">&#160;</A><BR> 
+        Returns TRUE if <B>endwin()</B> was called with a following
+        <B>refresh()</B>, otherwise FALSE.<LI> <TT>void delscreen(SCREEN* sp)</TT> <A NAME="fun_delscreen">&#160;</A><BR> 
+        After <B>endwin()</B> call <B>delscreen(SCREEN)</B> to free up all
+        occupied resources, when SCREEN is no longer needed.
+        (<B>Note:</B> not implemented yet.)
+</UL><HR><A NAME="tex2html1608" HREF="node99.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1606" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1600" HREF="node97.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1610" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1609" HREF="node99.html">8.5 Windows</A>
+<B>Up:</B> <A NAME="tex2html1607" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1601" HREF="node97.html">8.3 Ncurses - Introduction</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>SYSTEM CALL: semop()</TITLE>
+<META NAME="description" CONTENT="SYSTEM CALL: semop()">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1024" HREF="node53.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1022" HREF="node46.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1016" HREF="node51.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1026" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1025" HREF="node53.html">SYSTEM CALL: semctl()</A>
+<B>Up:</B> <A NAME="tex2html1023" HREF="node46.html">6.4.3 Semaphores</A>
+<B> Previous:</B> <A NAME="tex2html1017" HREF="node51.html">SYSTEM CALL: semget()</A>
+<BR> <P>
+<H3><A NAME="SECTION00743400000000000000">SYSTEM CALL: semop()</A></H3>
+<P>
+<P>
+<HR><PRE>  SYSTEM CALL: semop();                                                          
+  PROTOTYPE: int semop ( int semid, struct sembuf *sops, unsigned nsops);
+    RETURNS: 0 on success (all operations performed)
+             -1 on error: errno = E2BIG (nsops greater than max number of ops allowed atomically)
+                                  EACCESS (permission denied)
+                                  EAGAIN (IPC_NOWAIT asserted, operation could not go through)
+                                  EFAULT (invalid address pointed to by sops argument)
+                                  EIDRM (semaphore set was removed)
+                                  EINTR (Signal received while sleeping)
+                                  EINVAL (set doesn't exist, or semid is invalid)
+                                  ENOMEM (SEM_UNDO asserted, not enough memory to create the
+                                          undo structure necessary)
+                                  ERANGE (semaphore value out of range)
+  NOTES:</PRE> 
+<HR>The first argument to <TT>semget()</TT> is the key value (in our case returned by a call
+to <TT>semget</TT>).  The second argument (<TT>sops</TT>) is a pointer to an array of <EM>operations</EM> to 
+be performed on the semaphore set, while the third argument (<TT>nsops</TT>) is the number
+of operations in that array.
+<P>
+The <TT>sops</TT> argument points to an array of type <TT>sembuf</TT>.  This structure is
+declared in <TT>linux/sem.h</TT> as follows:
+<P>
+<P>
+<HR><PRE>        /* semop system call takes an array of these */
+        struct sembuf {
+                ushort  sem_num;        /* semaphore index in array */
+                short   sem_op;         /* semaphore operation */
+                short   sem_flg;        /* operation flags */
+        };</PRE> 
+<HR><DL ><DT><STRONG><TT>sem_num</TT></STRONG>
+<DD> 
+<P>
+The number of the semaphore you wish to deal with
+<P>
+<DT><STRONG><TT>sem_op</TT></STRONG>
+<DD> 
+<P>
+The operation to perform (positive, negative, or zero)
+<P>
+<DT><STRONG><TT>sem_flg</TT></STRONG>
+<DD> 
+<P>
+Operational flags
+<P>
+ </DL>
+<P>
+If <TT>sem_op</TT> is negative, then its value is subtracted from the semaphore. 
+This correlates with obtaining resources that the semaphore controls or monitors access of.
+If <B>IPC_NOWAIT</B> is not specified, then the calling process sleeps until the requested amount of
+resources are available in the semaphore (another process has released some).
+<P>
+If <TT>sem_op</TT> is positive, then it's value is added to the semaphore.
+This correlates with returning resources back to the application's semaphore set.
+Resources should always be returned to a semaphore set when they are no longer needed!
+<P>
+Finally, if <TT>sem_op</TT> is zero (0), then the calling process will sleep() until the
+semaphore's value is 0.  This correlates to waiting for a semaphore to reach 100% utilization.
+A good example of this would be a daemon running with superuser permissions that could
+dynamically adjust the size of the semaphore set if it reaches full utilization.
+<P>
+In order to explain the <TT>semop</TT> call, let's revisit our print room scenario.  Let's
+assume only one printer, capable of only one job at a time.  We create a semaphore set with
+only one semaphore in it (only one printer), and initialize that one semaphore to a value of one (only
+one job at a time).
+<P>
+Each time we desire to send a job to this printer, we need to first make sure that the resource
+is available.  We do this by attempting to obtain one <EM>unit</EM> from the semaphore.  Let's
+load up a sembuf array to perform the operation:
+<P>
+<P>
+<HR><PRE>        struct sembuf sem_lock = { 0, -1, IPC_NOWAIT };</PRE> 
+<HR>Translation of the above initialized structure dictates that a value of ``-1'' will be added
+to semaphore number 0 in the semaphore set.  In other words, one unit of resources will be
+obtained from the only semaphore in our set (0th member).  <B>IPC_NOWAIT</B> is specified, 
+so the call will either go through immediately, or fail if another print job is currently
+printing.  Here is an example of using this initialized <TT>sembuf</TT> structure with the <TT>semop</TT>
+system call:
+<P>
+<P>
+<HR><PRE>        if((semop(sid, &amp;sem_lock, 1) == -1)
+                perror(&quot;semop&quot;);</PRE> 
+<HR>The third argument (<TT>nsops</TT>) says that we are only performing one (1) operation (there
+is only one <TT>sembuf</TT> structure in our array of operations).  The <TT>sid</TT> argument
+is the IPC identifier for our semaphore set.
+<P>
+When our print job has completed, we must <EM>return</EM> the resources back to the semaphore
+set, so that others may use the printer.
+<P>
+<P>
+<HR><PRE>        struct sembuf sem_unlock = { 0, 1, IPC_NOWAIT };</PRE> 
+<HR>Translation of the above initialized structure dictates that a value of ``1'' will be added to
+semaphore number 0 in the semaphore set.  In other words, one unit of resources will be returned
+to the set.
+<P>
+<HR><A NAME="tex2html1024" HREF="node53.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1022" HREF="node46.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1016" HREF="node51.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1026" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1025" HREF="node53.html">SYSTEM CALL: semctl()</A>
+<B>Up:</B> <A NAME="tex2html1023" HREF="node46.html">6.4.3 Semaphores</A>
+<B> Previous:</B> <A NAME="tex2html1017" HREF="node51.html">SYSTEM CALL: semget()</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

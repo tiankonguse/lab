@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>10.1 Introduction</TITLE>
+<META NAME="description" CONTENT="10.1 Introduction">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2053" HREF="node138.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2051" HREF="node136.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2045" HREF="node136.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2055" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html2054" HREF="node138.html">10.2 Signal handling</A>
+<B>Up:</B> <A NAME="tex2html2052" HREF="node136.html">10 Porting Applications to </A>
+<B> Previous:</B> <A NAME="tex2html2046" HREF="node136.html">10 Porting Applications to </A>
+<BR> <P>
+<H1><A NAME="SECTION001110000000000000000">10.1 Introduction</A></H1>
+<P>
+Porting UNIX applications to the Linux operating system is remarkably
+easy. Linux, and the GNU C library used by it, have been designed with
+applications portability in mind, meaning that many applications will
+compile simply by issuing <TT>make</TT>. Those which don't generally
+use some obscure feature of a particular implementation, or rely
+strongly on undocumented or undefined behavior of, say, a particular
+system call.
+<P>
+Linux is mostly compliant with IEEE Std 1003.1-1988 (POSIX.1), but 
+has not actually been certified as such. Similarly, Linux also 
+implements many features found in the SVID and BSD strains of UNIX,
+but again does not necessarily adhere to them in all cases. In general,
+Linux has been designed to be compatible with other UNIX implementations,
+to make applications porting easier, and in a number of instances has
+improved upon or corrected behavior found in those implementations.
+<P>
+As an example, the <EM>timeout</EM> argument passed to the <EM>select</EM> 
+system call is actually decremented during the poll operation by Linux. 
+Other implementations don't modify this value at all, and applications
+which aren't expecting this could break when compiled under Linux.
+The BSD and SunOS man pages for <EM>select</EM> warn that 
+in a ``future implementation'', the system call may modify the
+timeout pointer. Unfortunately, many applications still assume
+that the value will be untouched.
+<P>
+The goal of this paper is to provide an overview of the major
+issues associated with porting applications to Linux, highlighting
+the differences between Linux, POSIX.1, SVID, and BSD in the 
+following areas: signal handling, terminal I/O, process control
+and information gathering, and portable conditional compilation.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.6 Output</TITLE>
+<META NAME="description" CONTENT="8.6 Output">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1630" HREF="node101.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1628" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1622" HREF="node99.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1632" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1631" HREF="node101.html">8.6.1 Formatted Output</A>
+<B>Up:</B> <A NAME="tex2html1629" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1623" HREF="node99.html">8.5 Windows</A>
+<BR> <P>
+<H1><A NAME="SECTION00960000000000000000">8.6 Output</A></H1>
+<P>
+<UL><LI> <TT>int addch(ch)</TT> <A NAME="fun_addch">&#160;</A><BR> 
+        <TT>int waddch(win, ch)</TT> <A NAME="fun_waddch">&#160;</A><BR> 
+        <TT>int mvaddch(y, x, ch)</TT> <A NAME="fun_mvaddch">&#160;</A><BR> 
+        <TT>int mvwaddch(win, y, x, ch)</TT> <A NAME="fun_mvwaddch">&#160;</A><BR> 
+	These functions are used for character output to a window. They
+	will manipulate the window and you will have to call 
+	<B>refresh()</B> to put it on screen. <B>addch(...)</B>
+	and <B>waddch(...)</B> put the character <TT>ch</TT> in the window
+	 or <TT>win</TT>. <B>mvaddch(...)</B> and 
+	<B>mvwaddch(...)</B> do the same except that they move the cursor 
+	to position y,x first.<LI> <TT>int addstr(str)</TT> <A NAME="fun_addstr">&#160;</A><BR> 
+        <TT>int addnstr(str, n)</TT> <A NAME="fun_addnstr">&#160;</A><BR> 
+        <TT>int waddstr(win, str)</TT> <A NAME="fun_waddstr">&#160;</A><BR> 
+        <TT>int waddnstr(win, str, n)</TT> <A NAME="fun_waddnstr">&#160;</A><BR> 
+        <TT>int mvaddstr(y, x, str)</TT> <A NAME="fun_mvaddstr">&#160;</A><BR> 
+        <TT>int mvaddnstr(y, x, str, n)</TT> <A NAME="fun_mvaddnstr">&#160;</A><BR> 
+        <TT>int mvwaddstr(win, y, x, str)</TT> <A NAME="fun_mvwaddstr">&#160;</A><BR> 
+        <TT>int mvwaddnstr(win, y, x, str, n)</TT> <A NAME="fun_mvwaddnstr">&#160;</A><BR> 
+        These functions write a string to a window and are equivalent to
+        series of
+        calls to <B>addch(...)</B>. <TT>str</TT> is a null terminated string
+        (<I>&quot;blafoo<code>\</code>0&quot;</I>). Functions with <I>w</I> write the string
+        <TT>str</TT> to the window <TT>win</TT>, while other funcions write to 
+        .
+        Functions with <TT>n</TT> write n characters of <TT>str</TT>. If 
+        <TT>n</TT> is -1, the entire string <TT>str</TT> is written.<LI> <TT>int addchstr(chstr)</TT> <A NAME="fun_addchstr">&#160;</A><BR> 
+        <TT>int addchnstr(chstr, n)</TT> <A NAME="fun_addchnstr">&#160;</A><BR> 
+        <TT>int waddchstr(win, chstr)</TT> <A NAME="fun_waddchstr">&#160;</A><BR> 
+        <TT>int waddchnstr(win, chstr, n)</TT> <A NAME="fun_waddchnstr">&#160;</A><BR> 
+        <TT>int mvaddchstr(y, x, chstr)</TT> <A NAME="fun_mvaddchstr">&#160;</A><BR> 
+        <TT>int mvaddchnstr(y, x, chstr, n)</TT> <A NAME="fun_mvaddchnstr">&#160;</A><BR> 
+        <TT>int mvwaddchstr(win, y, x, chstr)</TT> <A NAME="fun_mvwaddchstr">&#160;</A><BR> 
+        <TT>int mvwaddchnstr(win, y, x, chstr, n)</TT> <A NAME="fun_mvwaddchnstr">&#160;</A><BR> 
+	These functions copy <TT>chstr</TT> to the window image
+        ( or <TT>win</TT>).  The starting position is the current
+	cursor position.  Functions with <TT>n</TT> write n characters
+	of <TT>chstr</TT>. If <TT>n</TT> is -1, the entire string 
+	<TT>chstr</TT> is written. The cursor is not moved and no control
+	character check is done. These functions are faster than the
+        <B>addstr(...)</B>
+	routines. <TT>chstr</TT> is a pointer to an array of
+	chtype.<LI> <TT>int echochar(ch)</TT> <A NAME="fun_echochar">&#160;</A><BR> 
+        <TT>int wechochar(win, ch)</TT> <A NAME="fun_wechochar">&#160;</A><BR> 
+        The same as call <B>addch(...)</B> (<B>waddch(...)</B> followed
+        by <B>refresh()</B> (<B>wrefresh(win)</B>.
+<P>
+</UL><BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html1633" HREF="node101.html#SECTION00961000000000000000">8.6.1 Formatted Output</A>
+<LI> <A NAME="tex2html1634" HREF="node102.html#SECTION00962000000000000000">8.6.2 Insert Characters/Lines</A>
+<LI> <A NAME="tex2html1635" HREF="node103.html#SECTION00963000000000000000">8.6.3 Delete Characters/Lines</A>
+<LI> <A NAME="tex2html1636" HREF="node104.html#SECTION00964000000000000000">8.6.4 Boxes and Lines</A>
+<LI> <A NAME="tex2html1637" HREF="node105.html#SECTION00965000000000000000">8.6.5 Background Character</A>
+</UL>
+<HR><A NAME="tex2html1630" HREF="node101.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1628" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1622" HREF="node99.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1632" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1631" HREF="node101.html">8.6.1 Formatted Output</A>
+<B>Up:</B> <A NAME="tex2html1629" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1623" HREF="node99.html">8.5 Windows</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

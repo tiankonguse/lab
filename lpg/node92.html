@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.2.3 Look at a Terminal Description</TITLE>
+<META NAME="description" CONTENT="8.2.3 Look at a Terminal Description">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1543" HREF="node93.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1541" HREF="node89.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1535" HREF="node91.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1545" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1544" HREF="node93.html">8.2.4 Termcap Capabilities</A>
+<B>Up:</B> <A NAME="tex2html1542" HREF="node89.html">8.2 The Termcap Library</A>
+<B> Previous:</B> <A NAME="tex2html1536" HREF="node91.html">8.2.2 Find a Terminal </A>
+<BR> <P>
+<H2><A NAME="SECTION00923000000000000000">8.2.3 Look at a Terminal Description</A></H2>
+<P>
+Every piece of information is called a capability, every capability is
+a two letter code, and every two letter code is followed by the value
+for the capability.  Possible types are:
+<P>
+<UL><LI>  <B>Numeric</B>: For instance <I>co</I> - number of columns<LI>  <B>Boolean</B> or <B>Flag</B>: For instance <I>hc</I> - hardcopy
+         terminal<LI>  <B>String</B>: For instance <I>st</I> - set tab stop
+</UL>
+<P>
+Each capability is associated with a single value type. (<I>co</I>
+is always numeric, <I>hc</I> is always a flag and <I>st</I> is always a string).
+There are three different types of values, so there are also three functions to
+interrogate them. <TT>char *name</TT> is the two letter code for the capability.
+<P>
+<UL><LI> <TT>int tgetnum(char *name)</TT> <A NAME="fun_tgetnum">&#160;</A><BR> 
+        Get a capability value that is numeric, such as <I>co</I>.
+        <B>tgetnum(...)</B> returns the numeric value if the capability is
+        available, otherwise 1.
+        (Note: the returned value is not negative.)<LI> <TT>int tgetflag(char *name)</TT> <A NAME="fun_tgetflag">&#160;</A><BR> 
+        Get a capability value that is boolean (or flag).
+        Returns 1 if the flag is present, 0 otherwise.<LI> <TT>char *tgetstr(char *name, char **area)</TT> <A NAME="fun_tgetstr">&#160;</A><BR> 
+	Get a capability value that is a string. Returns a pointer to
+	the string or NULL if not present. In the GNU version, if
+	<TT>area</TT> is NULL, termcap will allocate memory by
+	itself.  Termcap will never refer to this pointer again, so
+	don't forget to free <TT>name</TT> before leaving the
+	program.  This method is preferred, because you don't know how
+	much space is needed for the pointer, so let termcap do this
+	for you.
+</UL>
+<P>
+<P><P><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

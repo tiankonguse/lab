@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>SYSTEM CALL: shmdt()</TITLE>
+<META NAME="description" CONTENT="SYSTEM CALL: shmdt()">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1265" HREF="node73.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1263" HREF="node65.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1257" HREF="node71.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1267" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1266" HREF="node73.html">shmtool: An interactive shared </A>
+<B>Up:</B> <A NAME="tex2html1264" HREF="node65.html">6.4.4 Shared Memory</A>
+<B> Previous:</B> <A NAME="tex2html1258" HREF="node71.html">SYSTEM CALL: shmctl()</A>
+<BR> <P>
+<H3><A NAME="SECTION00744600000000000000">SYSTEM CALL: shmdt()</A></H3>
+<P>
+<P>
+<HR><PRE>  SYSTEM CALL: shmdt();                                                          
+
+  PROTOTYPE: int shmdt ( char *shmaddr );
+    RETURNS: -1 on error: errno = EINVAL (Invalid attach address passed)</PRE> 
+<HR>After a shared memory segment is no longer needed by a process, it should be detached by calling
+this system call.  As mentioned earlier, this is not the same as removing the segment from the kernel!
+After a detach is successful, the shm_nattch member of the associates shmid_ds structure is decremented
+by one.  When this value reaches zero (0), the kernel will physically remove the segment.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

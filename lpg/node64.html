@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>semstat: A semtool companion program</TITLE>
+<META NAME="description" CONTENT="semstat: A semtool companion program">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1164" HREF="node65.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1162" HREF="node46.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1158" HREF="node63.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1166" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1165" HREF="node65.html">6.4.4 Shared Memory</A>
+<B>Up:</B> <A NAME="tex2html1163" HREF="node46.html">6.4.3 Semaphores</A>
+<B> Previous:</B> <A NAME="tex2html1159" HREF="node63.html">The Source</A>
+<BR> <P>
+<H3><A NAME="SECTION00743700000000000000">semstat: A semtool companion program</A></H3>
+<P>
+As an added bonus, the source code to a companion program called <TT>semstat</TT>
+is provided next.  The <TT>semstat</TT> program displays the values of each of the
+semaphores in the set created by <TT>semtool</TT>.
+<P>
+<P>
+<HR><PRE>/*****************************************************************************
+ Excerpt from &quot;Linux Programmer's Guide - Chapter 6&quot;
+ (C)opyright 1994-1995, Scott Burkett
+ ***************************************************************************** 
+ MODULE: semstat.c
+ *****************************************************************************
+ A companion command line tool for the semtool package.  semstat displays
+ the current value of all semaphores in the set created by semtool.
+ *****************************************************************************/
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/ipc.h&gt;
+#include &lt;sys/sem.h&gt;
+
+int get_sem_count(int sid);
+void show_sem_usage(int sid);
+int get_sem_count(int sid);
+void dispval(int sid);
+
+int main(int argc, char *argv[])
+{
+        key_t key;
+        int   semset_id;
+
+        /* Create unique key via call to ftok() */
+        key = ftok(&quot;.&quot;, 's');
+
+        /* Open the semaphore set - do not create! */
+        if((semset_id = semget(key, 1, 0666)) == -1) 
+        {
+                printf(&quot;Semaphore set does not exist\n&quot;);
+                exit(1);
+        }
+
+        show_sem_usage(semset_id); 
+        return(0);
+}
+
+void show_sem_usage(int sid)
+{
+        int cntr=0, maxsems, semval;
+
+        maxsems = get_sem_count(sid);
+
+        while(cntr &lt; maxsems) {
+                semval = semctl(sid, cntr, GETVAL, 0);
+                printf(&quot;Semaphore #%d:  --&gt; %d\n&quot;, cntr, semval);
+                cntr++;
+        }
+}
+
+int get_sem_count(int sid)
+{
+        int rc;
+        struct semid_ds mysemds;
+        union semun semopts;
+
+        /* Get current values for internal data structure */
+        semopts.buf = &amp;mysemds;
+
+        if((rc = semctl(sid, 0, IPC_STAT, semopts)) == -1) {
+                perror(&quot;semctl&quot;);
+                exit(1);
+        }
+
+        /* return number of semaphores in set */
+        return(semopts.buf-&gt;sem_nsems);
+}
+
+void dispval(int sid)
+{
+        int semval;
+
+        semval = semctl(sid, 0, GETVAL, 0);
+        printf(&quot;semval is %d\n&quot;, semval);
+}</PRE> 
+<HR><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

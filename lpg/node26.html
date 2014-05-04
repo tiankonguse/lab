@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>The ipcrm Command</TITLE>
+<META NAME="description" CONTENT="The ipcrm Command">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html694" HREF="node27.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html692" HREF="node22.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html688" HREF="node25.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html696" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html695" HREF="node27.html">6.4.2 Message Queues</A>
+<B>Up:</B> <A NAME="tex2html693" HREF="node22.html">6.4.1 Fundamental Concepts</A>
+<B> Previous:</B> <A NAME="tex2html689" HREF="node25.html">The ipcs Command</A>
+<BR> <P>
+<H3><A NAME="SECTION00741400000000000000">The <TT>ipcrm</TT> Command</A></H3>
+<P>
+The <TT>ipcrm</TT> command can be used to remove an IPC object from the kernel.  While IPC
+objects can be removed via system calls in user code (we'll see how in a moment), the need
+often arises, especially under development environments, to remove IPC objects manually.  Its
+usage is simple:
+<P>
+<P>
+<HR><PRE>ipcrm &lt;msg | sem | shm&gt;  &lt;IPC ID&gt;</PRE> 
+<HR>Simply specify whether the object to be deleted is a message queue (<EM>msg</EM>), a semaphore
+set (<EM>sem</EM>), or a shared memory segment (<EM>shm</EM>).  The IPC ID can be obtained by
+the <TT>ipcs</TT> command.  You have to specify the type of object, since identifiers are unique
+among the same type (recall our discussion of this earlier).
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

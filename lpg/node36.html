@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>SYSTEM CALL: msgctl()</TITLE>
+<META NAME="description" CONTENT="SYSTEM CALL: msgctl()">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html824" HREF="node37.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html822" HREF="node27.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html816" HREF="node35.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html826" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html825" HREF="node37.html">msgtool: An interactive message </A>
+<B>Up:</B> <A NAME="tex2html823" HREF="node27.html">6.4.2 Message Queues</A>
+<B> Previous:</B> <A NAME="tex2html817" HREF="node35.html">SYSTEM CALL: msgsnd()</A>
+<BR> <P>
+<H3><A NAME="SECTION00742500000000000000">SYSTEM CALL: msgctl()</A></H3>
+<P>
+Through the development of the wrapper functions presented earlier, you now have a simple,
+somewhat elegant approach to creating and utilizing message queues in your applications.  Now,
+we will turn the discussion to directly manipulating the internal structures associated with
+a given message queue.
+<P>
+To perform control operations on a message queue, you use the <TT>msgctl()</TT> system call.
+<P>
+<P>
+<HR><PRE>  SYSTEM CALL: msgctl();
+  PROTOTYPE: int msgctl ( int msgqid, int cmd, struct msqid_ds *buf );
+    RETURNS: 0 on success
+             -1 on error: errno = EACCES (No read permission and cmd is IPC_STAT)
+                                  EFAULT (Address pointed to by buf is invalid with IPC_SET and
+                                          IPC_STAT commands)
+                                  EIDRM  (Queue was removed during retrieval)
+                                  EINVAL (msgqid invalid, or msgsz less than 0)
+                                  EPERM  (IPC_SET or IPC_RMID command was issued, but
+                                          calling process does not have write (alter)
+                                          access to the queue)
+  NOTES:</PRE> 
+<HR>Now, common sense dictates that direct manipulation of the internal kernel data structures could
+lead to some late night fun.  Unfortunately, the resulting duties on the part of the programmer
+could only be classified as fun if you like trashing the IPC subsystem.  By using <TT>msgctl()</TT>
+with a selective set of commands, you have the ability to manipulate those items which are less
+likely to cause grief.  Let's look at these commands:
+<P>
+<DL ><DT><STRONG><B>IPC_STAT</B></STRONG>
+<DD> 
+<P>
+Retrieves the msqid_ds structure for a queue, and stores it in
+the address of the buf argument.
+<P>
+<DT><STRONG><B>IPC_SET</B></STRONG>
+<DD> 
+<P>
+Sets the value of the ipc_perm member of the msqid_ds structure for
+a queue.  Takes the values from the buf argument.
+<P>
+<DT><STRONG><B>IPC_RMID</B></STRONG>
+<DD> 
+<P>
+Removes the queue from the kernel.
+<P>
+ </DL>
+<P>
+Recall our discussion about the internal data structure for message queues (<TT>msqid_ds</TT>).
+The kernel maintains an instance of this structure for each queue which exists in the system.
+By using the <B>IPC_STAT</B> command, we can retrieve a copy of this structure for examination.
+Let's look at a quick wrapper function that will retrieve the internal structure and copy it
+into a passed address:
+<P>
+<P>
+<HR><PRE>int get_queue_ds( int qid, struct msgqid_ds *qbuf )
+{
+        if( msgctl( qid, IPC_STAT, qbuf) == -1)
+        {
+                return(-1);
+        }
+        
+        return(0);
+}</PRE> 
+<HR>If we are unable to copy the internal buffer, -1 is returned to the calling function.  If all
+went well, a value of 0 (zero) is returned, and the passed buffer should contain a copy of the
+internal data structure for the message queue represented by the passed queue identifier (<TT>qid</TT>).
+<P>
+Now that we have a copy of the internal data structure for a queue, what attributes can be 
+manipulated, and how can we alter them?  The only modifiable item in the data structure is the
+<TT>ipc_perm</TT> member.  This contains the permissions for the queue, as well as information
+about the owner and creator.  However, the only members of the <TT>ipc_perm</TT> structure that
+are modifiable are <TT>mode</TT>, <TT>uid</TT>, and <TT>gid</TT>.  You can change the owner's
+user id, the owner's group id, and the access permissions for the queue.
+<P>
+Let's create a wrapper function designed to change the mode of a queue.  The mode must be
+passed in as a character array (i.e. <EM>``660''</EM>).
+<P>
+<P>
+<HR><PRE>int change_queue_mode( int qid, char *mode )
+{
+        struct msqid_ds tmpbuf;
+
+        /* Retrieve a current copy of the internal data structure */
+        get_queue_ds( qid, &amp;tmpbuf);
+
+        /* Change the permissions using an old trick */
+        sscanf(mode, &quot;%ho&quot;, &amp;tmpbuf.msg_perm.mode);
+
+        /* Update the internal data structure */
+        if( msgctl( qid, IPC_SET, &amp;tmpbuf) == -1)
+        {
+                return(-1);
+        }
+        
+        return(0);
+}</PRE> 
+<HR>We retrieve a current copy of the internal data structure by a quick call to our <TT>get_queue_ds</TT>
+wrapper function.  We then make a call to <TT>sscanf()</TT> to alter the <TT>mode</TT> member
+of the associated <TT>msg_perm</TT> structure.  No changes take place, however, until the new copy
+is used to update the internal version.  This duty is performed by a call to <TT>msgctl()</TT> using the
+<B>IPC_SET</B> command.
+<P>
+<EM>BE CAREFUL!</EM> It is possible to alter the permissions on a queue, and in doing so, inadvertently
+lock yourself out!  Remember, these IPC objects don't go away unless they are properly removed, or
+the system is rebooted.  So, even if you can't see a queue with <TT>ipcs</TT> doesn't mean that it isn't
+there.
+<P>
+<BLOCKQUOTE> <EM>To illustrate this point, a somewhat humorous anecdote seems to be in order.  While teaching a class on
+UNIX internals at the University of South Florida, I ran into a rather embarrassing stumbling block.  I
+had dialed into their lab server the night before, in order to compile and test the labwork to be used
+in the week-long class.  In the process of my testing, I realized that I had made a typo in the
+code used to alter the permissions on a message queue.  I created a simple message queue, and tested the 
+sending and receiving capabilities with no incident.  However, when I attempted to change the mode of
+the queue from ``660'' to ``600'', the resulting action was that I was locked out of my own queue!  As a 
+result, I could not test the message queue labwork in the same area of my source directory.  Since I
+used the ftok() function to create the IPC key, I was trying to access a queue that I did not have
+proper permissions for.  I ended up contacting the local system administrator on the morning of the class,
+only to spend an hour explaining to him what a message queue was, and why I needed him to run the ipcrm
+command for me. grrrr.</EM>
+</BLOCKQUOTE>
+<P>
+After successfully retrieving a message from a queue, the message is removed.  However, as 
+mentioned earlier, IPC objects remain in the system unless explicitly removed, or the system
+is rebooted.  Therefore, our message queue still exists within the kernel, available for use
+long after a single message disappears.  To complete the life cycle of a message queue, they
+should be removed with a call to <TT>msgctl()</TT>, using the <B>IPC_RMID</B> command:
+<P>
+<P>
+<HR><PRE>int remove_queue( int qid )
+{
+        if( msgctl( qid, IPC_RMID, 0) == -1)
+        {
+                return(-1);
+        }
+        
+        return(0);
+}</PRE> 
+<HR>This wrapper function returns 0 if the queue was removed without incident, else a value of -1.
+The removal of the queue is atomic in nature, and any subsequent accesses to the queue for
+whatever purpose will fail miserably.
+<P>
+<HR><A NAME="tex2html824" HREF="node37.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html822" HREF="node27.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html816" HREF="node35.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html826" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html825" HREF="node37.html">msgtool: An interactive message </A>
+<B>Up:</B> <A NAME="tex2html823" HREF="node27.html">6.4.2 Message Queues</A>
+<B> Previous:</B> <A NAME="tex2html817" HREF="node35.html">SYSTEM CALL: msgsnd()</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

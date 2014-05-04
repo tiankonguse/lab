@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.6.4 Boxes and Lines</TITLE>
+<META NAME="description" CONTENT="8.6.4 Boxes and Lines">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1679" HREF="node105.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1677" HREF="node100.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1671" HREF="node103.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1681" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1680" HREF="node105.html">8.6.5 Background Character</A>
+<B>Up:</B> <A NAME="tex2html1678" HREF="node100.html">8.6 Output</A>
+<B> Previous:</B> <A NAME="tex2html1672" HREF="node103.html">8.6.3 Delete Characters/Lines</A>
+<BR> <P>
+<H2><A NAME="SECTION00964000000000000000">8.6.4 Boxes and Lines</A></H2>
+<P>
+<UL><LI> <TT>int border(ls, rs, ts, bs, tl, tr, bl, br)</TT> <A NAME="fun_border">&#160;</A><BR> 
+        <TT>int wborder(win, ls, rs, ts, bs, tl, tr, bl, br)</TT> <A NAME="fun_wborder">&#160;</A><BR> 
+        <TT>int box(win, vert, hor)</TT> <A NAME="fun_box">&#160;</A><BR> 
+        Draw a border around the edges of a window ( or 
+        <TT>win</TT>). In the following table you see the characters
+        and their default values when zero in a call to <B>box(...)</B>.
+        In the picture you can see the position from the characters in a box.
+<P>
+<P><A NAME="48829">&#160;</A><A NAME="tab_borderch">&#160;</A><BR>
+<STRONG>Table 8.3:</STRONG> Ncurses - border characters<BR>
+<P>
+<P>
+<P><A NAME="48841">&#160;</A><A NAME="fig_boxbic">&#160;</A><BR>
+<STRONG>Figure 8.2:</STRONG> Ncurses - box characters<BR>
+<P><LI> <TT>int vline(ch, n)</TT> <A NAME="fun_vline">&#160;</A><BR> 
+        <TT>int wvline(win, ch, n)</TT> <A NAME="fun_wvline">&#160;</A><BR> 
+        <TT>int hline(ch, n)</TT> <A NAME="fun_hline">&#160;</A><BR> 
+        <TT>int whline(win, ch, n)</TT> <A NAME="fun_whline">&#160;</A><BR> 
+        These functions draw a vertical or horizontal line starting at the
+        current cursor position. <TT>ch</TT> is the character to use and 
+        <TT>n</TT> is the number of characters to draw. The cursor position 
+        is not advanced.
+</UL><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>Output Options</TITLE>
+<META NAME="description" CONTENT="Output Options">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1733" HREF="node110.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1731" HREF="node108.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1727" HREF="node108.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1735" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1734" HREF="node110.html">8.8.1 Input Options</A>
+<B>Up:</B> <A NAME="tex2html1732" HREF="node108.html">8.8 Options</A>
+<B> Previous:</B> <A NAME="tex2html1728" HREF="node108.html">8.8 Options</A>
+<BR> <P>
+<H3><A NAME="SECTION00980100000000000000">Output Options</A></H3>
+<P>
+<UL><LI> <TT>int idlok(win, bf)</TT> <A NAME="fun_idlok">&#160;</A><BR> 
+        <TT>void idcok(win, bf)</TT> <A NAME="fun_idcok">&#160;</A><BR> 
+        Enable or disable terminal's insert/delete features for the window
+        (<B>idlok(...)</B> for lines and <B>idcok(...)</B> for characters).
+        (<B>Note:</B> <B>idcok(...)</B> not implemented yet.)<LI> <TT>void immedok(win, bf)</TT> <A NAME="fun_immedok">&#160;</A><BR> 
+        If set TRUE, every change to the window <TT>win</TT> will cause a refresh
+        to the physical screen. This can decrease the performance of a
+        program, so the default value is FALSE.
+        (<B>Note:</B> not implemented yet.)<LI> <TT>int clearok(win, bf)</TT> <A NAME="fun_clearok">&#160;</A><BR> 
+        If <TT>bf</TT> is TRUE the next call to <B>wrefresh(win)</B> will clear the
+        screen and redraw it completely. (as in the editor vi when you press
+        CTRL+L).<LI> <TT>int leaveok(win, bf)</TT> <A NAME="fun_leaveok">&#160;</A><BR> 
+        The default behavior is for ncurses to leave the physical cursor in the
+        same place it was on the last refresh of the window.
+        Programs which don't use the cursor
+        can set <B>leaveok(...)</B> TRUE and save the time normally required for
+        cursor motion. In addition, ncurses will try to make the terminal 
+        cursor invisible.<LI> <TT>int nl()</TT> <A NAME="fun_nl">&#160;</A><BR> 
+        <TT>int nonl()</TT> <A NAME="fun_nonl">&#160;</A><BR> 
+        Control the translation for newline. Turned on with <B>nl()</B> will
+        translate a newline in carriage return and line feed on output.
+        <B>nonl()</B> will turn translation off. With disabled translation
+        ncurses can do faster cursor motion.
+</UL><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

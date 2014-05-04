@@ -1306,11 +1306,11 @@ only screen and (min-resolution: 2dppx) {
 		height: 60px;
 	}
 	.side-logo-wrap{
-		height: 42px;
+		height: 130px;
 	}
     .slw-logo {
         width: 71px;
-        height: 25px;
+        height: 130px;
         margin: -12px -37px 0 0;
     }
 	

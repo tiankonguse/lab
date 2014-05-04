@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6.2.2 Creating Pipes in C</TITLE>
+<META NAME="description" CONTENT="6.2.2 Creating Pipes in C">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html468" HREF="node12.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html466" HREF="node9.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html460" HREF="node10.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html470" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html469" HREF="node12.html">6.2.3 Pipes the Easy </A>
+<B>Up:</B> <A NAME="tex2html467" HREF="node9.html">6.2 Half-duplex UNIX Pipes</A>
+<B> Previous:</B> <A NAME="tex2html461" HREF="node10.html">6.2.1 Basic Concepts</A>
+<BR> <P>
+<H2><A NAME="SECTION00722000000000000000">6.2.2 Creating Pipes in C</A></H2>
+<P>
+Creating ``pipelines'' with the C programming language can be a bit more involved
+than our simple shell example.  To create a simple pipe with C, we make use of
+the pipe() system call.  It takes a single argument, which is an array of two
+integers, and if successful, the array will contain two new file descriptors
+to be used for the pipeline. After creating a pipe, the process typically
+spawns a new process (remember the child inherits open file descriptors).
+<P>
+<P>
+<HR><PRE>  SYSTEM CALL: pipe();                                                          
+
+  PROTOTYPE: int pipe( int fd[2] );                                             
+    RETURNS: 0 on success                                                       
+             -1 on error: errno = EMFILE (no free descriptors)                  
+                                  EMFILE (system file table is full)            
+                                  EFAULT (fd array is not valid)                
+
+  NOTES: fd[0] is set up for reading, fd[1] is set up for writing</PRE> 
+<HR>The first integer in the array (element 0) is set up and opened for reading,
+while the second integer (element 1) is set up and opened for writing.  
+Visually speaking, the output of fd1 becomes the input for fd0.  Once
+again, all data traveling through the pipe moves through the kernel.
+<P>
+<PRE>        #include &lt;stdio.h&gt;
+        #include &lt;unistd.h&gt;
+        #include &lt;sys/types.h&gt;
+
+        main()
+        {
+                int     fd[2];
+                
+                pipe(fd);
+                .
+                .
+        }</PRE>
+<P>
+Remember that an array name in C <EM>decays</EM> into a pointer to its first
+member.  Above, <TT>fd</TT> is equivalent to <TT>&amp;fd[0]</TT>.  Once we have established the
+pipeline, we then fork our new child process:
+<P>
+<PRE>        #include &lt;stdio.h&gt;
+        #include &lt;unistd.h&gt;
+        #include &lt;sys/types.h&gt;
+
+        main()
+        {
+                int     fd[2];
+                pid_t   childpid;
+
+                pipe(fd);
+        
+                if((childpid = fork()) == -1)
+                {
+                        perror(&quot;fork&quot;);
+                        exit(1);
+                }
+                .
+                .
+        }</PRE>
+<P>
+If the parent wants to receive data from the child, it should close fd1,
+and the child should close fd0. If the parent wants to send data to the
+child, it should close fd0, and the child should close fd1. Since
+descriptors are shared between the parent and child, we should always be sure
+to close the end of pipe we aren't concerned with.  On a technical note, the
+EOF will never be returned if the unnecessary ends of the pipe are not
+explicitly closed.
+<P>
+<PRE>        #include &lt;stdio.h&gt;
+        #include &lt;unistd.h&gt;
+        #include &lt;sys/types.h&gt;
+
+        main()
+        {
+                int     fd[2];
+                pid_t   childpid;
+
+                pipe(fd);
+        
+                if((childpid = fork()) == -1)
+                {
+                        perror(&quot;fork&quot;);
+                        exit(1);
+                }
+
+                if(childpid == 0)
+                {
+                        /* Child process closes up input side of pipe */
+                        close(fd[0]);
+                }
+                else
+                {
+                        /* Parent process closes up output side of pipe */
+                        close(fd[1]);
+                }
+                .
+                .
+        }</PRE>
+<P>
+As mentioned previously, once the pipeline has been established, the file
+descriptors may be treated like descriptors to normal files.
+<P>
+<PRE>/*****************************************************************************
+ Excerpt from &quot;Linux Programmer's Guide - Chapter 6&quot;
+ (C)opyright 1994-1995, Scott Burkett
+ ***************************************************************************** 
+ MODULE: pipe.c
+ *****************************************************************************/
+
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+
+int main(void)
+{
+        int     fd[2], nbytes;
+        pid_t   childpid;
+        char    string[] = &quot;Hello, world!\n&quot;;
+        char    readbuffer[80];
+
+        pipe(fd);
+        
+        if((childpid = fork()) == -1)
+        {
+                perror(&quot;fork&quot;);
+                exit(1);
+        }
+
+        if(childpid == 0)
+        {
+                /* Child process closes up input side of pipe */
+                close(fd[0]);
+
+                /* Send &quot;string&quot; through the output side of pipe */
+                write(fd[1], string, (strlen(string)+1));
+                exit(0);
+        }
+        else
+        {
+                /* Parent process closes up output side of pipe */
+                close(fd[1]);
+
+                /* Read in a string from the pipe */
+                nbytes = read(fd[0], readbuffer, sizeof(readbuffer));
+                printf(&quot;Received string: %s&quot;, readbuffer);
+        }
+        
+        return(0);
+}</PRE>
+<P>
+Often, the descriptors in the child are duplicated onto standard input 
+or output.  The child can then exec() another program, which inherits the
+standard streams.  Let's look at the dup() system call:
+<P>
+<P>
+<HR><PRE>  SYSTEM CALL: dup();                                                           
+
+  PROTOTYPE: int dup( int oldfd );                                              
+    RETURNS: new descriptor on success                                          
+             -1 on error: errno = EBADF (oldfd is not a valid descriptor)       
+                                  EBADF (newfd is out of range)                 
+                                  EMFILE (too many descriptors for the process) 
+
+  NOTES: the old descriptor is not closed!  Both may be used interchangeably</PRE> 
+<HR>Although the old descriptor and the newly created descriptor can be used
+interchangeably, we will typically close one of the standard streams first.
+The dup() system call uses the lowest-numbered, unused descriptor for the
+new one.
+<P>
+Consider:
+<P>
+<PRE>        .
+        .
+        childpid = fork();
+        
+        if(childpid == 0)
+        {
+                /* Close up standard input of the child */
+                close(0);
+                
+                /* Duplicate the input side of pipe to stdin */
+                dup(fd[0]);
+                execlp(&quot;sort&quot;, &quot;sort&quot;, NULL);
+                .
+        }</PRE>
+<P>
+Since file descriptor 0 (stdin) was closed, the call to dup() duplicated the 
+input descriptor of the pipe (fd0) onto its standard input.  We then make
+a call to execlp(), to overlay the child's text segment (code) with that of
+the sort program.  Since newly exec'd programs inherit standard streams from
+their spawners, it actually inherits the input side of the pipe as its
+standard input!  Now, anything that the original parent process sends to the
+pipe, goes into the sort facility.
+<P>
+There is another system call, dup2(), which can be used as well.  This 
+particular call originated with Version 7 of UNIX, and was carried on through
+the BSD releases and is now required by the POSIX standard.
+<P>
+<P>
+<HR><PRE>  SYSTEM CALL: dup2();                                                          
+
+  PROTOTYPE: int dup2( int oldfd, int newfd );                                  
+    RETURNS: new descriptor on success                                          
+             -1 on error: errno = EBADF (oldfd is not a valid descriptor)       
+                                  EBADF (newfd is out of range)                 
+                                  EMFILE (too many descriptors for the process) 
+
+  NOTES: the old descriptor is closed with dup2()!</PRE> 
+<HR>With this particular call, we have the close operation, and the actual
+descriptor duplication, wrapped up in one system call.  In addition, it
+is guaranteed to be atomic, which essentially means that it will never
+be interrupted by an arriving signal.  The entire operation will transpire
+before returning control to the kernel for signal dispatching.  With the
+original dup() system call, programmers had to perform a close() operation
+before calling it.  That resulted in two system calls, with a small degree
+of vulnerability in the brief amount of time which elapsed between them.  
+If a signal arrived during that brief instance, the descriptor duplication
+would fail.  Of course, dup2() solves this problem for us.
+<P>
+Consider:
+<P>
+<PRE>        .
+        .
+        childpid = fork();
+        
+        if(childpid == 0)
+        {
+                /* Close stdin, duplicate the input side of pipe to stdin */
+                dup2(0, fd[0]);
+                execlp(&quot;sort&quot;, &quot;sort&quot;, NULL);
+                .
+                .
+        }</PRE>
+<P>
+<HR><A NAME="tex2html468" HREF="node12.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html466" HREF="node9.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html460" HREF="node10.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html470" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html469" HREF="node12.html">6.2.3 Pipes the Easy </A>
+<B>Up:</B> <A NAME="tex2html467" HREF="node9.html">6.2 Half-duplex UNIX Pipes</A>
+<B> Previous:</B> <A NAME="tex2html461" HREF="node10.html">6.2.1 Basic Concepts</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,295 @@
+<html>
+<head>
+
+<title>Basic CGI Applications</title>
+</head>
+
+<body bgcolor=white>
+<h1>Basic CGI Applications</h1>
+
+<xmp>
+
+What is CGI?
+---------------
+Common Gateway Interface
+
+Typical applications:
+1) forms processing
+2) gateway, (Oracle DB)
+3) virtual documents
+4) server side cickable maps
+
+=> servers - might require specific directories
+	example:
+	public_html/cgi-bin
+
+=> or file extensions
+examples:
+	.pl	<= Perl extension
+	.cgi
+
+Can use:
+	C/C++
+	C shell
+	Perl
+	Tcl
+	VB
+	Java
+
+file exists on server, html page points to file
+
+<html>
+<a href = "frame.cgi"> frame.cgi</a>
+<a href = "frame.pl">  frame.pl </a>
+
+<br>
+<!-- #include virtual="frame.pl"-->
+<br>
+<!-- #include virtual="frame.cgi"-->
+</html>
+
+
+
+Perl Code
+----------
+
+#!/usr/local/bin/perl
+
+print "content-type: text/html\n\n";
+
+print "<HTML> <BODY> <H1>Hello World</H1>\n";
+
+print "</BODY> </HTML>\n";
+
+
+file for output must be:
+chmod a+rwx
+      o+w
+
+
+
+
+
+C++ code:
+-----------
+#include <iostream.h>
+void main()
+{
+  cout << "Content-type: text/plain\n\n";
+  cout << "Hello World\n";
+}
+
+
+g++ compiler doesn't work well, instead try CC, (Solaris C++ compiler)
+	- you MUST use .C as extension  (Note: CC and .C must be in caps!)
+
+
+
+HTML file to access a the C++ Program
+-------------------------------------
+
+please note the space following the <!-- must be removed to get these
+directives to behave as includes and not simple comments
+
+<html>
+<a href="a.cgi">a.cgi</a>
+
+<!-- #include virtual="a.cgi"-->
+</html>
+
+
+cgiwrap is sometimes useful on some systems
+
+<!-- #include virtual="cgi-bin/cgiwrap/engweb/____.pl"-->
+
+
+
+Perl Script that performs file I/O
+----------------------------------
+
+#!/usr/local/bin/perl
+
+print "Content-type: text/html\n\n";   #indicate mime content
+
+print "<HTML>\n"; 
+print "<BODY>\n";
+
+$file = 'test.dat';                  #file is in html page directory
+
+open(IN, "<$file") || die "Cannot open $file";  #open file for input
+
+@lines = <IN>;              #put the lines in an array
+close(IN);
+
+foreach $line (@lines)      #process lines one at a time
+{
+  print "<P> $line </P>\n";
+}
+
+print "</BODY>\n";
+print "</HTML>\n";
+
+$out = "results.dat";                #file is in html page directory
+
+open(OUT,">$out") || die "Cannot open $out";   #open file for output
+
+print OUT "Some Data Lines\n";
+
+for ($i = 1; $i < 5; $i++)
+{
+  print OUT "$i\n";
+}
+
+close(OUT);
+
+
+
+C++ Version that does file I/O
+------------------------------
+
+#include <iostream.h>
+#include <fstream.h>
+
+void main()
+{
+
+ ifstream in;
+ ofstream out;
+ char S[30];
+ int i;
+
+ in.open("test.dat");   // open input file
+
+ cout << "Content-type: text/html\n\n";  // indicate mime content
+ cout << "<HTML>\n";
+ cout << "<BODY>\n";
+
+ in >> S;
+ cout << "<H1>";
+ cout << S;
+ cout << "</H1>\n";
+ in >> i;
+ while (!in.eof())
+ {
+   cout << i;
+   cout << "<br>";
+   cout << "\n";
+   in >> i;
+ }
+   
+ in.close();
+
+ cout << "</BODY>\n";
+ cout << "</HTML>\n";
+
+ out.open("results.dat");    //open output file
+ 
+ out << "Some Numbers\n";
+ for (i = 10; i < 20; i++)
+ {
+   out  << i;
+   out << "\n";
+ }
+
+ out.close(); 
+}
+
+</xmp>
+
+
+
+<p>
+<pre>
+Server Side Includes:
+--------------------
+
+note: the space before the # needs to be removed to make these constructs
+      behave as directives and not html comments 
+</p>
+</pre>
+
+<xmp>
+<a href="a.cgi">a.cgi</a>       <!-- a.cgi is a compiled c++ prog-->
+<!--#include virtual="a.cgi"-->
+</xmp>
+
+<xmp>
+<!-- #echo var="DATE_GMT"-->
+</xmp>
+<p>
+<!--#echo var="DATE_GMT"-->
+</p>
+
+<xmp>
+<!-- #echo var="SERVER_NAME"-->
+</xmp>
+<p>
+<!--#echo var="SERVER_NAME"-->
+</p>
+
+<xmp>
+<!-- #exec cmd="cal"-->            <!-- gives a default calendar for current month in Unix-->
+</xmp>
+<p>
+<pre>
+<!--#exec cmd="cal"-->
+</pre>
+</p>
+
+<xmp>
+<!-- #exec cmd="finger bmaxim"-->
+</xmp>
+<p>
+<pre>
+<!--#exec cmd="finger bmaxim"-->
+</pre>
+</p>
+
+<xmp>
+<!-- #exec cmd="man unzip"-->            <!-- would include all 14 unzip man pages-->
+</xmp>
+
+<xmp>
+<!-- #exec cgi="a.pl"-->
+</xmp>
+<p>
+<!--#exec cgi="a.pl"-->
+</p>
+
+<xmp>
+<!-- #exec cgi="a.out"-->	  <!-- where a.out is a compiled c++ program-->
+</xmp>
+<p>
+<!--#exec cgi="a.out"-->
+</p>
+
+<xmp>
+<!-- #exec cgi="a.cgi"-->
+</xmp>
+<p>
+<!--#exec cgi="a.cgi"-->
+</p>
+
+<xmp>
+<!-- #config errmsg="if error occurs, contact bmaxim@umich.edu"-->
+</xmp>
+<p>
+<!--#config errmsg="if error occurs, contact bmaxim@umich.edu"-->
+</p>
+
+
+<p>
+Working with Forms:<br>
+-----------------------
+</p>
+<p>
+It is hard to find examples of form processinng using C++. This site 
+contains several 
+<a href="http://www.jdonohue.com/perl2/index.html">
+Perl examples</a> of CGI programming and form processing.
+</p>
+
+</body>
+</html>
+
+

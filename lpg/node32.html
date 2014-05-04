@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>Kernel msqid_ds structure</TITLE>
+<META NAME="description" CONTENT="Kernel msqid_ds structure">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html782" HREF="node33.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html780" HREF="node29.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html774" HREF="node31.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html784" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html783" HREF="node33.html">Kernel ipc_perm structure</A>
+<B>Up:</B> <A NAME="tex2html781" HREF="node29.html">Internal and User Data </A>
+<B> Previous:</B> <A NAME="tex2html775" HREF="node31.html">Kernel msg structure</A>
+<BR> <P>
+<H4><A NAME="SECTION00742230000000000000">Kernel <TT>msqid_ds</TT> structure</A></H4>
+<P>
+Each of the three types of IPC objects has an internal data structure which is maintained
+by the kernel.  For message queues, this is the <TT>msqid_ds</TT> structure.  The kernel creates,
+stores, and maintains an instance of this structure for every message queue created on the
+system.  It is defined in <TT>linux/msg.h</TT> as follows:
+<P>
+<P>
+<HR><PRE>/* one msqid structure for each queue on the system */
+struct msqid_ds {
+    struct ipc_perm msg_perm;
+    struct msg *msg_first;  /* first message on queue */
+    struct msg *msg_last;   /* last message in queue */
+    time_t msg_stime;       /* last msgsnd time */
+    time_t msg_rtime;       /* last msgrcv time */
+    time_t msg_ctime;       /* last change time */
+    struct wait_queue *wwait;
+    struct wait_queue *rwait;
+    ushort msg_cbytes;    
+    ushort msg_qnum;     
+    ushort msg_qbytes;      /* max number of bytes on queue */
+    ushort msg_lspid;       /* pid of last msgsnd */
+    ushort msg_lrpid;       /* last receive pid */
+};</PRE> 
+<HR>While you will rarely have to concern yourself with most of the members of this structure, a brief
+description of each is in order to complete our tour:
+<P>
+<DL ><DT><STRONG><TT>msg_perm</TT></STRONG>
+<DD> 
+<P>
+An instance of the <TT>ipc_perm</TT> structure, which is defined
+for us in <TT>linux/ipc.h</TT>.  This holds the permission information for
+the message queue, including the access permissions, and information
+about the creator of the queue (uid, etc).
+<P>
+<DT><STRONG><TT>msg_first</TT></STRONG>
+<DD> 
+<P>
+Link to the first message in the queue (the head of the list).
+<P>
+<DT><STRONG><TT>msg_last</TT></STRONG>
+<DD> 
+<P>
+Link to the last message in the queue (the tail of the list).
+<P>
+<DT><STRONG><TT>msg_stime</TT></STRONG>
+<DD> 
+<P>
+Timestamp (<TT>time_t</TT>) of the last message that was sent to the queue.
+<P>
+<DT><STRONG><TT>msg_rtime</TT></STRONG>
+<DD> 
+<P>
+Timestamp of the last message retrieved from the queue.
+<P>
+<DT><STRONG><TT>msg_ctime</TT></STRONG>
+<DD> 
+<P>
+Timestamp of the last ``change'' made to the queue (more on this later).
+<P>
+<DT><STRONG><TT>wwait</TT></STRONG>
+<DD> 
+<P>
+and
+<P>
+<DT><STRONG><TT>rwait</TT></STRONG>
+<DD> 
+<P>
+Pointers into the kernel's <EM>wait queue</EM>.  They are
+used when an operation on a message queue deems the process go into a sleep
+state (i.e. queue is full and the process is waiting for an opening).
+<P>
+<DT><STRONG><TT>msg_cbytes</TT></STRONG>
+<DD> 
+<P>
+Total number of bytes residing on the queue (sum of the sizes of all messages).
+<P>
+<DT><STRONG><TT>msg_qnum</TT></STRONG>
+<DD> 
+<P>
+Number of messages currently in the queue.
+<P>
+<DT><STRONG><TT>msg_qbytes</TT></STRONG>
+<DD> 
+<P>
+Maximum number of bytes on the queue.
+<P>
+<DT><STRONG><TT>msg_lspid</TT></STRONG>
+<DD> 
+<P>
+The PID of the process who sent the last message.
+<P>
+<DT><STRONG><TT>msg_lrpid</TT></STRONG>
+<DD> 
+<P>
+The PID of the process who retrieved the last message.
+<P>
+ </DL><HR><A NAME="tex2html782" HREF="node33.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html780" HREF="node29.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html774" HREF="node31.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html784" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html783" HREF="node33.html">Kernel ipc_perm structure</A>
+<B>Up:</B> <A NAME="tex2html781" HREF="node29.html">Internal and User Data </A>
+<B> Previous:</B> <A NAME="tex2html775" HREF="node31.html">Kernel msg structure</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

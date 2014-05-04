@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>SYSTEM CALL: shmctl()</TITLE>
+<META NAME="description" CONTENT="SYSTEM CALL: shmctl()">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1254" HREF="node72.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1252" HREF="node65.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1246" HREF="node70.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1256" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1255" HREF="node72.html">SYSTEM CALL: shmdt()</A>
+<B>Up:</B> <A NAME="tex2html1253" HREF="node65.html">6.4.4 Shared Memory</A>
+<B> Previous:</B> <A NAME="tex2html1247" HREF="node70.html">SYSTEM CALL: shmat()</A>
+<BR> <P>
+<H3><A NAME="SECTION00744500000000000000">SYSTEM CALL: shmctl()</A></H3>
+<P>
+<P>
+<HR><PRE>  SYSTEM CALL: shmctl();
+  PROTOTYPE: int shmctl ( int shmqid, int cmd, struct shmid_ds *buf );
+    RETURNS: 0 on success
+             -1 on error: errno = EACCES (No read permission and cmd is IPC_STAT)
+                                  EFAULT (Address pointed to by buf is invalid with IPC_SET and
+                                          IPC_STAT commands)
+                                  EIDRM  (Segment was removed during retrieval)
+                                  EINVAL (shmqid invalid)
+                                  EPERM  (IPC_SET or IPC_RMID command was issued, but
+                                          calling process does not have write (alter)
+                                          access to the segment)
+      NOTES:</PRE> 
+<HR>This particular call is modeled directly after the <EM>msgctl</EM> call for message queues.  In light of
+this fact, it won't be discussed in too much detail.  Valid command values are:
+<P>
+<DL ><DT><STRONG><B>IPC_STAT</B></STRONG>
+<DD> 
+<P>
+Retrieves the shmid_ds structure for a segment, and stores it in
+the address of the buf argument
+<P>
+<DT><STRONG><B>IPC_SET</B></STRONG>
+<DD> 
+<P>
+Sets the value of the ipc_perm member of the shmid_ds structure for
+a segment.  Takes the values from the buf argument.
+<P>
+<DT><STRONG><B>IPC_RMID</B></STRONG>
+<DD> 
+<P>
+Marks a segment for removal.
+<P>
+ </DL>
+<P>
+The IPC_RMID command doesn't actually remove a segment from the kernel.  Rather, it <TT>marks</TT>
+the segment for removal.  The actual removal itself occurs when the last process currently attached
+to the segment has properly detached it.  Of course, if no processes are currently attached to the
+segment, the removal seems immediate.
+<P>
+To properly detach a shared memory segment, a process calls the <EM>shmdt</EM> system call.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

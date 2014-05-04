@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.22.1 Boolean Capabilities</TITLE>
+<META NAME="description" CONTENT="8.22.1 Boolean Capabilities">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1932" HREF="node128.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1930" HREF="node126.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1924" HREF="node126.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1934" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1933" HREF="node128.html">8.22.2 Numbers</A>
+<B>Up:</B> <A NAME="tex2html1931" HREF="node126.html">8.22 Terminfo Capabilities</A>
+<B> Previous:</B> <A NAME="tex2html1925" HREF="node126.html">8.22 Terminfo Capabilities</A>
+<BR> <P>
+<H2><A NAME="SECTION009221000000000000000">8.22.1 Boolean Capabilities</A></H2>
+<P>
+<PRE><TT> 
+<B>Variable</B> 		 <B>Cap.</B> 		 <B>Int.</B>  		 <B>Description</B>
+<P>
+               		 <B>Name</B> 		 <B>Code</B>
+<P>
+auto_left_margin         		 <TT>bw</TT>      		 <TT>bw</TT> 		     cub1 wraps from column 0 to last column
+<P>
+auto_right_margin        		 <TT>am</TT>      		 <TT>am</TT> 		     Terminal has automatic margins
+<P>
+back_color_erase         		 <TT>bce</TT>     		 <TT>ut</TT> 		     screen erased with background color
+<P>
+can_change                		 <TT>ccc</TT>     		 <TT>cc</TT> 		     terminal can re-define exiting colors
+<P>
+ceol_standout_glitch     		 <TT>xhp</TT>     		 <TT>xs</TT> 		     Standout not erased by overwriting (hp)
+<P>
+col_addr_glitch          		 <TT>xhpa</TT>    		 <TT>YA</TT> 		     only positive motion for hpa/mhpa caps
+<P>
+cpi_changes_res          		 <TT>cpix</TT>    		 <TT>YF</TT> 		     changing character pitch changes resolution
+<P>
+cr_cancels_micro_mode   		 <TT>crxm</TT>    		 <TT>YB</TT> 		     using cr turns off micro mode
+<P>
+eat_newline_glitch       		 <TT>xenl</TT>    		 <TT>xn</TT> 		     newline ignored after 80 cols (Concept)
+<P>
+erase_overstrike          		 <TT>eo</TT>      		 <TT>eo</TT> 		     Can erase overstrikes with a blank
+<P>
+generic_type              		 <TT>gn</TT>      		 <TT>gn</TT> 		     Generic line type (e.g.,, dialup, switch).
+<P>
+hard_copy                 		 <TT>hc</TT>      		 <TT>hc</TT> 		     Hardcopy terminal
+<P>
+hard_cursor               		 <TT>chts</TT>    		 <TT>HC</TT> 		     cursor is hard to see
+<P>
+has_meta_key             		 <TT>km</TT>      		 <TT>km</TT> 		     Has a meta key (shift, sets parity bit)
+<P>
+has_print_wheel          		 <TT>daisy</TT>   		 <TT>YC</TT> 		     printer needs operator to change character set
+<P>
+has_status_line          		 <TT>hs</TT>      		 <TT>hs</TT> 		     Has extra &quot;status line&quot;
+<P>
+hue_lightness_saturation 		 <TT>hls</TT>     		 <TT>hl</TT> 		     terminal uses only HLS color notation
+<P>
+                           		               		          		     (Tektronix)
+<P>
+insert_null_glitch       		 <TT>in</TT>      		 <TT>in</TT> 		     Insert mode distinguishes nulls
+<P>
+lpi_changes_res          		 <TT>lpix</TT>    		 <TT>YG</TT> 		     changing line pitch changes resolution
+<P>
+memory_above              		 <TT>da</TT>      		 <TT>da</TT> 		     Display may be retained above the screen
+<P>
+memory_below              		 <TT>db</TT>      		 <TT>db</TT> 		     Display may be retained below the screen
+<P>
+move_insert_mode         		 <TT>mir</TT>     		 <TT>mi</TT> 		     Safe to move while in insert mode
+<P>
+move_standout_mode       		 <TT>msgr</TT>    		 <TT>ms</TT> 		     Safe to move in standout modes
+<P>
+needs_xon_xoff           		 <TT>nxon</TT>    		 <TT>nx</TT> 		     padding won't work, xon/xoff required
+<P>
+no_esc_ctl_c            		 <TT>xsb</TT>     		 <TT>xb</TT> 		     Beehive (f1=escape, f2=ctrl C)
+<P>
+non_rev_rmcup            		 <TT>nrrmc</TT>   		 <TT>NR</TT> 		     smcup does not reverse rmcup
+<P>
+no_pad_char              		 <TT>npc</TT>     		 <TT>NP</TT> 		     pad character does not exist
+<P>
+non_dest_scroll_region  		 <TT>ndscr</TT>   		 <TT>ND</TT> 		     scrolling region is non-destructive
+<P>
+over_strike               		 <TT>os</TT>      		 <TT>os</TT> 		     Terminal overstrikes
+<P>
+prtr_silent               		 <TT>mc5i</TT>    		 <TT>5i</TT> 		     printer won't echo on screen
+<P>
+row_addr_glitch          		 <TT>xvpa</TT>    		 <TT>YD</TT> 		     only positive motion for vhp/mvpa caps
+<P>
+semi_auto_right_margin  		 <TT>sam</TT>     		 <TT>YE</TT> 		     printing in last column causes cr
+<P>
+status_line_esc_ok      		 <TT>eslok</TT>   		 <TT>es</TT> 		     Escape can be used on the status line
+<P>
+dest_tabs_magic_smso    		 <TT>xt</TT>      		 <TT>xt</TT> 		     Tabs ruin, magic so char (Teleray 1061)
+<P>
+tilde_glitch              		 <TT>hz</TT>      		 <TT>hz</TT> 		     Hazel-tine; can not print 's
+<P>
+transparent_underline     		 <TT>ul</TT>      		 <TT>ul</TT> 		     underline character overstrikes
+<P>
+xon_xoff                  		 <TT>xon</TT>     		 <TT>xo</TT> 		     Terminal uses xon/xoff handshaking
+<P>
+</TT></PRE><HR><A NAME="tex2html1932" HREF="node128.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1930" HREF="node126.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1924" HREF="node126.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1934" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1933" HREF="node128.html">8.22.2 Numbers</A>
+<B>Up:</B> <A NAME="tex2html1931" HREF="node126.html">8.22 Terminfo Capabilities</A>
+<B> Previous:</B> <A NAME="tex2html1925" HREF="node126.html">8.22 Terminfo Capabilities</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

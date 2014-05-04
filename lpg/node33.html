@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>Kernel ipc_perm structure</TITLE>
+<META NAME="description" CONTENT="Kernel ipc_perm structure">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html791" HREF="node34.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html789" HREF="node29.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html785" HREF="node32.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html793" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html792" HREF="node34.html">SYSTEM CALL: msgget()</A>
+<B>Up:</B> <A NAME="tex2html790" HREF="node29.html">Internal and User Data </A>
+<B> Previous:</B> <A NAME="tex2html786" HREF="node32.html">Kernel msqid_ds structure</A>
+<BR> <P>
+<H4><A NAME="SECTION00742240000000000000">Kernel <TT>ipc_perm</TT> structure</A></H4>
+<P>
+The kernel stores permission information for IPC objects in a structure of type <TT>ipc_perm</TT>.
+For example, in the internal structure for a message queue described above, the <TT>msg_perm</TT>
+member is of this type.  It is declared for us in <TT>linux/ipc.h</TT> as follows:
+<P>
+<P>
+<HR><PRE>struct ipc_perm
+{
+  key_t  key;
+  ushort uid;   /* owner euid and egid */
+  ushort gid;
+  ushort cuid;  /* creator euid and egid */
+  ushort cgid;
+  ushort mode;  /* access modes see mode flags below */
+  ushort seq;   /* slot usage sequence number */
+};</PRE> 
+<HR>All of the above are fairly self-explanatory.  Stored along with the IPC key of the object is
+information about both the creator and owner of the object (they may be different).  The octal
+access modes are also stored here, as an <TT>unsigned short</TT>.  Finally, the <EM>slot usage sequence</EM>
+number is stored at the end.  Each time an IPC object is closed via a system call (destroyed), this
+value gets incremented by the maximum number of IPC objects that can reside in a system.  Will you have to
+concern yourself with this value? No.
+<P>
+<B>NOTE:</B><EM>There is an excellent discussion on this topic, and the security reasons as to
+its existence and behavior, in Richard Stevens' <B>UNIX Network Programming</B> book, pp. 125.</EM>
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

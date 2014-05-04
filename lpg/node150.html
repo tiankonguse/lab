@@ -1,0 +1,441 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>11 Systemcalls in alphabetical order</TITLE>
+<META NAME="description" CONTENT="11 Systemcalls in alphabetical order">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2197" HREF="node151.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2195" HREF="lpg.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2189" HREF="node149.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2199" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html2198" HREF="node151.html">12 Abbreviations</A>
+<B>Up:</B> <A NAME="tex2html2196" HREF="lpg.html">e</A>
+<B> Previous:</B> <A NAME="tex2html2190" HREF="node149.html">10.6 Additional Comments</A>
+<BR> <P>
+<H1><A NAME="SECTION001200000000000000000">11 Systemcalls in alphabetical order</A></H1>
+<P>
+<PRE><TT> lcr
+<P>
+just-a-tabspace-holder- &#175;
+<P>
+_exit 		 - 		 like exit but with fewer actions (m+c)
+<P>
+accept 		 - 		 accept a connection on a socket (m+c!)
+<P>
+access 		 - 		 check user's permissions for a file (m+c)
+<P>
+acct 		 - 		 not yet implemented (mc)
+<P>
+adjtimex 		 - 		 set/get kernel time variables (-c)
+<P>
+afs_syscall 		 - 		 reserved andrew filesystem call (-)
+<P>
+alarm 		 - 		 send SIGALRM at a specified time (m+c)
+<P>
+bdflush 		 - 		 flush dirty buffers to disk (-c)
+<P>
+bind 		 - 		 name a socket for interprocess communication (m!c)
+<P>
+break 		 - 		 not yet implemented (-)
+<P>
+brk 		 - 		 change data segment size (mc)
+<P>
+chdir 		 - 		 change working directory (m+c)
+<P>
+chmod 		 - 		 change file attributes (m+c)
+<P>
+chown 		 - 		 change ownership of a file (m+c)
+<P>
+chroot 		 - 		 set a new root directory (mc)
+<P>
+clone 		 - 		 see fork (m-)
+<P>
+close 		 - 		 close a file by reference (m+c)
+<P>
+connect 		 - 		 link 2 sockets (m!c)
+<P>
+creat 		 - 		 create a file (m+c)
+<P>
+create_module 		 - 		 allocate space for a loadable kernel module (-)
+<P>
+delete_module 		 - 		 unload a kernel module (-)
+<P>
+dup 		 - 		 create a file descriptor duplicate (m+c)
+<P>
+dup2 		 - 		 duplicate a file descriptor (m+c)
+<P>
+execl, execlp, execle, ...		 - 		 see execve (m+!c)
+<P>
+execve 		 - 		 execute a file (m+c)
+<P>
+exit 		 - 		 terminate a program (m+c)
+<P>
+fchdir 		 - 		 change working directory by reference ()
+<P>
+fchmod 		 - 		 see chmod (mc)
+<P>
+fchown 		 - 		 change ownership of a file (mc)
+<P>
+fclose 		 - 		 close a file by reference (m+!c)
+<P>
+fcntl 		 - 		 file/filedescriptor control (m+c)
+<P>
+flock 		 - 		 change file locking (m!c)
+<P>
+fork 		 - 		 create a child process (m+c)
+<P>
+fpathconf 		 - 		 get info about a file by reference (m+!c)
+<P>
+fread 		 - 		 read array of binary data from stream (m+!c)
+<P>
+fstat 		 - 		 get file status (m+c)
+<P>
+fstatfs 		 - 		 get filesystem status by reference (mc)
+<P>
+fsync 		 - 		 write file cache to disk (mc)
+<P>
+ftime 		 - 		 get timezone+seconds since 1.1.1970 (m!c)
+<P>
+ftruncate 		 - 		 change file size (mc)
+<P>
+fwrite 		 - 		 write array of binary datas to stream (m+!c)
+<P>
+get_kernel_syms 		 - 		 get kernel symbol table or its size (-)
+<P>
+getdomainname 		 - 		 get system's domainname (m!c)
+<P>
+getdtablesize 		 - 		 get filedescriptor table size (m!c)
+<P>
+getegid 		 - 		 get effective group id (m+c)
+<P>
+geteuid 		 - 		 get effective user id (m+c)
+<P>
+getgid 		 - 		 get real group id (m+c)
+<P>
+getgroups 		 - 		 get supplemental groups (m+c)
+<P>
+gethostid 		 - 		 get unique host identifier (m!c)
+<P>
+gethostname 		 - 		 get system's hostname (m!c)
+<P>
+getitimer 		 - 		 get value of interval timer (mc)
+<P>
+getpagesize 		 - 		 get size of a system page (m-!c)
+<P>
+getpeername 		 - 		 get address of a connected peer socket (m!c)
+<P>
+getpgid 		 - 		 get parent group id of a process (+c)
+<P>
+getpgrp 		 - 		 get parent group id of current process (m+c)
+<P>
+getpid 		 - 		 get process id of current process (m+c)
+<P>
+getppid 		 - 		 get process id of the parent process (m+c)
+<P>
+getpriority 		 - 		 get a process/group/user priority (mc)
+<P>
+getrlimit 		 - 		 get resource limits (mc)
+<P>
+getrusage 		 - 		 get usage of resources (m)
+<P>
+getsockname 		 - 		 get the adress of a socket (m!c)
+<P>
+getsockopt 		 - 		 get option settings of a socket (m!c)
+<P>
+gettimeofday 		 - 		 get timezone+seconds since 1.1.1970 (mc)
+<P>
+getuid 		 - 		 get real uid (m+c)
+<P>
+gtty 		 - 		 not yet implemented ()
+<P>
+idle 		 - 		 make a process a candidate for swap (mc)
+<P>
+init_module 		 - 		 insert a loadable kernel module (-)
+<P>
+ioctl 		 - 		 manipulate a character device (mc)
+<P>
+ioperm 		 - 		 set some i/o port's permissions (m-c)
+<P>
+iopl 		 - 		 set all i/o port's permissions (m-c)
+<P>
+ipc 		 - 		 interprocess communication (-c)
+<P>
+kill 		 - 		 send a signal to a process (m+c)
+<P>
+killpg 		 - 		 send a signal to a process group (mc!)
+<P>
+klog 		 - 		 see syslog (-!)
+<P>
+link 		 - 		 create a hardlink for an existing file (m+c)
+<P>
+listen 		 - 		 listen for socket connections (m!c)
+<P>
+llseek 		 - 		 lseek for large files (-)
+<P>
+lock 		 - 		 not implemented yet ()
+<P>
+lseek 		 - 		 change the position ptr of a file descriptor (m+c)
+<P>
+lstat 		 - 		 get file status (mc)
+<P>
+mkdir 		 - 		 create a directory (m+c)
+<P>
+mknod 		 - 		 create a device (mc)
+<P>
+mmap 		 - 		 map a file into memory (mc)
+<P>
+modify_ldt 		 - 		 read or write local descriptor table (-)
+<P>
+mount 		 - 		 mount a filesystem (mc)
+<P>
+mprotect 		 - 		 read, write or execute protect memory (-)
+<P>
+mpx 		 - 		 not implemented yet ()
+<P>
+msgctl 		 - 		 ipc message control (m!c)
+<P>
+msgget 		 - 		 get an ipc message queue id (m!c)
+<P>
+msgrcv 		 - 		 receive an ipc message (m!c)
+<P>
+msgsnd 		 - 		 send an ipc message (m!c)
+<P>
+munmap 		 - 		 unmap a file from memory (mc)
+<P>
+nice 		 - 		 change process priority (mc)
+<P>
+oldfstat 		 - 		 no longer existing
+<P>
+oldlstat 		 - 		 no longer existing
+<P>
+oldolduname 		 - 		 no longer existing
+<P>
+oldstat 		 - 		 no longer existing
+<P>
+olduname 		 - 		 no longer existing
+<P>
+open 		 - 		 open a file (m+c)
+<P>
+pathconf 		 - 		 get information about a file (m+!c)
+<P>
+pause 		 - 		 sleep until signal (m+c)
+<P>
+personality 		 - 		 change current execution domain for ibcs (-)
+<P>
+phys 		 - 		 not implemented yet (m)
+<P>
+pipe 		 - 		 create a pipe (m+c)
+<P>
+prof 		 - 		 not yet implemented ()
+<P>
+profil 		 - 		 execution time profile (m!c)
+<P>
+ptrace 		 - 		 trace a child process (mc)
+<P>
+quotactl 		 - 		 not implemented yet ()
+<P>
+read 		 - 		 read data from a file (m+c)
+<P>
+readv 		 - 		 read datablocks from a file (m!c)
+<P>
+readdir 		 - 		 read a directory (m+c)
+<P>
+readlink 		 - 		 get content of a symbolic link (mc)
+<P>
+reboot 		 - 		 reboot or toggle vulcan death grip (-mc)
+<P>
+recv 		 - 		 receive a message from a connected socket (m!c)
+<P>
+recvfrom 		 - 		 receive a message from a socket (m!c)
+<P>
+rename 		 - 		 move/rename a file (m+c)
+<P>
+rmdir 		 - 		 delete an empty directory (m+c)
+<P>
+sbrk 		 - 		 see brk (mc!)
+<P>
+select 		 - 		 sleep until action on a filedescriptor (mc)
+<P>
+semctl 		 - 		 ipc semaphore control (m!c)
+<P>
+semget 		 - 		 ipc get a semaphore set identifier (m!c)
+<P>
+semop 		 - 		 ipc operation on semaphore set members (m!c)
+<P>
+send 		 - 		 send a message to a connected socket (m!c)
+<P>
+sendto 		 - 		 send a message to a socket (m!c)
+<P>
+setdomainname 		 - 		 set system's domainname (mc)
+<P>
+setfsgid 		 - 		 set filesystem group id ()
+<P>
+setfsuid 		 - 		 set filesystem user id ()
+<P>
+setgid 		 - 		 set real group id (m+c)
+<P>
+setgroups 		 - 		 set supplemental groups (mc)
+<P>
+sethostid 		 - 		 set unique host identifier (mc)
+<P>
+sethostname 		 - 		 set the system's hostname (mc)
+<P>
+setitimer 		 - 		 set interval timer (mc)
+<P>
+setpgid 		 - 		 set process group id (m+c)
+<P>
+setpgrp 		 - 		 has no effect (mc!)
+<P>
+setpriority 		 - 		 set a process/group/user priority (mc)
+<P>
+setregid 		 - 		 set real and effective group id (mc)
+<P>
+setreuid 		 - 		 set real and effective user id (mc)
+<P>
+setrlimit 		 - 		 set resource limit (mc)
+<P>
+setsid 		 - 		 create a session (+c)
+<P>
+setsockopt 		 - 		 change options of a socket (mc)
+<P>
+settimeofday 		 - 		 set timezone+seconds since 1.1.1970 (mc)
+<P>
+setuid 		 - 		 set real user id (m+c)
+<P>
+setup 		 - 		 initialize devices and mount root (-)
+<P>
+sgetmask 		 - 		 see siggetmask (m)
+<P>
+shmat 		 - 		 attach shared memory to data segment (m!c)
+<P>
+shmctl 		 - 		 ipc manipulate shared memory (m!c)
+<P>
+shmdt 		 - 		 detach shared memory from data segment (m!c)
+<P>
+shmget 		 - 		 get/create shared memory segment (m!c)
+<P>
+shutdown 		 - 		 shutdown a socket (m!c)
+<P>
+sigaction 		 - 		 set/get signal handler (m+c)
+<P>
+sigblock 		 - 		 block signals (m!c)
+<P>
+siggetmask 		 - 		 get signal blocking of current process (!c)
+<P>
+signal 		 - 		 setup a signal handler (mc)
+<P>
+sigpause 		 - 		 use a new signal mask until a signal (mc)
+<P>
+sigpending 		 - 		 get pending, but blocked signals (m+c)
+<P>
+sigprocmask 		 - 		 set/get signal blocking of current process (+c)
+<P>
+sigreturn 		 - 		 not yet used ()
+<P>
+sigsetmask 		 - 		 set signal blocking of current process (c!)
+<P>
+sigsuspend 		 - 		 replacement for sigpause (m+c)
+<P>
+sigvec 		 - 		 see sigaction (m!)
+<P>
+socket 		 - 		 create a socket communication endpoint (m!c)
+<P>
+socketcall 		 - 		 socket call multiplexer (-)
+<P>
+socketpair 		 - 		 create 2 connected sockets (m!c)
+<P>
+ssetmask 		 - 		 see sigsetmask (m)
+<P>
+stat 		 - 		 get file status (m+c)
+<P>
+statfs 		 - 		 get filesystem status (mc)
+<P>
+stime 		 - 		 set seconds since 1.1.1970 (mc)
+<P>
+stty 		 - 		 not yet implemented ()
+<P>
+swapoff 		 - 		 stop swapping to a file/device (m-c)
+<P>
+swapon 		 - 		 start swapping to a file/device (m-c)
+<P>
+symlink 		 - 		 create a symbolic link to a file (m+c)
+<P>
+sync 		 - 		 sync memory and disk buffers (mc)
+<P>
+syscall 		 - 		 execute a systemcall by number (-!c)
+<P>
+sysconf 		 - 		 get value of a system variable (m+!c)
+<P>
+sysfs 		 - 		 get infos about configured filesystems ()
+<P>
+sysinfo 		 - 		 get Linux system infos (m-)
+<P>
+syslog 		 - 		 manipulate system logging (m-c)
+<P>
+system 		 - 		 execute a shell command (m!c)
+<P>
+time 		 - 		 get seconds since 1.1.1970 (m+c)
+<P>
+times 		 - 		 get process times (m+c)
+<P>
+truncate 		 - 		 change file size (mc)
+<P>
+ulimit 		 - 		 get/set file limits (c!)
+<P>
+umask 		 - 		 set file creation mask (m+c)
+<P>
+umount 		 - 		 unmount a filesystem (mc)
+<P>
+uname 		 - 		 get system information (m+c)
+<P>
+unlink 		 - 		 remove a file when not busy (m+c)
+<P>
+uselib 		 - 		 use a shared library (m-c)
+<P>
+ustat 		 - 		 not yet implemented (c)
+<P>
+utime 		 - 		 modify inode time entries (m+c)
+<P>
+utimes 		 - 		 see utime (m!c)
+<P>
+vfork 		 - 		 see fork (m!c)
+<P>
+vhangup 		 - 		 virtually hang up current tty (m-c)
+<P>
+vm86 		 - 		 enter virtual 8086 mode (m-c)
+<P>
+wait 		 - 		 wait for process termination (m+!c)
+<P>
+wait3 		 - 		 bsd wait for a specified process (m!c)
+<P>
+wait4 		 - 		 bsd wait for a specified process (mc)
+<P>
+waitpid 		 - 		 wait for a specified process (m+c)
+<P>
+write 		 - 		 write data to a file (m+c)
+<P>
+writev 		 - 		 write datablocks to a file (m!c)
+<P>
+</TT></PRE>
+<P>
+<P>
+<P>
+(m) manual page exists. <BR> 
+(+) POSIX compliant. <BR> 
+(-) Linux specific. <BR> 
+(c) in libc. <BR> 
+(!) not a sole system call.uses a different system call. <BR>
+<P>
+<HR><A NAME="tex2html2197" HREF="node151.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2195" HREF="lpg.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2189" HREF="node149.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2199" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html2198" HREF="node151.html">12 Abbreviations</A>
+<B>Up:</B> <A NAME="tex2html2196" HREF="lpg.html">e</A>
+<B> Previous:</B> <A NAME="tex2html2190" HREF="node149.html">10.6 Additional Comments</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

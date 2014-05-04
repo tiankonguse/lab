@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.13 Scrolling</TITLE>
+<META NAME="description" CONTENT="8.13 Scrolling">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1819" HREF="node118.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1817" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1811" HREF="node116.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1821" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1820" HREF="node118.html">8.14 Pads</A>
+<B>Up:</B> <A NAME="tex2html1818" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1812" HREF="node116.html">8.12 Cursor and Window </A>
+<BR> <P>
+<H1><A NAME="SECTION009130000000000000000">8.13 Scrolling</A></H1>
+<P>
+<UL><LI> <TT>int scrollok(win, bf)</TT> <A NAME="fun_scrollok">&#160;</A><BR> 
+        If TRUE, the text in the window <TT>win</TT> will be scrolled up one line
+        when the cursor is on the lower right corner and a character is typed
+        (or newline). If FALSE, the cursor is left in the same position.
+<P>
+        When turned on the contents of a window
+        can be scrolled with the following functions. 
+        (<B>Note:</B> It would be also
+        scrolled, if you print a new line in the last line of the window. So, be
+        careful with <B>scrollok(...)</B> or you will get unreasonable results.)<LI> <TT>int scroll(win)</TT> <A NAME="fun_scroll">&#160;</A><BR> 
+        This function will scroll up the window (and the lines in the data
+        structure) one line.<LI> <TT>int scrl(n)</TT> <A NAME="fun_scrl">&#160;</A><BR> 
+        <TT>int wscrl(win, n)</TT> <A NAME="fun_wscrl">&#160;</A><BR> 
+        These functions will scroll the window  or <TT>win</TT> up or
+        down depending on the value of the integer <TT>n</TT>. If <TT>n</TT> is
+        positive the window will be scrolled up <TT>n</TT> lines, otherwise if
+        <TT>n</TT> is negative the window will be scrolled down <TT>n</TT> lines.<LI> <TT>int setscrreg(t, b)</TT> <A NAME="fun_setscrreg">&#160;</A><BR> 
+        <TT>int wsetscrreg(win, t, b)</TT> <A NAME="fun_wsetscrreg">&#160;</A><BR> 
+        Set a software scrolling region.
+</UL>
+<P>
+The following code should explain how to get the effect of scrolling a text 
+on the screen. Look also in .c in the example directory.
+<P>
+We have a window with 18 lines and 66 columns and want to scroll a text
+in it. <I>S[]</I> is a character array with the text. <I>Max_s</I> is the
+number of the last line in <I>s[]</I>. <I>Clear_line</I> will print blank
+characters from the current cursor position up to the end of the line
+using the current attributes from the window (not A_NORMAL as clrtoeol
+does). <I>Beg</I> is the last line from <I>s[]</I> currently shown on the
+screen. <I>Scroll</I> is an enumerate to tell the function what to do, show
+the NEXT or PREVious line from the text.
+<P>
+<P><P><HR><A NAME="tex2html1819" HREF="node118.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1817" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1811" HREF="node116.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1821" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1820" HREF="node118.html">8.14 Pads</A>
+<B>Up:</B> <A NAME="tex2html1818" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1812" HREF="node116.html">8.12 Cursor and Window </A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

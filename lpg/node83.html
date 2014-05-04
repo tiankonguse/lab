@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>7.1 Programming the internal speaker</TITLE>
+<META NAME="description" CONTENT="7.1 Programming the internal speaker">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1394" HREF="node84.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1392" HREF="node82.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1386" HREF="node82.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1396" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1395" HREF="node84.html">7.2 Programming a sound </A>
+<B>Up:</B> <A NAME="tex2html1393" HREF="node82.html">7 Sound Programming</A>
+<B> Previous:</B> <A NAME="tex2html1387" HREF="node82.html">7 Sound Programming</A>
+<BR> <P>
+<H1><A NAME="SECTION00810000000000000000">7.1 Programming the internal speaker</A></H1>
+<P>
+Believe it or not, your PC speaker is part of the Linux console and
+thus a character device. Therefore, ioctl() requests exist to manipulate
+it.  For the internal speaker the following 2 requests exist:
+<P>
+<OL><LI> KDMKTONE
+<P>
+   Generates a beep for a specified time using the kernel timer.
+<P>
+   Example: <TT>ioctl (fd, KDMKTONE,(long) argument)</TT>.<LI> KIOCSOUND
+<P>
+   Generates an endless beep or stops a currently sounding beep.
+<P>
+   Example: <TT>ioctl(fd,KIOCSOUND,(int) tone)</TT>.
+</OL>
+<P>
+The <TT>argument</TT> consists of the <TT>tone</TT> value in the low word and
+the duration in the high word. The <TT>tone</TT> value is not the
+frequency. The PC mainboard timer 8254 is clocked at 1.19 MHz and so 
+it's 1190000/frequency. The duration is measured in timer ticks.  Both
+ioctl calls return immediately so you can this way produce beeps
+without blocking the program.<BR> 
+KDMKTONE should be used for warning signals because you don't have
+to worry about stopping the tone.<BR> 
+KIOCSOUND can be used to play melodies as demonstrated in the example
+program splay <I>(please send more .sng files to me).</I> To stop the
+beep you have to use the <TT>tone</TT> value 0.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

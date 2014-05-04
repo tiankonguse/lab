@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.8.1 Input Options</TITLE>
+<META NAME="description" CONTENT="8.8.1 Input Options">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1744" HREF="node111.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1742" HREF="node108.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1736" HREF="node109.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1746" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1745" HREF="node111.html">8.8.2 Terminal Attributes</A>
+<B>Up:</B> <A NAME="tex2html1743" HREF="node108.html">8.8 Options</A>
+<B> Previous:</B> <A NAME="tex2html1737" HREF="node109.html">Output Options</A>
+<BR> <P>
+<H2><A NAME="SECTION00981000000000000000">8.8.1 Input Options</A></H2>
+<P>
+<UL><LI> <TT>int keypad(win, bf)</TT> <A NAME="fun_keypad">&#160;</A><BR> 
+        If TRUE, it enables the keypad on the keyboard of the user's terminal 
+        when
+        waiting for input. Ncurses will then return a key code defined in
+        .h as KEY_* for the function and arrow keys on the keypad.
+        This is very useful for a PC keyboard because you can enable the
+        numerical block and the cursor keys.
+        <P><P><LI> <TT>int meta(win, bf)</TT> <A NAME="fun_meta">&#160;</A><BR> 
+        If TRUE, the key codes returned from <B>getch()</B> are 8-bit-clean
+        (the highest bit will not be stripped).<LI> <TT>int cbreak()</TT> <A NAME="fun_cbreak">&#160;</A><BR> 
+        <TT>int nocbreak()</TT> <A NAME="fun_nocbreak">&#160;</A><BR> 
+        <TT>int crmode()</TT> <A NAME="fun_crmode">&#160;</A><BR> 
+        <TT>int nocrmode()</TT> <A NAME="fun_nocrmode">&#160;</A><BR> 
+        <B>cbreak()</B> and <B>nocbreak()</B> will turn the terminal CBREAK mode
+        on or off. When CBREAK is on, input from a read will be immediately
+        available to the program, when off the input will be buffered until
+        newline occurs. 
+        (<B>Note:</B> <B>crmode()</B> and <B>nocrmode()</B> are for upward compatibility,
+        don't use them.)<LI> <TT>int raw()</TT> <A NAME="fun_raw">&#160;</A><BR> 
+        <TT>int noraw()</TT> <A NAME="fun_noraw">&#160;</A><BR> 
+        Turn RAW mode on or off. RAW is the same as CBREAK, except that in RAW
+        mode no special character processing will be done.<LI> <TT>int echo()</TT> <A NAME="fun_echo">&#160;</A><BR> 
+        <TT>int noecho()</TT> <A NAME="fun_noecho">&#160;</A><BR> 
+        Set <B>echo()</B> to echo input typed by the user and <B>noecho()</B>
+        to be silent about it.<LI> <TT>int halfdelay(t)</TT> <A NAME="fun_halfdelay">&#160;</A><BR> 
+        As <B>cbreak()</B> with a delay of <TT>t</TT> seconds.<LI> <TT>int nodelay(win, bf)</TT> <A NAME="fun_nodelay">&#160;</A><BR> 
+        Terminal will be set to no blocking mode. <B>cetch()</B> will return ERR
+        if no input is ready. If set to FALSE, <B>getch()</B> will wait until a
+        key is pressed.<LI> <TT>int timeout(t)</TT> <A NAME="fun_timeout">&#160;</A><BR> 
+        <TT>int wtimeout(win, t)</TT> <A NAME="fun_wtimeout">&#160;</A><BR> 
+        It is recommended to use these functions instead of
+        <B>halfdelay(t)</B> and <B>nodelay(win,bf)</B>. The result of
+        <B>getch()</B>
+        depends on the value of <TT>t</TT>. If <TT>t</TT> is positive, the read 
+        is blocked for <TT>t</TT> milliseconds, if <TT>t</TT> is zero, no
+        blocking is done, and when <TT>t</TT> is negative the program blocks
+        until input is available.<LI> <TT>int notimeout(win, bf)</TT> <A NAME="fun_notimeout">&#160;</A><BR> 
+        If <TT>bf</TT> is TRUE, <B>getch()</B> will use a special timer (of one second
+        length)
+        to interpret and input sequence beginning with keys as ESCAPE etc.<LI> <TT>int typeahead(fd)</TT> <A NAME="fun_typeahead">&#160;</A><BR> 
+        If <TT>fd</TT> is -1 no typeahead check will be done, else ncurses will
+        use the file descriptor <TT>fd</TT> instead of  for these
+        checks.<LI> <TT>int intrflush(win, bf)</TT> <A NAME="fun_intrflush">&#160;</A><BR> 
+        When enabled with <TT>bf</TT> TRUE an interrupt key pressed on the
+        terminal (quit, break ...) will flush all output in the tty driver
+        queue.<LI> <TT>void noqiflush()</TT> <A NAME="fun_noqiflush">&#160;</A><BR> 
+        <TT>void qiflush()</TT> <A NAME="fun_qiflush">&#160;</A><BR> 
+        (<B>Note:</B> not implemented yet.)
+</UL><HR><A NAME="tex2html1744" HREF="node111.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1742" HREF="node108.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1736" HREF="node109.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1746" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1745" HREF="node111.html">8.8.2 Terminal Attributes</A>
+<B>Up:</B> <A NAME="tex2html1743" HREF="node108.html">8.8 Options</A>
+<B> Previous:</B> <A NAME="tex2html1737" HREF="node109.html">Output Options</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

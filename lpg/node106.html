@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.7 Input</TITLE>
+<META NAME="description" CONTENT="8.7 Input">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1699" HREF="node107.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1697" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1691" HREF="node105.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1701" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1700" HREF="node107.html">8.7.1 Formated Input</A>
+<B>Up:</B> <A NAME="tex2html1698" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1692" HREF="node105.html">8.6.5 Background Character</A>
+<BR> <P>
+<H1><A NAME="SECTION00970000000000000000">8.7 Input</A></H1>
+<P>
+<UL><LI> <TT>int getch()</TT> <A NAME="fun_getch">&#160;</A><BR> 
+        <TT>int wgetch(win)</TT> <A NAME="fun_wgetch">&#160;</A><BR> 
+        <TT>int mvgetch(y, x)</TT> <A NAME="fun_mvgetch">&#160;</A><BR> 
+        <TT>int mvwgetch(win, y, x)</TT> <A NAME="fun_mvwgetch">&#160;</A><BR> 
+	<B>getch()</B> will read input from the
+	terminal in a manner depending on whether delay mode is set or
+	not. If delay is on, <B>getch()</B> will wait until a key is
+	pressed, otherwise it will return the key in the input buffer
+	or ERR if this buffer is empty. <B>mvgetch(...)</B> and 
+	<B>mvwgetch(...)</B>
+	will move the cursor to position <TT>y,x</TT>
+	first.  The <TT>w</TT> functions read input from the terminal
+	related to the window <TT>win</TT>, <B>getch()</B> and 
+	<B>mvgetch(...)</B>
+	from the terminal related to .
+<P>
+        With <B>keypad(...)</B> enabled, <B>getch()</B> will return a code defined in
+        .h as KEY_* macros when a function key is pressed. When
+        ESCAPE is pressed (which can be the beginning of a function key)
+        ncurses will start a one second timer.  If the remainder of
+        the keystroke is not finished in this second, the key is returned.
+        Otherwise, the function key value is returned.
+        (If necessary, use <B>notimeout()</B> to disable the second
+        timer).<LI> <TT>int ungetch(ch)</TT> <A NAME="fun_ungetch">&#160;</A><BR> 
+        Will put the character <TT>ch</TT> back to the input buffer.<LI> <TT>int getstr(str)</TT> <A NAME="fun_getstr">&#160;</A><BR> 
+        <TT>int wgetstr(win, str)</TT> <A NAME="fun_wgetstr">&#160;</A><BR> 
+        <TT>int mvgetstr(y, x, str)</TT> <A NAME="fun_mvgetstr">&#160;</A><BR> 
+        <TT>int mvwgetstr(win, y, x, str)</TT> <A NAME="fun_mvwgetstr">&#160;</A><BR> 
+        <TT>int wgetnstr(win, str, n)</TT> <A NAME="fun_wgetnstr">&#160;</A><BR> 
+        These functions will do a series of calls to <B>getch()</B>
+        until a newline is
+        received. The characters are placed in <TT>str</TT> (so don't forget to
+        allocate memory for your character pointer before calling
+        <B>getstr(...)</B>). If echo is enabled the string is echoed (use
+        <B>noecho()</B> to disable echo) and the user's kill and delete
+        characters will be interpreted.<LI> <TT>chtype inch()</TT> <A NAME="fun_inch">&#160;</A><BR> 
+        <TT>chtype winch(win)</TT> <A NAME="fun_winch">&#160;</A><BR> 
+        <TT>chtype mvinch(y, x)</TT> <A NAME="fun_mvinch">&#160;</A><BR> 
+        <TT>chtype mvwinch(win, y, x)</TT> <A NAME="fun_mvwinch">&#160;</A><BR> 
+        These functions return a character from the screen or window. Because
+        the type of the return value is <TT>chtype</TT> attribute information
+        is included. This information can be extracted from the character 
+        using the A_* constants (see table <A HREF="node115.html#tab_attr">8.4</A> on page <A HREF="node115.html#tab_attr"><IMG  ALIGN=BOTTOM ALT="gif" SRC="cross_ref_motif.gif"></A>).<LI> <TT>int instr(str)</TT> <A NAME="fun_instr">&#160;</A><BR> 
+        <TT>int innstr(str, n)</TT> <A NAME="fun_innstr">&#160;</A><BR> 
+        <TT>int winstr(win, str)</TT> <A NAME="fun_winstr">&#160;</A><BR> 
+        <TT>int winnstr(win, str, n)</TT> <A NAME="fun_winnstr">&#160;</A><BR> 
+        <TT>int mvinstr(y, x, str)</TT> <A NAME="fun_mvinstr">&#160;</A><BR> 
+        <TT>int mvinnstr(y, x, str, n)</TT> <A NAME="fun_mvinnstr">&#160;</A><BR> 
+        <TT>int mvwinstr(win, y, x, str)</TT> <A NAME="fun_mvwinstr">&#160;</A><BR> 
+        <TT>int mvwinnstr(win, y, x, str, n)</TT> <A NAME="fun_mvwinnstr">&#160;</A><BR> 
+        Return a character string from the screen or a window.
+        (<B>Note:</B> not implemented yet.)<LI> <TT>int inchstr(chstr)</TT> <A NAME="fun_inchstr">&#160;</A><BR> 
+        <TT>int inchnstr(chstr, n)</TT> <A NAME="fun_inchnstr">&#160;</A><BR> 
+        <TT>int winchstr(win, chstr)</TT> <A NAME="fun_winchstr">&#160;</A><BR> 
+        <TT>int winchnstr(win, chstr, n)</TT> <A NAME="fun_winchnstr">&#160;</A><BR> 
+        <TT>int mvinchstr(y, x, chstr)</TT> <A NAME="fun_mvinchstr">&#160;</A><BR> 
+        <TT>int mvinchnstr(y, x, chstr, n)</TT> <A NAME="fun_mvinchnstr">&#160;</A><BR> 
+        <TT>int mvwinchstr(win, y, x, chstr)</TT> <A NAME="fun_mvwinchstr">&#160;</A><BR> 
+        <TT>int mvwinchnstr(win, y, x, chstr, n)</TT> <A NAME="fun_mvwinchnstr">&#160;</A><BR> 
+        Return a chtype string from the screen or window. In the string,
+        attribute information is included for every character.
+        (<B>Note:</B> not implemented yet, lib_inchstr not included in the ncurses lib.)
+</UL><BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html1702" HREF="node107.html#SECTION00971000000000000000">8.7.1 Formated Input</A>
+</UL>
+<HR><A NAME="tex2html1699" HREF="node107.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1697" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1691" HREF="node105.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1701" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1700" HREF="node107.html">8.7.1 Formated Input</A>
+<B>Up:</B> <A NAME="tex2html1698" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1692" HREF="node105.html">8.6.5 Background Character</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

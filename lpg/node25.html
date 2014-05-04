@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>The ipcs Command</TITLE>
+<META NAME="description" CONTENT="The ipcs Command">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html685" HREF="node26.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html683" HREF="node22.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html677" HREF="node24.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html687" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html686" HREF="node26.html">The ipcrm Command</A>
+<B>Up:</B> <A NAME="tex2html684" HREF="node22.html">6.4.1 Fundamental Concepts</A>
+<B> Previous:</B> <A NAME="tex2html678" HREF="node24.html">IPC Keys</A>
+<BR> <P>
+<H3><A NAME="SECTION00741300000000000000">The <TT>ipcs</TT> Command</A></H3>
+<P>
+The <TT>ipcs</TT> command can be used to obtain the status of all System V IPC objects.
+The Linux version of this tool was also authored by <EM>Krishna Balasubramanian</EM>.
+<P>
+<P>
+<HR><PRE>ipcs     -q:    Show only message queues
+ipcs     -s:    Show only semaphores
+ipcs     -m:    Show only shared memory
+ipcs --help:    Additional arguments</PRE> 
+<HR>By default, all three categories of objects are shown.  Consider the following sample
+output of <TT>ipcs</TT>:
+<P>
+<P>
+<HR><PRE>------ Shared Memory Segments --------
+shmid     owner     perms     bytes     nattch    status      
+
+------ Semaphore Arrays --------
+semid     owner     perms     nsems     status      
+
+------ Message Queues --------
+msqid     owner     perms     used-bytes  messages    
+0         root      660       5           1</PRE> 
+<HR>Here we see a single message queue which has an identifier of ``0''.  It is owned by 
+the user <EM>root</EM>, and has octal permissions of <TT>660</TT>, or <TT>-rw-rw--</TT>. 
+There is one message in the queue, and that message has a total size of 5 bytes.
+<P>
+The <TT>ipcs</TT> command is a very powerful tool which provides a peek into the kernel's
+storage mechanisms for IPC objects.  Learn it, use it, revere it.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

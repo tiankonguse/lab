@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.5 Windows</TITLE>
+<META NAME="description" CONTENT="8.5 Windows">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1619" HREF="node100.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1617" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1611" HREF="node98.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1621" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1620" HREF="node100.html">8.6 Output</A>
+<B>Up:</B> <A NAME="tex2html1618" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1612" HREF="node98.html">8.4 Initializing</A>
+<BR> <P>
+<H1><A NAME="SECTION00950000000000000000">8.5 Windows</A></H1>
+<P>
+Windows can be created, deleted, moved, copied, touched, duplicated and more.
+<P>
+<UL><LI> <TT>WINDOW *newwin(nlines, ncols, begy, begx)</TT> <A NAME="fun_newwin">&#160;</A><BR> 
+        <TT>begy</TT> and <TT>begx</TT> are
+        the window coordinates of the upper left corner. <TT>nlines</TT>
+        is an integer with the number of lines and <TT>ncols</TT> is an integer
+        with the number of columns.
+<P>
+        <P><A NAME="48359">&#160;</A><A NAME="fig_newwin">&#160;</A><BR>
+<STRONG>Figure 8.1:</STRONG> Ncurses - scheme for newwin<BR>
+<P>
+<P>
+<P><P>
+<P>
+       The upper left corner of our window is in line 10
+       and column 10 and the window has 10 lines and 60 columns. If
+       <TT>nlines</TT>
+       is zero, the window will have <I>LINES</I>-<I>begy</I> rows. In the same way the,
+       window will have <I>COLS</I>-<I>begx</I> columns when <TT>ncols</TT> is zero.
+<P>
+       When you call <B>newwin(...)</B> with all argument zero:
+<P><P>
+       the opened window will have the size of the screen.
+<P>
+       With  and  we can open windows in the middle of
+       the screen,
+       whatever dimension it has:
+<P>
+<P><P>
+<P>
+        This will open a window with 22 lines and 70 rows in the middle
+        of the screen. Check the screen size before opening windows.
+        In the Linux console we have 25 or more lines and 80 or more
+        columns, but in xterms this may not be the case (they're resizable).
+<P>
+        Alternatively, use  and  to adapt
+        two windows to the screen size:
+<P>
+<P><P>
+<P>
+See .c in the example directory for more explanations.<LI> <TT>int delwin(win)</TT> <A NAME="fun_delwin">&#160;</A><BR> 
+        Delete the window <TT>win</TT>. When there are subwindows delete them
+        before <TT>win</TT>. It will free up all resources
+        occupied by <TT>win</TT>. Delete all windows you have
+        opened before calling <B>endwin()</B>.<LI> <TT>int mvwin(win, by, bx)</TT> <A NAME="fun_mvwin">&#160;</A><BR> 
+        Will move a window to the coordinates <TT>by,bx</TT>.
+        If this means moving the window beyond the edges of the screen,
+        nothing is done, and ERR is returned.<LI> <TT>WINDOW *subwin(origwin, nlines, ncols, begy, begx)</TT> <A NAME="fun_subwin">&#160;</A><BR> 
+        Returns a subwindow in the middle of <TT>origwin</TT>. When you change
+        one of the two windows (<TT>origwin</TT> or the new one) this change
+        will be reflected in both windows. Call <B>touchwin(origwin)</B>
+        before the next <B>refresh()</B>.
+<P>
+        <TT>begx</TT> and <TT>begy</TT> are relative to the screen, not to
+        <TT>origwin</TT>.<LI> <TT>WINDOW *derwin(origwin, nlines, ncols, begy, begx)</TT> <A NAME="fun_derwin">&#160;</A><BR> 
+        The same as <B>subwin(...)</B> except that <TT>begx</TT> and
+        <TT>begy</TT> are relative to the window <TT>origwin</TT> than
+        to the screen.<LI> <TT>int mvderwin(win, y, x)</TT> <A NAME="fun_mvderwin">&#160;</A><BR> 
+        Will move <TT>win</TT> inside its parent window.
+        (<B>Note:</B> not implemented yet.)<LI> <TT>WINDOW *dupwin(win)</TT> <A NAME="fun_dupwin">&#160;</A><BR> 
+        Duplicate the window <TT>win</TT>.<LI> <TT>int syncok(win, bf)</TT> <A NAME="fun_syncok">&#160;</A><BR> 
+        <TT>void wsyncup(win)</TT> <A NAME="fun_wsyncup">&#160;</A><BR> 
+        <TT>void wcursyncup(win)</TT> <A NAME="fun_wcursyncup">&#160;</A><BR> 
+        <TT>void wsyncdown(win)</TT> <A NAME="fun_wsyncdown">&#160;</A><BR> 
+        (<B>Note:</B> not implemented yet.)<LI> <TT>int overlay(win1, win2)</TT> <A NAME="fun_overlay">&#160;</A><BR> 
+        <TT>int overwrite(win1, win2)</TT> <A NAME="fun_overwrite">&#160;</A><BR> 
+        <B>overlay(...)</B> will copy all text from <TT>win1</TT> to 
+        <TT>win2</TT> without copying blanks. <B>overwrite(...)</B>
+        does the same, but copies blanks, too.<LI> <TT>int copywin(win1, win2, sminrow, smincol, dminrow, dmincol,</TT><BR> 
+        <TT>dmaxrow, dmaxcol, overlay)</TT> <A NAME="fun_copywin">&#160;</A><BR> 
+        Similar to <B>overlay(...)</B> and <B>overwrite(...)</B>, but 
+        provides control over what region of the window to copy.
+</UL><HR><A NAME="tex2html1619" HREF="node100.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1617" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1611" HREF="node98.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1621" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1620" HREF="node100.html">8.6 Output</A>
+<B>Up:</B> <A NAME="tex2html1618" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1612" HREF="node98.html">8.4 Initializing</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>7.2 Programming a sound card</TITLE>
+<META NAME="description" CONTENT="7.2 Programming a sound card">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1403" HREF="node85.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1401" HREF="node82.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1397" HREF="node83.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1405" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1404" HREF="node85.html">8 Character Cell Graphics</A>
+<B>Up:</B> <A NAME="tex2html1402" HREF="node82.html">7 Sound Programming</A>
+<B> Previous:</B> <A NAME="tex2html1398" HREF="node83.html">7.1 Programming the internal </A>
+<BR> <P>
+<H1><A NAME="SECTION00820000000000000000">7.2 Programming a sound card</A></H1>
+<P>
+For you as a programmer, it is important to know if the current Linux
+system has a sound card plugged in. One way to check is to examine
+/dev/sndstat.  If opening /dev/sndstat fails and errno=ENODEV then no
+sound driver is activated which means you will get no help from the
+kernel sound driver.  The same result might be achieved by trying to
+open /dev/dsp as long as it is not a link to the pcsnd driver in which
+case open() will not fail.
+<P>
+If you want to mess with a sound card at the hardware level you know
+that some combination of outb() and inb() calls will detect the sound
+card you are looking for.
+<P>
+By using the sound driver for your programs, chances are that they will
+work on other i386 systems as well, since some clever people decided to
+use the same driver for Linux, isc, FreeBSD and most other i386 based
+systems.  It will aid in porting programs if Linux on other
+architectures offers the same sound device interface.  A sound card is
+not part of the Linux console, but is a special device. A sound card
+mostly offers three main features:
+<P>
+<UL><LI> Digital sample input/output<LI> Frequency modulation output<LI> A midi interface
+</UL>
+<P>
+Each of these features have their own device driver interface. For digital
+samples it is /dev/dsp, for the frequency modulation it is
+/dev/sequencer and for the midi interface it is /dev/midi.  The sound
+settings (like volume, balance or bass) can be controlled via the
+/dev/mixer interface.  For compatibility reasons a /dev/audio device
+exists which can read SUN  <IMG WIDTH=718 HEIGHT=461 ALIGN=MIDDLE ALT="tex2html_wrap_inline54664" SRC="img6.gif"  > -law sound data, but it maps to the
+digital sample device.
+<P>
+You are right if you guessed that you use ioctl() to manipulate these
+devices.  The ioctl() requests are defined in &lt;<I>linux</I>/<I>soundcard</I>.<I>h</I>&gt; and
+begin with SNDCTL_.
+<P>
+<P><B>Since I don't own a soundcard
+someone else has to continue here</B>
+<P>
+<HR><A NAME="tex2html1403" HREF="node85.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1401" HREF="node82.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1397" HREF="node83.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1405" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1404" HREF="node85.html">8 Character Cell Graphics</A>
+<B>Up:</B> <A NAME="tex2html1402" HREF="node82.html">7 Sound Programming</A>
+<B> Previous:</B> <A NAME="tex2html1398" HREF="node83.html">7.1 Programming the internal </A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

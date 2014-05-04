@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.10 Updating the Terminal</TITLE>
+<META NAME="description" CONTENT="8.10 Updating the Terminal">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1786" HREF="node115.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1784" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1778" HREF="node113.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1788" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1787" HREF="node115.html">8.11 Video Attributes and </A>
+<B>Up:</B> <A NAME="tex2html1785" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1779" HREF="node113.html">8.9 Clear Window and </A>
+<BR> <P>
+<H1><A NAME="SECTION009100000000000000000">8.10 Updating the Terminal</A></H1>
+<P>
+As written in the overview, ncurses windows are images in memory. This
+means that any change to a window is not printed to the physical screen until
+a refresh is done.  This optimizes the output to the screen because you
+can do a lot of manipulations and then, once, call refresh to print it
+to screen.  Otherwise, every change would be printed to the terminal and
+decrease the performance of your programs.
+<P>
+<UL><LI> <TT>int refresh()</TT> <A NAME="fun_refresh">&#160;</A><BR> 
+        <TT>int wrefresh(win)</TT> <A NAME="fun_wrefresh">&#160;</A><BR> 
+        <B>refresh()</B> copies  to the terminal and
+        <B>wrefresh(win)</B> copies the window image to  and 
+        then makes
+         looks like .<LI> <TT>int wnoutrefresh(win)</TT> <A NAME="fun_wnoutrefresh">&#160;</A><BR> 
+        <TT>int doupdate()</TT> <A NAME="fun_doupdate">&#160;</A><BR> 
+        <B>wnoutrefresh(win)</B> copies the window <TT>win</TT> to  only.
+        This means that no output to the terminal is done but the virtual
+        screen  actually looks like the programmer wanted.
+        <B>doupdate()</B> will do the output to the terminal. A program can
+        change various windows, call <B>wnoutrefresh(win)</B> for every window
+        and then call <B>doupdate()</B> to update the physical screen only once.
+<P>
+        For instance, we have the following program with two windows.
+        We change both windows by altering some lines of text.
+        We can write <I>changewin(win)</I> with <B>wrefresh(win)</B>.
+<P>
+<P><P>
+<P>
+        This will cause ncurses to update the terminal twice and slow down our
+        execution. With <B>doupdate()</B> we change <I>changewin(win)</I> and
+        our main function and will get better a performance.
+<P>
+<P><P><LI> <TT>int redrawwin(win)</TT> <A NAME="fun_redrawwin">&#160;</A><BR> 
+        <TT>int wredrawln(win, bline, nlines)</TT> <A NAME="fun_wredrawln">&#160;</A><BR> 
+        Use these functions when some lines or the entire screen should
+        thrown away before writing anything new in it (may be when the
+        lines are trashed or so).<LI> <TT>int touchwin(win)</TT> <A NAME="fun_touchwin">&#160;</A><BR> 
+        <TT>int touchline(win, start, count)</TT> <A NAME="fun_touchline">&#160;</A><BR> 
+        <TT>int wtouchln(win, y, n, changed)</TT> <A NAME="fun_wtouchln">&#160;</A><BR> 
+        <TT>int untouchwin(win)</TT> <A NAME="fun_untouchwin">&#160;</A><BR> 
+        Tells ncurses that the whole window <TT>win</TT> or the lines from
+        <TT>start</TT> up to <TT>start+count</TT>
+        have been manipulated. For instance, when you have some overlapping
+        windows (as in the example .c) a change to one
+        window will not affect the image from the other.
+<P>
+        <B>wtouchln(...)</B> will touch <TT>n</TT> lines starting at <TT>y</TT>.
+        If <TT>change</TT> is TRUE the lines are touched, otherwise untouched
+        (changed or unchanged).
+<P>
+        <B>untouchwin(win)</B> will mark the window <TT>win</TT> as unchanged
+        since the last call to <B>refresh()</B>.<LI> <TT>int is_linetouched(win, line)</TT> <A NAME="fun_is_linetouched">&#160;</A><BR> 
+        <TT>int is_wintouched(win)</TT> <A NAME="fun_is_wintouched">&#160;</A><BR> 
+        With these functions you can check if the line <TT>line</TT> or the
+        window <TT>win</TT> has been touched since the last call to
+        <B>refresh()</B>.
+</UL><HR><A NAME="tex2html1786" HREF="node115.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1784" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1778" HREF="node113.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1788" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1787" HREF="node115.html">8.11 Video Attributes and </A>
+<B>Up:</B> <A NAME="tex2html1785" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1779" HREF="node113.html">8.9 Clear Window and </A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

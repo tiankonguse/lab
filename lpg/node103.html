@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.6.3 Delete Characters/Lines</TITLE>
+<META NAME="description" CONTENT="8.6.3 Delete Characters/Lines">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1668" HREF="node104.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1666" HREF="node100.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1660" HREF="node102.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1670" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1669" HREF="node104.html">8.6.4 Boxes and Lines</A>
+<B>Up:</B> <A NAME="tex2html1667" HREF="node100.html">8.6 Output</A>
+<B> Previous:</B> <A NAME="tex2html1661" HREF="node102.html">8.6.2 Insert Characters/Lines</A>
+<BR> <P>
+<H2><A NAME="SECTION00963000000000000000">8.6.3 Delete Characters/Lines</A></H2>
+<P>
+<UL><LI> <TT>int delch()</TT> <A NAME="fun_delch">&#160;</A><BR> 
+        <TT>int wdelch(win)</TT> <A NAME="fun_wdelch">&#160;</A><BR> 
+        <TT>int mvdelch(y, x)</TT> <A NAME="fun_mvdelch">&#160;</A><BR> 
+        <TT>int mvwdelch(win, y, x)</TT> <A NAME="fun_mvwdelch">&#160;</A><BR> 
+        Delete the character under the cursor and move the remaining
+        characters to the right of the cursor one position to the left.
+<P>
+        <TT>y</TT> and <TT>x</TT> are the coordinates to which the cursor will 
+        be moved to before deleting.<LI> <TT>int deleteln()</TT> <A NAME="fun_deleteln">&#160;</A><BR> 
+        <TT>int wdeleteln(win)</TT> <A NAME="fun_wdeleteln">&#160;</A><BR> 
+        Delete the line under the cursor and move all other lines below one
+        position up. Additionally, the bottom line of the window will be erased.
+</UL><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

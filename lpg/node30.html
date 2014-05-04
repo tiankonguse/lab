@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>Message buffer</TITLE>
+<META NAME="description" CONTENT="Message buffer">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html760" HREF="node31.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html758" HREF="node29.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html752" HREF="node29.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html762" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html761" HREF="node31.html">Kernel msg structure</A>
+<B>Up:</B> <A NAME="tex2html759" HREF="node29.html">Internal and User Data </A>
+<B> Previous:</B> <A NAME="tex2html753" HREF="node29.html">Internal and User Data </A>
+<BR> <P>
+<H4><A NAME="SECTION00742210000000000000">Message buffer</A></H4>
+<P>
+The first structure we'll visit is the <TT>msgbuf</TT> structure.  This particular
+data structure can be thought of as a <EM>template</EM> for message data.  While
+it is up to the programmer to define structures of this type, it is imperative
+that you understand that there <B>is</B> actually a structure of type <TT>msgbuf</TT>.  It is declared in <TT>linux/msg.h</TT> as follows:
+<P>
+<P>
+<HR><PRE>/* message buffer for msgsnd and msgrcv calls */
+struct msgbuf {
+    long mtype;         /* type of message */
+    char mtext[1];      /* message text */
+};</PRE> 
+<HR>There are two members in the <TT>msgbuf</TT> structure:
+<P>
+<DL ><DT><STRONG><TT>mtype</TT></STRONG>
+<DD> 
+<P>
+The message <EM>type</EM>, represented in a positive number.  This <EM>must</EM>
+be a positive number!
+<P>
+<DT><STRONG><TT>mtext</TT></STRONG>
+<DD> 
+<P>
+The message data itself.
+<P>
+ </DL>
+<P>
+The ability to assign a given message a <EM>type</EM>, essentially gives you the capability to
+<EM>multiplex</EM> messages on a single queue.  For instance, client processes could be
+assigned a magic number, which could be used as the message type for messages sent from a server
+process.  The server itself could use some other number, which clients could use to send 
+messages to it.  In another scenario, an application could mark error messages as having a message
+type of 1, request messages could be type 2, etc.  The possibilities are endless.
+<P>
+On another note, do not be misled by the almost too-descriptive name assigned to the message
+data element (<TT>mtext</TT>).  This field is not restricted to holding only arrays of characters,
+but any data, in any form.  The field itself is actually completely arbitrary, since this structure
+gets redefined by the application programmer.  Consider this redefinition:
+<P>
+<P>
+<HR><PRE>struct my_msgbuf {
+        long    mtype;          /* Message type */
+        long    request_id;     /* Request identifier */
+        struct  client info;    /* Client information structure */
+};</PRE> 
+<HR>Here we see the message type, as before, but the remainder of the structure has been replaced
+by two other elements, one of which is another structure!  This is the beauty of message queues.
+The kernel makes no translations of data whatsoever.  Any information can be sent.
+<P>
+There does exist an internal limit, however, of the maximum size of a given message.  In Linux,
+this is defined in <TT>linux/msg.h</TT> as follows:
+<P>
+<P>
+<HR><PRE>#define MSGMAX  4056   /* &lt;= 4056 */   /* max size of message (bytes) */</PRE> 
+<HR>Messages can be no larger than 4,056 bytes in total size, including the <TT>mtype</TT> member, 
+which is 4 bytes in length (<TT>long</TT>).
+<P>
+<HR><A NAME="tex2html760" HREF="node31.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html758" HREF="node29.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html752" HREF="node29.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html762" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html761" HREF="node31.html">Kernel msg structure</A>
+<B>Up:</B> <A NAME="tex2html759" HREF="node29.html">Internal and User Data </A>
+<B> Previous:</B> <A NAME="tex2html753" HREF="node29.html">Internal and User Data </A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

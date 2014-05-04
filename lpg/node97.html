@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.3 Ncurses - Introduction</TITLE>
+<META NAME="description" CONTENT="8.3 Ncurses - Introduction">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1597" HREF="node98.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1595" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1589" HREF="node96.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1599" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1598" HREF="node98.html">8.4 Initializing</A>
+<B>Up:</B> <A NAME="tex2html1596" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1590" HREF="node96.html">String Capabilities</A>
+<BR> <P>
+<H1><A NAME="SECTION00930000000000000000">8.3 Ncurses - Introduction</A></H1>
+<P>
+The following terminology will be used in this chapter:
+<P>
+<UL><LI>  window - is an internal representation containing an image
+                  of a part of the screen. WINDOW is defined in
+                  .h.<LI>  screen - is a window with the size of the entire screen (from the
+                  upper left to the lower right).  and
+                   are screens.<LI>  terminal - is a special screen with information about what the screen
+                    currently looks like.<LI>  variables - the following variables and constants defined in
+                     .h
+    <UL><LI>  WINDOW *curscr - current screen<LI>  WINDOW *stdscr - standard screen<LI>  int LINES - lines on the terminal<LI>  int COLS - columns on the terminal<LI>  bool TRUE - true flag, 1<LI>  bool FALSE - false flag, 0<LI>  int ERR - error flag, -1<LI>  int OK - ok flag, 0
+    </UL><LI>  functions - in the function description the arguments are of the
+         following type:
+    <UL><LI> win - WINDOW*<LI> bf - bool<LI> ch - chtype<LI> str - char*<LI> chstr - chtype*<LI> fmt - char*<LI> otherwise int
+    </UL></UL>
+<P>
+Usually a program using the ncurses library looks like this:
+<P>
+<B><PRE>
+#include <ncurses.h>
+...
+main()
+{
+  ...
+  initscr();
+  /* ncurses function calls */
+  endwin();
+  ...
+}
+</PRE></B>
+<P><P>
+<P>
+Including .h will define variables and types for ncurses, such
+as WINDOW and function prototypes. It automatically includes .h,
+.h, .h and .h.
+<P>
+<B>initscr()</B> is used to initialize the ncurses data structures and to
+read the proper terminfo file. Memory for
+ and  will be allocated. If an error occurs,
+initscr will return ERR, otherwise a pointer to  will be
+returned.  Additionally, the
+screen will be erased and  and  will be initialized.
+<P>
+<B>endwin()</B> will clean up all allocated resources from ncurses and
+restore the tty modes to the status they had before calling 
+<B>initscr()</B>. It must be called before any other function from the 
+ncurses library and <B>endwin()</B> must be called before your program
+exits. When you want to do output to more than one terminal, you can use
+<B>newterm(...)</B> instead of <B>initscr()</B>.
+<P>
+Compile the program with:
+<P>
+<P><P>
+<P>
+In flags you can include anything you like (gcc(1)). Since the
+path for ncurses.h has changed you have to include the following line:
+<P>
+<P><P>
+<P>
+Otherwise, ncurses.h, nterm.h, termcap.h and unctrl.h will not be found. 
+Possible other flags for Linux are:
+<P>
+<P><P>
+<P>
+2 tells gcc to do some optimization, <I>-ansi</I> is for ansi
+conformant c-code, <I>-Wall</I> will print out all warnings, 
+<I>-m486</I> will use optimized code for an Intel 486 (the binary can be
+used on an Intel 386, too).
+<P>
+The ncurses library can be found in /usr/lib/.  There are three versions
+of the ncurses library:
+<UL><LI>  <B>libncurses.a</B> the normal ncurses library.<LI>  <B>libdcurses.a</B> ncurses for debugging.<LI>  <B>libpcurses.a</B> ncurses for profiling (since 1.8.6
+         libpcurses.a exists no longer ?).<LI>  <B>libcurses.a</B> No fourth version, but the original BSD curses
+         (in my slackware 2.1.0 it is the bsd package).
+</UL>
+<P>
+The data structures for the screen are called <I>windows</I> as defined in
+.h.  A window is something like a character
+array in memory which the programmer can manipulate without
+output to the terminal.  The default window is  with the size of
+the terminal.  You can create other windows with <B>newwin(...)</B>.
+<P>
+To update the physical terminal optimally, ncurses has another window
+declared, . This is an image of how the terminal
+actually looks and  is an image of how the terminal should look.
+The output will be done when you call <B>refresh()</B>. Ncurses will then
+update  and the physical terminal with the information in
+.
+The library functions will use internal optimization for the update process so 
+you can
+change different windows and then update the screen at once in the most
+optimal way.
+<P>
+With the ncurses functions you can manipulate the data structure
+<I>window</I>. Functions beginning with <I>w</I> allow you to
+specify a <I>window</I>, while
+others will usually affect . Functions beginning with <I>mv</I>
+will move the cursor to the position <I>y,x</I> first.
+<P>
+A character has the type <I>chtype</I> which is <I>long unsigned int</I> to
+store additional information about it (attributes etc.).
+<P>
+Ncurses use the  database. Normally the database is
+located in /lib/terminfo/ and ncurses will look there for
+local terminal definitions. If you want to test some other
+definitions for a terminal without changing the original terminfo, set the
+environment variable . Ncurses will check this variable
+and use the definitions stored there instead of /usr/lib/terminfo/.
+<P>
+Current ncurses version is 1.8.6 ().
+<P>
+At the end of this chapter you can find a table with an overview for
+the BSD-Curses, ncurses and the curses from Sun-OS 5.4. Refer to it
+when you want to look for a specific function and where it is implemented.
+<P>
+<HR><A NAME="tex2html1597" HREF="node98.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1595" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1589" HREF="node96.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1599" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1598" HREF="node98.html">8.4 Initializing</A>
+<B>Up:</B> <A NAME="tex2html1596" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1590" HREF="node96.html">String Capabilities</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

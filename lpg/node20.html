@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6.3.5 The Infamous SIGPIPE Signal</TITLE>
+<META NAME="description" CONTENT="6.3.5 The Infamous SIGPIPE Signal">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html568" HREF="node21.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html566" HREF="node15.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html562" HREF="node19.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html570" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html569" HREF="node21.html">6.4 System V IPC</A>
+<B>Up:</B> <A NAME="tex2html567" HREF="node15.html">6.3 Named Pipes (FIFOs </A>
+<B> Previous:</B> <A NAME="tex2html563" HREF="node19.html">6.3.4 Blocking Actions on </A>
+<BR> <P>
+<H2><A NAME="SECTION00735000000000000000">6.3.5 The Infamous SIGPIPE Signal</A></H2>
+<P>
+On a last note, pipes must have a reader and a writer.  If a process tries to
+write to a pipe that has no reader, it will be sent the SIGPIPE signal from
+the kernel.  This is imperative when more than two processes are involved in
+a pipeline.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

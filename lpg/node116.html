@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.12 Cursor and Window Coordinates</TITLE>
+<META NAME="description" CONTENT="8.12 Cursor and Window Coordinates">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1808" HREF="node117.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1806" HREF="node85.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1800" HREF="node115.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1810" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1809" HREF="node117.html">8.13 Scrolling</A>
+<B>Up:</B> <A NAME="tex2html1807" HREF="node85.html">8 Character Cell Graphics</A>
+<B> Previous:</B> <A NAME="tex2html1801" HREF="node115.html">8.11 Video Attributes and </A>
+<BR> <P>
+<H1><A NAME="SECTION009120000000000000000">8.12 Cursor and Window Coordinates</A></H1>
+<P>
+<UL><LI> <TT>int move(y, x)</TT> <A NAME="fun_move">&#160;</A><BR> 
+        <TT>int wmove(win, y, x)</TT> <A NAME="fun_wmove">&#160;</A><BR> 
+        <B>move()</B> moves the cursor from , <B>wmove(win)</B> the
+        cursor from window <TT>win</TT>. For input/output functions,
+        additional macros are
+        defined which move the cursor before the specified function is called.<LI> <TT>int curs_set(bf)</TT> <A NAME="fun_curs_set">&#160;</A><BR> 
+        This will turn the cursor visibility on or off, if the terminal has
+        this capability.<LI> <TT>void getyx(win, y, x)</TT> <A NAME="fun_getyx">&#160;</A><BR> 
+        <B>getyx(...)</B> will return the current cursor position.
+        (<B>Note:</B> this is a macro.)<LI> <TT>void getparyx(win, y, x)</TT> <A NAME="fun_getparyx">&#160;</A><BR> 
+        When <TT>win</TT> is a sub window, <B>getparyx(...)</B> will store the
+        window coordinates relative to the parent window in <TT>y</TT> and
+        <TT>x</TT>. Otherwise <TT>y</TT> and <TT>x</TT> are -1.
+        (<B>Note:</B> not implemented yet.)<LI> <TT>void getbegyx(win, y, x)</TT> <A NAME="fun_getbegyx">&#160;</A><BR> 
+        <TT>void getmaxyx(win, y, x)</TT> <A NAME="fun_getmaxyx">&#160;</A><BR> 
+        <TT>int getmaxx(win)</TT> <A NAME="fun_getmaxx">&#160;</A><BR> 
+        <TT>int getmaxy(win)</TT> <A NAME="fun_getmaxy">&#160;</A><BR> 
+        Store the begin and size coordinates for <TT>win</TT> in <TT>y</TT> and
+        <TT>x</TT>.<LI> <TT>int getsyx(int y, int x)</TT> <A NAME="fun_getsyx">&#160;</A><BR> 
+        <TT>int setsyx(int y, int x)</TT> <A NAME="fun_setsyx">&#160;</A><BR> 
+        Store the virtual screen cursor in <TT>y</TT> and <TT>x</TT> or set this
+        cursor. When <TT>y</TT> and <TT>x</TT> are -1 and you call <B>getsyx(...)</B>
+        <I>leaveok</I> will be set.
+</UL><BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

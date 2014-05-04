@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>3 The Linux libc package</TITLE>
+<META NAME="description" CONTENT="3 The Linux libc package">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html325" HREF="node5.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html323" HREF="lpg.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html317" HREF="node3.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html327" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html326" HREF="node5.html">4 System calls</A>
+<B>Up:</B> <A NAME="tex2html324" HREF="lpg.html">e</A>
+<B> Previous:</B> <A NAME="tex2html318" HREF="node3.html">2 The Linux kernel</A>
+<BR> <P>
+<H1><A NAME="SECTION00400000000000000000">3 The Linux libc package</A></H1>
+<P>
+
+libc: ISO 8859.1, &lt;<I>linux</I>/<I>param</I>.<I>h</I>&gt;, YP functions, crypt functions,
+some basic shadow routines (by default not included), ...
+old routines for compatibility in libcompat (by default not activated),
+english, french or german error messages,
+bsd 4.4lite compatible screen handling routines in libcurses,
+bsd compatible routines in libbsd, screen handling routines in libtermcap,
+database management routines in libdbm,
+mathematic routines in libm, entry to execute programs in crt0.o ???,
+byte sex information in libieee ??? (could someone give some infos
+instead of laughing ?), user space profiling in libgmon.
+I wish someone of the Linux libc developers would write this chapter.
+All i can say now that there is going to be a change from the
+a.out executable format to the elf (executable and linkable format)
+which also means a change in building shared libraries.
+Currently both formats (a.out and elf) are supported.
+<P>
+<P>
+  Most parts of the Linux libc package are under the Library GNU Public 
+  License, though some are under a special exception copyright like crt0.o.
+  For commercial binary distributions this means a restriction that
+  forbids statically linked executables. Dynamically linked executables 
+  are again a special exception and Richard Stallman of the
+  FSF said:
+<P>
+  <P><I>[...] But it seems to me that we should
+  unambiguously permit distribution of a dynamically linked executable
+  *without* accompanying libraries, provided that the object files that
+  make up the executable are themselves unrestricted according to
+  section 5 [...] So I'll make the decision now to permit this.
+  Actually updating the LGPL will have to wait for when I have time to
+  make and check a new version.</I>
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

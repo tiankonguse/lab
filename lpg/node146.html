@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>10.4.2 ptrace and the /proc filesystem</TITLE>
+<META NAME="description" CONTENT="10.4.2 ptrace and the /proc filesystem">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2157" HREF="node147.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2155" HREF="node144.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2149" HREF="node145.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2159" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html2158" HREF="node147.html">10.4.3 Process control under </A>
+<B>Up:</B> <A NAME="tex2html2156" HREF="node144.html">10.4 Process information and </A>
+<B> Previous:</B> <A NAME="tex2html2150" HREF="node145.html">10.4.1 kvm routines</A>
+<BR> <P>
+<H2><A NAME="SECTION001142000000000000000">10.4.2 <EM>ptrace</EM> and the <EM>/proc</EM> filesystem</A></H2>
+<P>
+The <EM>ptrace</EM> system call is used in 4.3BSD and SVID to control 
+a process and read information from it. It is classically used by 
+debuggers to, say, trap execution of a running process or examine
+its state. Under SVR4, <EM>ptrace</EM> is superseded by the <EM>/proc</EM>
+filesystem, which appears as a directory containing a single
+file entry for each running process, named by process ID. The user
+program can open the file corresponding to the process of interest
+and issue various <EM>ioctl</EM> calls on it to control its execution
+or obtain information from the kernel on the process. Similarly,
+the program can read or write data directly in the process's 
+address space through the file descriptor into the <EM>/proc</EM>
+filesystem.
+<P>
+<BR> <HR>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>

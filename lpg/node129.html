@@ -1,0 +1,709 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1-c (Feb 29, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.22.3 Strings</TITLE>
+<META NAME="description" CONTENT="8.22.3 Strings">
+<META NAME="keywords" CONTENT="lpg">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="lpg.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1952" HREF="node130.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1950" HREF="node126.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1946" HREF="node128.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1954" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1953" HREF="node130.html">8.23 [N]Curses Function Overview</A>
+<B>Up:</B> <A NAME="tex2html1951" HREF="node126.html">8.22 Terminfo Capabilities</A>
+<B> Previous:</B> <A NAME="tex2html1947" HREF="node128.html">8.22.2 Numbers</A>
+<BR> <P>
+<H2><A NAME="SECTION009223000000000000000">8.22.3 Strings</A></H2>
+<P>
+<PRE><TT> 
+<B>Variable</B> 		 <B>Cap.</B> 		 <B>Int.</B>   		 <B>Description</B>
+<P>
+               		 <B>Name</B> 		 <B>Code</B>
+<P>
+acs_chars                  		 <TT>acsc</TT>      		 <TT>ac</TT> 		   Graphics charset pairs - def=vt100
+<P>
+alt_scancode_esc          		 <TT>scesa</TT>     		 <TT>S8</TT> 		   Alternate esc for scancode emulation
+<P>
+                            		                 		          		   (default is vt100)
+<P>
+back_tab                   		 <TT>cbt</TT>       		 <TT>bt</TT> 		   Back tab (P)
+<P>
+bell                        		 <TT>bel</TT>       		 <TT>bl</TT> 		   Audible signal (bell) (P)
+<P>
+bit_image_repeat          		 <TT>birep</TT>     		 <TT>Xy</TT> 		   Repeat bit image cell #1 #2 times
+<P>
+                            		                 		          		   (use tparm)
+<P>
+bit_image_newline         		 <TT>binel</TT>     		 <TT>Zz</TT> 		   Move to next row of the bit image
+<P>
+                            		                 		          		   (use tparm)
+<P>
+bit_image_carriage_return		 <TT>bicr</TT>      		 <TT>Yv</TT> 		   Move to beginning of same row
+<P>
+                            		                 		          		   (use tparm)
+<P>
+carriage_return            		 <TT>cr</TT>        		 <TT>cr</TT> 		   Carriage return (P*)
+<P>
+change_char_pitch         		 <TT>cpi</TT>       		 <TT>ZA</TT> 		   Change # chars per inch
+<P>
+change_line_pitch         		 <TT>lpi</TT>       		 <TT>ZB</TT> 		   Change # lines per inch
+<P>
+change_res_horz           		 <TT>chr</TT>       		 <TT>ZC</TT> 		   Change horizontal resolution
+<P>
+change_res_vert           		 <TT>cvr</TT>       		 <TT>ZD</TT> 		   Change vertical resolution
+<P>
+change_scroll_region      		 <TT>csr</TT>       		 <TT>cs</TT> 		   Change to lines #1 through #2
+<P>
+                            		                 		          		   (vt100) (PG)
+<P>
+char_padding               		 <TT>rmp</TT>       		 <TT>rP</TT> 		   Like ip but when in insert mode
+<P>
+char_set_names            		 <TT>csnm</TT>      		 <TT>Zy</TT> 		   List of character set names
+<P>
+clear_all_tabs            		 <TT>tbc</TT>       		 <TT>ct</TT> 		   Clear all tab stops (P)
+<P>
+clear_margins              		 <TT>mgc</TT>       		 <TT>MC</TT> 		   Clear all margins (top, bottom, and sides)
+<P>
+clear_screen               		 <TT>clear</TT>     		 <TT>cl</TT> 		   Clear screen and home cursor (P*)
+<P>
+clr_bol                    		 <TT>el1</TT>       		 <TT>cb</TT> 		   Clear to beginning of line
+<P>
+clr_eol                    		 <TT>el</TT>        		 <TT>ce</TT> 		   Clear to end of line (P)
+<P>
+clr_eos                    		 <TT>ed</TT>        		 <TT>cd</TT> 		   Clear to end of display (P*)
+<P>
+code_set_init             		 <TT>csin</TT>      		 <TT>ci</TT> 		   Init sequence for multiple code sets
+<P>
+color_names                		 <TT>colornm</TT>   		 <TT>Yw</TT> 		   Give name for color #1
+<P>
+column_address             		 <TT>hpa</TT>       		 <TT>ch</TT> 		   Set cursor column (PG)
+<P>
+command_character          		 <TT>cmdch</TT>     		 <TT>CC</TT> 		   Term. settable cmd char in prototype
+<P>
+cursor_address             		 <TT>cup</TT>       		 <TT>cm</TT> 		   Screen rel. cursor motion row #1 col #2
+<P>
+                            		                 		          		   (PG)
+<P>
+cursor_down                		 <TT>cud1</TT>      		 <TT>do</TT> 		   Down one line
+<P>
+cursor_home                		 <TT>home</TT>      		 <TT>ho</TT> 		   Home cursor (if no cup)
+<P>
+cursor_invisible           		 <TT>civis</TT>     		 <TT>vi</TT> 		   Make cursor invisible
+<P>
+cursor_left                		 <TT>cub1</TT>      		 <TT>le</TT> 		   Move cursor left one space
+<P>
+cursor_mem_address        		 <TT>mrcup</TT>     		 <TT>CM</TT> 		   Memory relative cursor addressing
+<P>
+cursor_normal              		 <TT>cnorm</TT>     		 <TT>ve</TT> 		   Make cursor appear normal (undo vs/vi)
+<P>
+cursor_right               		 <TT>cuf1</TT>      		 <TT>nd</TT> 		   Non-destructive space (cursor right)
+<P>
+cursor_to_ll              		 <TT>ll</TT>        		 <TT>ll</TT> 		   Last line, first column (if no cup)
+<P>
+cursor_up                  		 <TT>cuu1</TT>      		 <TT>up</TT> 		   Upline (cursor up)
+<P>
+cursor_visible             		 <TT>cvvis</TT>     		 <TT>vs</TT> 		   Make cursor very visible
+<P>
+define_bit_image_region  		 <TT>defbi</TT>     		 <TT>Yx</TT> 		   Define rectangular bit image region
+<P>
+                            		                 		          		   (use tparm)
+<P>
+define_char                		 <TT>defc</TT>      		 <TT>ZE</TT> 		   Define character in a character set
+<P>
+delete_character           		 <TT>dch1</TT>      		 <TT>dc</TT> 		   Delete character (P*)
+<P>
+delete_line                		 <TT>dl1</TT>       		 <TT>dl</TT> 		   Delete line (P*)
+<P>
+device_type                		 <TT>devt</TT>      		 <TT>dv</TT> 		   Indicate language/codeset support
+<P>
+dis_status_line           		 <TT>dsl</TT>       		 <TT>ds</TT> 		   Disable status line
+<P>
+display_pc_char           		 <TT>dispc</TT>     		 <TT>S1</TT> 		   Display PC character
+<P>
+down_half_line            		 <TT>hd</TT>        		 <TT>hd</TT> 		   Half-line down (forward 1/2 linefeed)
+<P>
+ena_acs                    		 <TT>enacs</TT>     		 <TT>eA</TT> 		   enable alternate char set
+<P>
+end_bit_image_region     		 <TT>endbi</TT>     		 <TT>Yy</TT> 		   End bit image region (use tparm)
+<P>
+enter_alt_charset_mode   		 <TT>smacs</TT>     		 <TT>as</TT> 		   Start alternate character set (P)
+<P>
+enter_am_mode             		 <TT>smam</TT>      		 <TT>SA</TT> 		   turn on automatic margins
+<P>
+enter_blink_mode          		 <TT>blink</TT>     		 <TT>mb</TT> 		   Turn on blinking
+<P>
+enter_bold_mode           		 <TT>bold</TT>      		 <TT>md</TT> 		   Turn on bold (extra bright) mode
+<P>
+enter_ca_mode             		 <TT>smcup</TT>     		 <TT>ti</TT> 		   String to begin programs that use cup
+<P>
+enter_delete_mode         		 <TT>smdc</TT>      		 <TT>dm</TT> 		   Delete mode (enter)
+<P>
+enter_dim_mode            		 <TT>dim</TT>       		 <TT>mh</TT> 		   Turn on half-bright mode
+<P>
+enter_doublewide_mode     		 <TT>swidm</TT>     		 <TT>ZF</TT> 		   Enable double-wide mode
+<P>
+enter_draft_quality       		 <TT>sdrfq</TT>     		 <TT>ZG</TT> 		   Set draft-quality printing
+<P>
+enter_insert_mode         		 <TT>smir</TT>      		 <TT>im</TT> 		   Insert mode (enter);
+<P>
+enter_italics_mode        		 <TT>sitm</TT>      		 <TT>ZH</TT> 		   Enable italics mode
+<P>
+enter_leftward_mode       		 <TT>slm</TT>       		 <TT>ZI</TT> 		   Enable leftward carriage motion
+<P>
+enter_micro_mode          		 <TT>smicm</TT>     		 <TT>ZJ</TT> 		   Enable micro-motion capabilities
+<P>
+enter_near_letter_quality		 <TT>snlq</TT>      		 <TT>ZK</TT> 		   Set NLQ printing
+<P>
+enter_normal_quality      		 <TT>snrmq</TT>     		 <TT>ZL</TT> 		   Set normal quality printing
+<P>
+enter_pc_charset_mode    		 <TT>smpch</TT>     		 <TT>S2</TT> 		   Enter PC character display mode
+<P>
+enter_protected_mode      		 <TT>prot</TT>      		 <TT>mp</TT> 		   Turn on protected mode
+<P>
+enter_reverse_mode        		 <TT>rev</TT>       		 <TT>mr</TT> 		   Turn on reverse video mode
+<P>
+enter_scancode_mode       		 <TT>smsc</TT>      		 <TT>S4</TT> 		   Enter PC scancode mode
+<P>
+enter_secure_mode         		 <TT>invis</TT>     		 <TT>mk</TT> 		   Turn on blank mode (chars invisible)
+<P>
+enter_shadow_mode         		 <TT>sshm</TT>      		 <TT>ZM</TT> 		   Enable shadow-mode printing
+<P>
+enter_standout_mode       		 <TT>smso</TT>      		 <TT>so</TT> 		   Begin stand out mode
+<P>
+enter_subscript_mode      		 <TT>ssubm</TT>     		 <TT>ZN</TT> 		   Enable subscript printing
+<P>
+enter_superscript_mode    		 <TT>ssupm</TT>     		 <TT>ZO</TT> 		   Enable superscript printing
+<P>
+enter_underline_mode      		 <TT>smul</TT>      		 <TT>us</TT> 		   Start underscore mode
+<P>
+enter_upward_mode         		 <TT>sum</TT>       		 <TT>ZP</TT> 		   Enable upward carriage motion
+<P>
+enter_xon_mode            		 <TT>smxon</TT>     		 <TT>SX</TT> 		   Turn on xon/xoff handshaking
+<P>
+erase_chars                		 <TT>ech</TT>       		 <TT>ec</TT> 		   Erase #1 characters (PG)
+<P>
+exit_alt_charset_mode    		 <TT>rmacs</TT>     		 <TT>ae</TT> 		   End alternate character set (P)
+<P>
+exit_am_mode              		 <TT>rmam</TT>      		 <TT>RA</TT> 		   Turn off automatic margins
+<P>
+exit_attribute_mode       		 <TT>sgr0</TT>      		 <TT>me</TT> 		   Turn off all attributes
+<P>
+exit_ca_mode              		 <TT>rmcup</TT>     		 <TT>te</TT> 		   String to end programs that use cup
+<P>
+exit_delete_mode          		 <TT>rmdc</TT>      		 <TT>ed</TT> 		   End delete mode
+<P>
+exit_doublewide_mode      		 <TT>rwidm</TT>     		 <TT>ZQ</TT> 		   Disable doublewide printing
+<P>
+exit_insert_mode          		 <TT>rmir</TT>      		 <TT>ei</TT> 		   End insert mode
+<P>
+exit_italics_mode         		 <TT>ritm</TT>      		 <TT>ZR</TT> 		   Disable italic printing
+<P>
+exit_leftward_mode        		 <TT>rlm</TT>       		 <TT>ZS</TT> 		   Enable rightward (normal) carriage
+<P>
+                            		                 		          		   motion
+<P>
+exit_micro_mode           		 <TT>rmicm</TT>     		 <TT>ZT</TT> 		   Disable micro motion capabilities
+<P>
+exit_pc_charset_mode     		 <TT>rmpch</TT>     		 <TT>S3</TT> 		   Disable PC character display
+<P>
+exit_scancode_mode        		 <TT>rmsc</TT>      		 <TT>S5</TT> 		   Disable PC scancode mode
+<P>
+exit_shadow_mode          		 <TT>rshm</TT>      		 <TT>ZU</TT> 		   Disable shadow printing
+<P>
+exit_standout_mode        		 <TT>rmso</TT>      		 <TT>se</TT> 		   End stand out mode
+<P>
+exit_subscript_mode       		 <TT>rsubm</TT>     		 <TT>ZV</TT> 		   Disable subscript printing
+<P>
+exit_superscript_mode     		 <TT>rsupm</TT>     		 <TT>ZW</TT> 		   Disable superscript printing
+<P>
+exit_underline_mode       		 <TT>rmul</TT>      		 <TT>ue</TT> 		   End underscore mode
+<P>
+exit_upward_mode          		 <TT>rum</TT>       		 <TT>ZX</TT> 		   Enable downward (normal) carriage
+<P>
+                            		                 		          		   motion
+<P>
+exit_xon_mode             		 <TT>rmxon</TT>     		 <TT>RX</TT> 		   turn off xon/xoff handshaking
+<P>
+flash_screen               		 <TT>flash</TT>     		 <TT>vb</TT> 		   Visible bell (may not move cursor)
+<P>
+form_feed                  		 <TT>ff</TT>        		 <TT>ff</TT> 		   Hardcopy terminal page eject (P*)
+<P>
+from_status_line          		 <TT>fsl</TT>       		 <TT>fs</TT> 		   Return from status line
+<P>
+init_1string               		 <TT>is1</TT>       		 <TT>i1</TT> 		   Terminal initialization string
+<P>
+init_2string               		 <TT>is2</TT>       		 <TT>i2</TT> 		   Terminal initialization string
+<P>
+init_3string               		 <TT>is3</TT>       		 <TT>i3</TT> 		   Terminal initialization string
+<P>
+init_file                  		 <TT>if</TT>        		 <TT>if</TT> 		   Name of file containing is
+<P>
+init_prog                  		 <TT>iprog</TT>     		 <TT>iP</TT> 		   Path name of program for init
+<P>
+initialize_color           		 <TT>initc</TT>     		 <TT>Ic</TT> 		   Initialize the definition of color
+<P>
+initialize_pair            		 <TT>initp</TT>     		 <TT>Ip</TT> 		   Initialize color-pair
+<P>
+insert_character           		 <TT>ich1</TT>      		 <TT>ic</TT> 		   Insert character (P)
+<P>
+insert_line                		 <TT>il1</TT>       		 <TT>al</TT> 		   Add new blank line (P*)
+<P>
+insert_padding             		 <TT>ip</TT>        		 <TT>ip</TT> 		   Insert pad after character inserted (p*)
+<P>
+key_a1         		 <TT>ka1</TT>    		 <TT>K1</TT> 		   Upper left of keypad
+<P>
+key_a3         		 <TT>ka3</TT>    		 <TT>K3</TT> 		   Upper right of keypad
+<P>
+key_b2         		 <TT>kb2</TT>    		 <TT>K2</TT> 		   Center of keypad
+<P>
+key_backspace  		 <TT>kbs</TT>    		 <TT>kb</TT> 		   Sent by backspace key
+<P>
+key_beg        		 <TT>kbeg</TT>   		 <TT>1</TT>		   begin key
+<P>
+key_btab       		 <TT>kcbt</TT>   		 <TT>kB</TT> 		   back-tab key
+<P>
+key_c1         		 <TT>kc1</TT>    		 <TT>K4</TT> 		   Lower left of keypad
+<P>
+key_c3         		 <TT>kc3</TT>    		 <TT>K5</TT> 		   Lower right of keypad
+<P>
+key_cancel     		 <TT>kcan</TT>   		 <TT>2</TT>		   cancel key
+<P>
+key_catab      		 <TT>ktbc</TT>   		 <TT>ka</TT> 		   Sent by clear-all-tabs key
+<P>
+key_clear      		 <TT>kclr</TT>   		 <TT>kC</TT> 		   Sent by clear screen or erase key
+<P>
+key_close      		 <TT>kclo</TT>   		 <TT>3</TT>		   close key
+<P>
+key_command    		 <TT>kcmd</TT>   		 <TT>4</TT>		   command key
+<P>
+key_copy       		 <TT>kcpy</TT>   		 <TT>5</TT>		   copy key
+<P>
+key_create     		 <TT>kcrt</TT>   		 <TT>6</TT>		   create key
+<P>
+key_ctab       		 <TT>kctab</TT>  		 <TT>kt</TT> 		   Sent by clear-tab key
+<P>
+key_dc         		 <TT>kdch1</TT>  		 <TT>kD</TT> 		   Sent by delete character key
+<P>
+key_dl         		 <TT>kdl1</TT>   		 <TT>kL</TT> 		   Sent by delete line key
+<P>
+key_down       		 <TT>kcud1</TT>  		 <TT>kd</TT> 		   Sent by terminal down arrow key
+<P>
+key_eic        		 <TT>krmir</TT>  		 <TT>kM</TT> 		   Sent by rmir or smir in insert mode
+<P>
+key_end        		 <TT>kend</TT>   		 <TT>7</TT>		   end key
+<P>
+key_enter      		 <TT>kent</TT>   		 <TT>8</TT>		   enter/send key
+<P>
+key_eol        		 <TT>kel</TT>    		 <TT>kE</TT> 		   Sent by clear-to-end-of-line key
+<P>
+key_eos        		 <TT>ked</TT>    		 <TT>kS</TT> 		   Sent by clear-to-end-of-screen key
+<P>
+key_exit       		 <TT>kext</TT>   		 <TT>9</TT>		   exit key
+<P>
+</TT></PRE>
+<P><P>
+<PRE><TT> 
+key_find       		 <TT>kfnd</TT>   		 <TT>0</TT>		   find key
+<P>
+key_help       		 <TT>khlp</TT>   		 <TT>%1</TT>		   help key
+<P>
+key_home       		 <TT>khome</TT>  		 <TT>kh</TT> 		   Sent by home key
+<P>
+key_ic         		 <TT>kich1</TT>  		 <TT>kI</TT> 		   Sent by ins char/enter ins mode key
+<P>
+key_il         		 <TT>kil1</TT>   		 <TT>kA</TT> 		   Sent by insert line
+<P>
+key_left       		 <TT>kcub1</TT>  		 <TT>kl</TT> 		   Sent by terminal left arrow key
+<P>
+key_ll         		 <TT>kll</TT>    		 <TT>kH</TT> 		   Sent by home-down key
+<P>
+key_mark       		 <TT>kmrk</TT>   		 <TT>%2</TT>		   mark key
+<P>
+key_message    		 <TT>kmsg</TT>   		 <TT>%3</TT>		   message key
+<P>
+key_move       		 <TT>kmov</TT>   		 <TT>%4</TT>		   move key
+<P>
+key_next       		 <TT>knxt</TT>   		 <TT>%5</TT>		   next key
+<P>
+key_npage      		 <TT>knp</TT>    		 <TT>kN</TT> 		   Sent by next-page key
+<P>
+key_open       		 <TT>kopn</TT>   		 <TT>%6</TT>		   open key
+<P>
+key_options    		 <TT>kopt</TT>   		 <TT>%7</TT>		   options key
+<P>
+key_ppage      		 <TT>kpp</TT>    		 <TT>kP</TT> 		   Sent by previous-page key
+<P>
+key_previous   		 <TT>kprv</TT>   		 <TT>%8</TT>		   previous key
+<P>
+key_print      		 <TT>kprt</TT>   		 <TT>%9</TT>		   print key
+<P>
+key_redo       		 <TT>krdo</TT>   		 <TT>%0</TT>		   redo key
+<P>
+key_reference  		 <TT>kref</TT>   		 <TT>&amp;1</TT>		   reference key
+<P>
+key_refresh    		 <TT>krfr</TT>   		 <TT>&amp;2</TT>		   refresh key
+<P>
+key_replace    		 <TT>krpl</TT>   		 <TT>&amp;3</TT>		   replace key
+<P>
+key_restart    		 <TT>krst</TT>   		 <TT>&amp;4</TT>		   restart key
+<P>
+key_resume     		 <TT>kres</TT>   		 <TT>&amp;5</TT>		   resume key
+<P>
+key_right      		 <TT>kcuf1</TT>  		 <TT>kr</TT> 		   Sent by terminal right arrow key
+<P>
+key_save       		 <TT>ksav</TT>   		 <TT>&amp;6</TT>		   save key
+<P>
+key_sbeg       		 <TT>kBEG</TT>   		 <TT>&amp;9</TT>		   shifted begin key
+<P>
+key_scancel    		 <TT>kCAN</TT>   		 <TT>&amp;0</TT>		   shifted cancel key
+<P>
+key_scommand   		 <TT>kCMD</TT>   		 <TT>*1</TT> 		   shifted command key
+<P>
+key_scopy      		 <TT>kCPY</TT>   		 <TT>*2</TT> 		   shifted copy key
+<P>
+key_screate    		 <TT>kCRT</TT>   		 <TT>*3</TT> 		   shifted create key
+<P>
+key_sdc        		 <TT>kDC</TT>    		 <TT>*4</TT> 		   shifted delete char key
+<P>
+key_sdl        		 <TT>kDL</TT>    		 <TT>*5</TT> 		   shifted delete line key
+<P>
+key_select     		 <TT>kslt</TT>   		 <TT>*6</TT> 		   select key
+<P>
+key_send       		 <TT>kEND</TT>   		 <TT>*7</TT> 		   shifted end key
+<P>
+key_seol       		 <TT>kEOL</TT>   		 <TT>*8</TT> 		   shifted end of line key
+<P>
+key_sexit      		 <TT>kEXT</TT>   		 <TT>*9</TT> 		   shifted exit key
+<P>
+key_sf         		 <TT>kind</TT>   		 <TT>kF</TT> 		   Sent by scroll-forward/down key
+<P>
+key_sfind      		 <TT>kFND</TT>   		 <TT>*0</TT> 		   shifted find key
+<P>
+key_shelp      		 <TT>kHLP</TT>   		 <TT>#1</TT>		   shifted help key
+<P>
+key_shome      		 <TT>kHOM</TT>   		 <TT>#2</TT>		   shifted home key
+<P>
+key_sic        		 <TT>kIC</TT>    		 <TT>#3</TT>		   shifted insert char key
+<P>
+key_sleft      		 <TT>kLFT</TT>   		 <TT>#4</TT>		   shifted left key
+<P>
+key_smessage   		 <TT>kMSG</TT>   		 <TT>%a</TT>		   shifted message key
+<P>
+key_smove      		 <TT>kMOV</TT>   		 <TT>%b</TT>		   shifted move key
+<P>
+key_snext      		 <TT>kNXT</TT>   		 <TT>%c</TT>		   shifted next key
+<P>
+key_soptions   		 <TT>kOPT</TT>   		 <TT>%d</TT>		   shifted options key
+<P>
+key_sprevious  		 <TT>kPRV</TT>   		 <TT>%e</TT>		   shifted previous key
+<P>
+key_sprint     		 <TT>kPRT</TT>   		 <TT>%f</TT>		   shifted print key
+<P>
+key_sr         		 <TT>kri</TT>    		 <TT>kR</TT> 		   Sent by scroll-backward/up key
+<P>
+key_sredo      		 <TT>kRDO</TT>   		 <TT>%g</TT>		   shifted redo key
+<P>
+key_sreplace   		 <TT>kRPL</TT>   		 <TT>%h</TT>		   shifted replace key
+<P>
+key_sright     		 <TT>kRIT</TT>   		 <TT>%i</TT>		   shifted right key
+<P>
+key_srsume     		 <TT>kRES</TT>   		 <TT>%j</TT>		   shifted resume key
+<P>
+key_ssave      		 <TT>kSAV</TT>   		 <TT>!1</TT> 		   shifted save key
+<P>
+key_ssuspend   		 <TT>kSPD</TT>   		 <TT>!2</TT> 		   shifted suspend key
+<P>
+key_stab       		 <TT>khts</TT>   		 <TT>kT</TT> 		   Sent by set-tab key
+<P>
+key_sundo      		 <TT>kUND</TT>   		 <TT>!3</TT> 		   shifted undo key
+<P>
+key_suspend    		 <TT>kspd</TT>   		 <TT>&amp;7</TT>		   suspend key
+<P>
+key_undo       		 <TT>kund</TT>   		 <TT>&amp;8</TT>		   undo key
+<P>
+key_up         		 <TT>kcuu1</TT>  		 <TT>ku</TT> 		   Sent by terminal up arrow key
+<P>
+keypad_local   		 <TT>rmkx</TT>   		 <TT>ke</TT> 		   Out of &quot;keypad transmit&quot; mode
+<P>
+keypad_xmit    		 <TT>smkx</TT>   		 <TT>ks</TT> 		   Put terminal in &quot;keypad transmit&quot; mode
+<P>
+lab_f0         		 <TT>lf0</TT>    		 <TT>l0</TT> 		   Labels on function key f0 if not f0
+<P>
+lab_f1         		 <TT>lf1</TT>    		 <TT>l1</TT> 		   Labels on function key f1 if not f1
+<P>
+lab_f2         		 <TT>lf2</TT>    		 <TT>l2</TT> 		   Labels on function key f2 if not f2
+<P>
+lab_f3         		 <TT>lf3</TT>    		 <TT>l3</TT> 		   Labels on function key f3 if not f3
+<P>
+lab_f4         		 <TT>lf4</TT>    		 <TT>l4</TT> 		   Labels on function key f4 if not f4
+<P>
+lab_f5         		 <TT>lf5</TT>    		 <TT>l5</TT> 		   Labels on function key f5 if not f5
+<P>
+lab_f6         		 <TT>lf6</TT>    		 <TT>l6</TT> 		   Labels on function key f6 if not f6
+<P>
+lab_f7         		 <TT>lf7</TT>    		 <TT>l7</TT> 		   Labels on function key f7 if not f7
+<P>
+lab_f8         		 <TT>lf8</TT>    		 <TT>l8</TT> 		   Labels on function key f8 if not f8
+<P>
+lab_f9         		 <TT>lf9</TT>    		 <TT>l9</TT> 		   Labels on function key f9 if not f9
+<P>
+lab_f10        		 <TT>lf10</TT>   		 <TT>la</TT> 		   Labels on function key f10 if not f10
+<P>
+label_on       		 <TT>smln</TT>   		 <TT>LO</TT> 		   turn on soft labels
+<P>
+label_off      		 <TT>rmln</TT>   		 <TT>LF</TT> 		   turn off soft labels
+<P>
+meta_off       		 <TT>rmm</TT>    		 <TT>mo</TT> 		   Turn off &quot;meta mode&quot;
+<P>
+meta_on        		 <TT>smm</TT>    		 <TT>mm</TT> 		   Turn on &quot;meta mode&quot; (8th bit)
+<P>
+micro_column_address      		 <TT>mhpa</TT>      		 <TT>ZY</TT> 		   Like column_address for micro adjustment
+<P>
+micro_down                 		 <TT>mcud1</TT>     		 <TT>ZZ</TT> 		   Like cursor_down for micro adjustment
+<P>
+micro_left                 		 <TT>mcub1</TT>     		 <TT>Za</TT> 		   Like cursor_left for micro adjustment
+<P>
+micro_right                		 <TT>mcuf1</TT>     		 <TT>Zb</TT> 		   Like cursor_right for micro adjustment
+<P>
+micro_row_address         		 <TT>mvpa</TT>      		 <TT>Zc</TT> 		   Like row_address for micro adjustment
+<P>
+micro_up                   		 <TT>mcuu1</TT>     		 <TT>Zd</TT> 		   Like cursor_up for micro adjustment
+<P>
+newline                     		 <TT>nel</TT>       		 <TT>nw</TT> 		   Newline (behaves like cr followed by lf)
+<P>
+order_of_pins             		 <TT>porder</TT>    		 <TT>Ze</TT> 		   Matches software buts to print-head pins
+<P>
+orig_colors                		 <TT>oc</TT>        		 <TT>oc</TT> 		   Reset all color pairs
+<P>
+orig_pair                  		 <TT>op</TT>        		 <TT>op</TT> 		   Set default color-pair to original one
+<P>
+pad_char                   		 <TT>pad</TT>       		 <TT>pc</TT> 		   Pad character (rather than null)
+<P>
+parm_dch                   		 <TT>dch</TT>       		 <TT>DC</TT> 		   Delete #1 chars (PG*)
+<P>
+parm_delete_line          		 <TT>dl</TT>        		 <TT>DL</TT> 		   Delete #1 lines (PG*)
+<P>
+parm_down_cursor          		 <TT>cud</TT>       		 <TT>DO</TT> 		   Move cursor down #1 lines (PG*)
+<P>
+parm_down_micro           		 <TT>mcud</TT>      		 <TT>Zf</TT> 		   Like cud for micro adjust
+<P>
+parm_ich                   		 <TT>ich</TT>       		 <TT>IC</TT> 		   Insert #1 blank chars (PG*)
+<P>
+parm_index                 		 <TT>indn</TT>      		 <TT>SF</TT> 		   Scroll forward #1 lines (PG)
+<P>
+parm_insert_line          		 <TT>il</TT>        		 <TT>AL</TT> 		   Add #1 new blank lines (PG*)
+<P>
+parm_left_cursor          		 <TT>cub</TT>       		 <TT>LE</TT> 		   Move cursor left #1 spaces (PG)
+<P>
+parm_left_micro           		 <TT>mcub</TT>      		 <TT>Zg</TT> 		   Like cul for micro adjust
+<P>
+parm_right_cursor         		 <TT>cuf</TT>       		 <TT>RI</TT> 		   Move cursor right #1 spaces (PG*)
+<P>
+parm_right_micro          		 <TT>mcuf</TT>      		 <TT>Zh</TT> 		   Like cuf for micro adjust
+<P>
+parm_rindex                		 <TT>rin</TT>       		 <TT>SR</TT> 		   Scroll backward #1 lines (PG)
+<P>
+parm_up_cursor            		 <TT>cuu</TT>       		 <TT>UP</TT> 		   Move cursor up #1 lines (PG*)
+<P>
+parm_up_micro             		 <TT>mcuu</TT>      		 <TT>Zi</TT> 		   Like cuu for micro adjust
+<P>
+pkey_key                   		 <TT>pfkey</TT>     		 <TT>pk</TT> 		   Prog funct key #1 to type string #2
+<P>
+pkey_local                 		 <TT>pfloc</TT>     		 <TT>pl</TT> 		   Prog funct key #1 to execute string #2
+<P>
+pkey_xmit                  		 <TT>pfx</TT>       		 <TT>px</TT> 		   Prog funct key #1 to xmit string #2
+<P>
+pkey_plab                  		 <TT>pfxl</TT>      		 <TT>xl</TT> 		   Program key #1 to xmit #2 and show #3
+<P>
+plab_norm                  		 <TT>pln</TT>       		 <TT>pn</TT> 		   program label #1 to show string #2
+<P>
+print_screen               		 <TT>mc0</TT>       		 <TT>ps</TT> 		   Print contents of the screen
+<P>
+prtr_non                   		 <TT>mc5p</TT>      		 <TT>pO</TT> 		   Turn on the printer for #1 bytes
+<P>
+prtr_off                   		 <TT>mc4</TT>       		 <TT>pf</TT> 		   Turn off the printer
+<P>
+prtr_on                    		 <TT>mc5</TT>       		 <TT>po</TT> 		   Turn on the printer
+<P>
+repeat_char                		 <TT>rep</TT>       		 <TT>rp</TT> 		   Repeat char #1 #2 times.  (PG*)
+<P>
+req_for_input             		 <TT>rfi</TT>       		 <TT>RF</TT> 		   request for input
+<P>
+reset_1string              		 <TT>rs1</TT>       		 <TT>r1</TT> 		   Reset terminal completely to sane modes.
+<P>
+reset_2string              		 <TT>rs2</TT>       		 <TT>r2</TT> 		   Reset terminal completely to sane modes.
+<P>
+reset_3string              		 <TT>rs3</TT>       		 <TT>r3</TT> 		   Reset terminal completely to sane modes.
+<P>
+reset_file                 		 <TT>rf</TT>        		 <TT>rf</TT> 		   Name of file containing reset string
+<P>
+restore_cursor             		 <TT>rc</TT>        		 <TT>rc</TT> 		   Restore cursor to position of last sc
+<P>
+row_address                		 <TT>vpa</TT>       		 <TT>cv</TT> 		   Vertical position absolute (set row) (PG)
+<P>
+save_cursor                		 <TT>sc</TT>        		 <TT>sc</TT> 		   Save cursor position (P)
+<P>
+scancode_escape            		 <TT>scesc</TT>     		 <TT>S7</TT> 		   Escape for scancode emulation
+<P>
+scroll_forward             		 <TT>ind</TT>       		 <TT>sf</TT> 		   Scroll text up (P)
+<P>
+scroll_reverse             		 <TT>ri</TT>        		 <TT>sr</TT> 		   Scroll text down (P)
+<P>
+select_char_set           		 <TT>scs</TT>       		 <TT>Zj</TT> 		   Select character set
+<P>
+set0_des_seq              		 <TT>s0ds</TT>      		 <TT>s0</TT> 		   Shift to codeset 0 (EUC set 0, ASCII)
+<P>
+set1_des_seq              		 <TT>s1ds</TT>      		 <TT>s1</TT> 		   Shift to codeset 1
+<P>
+set2_des_seq              		 <TT>s2ds</TT>      		 <TT>s2</TT> 		   Shift to codeset 2
+<P>
+set3_des_seq              		 <TT>s3ds</TT>      		 <TT>s3</TT> 		   Shift to codeset 3
+<P>
+set_a_background          		 <TT>setab</TT>     		 <TT>AB</TT> 		   Set background color using ANSI escape
+<P>
+set_a_foreground          		 <TT>setaf</TT>     		 <TT>AF</TT> 		   Set foreground color using ANSI escape
+<P>
+set_attributes             		 <TT>sgr</TT>       		 <TT>sa</TT> 		   Define the video attributes (PG9)
+<P>
+set_background             		 <TT>setb</TT>      		 <TT>Sb</TT> 		   Set current background color
+<P>
+set_bottom_margin         		 <TT>smgb</TT>      		 <TT>Zk</TT> 		   Set bottom margin at current line
+<P>
+set_bottom_margin_parm   		 <TT>smgbp</TT>     		 <TT>Zl</TT> 		   Set bottom line at line #1 or #2
+<P>
+                            		                 		          		   lines from bottom
+<P>
+set_color_band            		 <TT>setcolor</TT>  		 <TT>Yz</TT> 		   Change to ribbon color #1
+<P>
+set_color_pair            		 <TT>scp</TT>       		 <TT>sp</TT> 		   Set current color pair
+<P>
+set_foreground             		 <TT>setf</TT>      		 <TT>Sf</TT> 		   Set current foreground color
+<P>
+set_left_margin           		 <TT>smgl</TT>      		 <TT>ML</TT> 		   Set left margin at current line
+<P>
+set_left_margin_parm     		 <TT>smglp</TT>     		 <TT>Zm</TT> 		   Set left (right) margin at #1 (#2)
+<P>
+set_lr_margin             		 <TT>smglr</TT>     		 <TT>ML</TT> 		   Set both left and right margins
+<P>
+set_page_length           		 <TT>slines</TT>    		 <TT>YZ</TT> 		   Set page length to #1 lines (use tparm)
+<P>
+set_right_margin          		 <TT>smgr</TT>      		 <TT>MR</TT> 		   Set right margin at current column
+<P>
+set_right_margin_parm    		 <TT>smgrp</TT>     		 <TT>Zn</TT> 		   Set right margin at column #1
+<P>
+set_tab                    		 <TT>hts</TT>       		 <TT>st</TT> 		   Set a tab in all rows, current column
+<P>
+set_tb_margin             		 <TT>smgtb</TT>     		 <TT>MT</TT> 		   Sets both top and bottom margins
+<P>
+set_top_margin            		 <TT>smgt</TT>      		 <TT>Zo</TT> 		   Set top margin at current line
+<P>
+set_top_margin_parm      		 <TT>smgtp</TT>     		 <TT>Zp</TT> 		   Set top margin at line #1
+<P>
+set_window                 		 <TT>wind</TT>      		 <TT>wi</TT> 		   Current window is lines #1-#2 cols #3-#4
+<P>
+start_bit_image           		 <TT>sbim</TT>      		 <TT>Zq</TT> 		   Start printing bit image graphics
+<P>
+start_char_set_def       		 <TT>scsd</TT>      		 <TT>Zr</TT> 		   Start definition of a character set
+<P>
+stop_bit_image            		 <TT>rbim</TT>      		 <TT>Zs</TT> 		   End printing bit image graphics
+<P>
+stop_char_set_def        		 <TT>rcsd</TT>      		 <TT>Zt</TT> 		   End definition of character set
+<P>
+subscript_characters       		 <TT>subcs</TT>     		 <TT>Zu</TT> 		   List of subscriptable chars
+<P>
+superscript_characters     		 <TT>supcs</TT>     		 <TT>Zv</TT> 		   List of superscriptable chars
+<P>
+tab                         		 <TT>ht</TT>        		 <TT>ta</TT> 		   Tab to next 8 space hardware tab stop
+<P>
+these_cause_cr            		 <TT>docr</TT>      		 <TT>Zw</TT> 		   These characters cause a CR
+<P>
+to_status_line            		 <TT>tsl</TT>       		 <TT>ts</TT> 		   Go to status line, column #1
+<P>
+underline_char             		 <TT>uc</TT>        		 <TT>uc</TT> 		   Underscore one char and move past it
+<P>
+up_half_line              		 <TT>hu</TT>        		 <TT>hu</TT> 		   Half-line up (reverse 1/2 linefeed)
+<P>
+xoff_character             		 <TT>xoffc</TT>     		 <TT>XF</TT> 		   XON character
+<P>
+xon_character              		 <TT>xonc</TT>      		 <TT>XN</TT> 		   XOFF character
+<P>
+</TT></PRE>
+              (The following string capabilities are  present  in
+              the  SYSVr term structure, but are not documented
+              in the man page.  Comments are from the term structure
+              header.)
+<PRE><TT> 
+label_format               		 <TT>fln</TT>     		 <TT>Lf</TT> 		   ??
+<P>
+set_clock                  		 <TT>sclk</TT>    		 <TT>SC</TT> 		   Set time-of-day clock
+<P>
+display_clock              		 <TT>dclk</TT>    		 <TT>DK</TT> 		   Display time-of-day clock
+<P>
+remove_clock               		 <TT>rmclk</TT>   		 <TT>RC</TT> 		   Remove time-of-day clock??
+<P>
+create_window              		 <TT>cwin</TT>    		 <TT>CW</TT> 		   Define win #1 to go from #2,#3 to #4,#5
+<P>
+goto_window                		 <TT>wingo</TT>   		 <TT>WG</TT> 		   Goto window #1
+<P>
+hangup                      		 <TT>hup</TT>     		 <TT>HU</TT> 		   Hang up phone
+<P>
+dial_phone                 		 <TT>dial</TT>    		 <TT>DI</TT> 		   Dial phone number #1
+<P>
+quick_dial                 		 <TT>qdial</TT>   		 <TT>QD</TT> 		   Dial phone number #1, without
+<P>
+                            		               		          		   progress detection
+<P>
+tone                        		 <TT>tone</TT>    		 <TT>TO</TT> 		   Select touch tone dialing
+<P>
+pulse                       		 <TT>pulse</TT>   		 <TT>PU</TT> 		   Select pulse dialing
+<P>
+flash_hook                 		 <TT>hook</TT>    		 <TT>fh</TT> 		   Flash the switch hook
+<P>
+fixed_pause                		 <TT>pause</TT>   		 <TT>PA</TT> 		   Pause for 2-3 seconds
+<P>
+wait_tone                  		 <TT>wait</TT>    		 <TT>WA</TT> 		   Wait for dial tone
+<P>
+user0                       		 <TT>u0</TT>      		 <TT>u0</TT> 		   User string # 0
+<P>
+user1                       		 <TT>u1</TT>      		 <TT>u1</TT> 		   User string # 1
+<P>
+user2                       		 <TT>u2</TT>      		 <TT>u2</TT> 		   User string # 2
+<P>
+user3                       		 <TT>u3</TT>      		 <TT>u3</TT> 		   User string # 3
+<P>
+user4                       		 <TT>u4</TT>      		 <TT>u4</TT> 		   User string # 4
+<P>
+user5                       		 <TT>u5</TT>      		 <TT>u5</TT> 		   User string # 5
+<P>
+user6                       		 <TT>u6</TT>      		 <TT>u6</TT> 		   User string # 6
+<P>
+user7                       		 <TT>u7</TT>      		 <TT>u7</TT> 		   User string # 7
+<P>
+user8                       		 <TT>u8</TT>      		 <TT>u8</TT> 		   User string # 8
+<P>
+user9                       		 <TT>u9</TT>      		 <TT>u9</TT> 		   User string # 9
+<P>
+get_mouse                  		 <TT>getm</TT>    		 <TT>Gm</TT> 		   Curses should get button events
+<P>
+key_mouse                  		 <TT>kmous</TT>   		 <TT>Km</TT> 		   ??
+<P>
+mouse_info                 		 <TT>minfo</TT>   		 <TT>Mi</TT> 		   Mouse status information
+<P>
+pc_term_options           		 <TT>pctrm</TT>   		 <TT>S6</TT> 		   PC terminal options
+<P>
+req_mouse_pos             		 <TT>reqmp</TT>   		 <TT>RQ</TT> 		   Request mouse position report
+<P>
+zero_motion                		 <TT>zerom</TT>   		 <TT>Zx</TT> 		   No motion for the subsequent character
+<P>
+</TT></PRE><HR><A NAME="tex2html1952" HREF="node130.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1950" HREF="node126.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1946" HREF="node128.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1954" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html1953" HREF="node130.html">8.23 [N]Curses Function Overview</A>
+<B>Up:</B> <A NAME="tex2html1951" HREF="node126.html">8.22 Terminfo Capabilities</A>
+<B> Previous:</B> <A NAME="tex2html1947" HREF="node128.html">8.22.2 Numbers</A>
+<P><ADDRESS>
+<I>Converted on: <BR>
+Fri Mar 29 14:43:04 EST 1996</I>
+</ADDRESS>
+</BODY>
+</HTML>
