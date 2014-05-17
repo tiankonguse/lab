@@ -1,7 +1,6 @@
 // Home page hide
 //---------------------------------------------
 $(document).ready(function(){
-
     function getAnim(){
         var data = "bounce flash pulse rubberBand shake swing tada wobble bounceIn bounceInDown bounceInLeft bounceInRight bounceInUp bounceOut bounceOutDown bounceOutLeft bounceOutRight bounceOutUp fadeIn fadeInDown fadeInDownBig fadeInLeft fadeInLeftBig fadeInRight fadeInRightBig fadeInUp fadeInUpBig fadeOut fadeOutDown fadeOutDownBig fadeOutLeft fadeOutLeftBig fadeOutRight fadeOutRightBig fadeOutUp fadeOutUpBig flip flipInX flipInY flipOutX flipOutY lightSpeedIn lightSpeedOut rotateIn rotateInDownLeft rotateInDownRight rotateInUpLeft rotateInUpRight rotateOut rotateOutDownLeft rotateOutDownRight rotateOutUpLeft rotateOutUpRight slideInDown slideInLeft slideInRight slideOutLeft slideOutRight slideOutUp hinge rollIn rollOut";
         var obj = data.split(" ");
@@ -9,9 +8,13 @@ $(document).ready(function(){
     }
 
     function testAnim(obj) {
-        var x = getAnim();
+        var x = "";
+        ALL.allAnim && (x = getAnim());
+        ALL.slowin && (x = "slowin");
         obj.addClass(x + ' animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-            obj.removeClass(x + " animated");
+            setTimeout(function(){
+                obj.removeClass(x + " animated");
+            },3500);
         });
     };
     if (jQuery(window).width() > 1000) {
@@ -32,7 +35,7 @@ $(document).ready(function(){
                 var $pre = $id.prev();
                 if($pre.length != 0){
                     // not top
-                    testAnim($id);
+                    ALL.slowin || testAnim($id);
                     var top = $pre.offset().top;
                     testAnim($pre);
                     lock = 1;
@@ -42,10 +45,10 @@ $(document).ready(function(){
                         window.setTimeout(function(){
                             lock = 0;
                         }, animate_out);
-                        
+
                     });
                 }else{
-                    testAnim($id);
+                    ALL.slowin || testAnim($id);
                     testAnim($home);
                     lock = 1;
                     $("html, body").animate({
@@ -63,7 +66,7 @@ $(document).ready(function(){
             var id = $pgItem.filter(":in-viewport:last").attr("id") ;
             if(!id){
                 var $next =$($pgItem[0]);
-                testAnim($home);
+                ALL.slowin || testAnim($home);
                 var top = $next.offset().top;
                 testAnim($next);
 
@@ -80,7 +83,7 @@ $(document).ready(function(){
                 var $id = $("#" + id);
                 var $next = $id.next();
                 if($next.length != 0){
-                    testAnim($id);
+                    ALL.slowin || testAnim($id);
                     var top = $next.offset().top;
                     testAnim($next);
                     lock = 1;
@@ -123,18 +126,18 @@ $(document).ready(function(){
                 case 13:
                 case 40:
                 case 34:
-                page_down();
-                break;
+                    page_down();
+                    break;
                 case 38:
                 case 33:
-                page_up();
-                break;
+                    page_up();
+                    break;
             }
 
         });
 
     }
-    });
+});
 
 // Navigation
 //---------------------------------------------
@@ -228,4 +231,6 @@ $(document).ready(function(){
     });
 
 });
+
+
 

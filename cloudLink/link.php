@@ -51,7 +51,8 @@ switch($host) {
     } case HOST_WEIYUN : {
         //腾讯微云
         $uri = "/weiyun.php?url=/";
-        $uri .= end(explode("/", trim($path, "/")));
+        $tmp_array = explode("/", trim($path, "/"));
+        $uri .= end($tmp_array);
         break;
     } default : {
         //退出

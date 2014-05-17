@@ -25,9 +25,7 @@ jQuery(document).ready(function() {
 			$info.html(d.message);
 			setTimeout((function() {
 				$outter.addClass("hide");
-			}), 900);
+			}), 300);
 		}, "json");
-
-		console.log("next");
 	});
 });
