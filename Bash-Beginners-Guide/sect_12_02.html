@@ -1,0 +1,366 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Traps</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Catching signals"
+HREF="chap_12.html"><LINK
+REL="PREVIOUS"
+TITLE="Signals"
+HREF="sect_12_01.html"><LINK
+REL="NEXT"
+TITLE="Summary"
+HREF="sect_12_03.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_12_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 12. Catching signals</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_12_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_12_02"
+></A
+>12.2. Traps</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_12_02_01"
+></A
+>12.2.1. General</H2
+><P
+>There might be situations when you don't want users of your scripts to exit untimely using keyboard abort sequences, for example because input has to be provided or cleanup has to be done.  The <B
+CLASS="command"
+>trap</B
+> statement catches these sequences and can be programmed to execute a list of commands upon catching those signals.</P
+><P
+>The syntax for the <B
+CLASS="command"
+>trap</B
+> statement is straightforward:</P
+><P
+><B
+CLASS="command"
+>trap [COMMANDS] [SIGNALS]</B
+> </P
+><P
+>This instructs the <B
+CLASS="command"
+>trap</B
+> command to catch the listed <EM
+>SIGNALS</EM
+>, which may be signal names with or without the <EM
+>SIG</EM
+> prefix, or signal numbers.  If a signal is <EM
+>0</EM
+> or <EM
+>EXIT</EM
+>, the <B
+CLASS="command"
+>COMMANDS</B
+> are executed when the shell exits.  If one of the signals is <EM
+>DEBUG</EM
+>, the list of <B
+CLASS="command"
+>COMMANDS</B
+> is executed after every simple command.  A signal may also be specified as <EM
+>ERR</EM
+>; in that case <B
+CLASS="command"
+>COMMANDS</B
+> are executed each time a simple command exits with a non-zero status.  Note that these commands will not be executed when the non-zero exit status comes from part of an <B
+CLASS="command"
+>if</B
+> statement, or from a <B
+CLASS="command"
+>while</B
+> or <B
+CLASS="command"
+>until</B
+> loop.  Neither will they be executed if a logical <EM
+>AND</EM
+> (&#38;&#38;) or <EM
+>OR</EM
+> (||) result in a non-zero exit code, or when a command's return status is inverted using the <EM
+>!</EM
+> operator.</P
+><P
+>The return status of the <B
+CLASS="command"
+>trap</B
+> command itself is zero unless an invalid signal specification is encountered.  The <B
+CLASS="command"
+>trap</B
+> command takes a couple of options, which are documented in the Bash info pages.</P
+><P
+>Here is a very simple example, catching <B
+CLASS="keycap"
+>Ctrl</B
+>+<B
+CLASS="keycap"
+>C</B
+> from the user, upon which a message is printed.  When you try to kill this program without specifying the <EM
+>KILL</EM
+> signal, nothing will happen:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+# traptest.sh
+
+trap "echo Booh!" SIGINT SIGTERM
+echo "pid is $$"
+
+while :			# This is the same as "while true".
+do
+        sleep 60	# This script is not really doing anything.
+done
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_12_02_02"
+></A
+>12.2.2. How Bash interprets traps</H2
+><P
+>When Bash receives a signal for which a trap has been set while waiting for a command to complete, the trap will not be executed until the command completes.  When Bash is waiting for an asynchronous command via the <B
+CLASS="command"
+>wait</B
+> built-in, the reception of a signal for which a trap has been set will cause the <B
+CLASS="command"
+>wait</B
+> built-in to return immediately with an exit status greater than 128, immediately after which the trap is executed.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_12_02_03"
+></A
+>12.2.3. More examples</H2
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_12_02_03_01"
+></A
+>12.2.3.1. Detecting when a variable is used</H3
+><P
+>When debugging longer scripts, you might want to give a variable the <EM
+>trace</EM
+> attribute and trap <EM
+>DEBUG</EM
+> messages for that variable.  Normally you would just declare a variable using an assignment like <B
+CLASS="command"
+><TT
+CLASS="varname"
+>VARIABLE</TT
+>=value</B
+>.  Replacing the declaration of the variable with the following lines might provide valuable information about what your script is doing:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;declare -t VARIABLE=value
+
+trap "echo VARIABLE is being used here." DEBUG
+
+# rest of the script
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_12_02_03_02"
+></A
+>12.2.3.2. Removing rubbish upon exit</H3
+><P
+>The <B
+CLASS="command"
+>whatis</B
+> command relies on a database which is regularly built using the <TT
+CLASS="filename"
+>makewhatis.cron</TT
+> script with cron:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+
+LOCKFILE=/var/lock/makewhatis.lock
+
+# Previous makewhatis should execute successfully:
+
+[ -f $LOCKFILE ] &#38;&#38; exit 0
+
+# Upon exit, remove lockfile.
+
+trap "{ rm -f $LOCKFILE ; exit 255; }" EXIT
+
+touch $LOCKFILE
+makewhatis -u -w
+exit 0
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_12_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_12_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Signals</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_12.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Summary</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

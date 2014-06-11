@@ -1,0 +1,974 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Operations on variables</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="More on variables"
+HREF="chap_10.html"><LINK
+REL="PREVIOUS"
+TITLE="Array variables"
+HREF="sect_10_02.html"><LINK
+REL="NEXT"
+TITLE="Summary"
+HREF="sect_10_04.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_10_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 10. More on variables</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_10_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_10_03"
+></A
+>10.3. Operations on variables</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_10_03_01"
+></A
+>10.3.1. Arithmetic on variables</H2
+><P
+>We discussed this already in <A
+HREF="sect_03_04.html#sect_03_04_05"
+>Section 3.4.6</A
+>.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_10_03_02"
+></A
+>10.3.2. Length of a variable</H2
+><P
+>Using the <B
+CLASS="command"
+>${#<TT
+CLASS="varname"
+>VAR</TT
+>}</B
+> syntax will calculate the number of characters in a variable.  If <TT
+CLASS="varname"
+>VAR</TT
+> is <SPAN
+CLASS="QUOTE"
+>"*"</SPAN
+> or <SPAN
+CLASS="QUOTE"
+>"@"</SPAN
+>, this value is substituted with the number of positional parameters or number of elements in an array in general.  This is demonstrated in the example below:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$SHELL</TT
+></B
+>
+/bin/bash
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${#SHELL}</TT
+></B
+>
+9
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>ARRAY</TT
+>=<TT
+CLASS="parameter"
+><I
+>(one two three)</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${#ARRAY}</TT
+></B
+>
+3
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_10_03_03"
+></A
+>10.3.3. Transformations of variables</H2
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_10_03_03_01"
+></A
+>10.3.3.1. Substitution</H3
+><P
+><B
+CLASS="command"
+>${<TT
+CLASS="varname"
+>VAR</TT
+>:-<TT
+CLASS="parameter"
+><I
+>WORD</I
+></TT
+>}</B
+> </P
+><P
+>If <TT
+CLASS="varname"
+>VAR</TT
+> is not defined or null, the expansion of <TT
+CLASS="parameter"
+><I
+>WORD</I
+></TT
+> is substituted; otherwise the value of <TT
+CLASS="varname"
+>VAR</TT
+> is substituted:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${TEST:-test}</TT
+></B
+>
+test
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$TEST</TT
+></B
+>
+ 
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>export <TT
+CLASS="varname"
+>TEST</TT
+>=<TT
+CLASS="parameter"
+><I
+>a_string</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${TEST:-test}</TT
+></B
+>
+a_string
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${TEST2:-$TEST}</TT
+></B
+>
+a_string
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>This form is often used in conditional tests, for instance in this one:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<B
+CLASS="command"
+><TT
+CLASS="parameter"
+><I
+>[ -z "${COLUMNS:-}" ]</I
+></TT
+> &#38;&#38; <TT
+CLASS="varname"
+>COLUMNS</TT
+>=<TT
+CLASS="parameter"
+><I
+>80</I
+></TT
+></B
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>It is a shorter notation for</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<B
+CLASS="command"
+>if <TT
+CLASS="parameter"
+><I
+>[ -z "${COLUMNS:-}" ]</I
+></TT
+>; then
+	<TT
+CLASS="varname"
+>COLUMNS</TT
+>=<TT
+CLASS="parameter"
+><I
+>80</I
+></TT
+>
+fi</B
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>See <A
+HREF="sect_07_01.html#sect_07_01_02_03"
+>Section 7.1.2.3</A
+> for more information about this type of condition testing.</P
+><P
+>If the hyphen (-) is replaced with the equal sign (=), the value is assigned to the parameter if it does not exist:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$TEST2</TT
+></B
+>
+
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${TEST2:=$TEST}</TT
+></B
+>
+a_string
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$TEST2</TT
+></B
+>
+a_string
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>The following syntax tests the existence of a variable.  If it is not set, the expansion of <TT
+CLASS="parameter"
+><I
+>WORD</I
+></TT
+> is printed to standard out and non-interactive shells quit.  A demonstration:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>vartest.sh</TT
+></B
+>
+#!/bin/bash
+ 
+# This script tests whether a variable is set.  If not,
+# it exits printing a message.
+ 
+echo ${TESTVAR:?"There's so much I still wanted to do..."}
+echo "TESTVAR is set, we can proceed."
+
+<TT
+CLASS="prompt"
+>[bob in testdir]</TT
+> <B
+CLASS="command"
+>./vartest.sh</B
+>
+./vartest.sh: line 6: TESTVAR: There's so much I still wanted to do...
+
+<TT
+CLASS="prompt"
+>[bob in testdir]</TT
+> <B
+CLASS="command"
+>export <TT
+CLASS="varname"
+>TESTVAR</TT
+>=<TT
+CLASS="parameter"
+><I
+>present</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[bob in testdir]</TT
+> <B
+CLASS="command"
+>./vartest.sh</B
+>
+present
+TESTVAR is set, we can proceed.
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Using <SPAN
+CLASS="QUOTE"
+>"+"</SPAN
+> instead of the exclamation mark sets the variable to the expansion of <TT
+CLASS="parameter"
+><I
+>WORD</I
+></TT
+>; if it does not exist, nothing happens.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_10_03_03_02"
+></A
+>10.3.3.2. Removing substrings</H3
+><P
+>To strip a number of characters, equal to <TT
+CLASS="parameter"
+><I
+>OFFSET</I
+></TT
+>, from a variable, use this syntax:</P
+><P
+><B
+CLASS="command"
+>${<TT
+CLASS="varname"
+>VAR</TT
+>:<TT
+CLASS="parameter"
+><I
+>OFFSET</I
+></TT
+>:<TT
+CLASS="parameter"
+><I
+>LENGTH</I
+></TT
+>}</B
+> </P
+><P
+>The <TT
+CLASS="parameter"
+><I
+>LENGTH</I
+></TT
+> parameter defines how many characters to keep, starting from the first character after the offset point.  If <TT
+CLASS="parameter"
+><I
+>LENGTH</I
+></TT
+> is omitted, the remainder of the variable content is taken:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>export <TT
+CLASS="varname"
+>STRING</TT
+>=<TT
+CLASS="parameter"
+><I
+>"thisisaverylongname"</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${STRING:4}</TT
+></B
+>
+isaverylongname
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${STRING:6:5}</TT
+></B
+>
+avery
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+><B
+CLASS="command"
+>${<TT
+CLASS="varname"
+>VAR</TT
+>#<TT
+CLASS="parameter"
+><I
+>WORD</I
+></TT
+>}</B
+> </P
+><P
+>and</P
+><P
+><B
+CLASS="command"
+>${<TT
+CLASS="varname"
+>VAR</TT
+>##<TT
+CLASS="parameter"
+><I
+>WORD</I
+></TT
+>}</B
+> </P
+><P
+>These constructs are used for deleting the pattern matching the expansion of <TT
+CLASS="parameter"
+><I
+>WORD</I
+></TT
+> in <TT
+CLASS="varname"
+>VAR</TT
+>.  <TT
+CLASS="parameter"
+><I
+>WORD</I
+></TT
+> is expanded to produce a pattern just as in file name expansion.  If the pattern matches the beginning of the expanded value of <TT
+CLASS="varname"
+>VAR</TT
+>, then the result of the expansion is the expanded value of <TT
+CLASS="varname"
+>VAR</TT
+> with the shortest matching pattern (<SPAN
+CLASS="QUOTE"
+>"#"</SPAN
+>) or the longest matching pattern (indicated with <SPAN
+CLASS="QUOTE"
+>"##"</SPAN
+>).</P
+><P
+>If <TT
+CLASS="varname"
+>VAR</TT
+> is <TT
+CLASS="varname"
+>*</TT
+> or <TT
+CLASS="varname"
+>@</TT
+>, the pattern removal operation is applied to each positional parameter in turn, and the expansion is the resultant list.</P
+><P
+>If <TT
+CLASS="varname"
+>VAR</TT
+> is an array variable subscribed with <SPAN
+CLASS="QUOTE"
+>"*"</SPAN
+> or <SPAN
+CLASS="QUOTE"
+>"@"</SPAN
+>, the pattern removal operation is applied to each member of the array in turn, and the expansion is the resultant list.  This is shown in the examples below:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${ARRAY[*]}</TT
+></B
+>
+one two one three one four
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${ARRAY[*]#one}</TT
+></B
+>
+two three four
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${ARRAY[*]#t}</TT
+></B
+>
+one wo one hree one four
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${ARRAY[*]#t*}</TT
+></B
+>
+one wo one hree one four
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${ARRAY[*]##t*}</TT
+></B
+>
+one one one four
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>The opposite effect is obtained using <SPAN
+CLASS="QUOTE"
+>"%"</SPAN
+> and <SPAN
+CLASS="QUOTE"
+>"%%"</SPAN
+>, as in this example below.  <TT
+CLASS="parameter"
+><I
+>WORD</I
+></TT
+> should match a trailing portion of string:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$STRING</TT
+></B
+>
+thisisaverylongname
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${STRING%name}</TT
+></B
+>
+thisisaverylong
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_10_03_03_03"
+></A
+>10.3.3.3. Replacing parts of variable names</H3
+><P
+>This is done using the</P
+><P
+><B
+CLASS="command"
+>${<TT
+CLASS="varname"
+>VAR</TT
+>/<TT
+CLASS="parameter"
+><I
+>PATTERN</I
+></TT
+>/<TT
+CLASS="parameter"
+><I
+>STRING</I
+></TT
+>}</B
+> </P
+><P
+>or</P
+><P
+><B
+CLASS="command"
+>${<TT
+CLASS="varname"
+>VAR</TT
+>//<TT
+CLASS="parameter"
+><I
+>PATTERN</I
+></TT
+>/<TT
+CLASS="parameter"
+><I
+>STRING</I
+></TT
+>}</B
+> </P
+><P
+>syntax.  The first form replaces only the first match, the second replaces all matches of <TT
+CLASS="parameter"
+><I
+>PATTERN</I
+></TT
+> with <TT
+CLASS="parameter"
+><I
+>STRING</I
+></TT
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${STRING/name/string}</TT
+></B
+>
+thisisaverylongstring
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>More information can be found in the Bash info pages.</P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_10_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_10_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Array variables</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_10.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Summary</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

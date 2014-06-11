@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>The until loop</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Repetitive tasks"
+HREF="chap_09.html"><LINK
+REL="PREVIOUS"
+TITLE="The while loop"
+HREF="sect_09_02.html"><LINK
+REL="NEXT"
+TITLE="I/O redirection and loops"
+HREF="sect_09_04.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_09_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 9. Repetitive tasks</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_09_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_09_03"
+></A
+>9.3. The until loop</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_09_03_01"
+></A
+>9.3.1. What is it?</H2
+><P
+>The <B
+CLASS="command"
+>until</B
+> loop is very similar to the <B
+CLASS="command"
+>while</B
+> loop, except that the loop executes until the <B
+CLASS="command"
+>TEST-COMMAND</B
+> executes successfully.  As long as this command fails, the loop continues.  The syntax is the same as for the <B
+CLASS="command"
+>while</B
+> loop:</P
+><P
+><B
+CLASS="command"
+>until TEST-COMMAND; do CONSEQUENT-COMMANDS; done</B
+> </P
+><P
+>The return status is the exit status of the last command executed in the <B
+CLASS="command"
+>CONSEQUENT-COMMANDS</B
+> list, or zero if none was executed.  <B
+CLASS="command"
+>TEST-COMMAND</B
+> can, again, be any command that can exit with a success or failure status, and <B
+CLASS="command"
+>CONSEQUENT-COMMANDS</B
+> can be any UNIX command, script or shell construct.</P
+><P
+>As we already explained previously, the <SPAN
+CLASS="QUOTE"
+>";"</SPAN
+> may be replaced with one or more newlines wherever it appears.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_09_03_02"
+></A
+>9.3.2. Example</H2
+><P
+>An improved <TT
+CLASS="filename"
+>picturesort.sh</TT
+> script (see <A
+HREF="sect_09_02.html#sect_09_02_02_02"
+>Section 9.2.2.2</A
+>), which tests for available disk space.  If not enough disk space is available, remove pictures from the previous months:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+
+# This script copies files from my homedirectory into the webserver directory.
+# A new directory is created every hour.
+# If the pics are taking up too much space, the oldest are removed.
+
+while true; do 
+	DISKFUL=$(df -h $WEBDIR | grep -v File | awk '{print $5 }' | cut -d "%" -f1 -)
+
+	until [ $DISKFUL -ge "90" ]; do 
+
+        	DATE=`date +%Y%m%d`
+        	HOUR=`date +%H`
+        	mkdir $WEBDIR/"$DATE"
+                                                                                
+        	while [ $HOUR -ne "00" ]; do
+                	DESTDIR=$WEBDIR/"$DATE"/"$HOUR"
+                	mkdir "$DESTDIR"
+                	mv $PICDIR/*.jpg "$DESTDIR"/
+                	sleep 3600
+                	HOUR=`date +%H`
+        	done
+
+	DISKFULL=$(df -h $WEBDIR | grep -v File | awk '{ print $5 }' | cut -d "%" -f1 -)
+	done
+
+	TOREMOVE=$(find $WEBDIR -type d -a -mtime +30)
+	for i in $TOREMOVE; do
+		rm -rf "$i";
+	done
+
+done
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Note the initialization of the <TT
+CLASS="varname"
+>HOUR</TT
+> and <TT
+CLASS="varname"
+>DISKFULL</TT
+> variables and the use of options with <B
+CLASS="command"
+>ls</B
+> and <B
+CLASS="command"
+>date</B
+> in order to obtain a correct listing for <TT
+CLASS="varname"
+>TOREMOVE</TT
+>.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_09_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_09_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The while loop</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_09.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>I/O redirection and loops</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

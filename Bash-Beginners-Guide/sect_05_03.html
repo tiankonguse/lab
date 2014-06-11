@@ -1,0 +1,401 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Non-interactive editing</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The GNU sed stream editor"
+HREF="chap_05.html"><LINK
+REL="PREVIOUS"
+TITLE="Interactive editing"
+HREF="sect_05_02.html"><LINK
+REL="NEXT"
+TITLE="Summary"
+HREF="sect_05_04.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_05_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 5. The GNU sed stream editor</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_05_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_05_03"
+></A
+>5.3. Non-interactive editing</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_05_03_01"
+></A
+>5.3.1. Reading sed commands from a file</H2
+><P
+>Multiple <B
+CLASS="command"
+>sed</B
+> commands can be put in a file and executed using the <TT
+CLASS="option"
+>-f</TT
+> option.  When creating such a file, make sure that:</P
+><P
+></P
+><UL
+><LI
+><P
+>No trailing white spaces exist at the end of lines.</P
+></LI
+><LI
+><P
+>No quotes are used.</P
+></LI
+><LI
+><P
+>When entering text to add or replace, all except the last line end in a backslash.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_05_03_02"
+></A
+>5.3.2. Writing output files</H2
+><P
+>Writing output is done using the output redirection operator <B
+CLASS="command"
+>&#62;</B
+>.  This is an example script used to create very simple HTML files from plain text files.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>script.sed</TT
+></B
+>
+1i\
+&#60;html&#62;\
+&#60;head&#62;&#60;title&#62;sed generated html&#60;/title&#62;&#60;/head&#62;\
+&#60;body bgcolor="#ffffff"&#62;\
+&#60;pre&#62;
+$a\
+&#60;/pre&#62;\
+&#60;/body&#62;\
+&#60;/html&#62;
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>txt2html.sh</TT
+></B
+>
+#!/bin/bash
+
+# This is a simple script that you can use for converting text into HTML.
+# First we take out all newline characters, so that the appending only happens
+# once, then we replace the newlines.
+
+echo "converting $1..."
+
+SCRIPT="/home/sandy/scripts/script.sed"
+NAME="$1"
+TEMPFILE="/var/tmp/sed.$PID.tmp"
+sed "s/\n/^M/" $1 | sed -f $SCRIPT | sed "s/^M/\n/" &#62; $TEMPFILE
+mv $TEMPFILE $NAME
+
+echo "done."
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+><TT
+CLASS="varname"
+>$1</TT
+> holds the first argument to a given command, in this case the name of the file to convert:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>test</TT
+></B
+>
+line1
+line2
+line3
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>More on positional parameters in <A
+HREF="chap_07.html"
+>Chapter 7</A
+>.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>txt2html.sh <TT
+CLASS="filename"
+>test</TT
+></B
+>
+converting test...
+done.
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>test</TT
+></B
+>
+&#60;html&#62;
+&#60;head&#62;&#60;title&#62;sed generated html&#60;/title&#62;&#60;/head&#62;
+&#60;body bgcolor="#ffffff"&#62;
+&#60;pre&#62;
+line1
+line2
+line3
+&#60;/pre&#62;
+&#60;/body&#62;
+&#60;/html&#62;
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>This is not really how it is done; this example just demonstrates <B
+CLASS="command"
+>sed</B
+> capabilities.  See <A
+HREF="sect_06_03.html"
+>Section 6.3</A
+> for a more decent solution to this problem, using <B
+CLASS="command"
+>awk</B
+> <EM
+>BEGIN</EM
+> and <EM
+>END</EM
+> constructs.</P
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Easy sed</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Advanced editors, supporting syntax highlighting, can recognize <B
+CLASS="command"
+>sed</B
+> syntax.  This can be a great help if you tend to forget backslashes and such.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_05_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_05_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Interactive editing</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_05.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Summary</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

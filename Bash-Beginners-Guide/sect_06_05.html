@@ -1,0 +1,310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Exercises</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The GNU awk programming language"
+HREF="chap_06.html"><LINK
+REL="PREVIOUS"
+TITLE="Summary"
+HREF="sect_06_04.html"><LINK
+REL="NEXT"
+TITLE="Conditional statements"
+HREF="chap_07.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_06_04.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 6. The GNU awk programming language</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chap_07.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_06_05"
+></A
+>6.5. Exercises</H1
+><P
+>These are some practical examples where <B
+CLASS="command"
+>awk</B
+> can be useful.</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>For the first exercise, your input is lines in the following form:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>Username:Firstname:Lastname:Telephone number</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Make an <B
+CLASS="command"
+>awk</B
+> script that will convert such a line to an LDAP record in this format:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;dn: uid=Username, dc=example, dc=com
+cn: Firstname Lastname
+sn: Lastname
+telephoneNumber: Telephone number
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Create a file containing a couple of test records and check.</P
+></LI
+><LI
+><P
+>Create a Bash script using <B
+CLASS="command"
+>awk</B
+> and standard UNIX commands that will show the top three users of disk space in the <TT
+CLASS="filename"
+>/home</TT
+> file system (if you don't have the directory holding the homes on a separate partition, make the script for the <TT
+CLASS="filename"
+>/</TT
+> partition; this is present on every UNIX system).  First, execute the commands from the command line.  Then put them in a script.  The script should create sensible output (sensible as in readable by the boss).  If everything proves to work, have the script email its results to you (use for instance <B
+CLASS="command"
+>mail <TT
+CLASS="option"
+>-s</TT
+> <TT
+CLASS="parameter"
+><I
+>Disk space usage</I
+></TT
+> <TT
+CLASS="email"
+>&#60;<A
+HREF="mailto:you@your_comp"
+>you@your_comp</A
+>&#62;</TT
+> &#60; <TT
+CLASS="filename"
+>result</TT
+></B
+>).</P
+><P
+>If the quota daemon is running, use that information; if not, use <B
+CLASS="command"
+>find</B
+>.</P
+></LI
+><LI
+><P
+>Create XML-style output from a <B
+CLASS="keycap"
+>Tab</B
+>-separated list in the following form:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;Meaning very long line with a lot of description
+ 
+meaning another long line
+ 
+othermeaning    more longline
+ 
+testmeaning     looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong line, but i mean really looooooooooooooooooooooooooooooooooooooooooooooooooong.
+ 
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>The output should read:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;&#60;row&#62;
+&#60;entry&#62;Meaning&#60;/entry&#62;
+&#60;entry&#62;
+very long line
+&#60;/entry&#62;
+&#60;/row&#62;
+&#60;row&#62;
+&#60;entry&#62;meaning&#60;/entry&#62;
+&#60;entry&#62;
+long line
+&#60;/entry&#62;
+&#60;/row&#62;
+&#60;row&#62;
+&#60;entryothermeaning&#60;/entry&#62;
+&#60;entry&#62;
+more longline
+&#60;/entry&#62;
+&#60;/row&#62;
+&#60;row&#62;
+&#60;entrytestmeaning&#60;/entry&#62;
+&#60;entry&#62;
+looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong line, but i mean really looooooooooooooooooooooooooooooooooooooooooooooooooong.
+&#60;/entry&#62;
+&#60;/row&#62;
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Additionally, if you know anything about XML, write a BEGIN and END script to complete the table.  Or do it in HTML.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_06_04.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chap_07.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Summary</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_06.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Conditional statements</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,834 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>The print program</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The GNU awk programming language"
+HREF="chap_06.html"><LINK
+REL="PREVIOUS"
+TITLE="Getting started with gawk"
+HREF="sect_06_01.html"><LINK
+REL="NEXT"
+TITLE="Gawk variables"
+HREF="sect_06_03.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_06_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 6. The GNU awk programming language</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_06_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_06_02"
+></A
+>6.2. The print program</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_06_02_01"
+></A
+>6.2.1. Printing selected fields</H2
+><P
+>The <B
+CLASS="command"
+>print</B
+> command in <B
+CLASS="command"
+>awk</B
+> outputs selected data from the input file.</P
+><P
+>When <B
+CLASS="command"
+>awk</B
+> reads a line of a file, it divides the line in fields based on the specified <EM
+>input field separator</EM
+>, <TT
+CLASS="varname"
+>FS</TT
+>, which is an <B
+CLASS="command"
+>awk</B
+> variable (see <A
+HREF="sect_06_03.html#sect_06_03_02"
+>Section 6.3.2</A
+>).  This variable is predefined to be one or more spaces or tabs.</P
+><P
+>The variables <TT
+CLASS="varname"
+>$1</TT
+>, <TT
+CLASS="varname"
+>$2</TT
+>, <TT
+CLASS="varname"
+>$3</TT
+>, ..., <TT
+CLASS="varname"
+>$N</TT
+> hold the values of the first, second, third until the last field of an input line.  The variable <TT
+CLASS="varname"
+>$0</TT
+> (zero) holds the value of the entire line.  This is depicted in the image below, where we see six colums in the output of the <B
+CLASS="command"
+>df</B
+> command:</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN4111"
+></A
+><P
+><B
+>Figure 6-1. Fields in awk</B
+></P
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="images/awk.png"></P
+></DIV
+></DIV
+><P
+>In the output of <B
+CLASS="command"
+>ls <TT
+CLASS="option"
+>-l</TT
+></B
+>, there are 9 columns.  The <B
+CLASS="command"
+>print</B
+> statement uses these fields as follows:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly@octarine ~/test&#62;</TT
+> <B
+CLASS="command"
+>ls <TT
+CLASS="option"
+>-l</TT
+> | awk <TT
+CLASS="parameter"
+><I
+>'{ print $5 $9 }'</I
+></TT
+></B
+>
+160orig
+121script.sed
+120temp_file
+126test
+120twolines
+441txt2html.sh
+
+<TT
+CLASS="prompt"
+>kelly@octarine ~/test&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>This command printed the fifth column of a long file listing, which contains the file size, and the last column, the name of the file.  This output is not very readable unless you use the official way of referring to columns, which is to separate the ones that you want to print with a comma.  In that case, the default output separater character, usually a space, will be put in between each output field.</P
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Local configuration</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Note that the configuration of the output of the <B
+CLASS="command"
+>ls <TT
+CLASS="option"
+>-l</TT
+></B
+> command might be different on your system.  Display of time and date is dependent on your locale setting.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_06_02_02"
+></A
+>6.2.2. Formatting fields</H2
+><P
+>Without formatting, using only the output separator, the output looks rather poor.  Inserting a couple of tabs and a string to indicate what output this is will make it look a lot better:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly@octarine ~/test&#62;</TT
+> <B
+CLASS="command"
+>ls <TT
+CLASS="option"
+>-ldh</TT
+> <TT
+CLASS="filename"
+>*</TT
+> | grep <TT
+CLASS="option"
+>-v</TT
+> <TT
+CLASS="parameter"
+><I
+>total</I
+></TT
+> | \ 
+awk <TT
+CLASS="parameter"
+><I
+>'{ print "Size is " $5 " bytes for " $9 }'</I
+></TT
+></B
+>
+Size is 160 bytes for orig
+Size is 121 bytes for script.sed
+Size is 120 bytes for temp_file
+Size is 126 bytes for test
+Size is 120 bytes for twolines
+Size is 441 bytes for txt2html.sh
+
+<TT
+CLASS="prompt"
+>kelly@octarine ~/test&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Note the use of the backslash, which makes long input continue on the next line without the shell interpreting this as a separate command.  While your command line input can be of virtually unlimited length, your monitor is not, and printed paper certainly isn't.  Using the backslash also allows for copying and pasting of the above lines into a terminal window.</P
+><P
+>The <TT
+CLASS="option"
+>-h</TT
+> option to <B
+CLASS="command"
+>ls</B
+> is used for supplying humanly readable size formats for bigger files.  The output of a long listing displaying the total amount of blocks in the directory is given when a directory is the argument.  This line is useless to us, so we add an asterisk.  We also add the <TT
+CLASS="option"
+>-d</TT
+> option for the same reason, in case asterisk expands to a directory.</P
+><P
+>The backslash in this example marks the continuation of a line. See <A
+HREF="sect_03_03.html#sect_03_03_02"
+>Section 3.3.2</A
+>.</P
+><P
+>You can take out any number of columns and even reverse the order.  In the example below this is demonstrated for showing the most critical partitions:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly@octarine ~&#62;</TT
+> <B
+CLASS="command"
+>df <TT
+CLASS="option"
+>-h</TT
+> | sort <TT
+CLASS="option"
+>-rnk</TT
+> <TT
+CLASS="parameter"
+><I
+>5</I
+></TT
+> | head <TT
+CLASS="parameter"
+><I
+>-3</I
+></TT
+> | \ 
+awk <TT
+CLASS="parameter"
+><I
+>'{ print "Partition " $6 "\t: " $5 " full!" }'</I
+></TT
+></B
+>
+Partition /var  : 86% full!
+Partition /usr  : 85% full!
+Partition /home : 70% full!
+
+<TT
+CLASS="prompt"
+>kelly@octarine ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>The table below gives an overview of special formatting characters:</P
+><DIV
+CLASS="table"
+><A
+NAME="tab_06_01"
+></A
+><P
+><B
+>Table 6-1. Formatting characters for gawk</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Sequence</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\a</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Bell character</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\n</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Newline character</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\t</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Tab</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>Quotes, dollar signs and other meta-characters should be escaped with a backslash.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_06_02_03"
+></A
+>6.2.3. The print command and regular expressions</H2
+><P
+>A regular expression can be used as a pattern by enclosing it in slashes.  The regular expression is then tested against the entire text of each record.  The syntax is as follows:</P
+><P
+><B
+CLASS="command"
+>awk 'EXPRESSION  { PROGRAM }' <TT
+CLASS="filename"
+>file(s)</TT
+></B
+> </P
+><P
+>The following example displays only local disk device information, networked file systems are not shown:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly is in ~&#62;</TT
+> <B
+CLASS="command"
+>df <TT
+CLASS="option"
+>-h</TT
+> | awk <TT
+CLASS="parameter"
+><I
+>'/dev\/hd/ { print $6 "\t: " $5 }'</I
+></TT
+></B
+>
+/       : 46%
+/boot   : 10%
+/opt    : 84%
+/usr    : 97%
+/var    : 73%
+/.vol1  : 8%
+
+<TT
+CLASS="prompt"
+>kelly is in ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Slashes need to be escaped, because they have a special meaning to the <B
+CLASS="command"
+>awk</B
+> program.</P
+><P
+>Below another example where we search the <TT
+CLASS="filename"
+>/etc</TT
+> directory for files ending in <SPAN
+CLASS="QUOTE"
+>".conf"</SPAN
+> and starting with either <SPAN
+CLASS="QUOTE"
+>"a"</SPAN
+> <EM
+>or</EM
+> <SPAN
+CLASS="QUOTE"
+>"x"</SPAN
+>, using extended regular expressions:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly is in /etc&#62;</TT
+> <B
+CLASS="command"
+>ls <TT
+CLASS="option"
+>-l</TT
+> | awk <TT
+CLASS="parameter"
+><I
+>'/\&#60;(a|x).*\.conf$/ { print $9 }'</I
+></TT
+></B
+>
+amd.conf
+antivir.conf
+xcdroast.conf
+xinetd.conf
+
+<TT
+CLASS="prompt"
+>kelly is in /etc&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>This example illustrates the special meaning of the dot in regular expressions: the first one indicates that we want to search for any character after the first search string, the second is escaped because it is part of a string to find (the end of the file name).</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_06_02_04"
+></A
+>6.2.4. Special patterns</H2
+><P
+>In order to precede output with comments, use the <B
+CLASS="command"
+>BEGIN</B
+> statement:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly is in /etc&#62;</TT
+> <B
+CLASS="command"
+>ls <TT
+CLASS="option"
+>-l</TT
+> | \
+awk <TT
+CLASS="parameter"
+><I
+>'BEGIN { print "Files found:\n" } /\&#60;[a|x].*\.conf$/ { print $9 }'</I
+></TT
+></B
+>
+Files found:
+amd.conf
+antivir.conf
+xcdroast.conf
+xinetd.conf
+
+<TT
+CLASS="prompt"
+>kelly is in /etc&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>The <B
+CLASS="command"
+>END</B
+> statement can be added for inserting text after the entire input is processed:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly is in /etc&#62;</TT
+> <B
+CLASS="command"
+>ls <TT
+CLASS="option"
+>-l</TT
+> | \
+awk <TT
+CLASS="parameter"
+><I
+>'/\&#60;[a|x].*\.conf$/ { print $9 } END { print \
+"Can I do anything else for you, mistress?" }'</I
+></TT
+></B
+>
+amd.conf
+antivir.conf
+xcdroast.conf
+xinetd.conf
+Can I do anything else for you, mistress?
+
+<TT
+CLASS="prompt"
+>kelly is in /etc&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_06_02_05"
+></A
+>6.2.5. Gawk scripts</H2
+><P
+>As commands tend to get a little longer, you might want to put them in a script, so they are reusable.  An <B
+CLASS="command"
+>awk</B
+> script contains <B
+CLASS="command"
+>awk</B
+> statements defining patterns and actions.</P
+><P
+>As an illustration, we will build a report that displays our most loaded partitions.  See <A
+HREF="sect_06_02.html#sect_06_02_02"
+>Section 6.2.2</A
+>.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly is in ~&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>diskrep.awk</TT
+></B
+>
+BEGIN { print "*** WARNING WARNING WARNING ***" }
+/\&#60;[8|9][0-9]%/ { print "Partition " $6 "\t: " $5 " full!" }
+END { print "*** Give money for new disks URGENTLY! ***" }
+
+kelly is in ~&#62; df -h | awk -f diskrep.awk
+*** WARNING WARNING WARNING ***
+Partition /usr  : 97% full!
+*** Give money for new disks URGENTLY! ***
+
+<TT
+CLASS="prompt"
+>kelly is in ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+><B
+CLASS="command"
+>awk</B
+> first prints a begin message, then formats all the lines that contain an eight or a nine at the beginning of a word, followed by one other number and a percentage sign.  An end message is added.</P
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Syntax highlighting</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Awk is a programming language.  Its syntax is recognized by most editors that can do syntax highlighting for other languages, such as C, Bash, HTML, etc.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_06_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_06_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Getting started with gawk</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_06.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Gawk variables</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Exercises</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Repetitive tasks"
+HREF="chap_09.html"><LINK
+REL="PREVIOUS"
+TITLE="Summary"
+HREF="sect_09_08.html"><LINK
+REL="NEXT"
+TITLE="More on variables"
+HREF="chap_10.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_09_08.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 9. Repetitive tasks</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chap_10.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_09_09"
+></A
+>9.9. Exercises</H1
+><P
+>Remember: when building scripts, work in steps and test each step before incorporating it in your script.</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Create a script that will take a (recursive) copy of files in <TT
+CLASS="filename"
+>/etc</TT
+> so that a beginning system administrator can edit files without fear.</P
+></LI
+><LI
+><P
+>Write a script that takes exactly one argument, a directory name.  If the number of arguments is more or less than one, print a usage message.  If the argument is not a directory, print another message.  For the given directory, print the five biggest files and the five files that were most recently modified.</P
+></LI
+><LI
+><P
+>Can you explain why it is so important to put the variables in between double quotes in the example from <A
+HREF="sect_09_04.html#sect_09_04_02"
+>Section 9.4.2</A
+>?</P
+></LI
+><LI
+><P
+>Write a script similar to the one in <A
+HREF="sect_09_05.html#sect_09_05_01"
+>Section 9.5.1</A
+>, but think of a way of quitting after the user has executed 3 loops.</P
+></LI
+><LI
+><P
+>Think of a better solution than <B
+CLASS="command"
+>move <TT
+CLASS="option"
+>-b</TT
+></B
+> for the script from <A
+HREF="sect_09_05.html#sect_09_05_03"
+>Section 9.5.3</A
+> to prevent overwriting of existing files.  For instance, test whether or not a file exists.  Don't do unnecessary work!</P
+></LI
+><LI
+><P
+>Rewrite the <TT
+CLASS="filename"
+>whichdaemon.sh</TT
+> script from <A
+HREF="sect_07_02.html#sect_07_02_04"
+>Section 7.2.4</A
+>, so that it:</P
+><P
+></P
+><UL
+><LI
+><P
+>Prints a list of servers to check, such as Apache, the SSH server, the NTP daemon, a name daemon, a power management daemon, and so on.</P
+></LI
+><LI
+><P
+>For each choice the user can make, print some sensible information, like the name of the web server, NTP trace information, and so on.</P
+></LI
+><LI
+><P
+>Optionally, build in a possibility for users to check other servers than the ones listed.  For such cases, check that at least the given process is running.</P
+></LI
+><LI
+><P
+>Review the script from <A
+HREF="sect_09_02.html#sect_09_02_02_04"
+>Section 9.2.2.4</A
+>.  Note how character input other than <B
+CLASS="keycap"
+>q</B
+> is processed.  Rebuild this script so that it prints a message if characters are given as input.</P
+></LI
+></UL
+></LI
+></OL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_09_08.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chap_10.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Summary</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_09.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>More on variables</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

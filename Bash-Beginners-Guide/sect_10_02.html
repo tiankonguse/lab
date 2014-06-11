@@ -1,0 +1,588 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Array variables</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="More on variables"
+HREF="chap_10.html"><LINK
+REL="PREVIOUS"
+TITLE="Types of variables"
+HREF="sect_10_01.html"><LINK
+REL="NEXT"
+TITLE="Operations on variables"
+HREF="sect_10_03.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_10_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 10. More on variables</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_10_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_10_02"
+></A
+>10.2. Array variables</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_10_02_01"
+></A
+>10.2.1. Creating arrays</H2
+><P
+>An array is a variable containing multiple values.  Any variable may be used as an array.  There is no maximum limit to the size of an array, nor any requirement that member variables be indexed or assigned contiguously.  Arrays are zero-based: the first element is indexed with the number 0.</P
+><P
+>Indirect declaration is done using the following syntax to declare a variable:</P
+><P
+><B
+CLASS="command"
+><TT
+CLASS="varname"
+>ARRAY[INDEXNR]</TT
+>=value</B
+> </P
+><P
+>The <EM
+>INDEXNR</EM
+> is treated as an arithmetic expression that must evaluate to a positive number.</P
+><P
+>Explicit declaration of an array is done using the <B
+CLASS="command"
+>declare</B
+> built-in:</P
+><P
+><B
+CLASS="command"
+>declare <TT
+CLASS="option"
+>-a</TT
+> <TT
+CLASS="varname"
+>ARRAYNAME</TT
+></B
+> </P
+><P
+>A declaration with an index number will also be accepted, but the index number will be ignored.  Attributes to the array may be specified using the <B
+CLASS="command"
+>declare</B
+> and <B
+CLASS="command"
+>readonly</B
+> built-ins.  Attributes apply to all variables in the array; you can't have mixed arrays.</P
+><P
+>Array variables may also be created using compound assignments in this format:</P
+><P
+><B
+CLASS="command"
+><TT
+CLASS="varname"
+>ARRAY</TT
+>=(value1 value2 ... valueN)</B
+> </P
+><P
+>Each value is then in the form of <EM
+>[indexnumber=]string</EM
+>.  The index number is optional.  If it is supplied, that index is assigned to it; otherwise the index of the element assigned is the number of the last index that was assigned, plus one.  This format is accepted by <B
+CLASS="command"
+>declare</B
+> as well.  If no index numbers are supplied, indexing starts at zero.</P
+><P
+>Adding missing or extra members in an array is done using the syntax:</P
+><P
+><B
+CLASS="command"
+><TT
+CLASS="varname"
+>ARRAYNAME[indexnumber]</TT
+>=value</B
+> </P
+><P
+>Remember that the <B
+CLASS="command"
+>read</B
+> built-in provides the <TT
+CLASS="option"
+>-a</TT
+> option, which allows for reading and assigning values for member variables of an array.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_10_02_02"
+></A
+>10.2.2. Dereferencing the variables in an array</H2
+><P
+>In order to refer to the content of an item in an array, use curly braces.  This is necessary, as you can see from the following example, to bypass the shell interpretation of expansion operators.  If the index number is <EM
+>@</EM
+> or <EM
+>*</EM
+>, all members of an array are referenced.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>ARRAY</TT
+>=<TT
+CLASS="parameter"
+><I
+>(one two three)</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${ARRAY[*]}</TT
+></B
+>
+one two three
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$ARRAY[*]</TT
+></B
+>
+one[*]
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${ARRAY[2]}</TT
+></B
+>
+three
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>ARRAY[3]</TT
+>=<TT
+CLASS="parameter"
+><I
+>four</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${ARRAY[*]}</TT
+></B
+>
+one two three four
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Referring to the content of a member variable of an array without providing an index number is the same as referring to the content of the first element, the one referenced with index number zero.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_10_02_03"
+></A
+>10.2.3. Deleting array variables</H2
+><P
+>The <B
+CLASS="command"
+>unset</B
+> built-in is used to destroy arrays or member variables of an array:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>unset <TT
+CLASS="varname"
+>ARRAY[1]</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${ARRAY[*]}</TT
+></B
+>
+one three four
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>unset <TT
+CLASS="varname"
+>ARRAY</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${ARRAY[*]}</TT
+></B
+>
+&#60;--no output--&#62;
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_10_02_04"
+></A
+>10.2.4. Examples of arrays</H2
+><P
+>Practical examples of the usage of arrays are hard to find.  You will find plenty of scripts that don't really do anything on your system but that do use arrays to calculate mathematical series, for instance.  And that would be one of the more interesting examples...most scripts just show what you can do with an array in an oversimplified and theoretical way.</P
+><P
+>The reason for this dullness is that arrays are rather complex structures.  You will find that most practical examples for which arrays could be used are already implemented on your system using arrays, however on a lower level, in the C programming language in which most UNIX commands are written.  A good example is the Bash <B
+CLASS="command"
+>history</B
+> built-in command.  Those readers who are interested might check the <TT
+CLASS="filename"
+>built-ins</TT
+> directory in the Bash source tree and take a look at <TT
+CLASS="filename"
+>fc.def</TT
+>, which is processed when compiling the built-ins.</P
+><P
+>Another reason good examples are hard to find is that not all shells support arrays, so they break compatibility.</P
+><P
+>After long days of searching, I finally found this example operating at an Internet provider.  It distributes Apache web server configuration files onto hosts in a web farm:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+
+if [ $(whoami) != 'root' ]; then
+        echo "Must be root to run $0"
+        exit 1;
+fi
+if [ -z $1 ]; then
+        echo "Usage: $0 &#60;/path/to/httpd.conf&#62;"
+        exit 1
+fi
+
+httpd_conf_new=$1
+httpd_conf_path="/usr/local/apache/conf"
+login=htuser
+
+farm_hosts=(web03 web04 web05 web06 web07)
+
+for i in ${farm_hosts[@]}; do
+        su $login -c "scp $httpd_conf_new ${i}:${httpd_conf_path}"
+        su $login -c "ssh $i sudo /usr/local/apache/bin/apachectl graceful"
+
+done
+exit 0
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>First two tests are performed to check whether the correct user is running the script with the correct arguments.  The names of the hosts that need to be configured are listed in the array <TT
+CLASS="varname"
+>farm_hosts</TT
+>.  Then all these hosts are provided with the Apache configuration file, after which the daemon is restarted.  Note the use of commands from the Secure Shell suite, encrypting the connections to remote hosts.</P
+><P
+>Thanks, Eugene and colleague, for this contribution.</P
+><P
+>Dan Richter contributed the following example.  This is the problem he was confronted with:</P
+><P
+><SPAN
+CLASS="QUOTE"
+>"...In my company, we have demos on our web site, and every week someone has to test all of them.  So I have a cron job that fills an array with the possible candidates, uses <B
+CLASS="command"
+>date <TT
+CLASS="option"
+>+%W</TT
+></B
+> to find the week of the year, and does a modulo operation to find the correct index. The lucky person gets notified by e-mail."</SPAN
+></P
+><P
+>And this was his way of solving it:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+# This is get-tester-address.sh 
+#
+# First, we test whether bash supports arrays.
+# (Support for arrays was only added recently.)
+#
+whotest[0]='test' || (echo 'Failure: arrays not supported in this version of
+bash.' &#38;&#38; exit 2)
+                                                                                
+#
+# Our list of candidates. (Feel free to add or
+# remove candidates.)
+#
+wholist=(
+     'Bob Smith &#60;bob@example.com&#62;'
+     'Jane L. Williams &#60;jane@example.com&#62;'
+     'Eric S. Raymond &#60;esr@example.com&#62;'
+     'Larry Wall &#60;wall@example.com&#62;'
+     'Linus Torvalds &#60;linus@example.com&#62;'
+   )
+#
+# Count the number of possible testers.
+# (Loop until we find an empty string.)
+#
+count=0
+while [ "x${wholist[count]}" != "x" ]
+do
+   count=$(( $count + 1 ))
+done
+                                                                                
+#
+# Now we calculate whose turn it is.
+#
+week=`date '+%W'`    	# The week of the year (0..53).
+week=${week#0}       	# Remove possible leading zero.
+                                                                                
+let "index = $week % $count"   # week modulo count = the lucky person
+
+email=${wholist[index]}     # Get the lucky person's e-mail address.
+                                                                                
+echo $email     	# Output the person's e-mail address.
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>This script is then used in other scripts, such as this one, which uses a <EM
+>here</EM
+> document:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;email=`get-tester-address.sh`   # Find who to e-mail.
+hostname=`hostname`    		# This machine's name.
+                                                                                
+#
+# Send e-mail to the right person.
+#
+mail $email -s '[Demo Testing]' &#60;&#60;EOF
+The lucky tester this week is: $email
+                                                                                
+Reminder: the list of demos is here:
+    http://web.example.com:8080/DemoSites
+                                                                                
+(This e-mail was generated by $0 on ${hostname}.)
+EOF
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_10_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_10_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Types of variables</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_10.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Operations on variables</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,387 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Examples of functions in scripts</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Functions"
+HREF="chap_11.html"><LINK
+REL="PREVIOUS"
+TITLE="Introduction"
+HREF="sect_11_01.html"><LINK
+REL="NEXT"
+TITLE="Summary"
+HREF="sect_11_03.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_11_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 11. Functions</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_11_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_11_02"
+></A
+>11.2. Examples of functions in scripts</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_11_02_01"
+></A
+>11.2.1. Recycling</H2
+><P
+>There are plenty of scripts on your system that use functions as a structured way of handling series of commands.  On some Linux systems, for instance, you will find the <TT
+CLASS="filename"
+>/etc/rc.d/init.d/functions</TT
+> definition file, which is sourced in all init scripts.  Using this method, common tasks such as checking if a process runs, starting or stopping a daemon and so on, only have to be written once, in a general way.  If the same task is needed again, the code is recycled.</P
+><P
+>You could make your own <TT
+CLASS="filename"
+>/etc/functions</TT
+> file that contains all functions that you use regularly on your system, in different scripts.  Just put the line </P
+><P
+><B
+CLASS="command"
+>. <TT
+CLASS="filename"
+>/etc/functions</TT
+></B
+> </P
+><P
+>somewhere at the start of the script and you can recycle functions.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_11_02_02"
+></A
+>11.2.2. Setting the path</H2
+><P
+>This section might be found in your <TT
+CLASS="filename"
+>/etc/profile</TT
+> file.  The function <B
+CLASS="command"
+>pathmunge</B
+> is defined and then used to set the path for the <EM
+>root</EM
+> and other users:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;pathmunge () {
+        if ! echo $PATH | /bin/egrep -q "(^|:)$1($|:)" ; then
+           if [ "$2" = "after" ] ; then
+              PATH=$PATH:$1
+           else
+              PATH=$1:$PATH
+           fi
+        fi
+}
+
+# Path manipulation
+if [ `id -u` = 0 ]; then
+        pathmunge /sbin
+        pathmunge /usr/sbin
+        pathmunge /usr/local/sbin
+fi
+
+pathmunge /usr/X11R6/bin after
+
+unset pathmunge
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>The function takes its first argument to be a path name.  If this path name is not yet in the current path, it is added.  The second argument to the function defines if the path will be added in front or after the current <TT
+CLASS="varname"
+>PATH</TT
+> definition.</P
+><P
+>Normal users only get <TT
+CLASS="filename"
+>/usr/X11R6/bin</TT
+> added to their paths, while <EM
+>root</EM
+> gets a couple of extra directories containing system commands.  After being used, the function is unset so that it is not retained.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_11_02_03"
+></A
+>11.2.3. Remote backups</H2
+><P
+>The following example is one that I use for making backups of the files for my books.  It uses SSH keys for enabling the remote connection.  Two functions are defined, <B
+CLASS="command"
+>buplinux</B
+> and <B
+CLASS="command"
+>bupbash</B
+>, that each make a <TT
+CLASS="filename"
+>.tar</TT
+> file, which is then compressed and sent to a remote server.  After that, the local copy is cleaned up.</P
+><P
+>On Sunday, only <B
+CLASS="command"
+>bupbash</B
+> is executed.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#/bin/bash
+
+LOGFILE="/nethome/tille/log/backupscript.log"
+echo "Starting backups for `date`" &#62;&#62; "$LOGFILE"
+
+buplinux()
+{
+DIR="/nethome/tille/xml/db/linux-basics/"
+TAR="Linux.tar"
+BZIP="$TAR.bz2"
+SERVER="rincewind"
+RDIR="/var/www/intra/tille/html/training/"
+
+cd "$DIR"
+tar cf "$TAR" src/*.xml src/images/*.png src/images/*.eps
+echo "Compressing $TAR..." &#62;&#62; "$LOGFILE"
+bzip2 "$TAR"
+echo "...done." &#62;&#62; "$LOGFILE"
+echo "Copying to $SERVER..." &#62;&#62; "$LOGFILE"
+scp "$BZIP" "$SERVER:$RDIR" &#62; /dev/null 2&#62;&#38;1
+echo "...done." &#62;&#62; "$LOGFILE"
+echo -e "Done backing up Linux course:\nSource files, PNG and EPS images.\nRubbish removed." &#62;&#62; "$LOGFILE"
+rm "$BZIP"
+}
+
+bupbash()
+{
+DIR="/nethome/tille/xml/db/"
+TAR="Bash.tar"
+BZIP="$TAR.bz2"
+FILES="bash-programming/"
+SERVER="rincewind"
+RDIR="/var/www/intra/tille/html/training/"
+
+cd "$DIR"
+tar cf "$TAR" "$FILES"
+echo "Compressing $TAR..." &#62;&#62; "$LOGFILE"
+bzip2 "$TAR"
+echo "...done." &#62;&#62; "$LOGFILE"
+echo "Copying to $SERVER..." &#62;&#62; "$LOGFILE"
+scp "$BZIP" "$SERVER:$RDIR" &#62; /dev/null 2&#62;&#38;1
+echo "...done." &#62;&#62; "$LOGFILE"
+
+echo -e "Done backing up Bash course:\n$FILES\nRubbish removed." &#62;&#62; "$LOGFILE"
+rm "$BZIP"
+}
+
+DAY=`date +%w`
+
+if [ "$DAY" -lt "2" ]; then
+  echo "It is `date +%A`, only backing up Bash course." &#62;&#62; "$LOGFILE"
+  bupbash
+else
+  buplinux
+  bupbash
+fi
+
+
+echo -e "Remote backup `date` SUCCESS\n----------" &#62;&#62; "$LOGFILE"
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>This script runs from cron, meaning without user interaction, so we redirect standard error from the <B
+CLASS="command"
+>scp</B
+> command to <TT
+CLASS="filename"
+>/dev/null</TT
+>.</P
+><P
+>It might be argued that all the separate steps can be combined in a command such as</P
+><P
+><B
+CLASS="command"
+>tar <TT
+CLASS="option"
+>c</TT
+> <TT
+CLASS="filename"
+>dir_to_backup/</TT
+> | bzip2 | ssh <TT
+CLASS="option"
+>server</TT
+> "cat &#62; <TT
+CLASS="filename"
+>backup.tar.bz2</TT
+>"</B
+> </P
+><P
+>However, if you are interested in intermediate results, which might be recovered upon failure of the script, this is not what you want.</P
+><P
+>The expression</P
+><P
+><B
+CLASS="command"
+>command &#38;&#62; <TT
+CLASS="filename"
+>file</TT
+></B
+> </P
+><P
+>is equivalent to</P
+><P
+><B
+CLASS="command"
+>command &#62; <TT
+CLASS="filename"
+>file</TT
+> 2&#62;&#38;1</B
+> </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_11_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_11_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Introduction</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_11.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Summary</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

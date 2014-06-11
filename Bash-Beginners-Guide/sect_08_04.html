@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Exercises</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Writing interactive scripts"
+HREF="chap_08.html"><LINK
+REL="PREVIOUS"
+TITLE="Summary"
+HREF="sect_08_03.html"><LINK
+REL="NEXT"
+TITLE="Repetitive tasks"
+HREF="chap_09.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_08_03.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 8. Writing interactive scripts</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chap_09.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_08_04"
+></A
+>8.4. Exercises</H1
+><P
+>These exercises are practical applications of the constructs discussed in this chapter.  When writing the scripts, you may test by using a test directory that does not contain too much data.  Write each step, then test that portion of code, rather than writing everything at once.</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Write a script that asks for the user's age.  If it is equal to or higher than 16, print a message saying that this user is allowed to drink alcohol.  If the user's age is below 16, print a message telling the user how many years he or she has to wait before legally being allowed to drink.</P
+><P
+>As an extra, calculate how much beer an 18+ user has drunk statistically (100 liters/year) and print this information for the user.</P
+></LI
+><LI
+><P
+>Write a script that takes one file as an argument.  Use a <EM
+>here</EM
+> document that presents the user with a couple of choices for compressing the file.  Possible choices could be <B
+CLASS="command"
+>gzip</B
+>, <B
+CLASS="command"
+>bzip2</B
+>, <B
+CLASS="command"
+>compress</B
+> and <B
+CLASS="command"
+>zip</B
+>. </P
+></LI
+><LI
+><P
+>Write a script called <TT
+CLASS="filename"
+>homebackup</TT
+> that automates <B
+CLASS="command"
+>tar</B
+> so the person executing the script always uses the desired options (<TT
+CLASS="option"
+>cvp</TT
+>) and backup destination directory (<TT
+CLASS="filename"
+>/var/backups</TT
+>) to make a backup of his or her home directory.  Implement the following features:</P
+><P
+></P
+><UL
+><LI
+><P
+>Test for the number of arguments.  The script should run without arguments.  If any arguments are present, exit after printing a usage message.</P
+></LI
+><LI
+><P
+>Determine whether the <TT
+CLASS="filename"
+>backups</TT
+> directory has enough free space to hold the backup.</P
+></LI
+><LI
+><P
+>Ask the user whether a full or an incremental backup is wanted.  If the user does not have a full backup file yet, print a message that a full backup will be taken.  In case of an incremental backup, only do this if the full backup is not older than a week.</P
+></LI
+><LI
+><P
+>Compress the backup using any compression tool.  Inform the user that the script is doing this, because it might take some time, during which the user might start worrying if no output appears on the screen.</P
+></LI
+><LI
+><P
+>Print a message informing the user about the size of the compressed backup.</P
+></LI
+></UL
+><P
+>See <B
+CLASS="command"
+>info tar</B
+> or <A
+HREF="http://tille.garrels.be/training/tldp/c4540.html#sect_09_01_01"
+TARGET="_top"
+>Introduction to Linux</A
+>, chapter 9: <SPAN
+CLASS="QUOTE"
+>"Preparing your data"</SPAN
+> for background information.</P
+></LI
+><LI
+><P
+>Write a script called <TT
+CLASS="filename"
+>simple-useradd.sh</TT
+> that adds a local user to the system.  This script should:</P
+><P
+></P
+><UL
+><LI
+><P
+>Take only one argument, or else exit after printing a usage message.</P
+></LI
+><LI
+><P
+>Check <TT
+CLASS="filename"
+>/etc/passwd</TT
+> and decide on the first free user ID.  Print a message containing this ID.</P
+></LI
+><LI
+><P
+>Create a private group for this user, checking the <TT
+CLASS="filename"
+>/etc/group</TT
+> file.  Print a message containing the group ID.</P
+></LI
+><LI
+><P
+>Gather information from the operator user: a comment describing this user, choice from a list of shells (test for acceptability, else exit printing a message), expiration date for this account, extra groups of which the new user should be a member.</P
+></LI
+><LI
+><P
+>With the obtained information, add a line to <TT
+CLASS="filename"
+>/etc/passwd</TT
+>, <TT
+CLASS="filename"
+>/etc/group</TT
+> and <TT
+CLASS="filename"
+>/etc/shadow</TT
+>; create the user's home directory (with correct permissions!); add the user to the desired secondary groups.</P
+></LI
+><LI
+><P
+>Set the password for this user to a default known string.</P
+></LI
+></UL
+></LI
+><LI
+><P
+>Rewrite the script from <A
+HREF="sect_07_02.html#sect_07_02_01_04"
+>Section 7.2.1.4</A
+> so that it reads input from the user instead of taking it from the first argument.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_08_03.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chap_09.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Summary</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_08.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Repetitive tasks</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

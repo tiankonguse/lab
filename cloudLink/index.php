@@ -60,7 +60,7 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
 <body>
 	<header>
 		<div class="title">
-			<a href="<?php echo MAIN_DOMAIN; ?>">tiankonguse的实验室 </a>
+			<a href="<?php echo MAIN_DOMAIN; ?>"> tiankonguse 的实验室 </a>
 		</div>
 	</header>
 
@@ -79,14 +79,13 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
 						type="reset" class="btn" value="清空" onclick="this.form.reset();" />
 				</div>
 
-				支持的网盘地址格式：<br> <a href="http://pan.baidu.com/s/1koGu4">http://pan.baidu.com/s/1koGu4</a><br />
-				<a href="http://pan.baidu.com/share/link?shareid=3719119439&uk=1915453531">http://pan.baidu.com/share/link?shareid=3719119439&uk=1915453531</a><br />
+				支持的网盘地址格式：<br> <a href="http://pan.baidu.com/s/1ntjrrNN">http://pan.baidu.com/s/1ntjrrNN</a><br />
+				<a
+					href="http://pan.baidu.com/share/link?shareid=3719119439&uk=1915453531">http://pan.baidu.com/share/link?shareid=3719119439&uk=1915453531</a><br />
 				<a href="http://share.weiyun.com/87b6ce3a0f2f079645d0e66bbc50174f">http://share.weiyun.com/87b6ce3a0f2f079645d0e66bbc50174f</a><br />
-				
-				<div>
-					支持类型：我尝试过百度云的mp3音乐和jpg图片，可以正常使用。
-				</div>
-				
+
+				<div>支持类型：我尝试过百度云的mp3音乐和jpg图片，可以正常使用。</div>
+
 			</form>
 		</div>
 	</section>

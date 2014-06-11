@@ -1,0 +1,248 @@
+
+/* MAIN DIV */
+
+.sq-side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 170px;
+    height: 100%;
+    color: white;
+    -moz-box-shadow: 1px -1px 4px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 1px -1px 4px rgba(0,0,0,0.2);
+    box-shadow: 1px -1px 4px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+#sidebar-nav{
+    left: -200px;
+    transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+}
+.show-nav{
+    left: 0px !important;
+    transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+}
+
+.sq-side-menu ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sq-side-menu div {
+	/* Transform - Ease-in-out */
+	-webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.sq-side-menu a {
+    color: white;
+    text-decoration: none;
+}
+
+.sq-side-menu ul {
+    height: 100%;
+    overflow: hidden;
+}
+
+.sq-side-menu ul li {
+    display: block;
+    width: 500px;
+	overflow:hidden;
+	/*height:16.6667%;*/
+	/* Transform - Ease-in-out */
+	-webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+/* FIRST AND SECOND VIEWS */
+
+.sq-side-menu .first,
+.sq-side-menu .second {
+    float: left;
+    text-align: center;
+    display: inline-table;
+    vertical-align: middle;
+    margin-left: 0;
+    height: 100%;
+    width: 170px;
+    padding: 0 20px;
+    position: relative;
+}
+
+/* ONLY FOR FIRST VIEW CONTENT */
+
+.sq-side-menu .first .content {
+    font-size: 200%;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+/* ONLY FOR SECOND VIEW CONTENT */
+
+.sq-side-menu .second .content {
+    font-size: 16px;
+    font-size: 0px;
+font-family:"Open_Sans_L";
+    
+    display: table-cell;
+    vertical-align: middle;
+    
+	/* Transform - Rotate */
+	-moz-transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+.content > img{
+    width: 60px;
+    height: 60px;
+}
+
+/* LIST ITEMS HOVER STYLES */
+
+.sq-side-menu ul li:hover .first { 
+	margin-left: -210px 
+}
+
+.sq-side-menu ul li:hover .second .content { 
+    font-size: 150% !important;
+	/* Transform - Rotate */
+	-moz-transform: rotate(360deg);
+	-webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+
+/* ACTIVE MENU ITEM */
+
+.sq-active .first { 
+	margin-left: -170px !important 
+}
+
+.sq-active .second .content { 
+	font-size: 150% !important;
+	/* Transform - Rotate */
+	-moz-transform: rotate(360deg) !important;
+	-webkit-transform: rotate(360deg)!important;
+    -o-transform: rotate(360deg)!important;
+    -ms-transform: rotate(360deg)!important;
+    transform: rotate(360deg)!important;
+}
+
+/* MENU ARROWS */
+
+.arrow-left {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    position: absolute;
+    left: 0;
+    top: 40%;
+}
+
+.arrow-right {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    position: absolute;
+    right: 0;
+    top: 40%;
+}
+
+/* BUTTONS COLOR SCHEMES */
+
+/*Note: We have edited this module, 
+in order to modify colors please use original COLOR SWATCH CLASSES present inside STYLE.CSS*/
+
+/* COLOR 1 */
+/*.color-1 .first { background: #263138 }
+.color-1 .second { background: #1e262c }
+.color-1:hover .first { background: #1e262c }
+.color-1:hover .second { background: #263138 }
+.color-1 .arrow-right { border-right: 10px solid #1e262c }
+.color-1 .arrow-left { border-left: 10px solid #1e262c }*/
+
+/* COLOR 2 */
+/*.color-2 .first { background: #406155 }
+.color-2 .second { background: #324c43 }
+.color-2:hover .first { background: #324c43 }
+.color-2:hover .second { background: #406155 }
+.color-2 .arrow-right { border-right: 10px solid #324c43 }
+.color-2 .arrow-left { border-left: 10px solid #324c43 }
+*/
+/* COLOR 3 */
+/*.color-3 .first { background: #49693E }
+.color-3 .second { background: #67815e }
+.color-3:hover .first { background: #67815e }
+.color-3:hover .second { background: #49693E }
+.color-3 .arrow-right { border-right: 10px solid #67815e }
+.color-3 .arrow-left { border-left: 10px solid #67815e }
+*/
+/* COLOR 4 */
+./*color-4 .first { background: #99802E }
+.color-4 .second { background: #bda782 }
+.color-4:hover .first { background: #bda782 }
+.color-4:hover .second { background: #99802E }
+.color-4 .arrow-right { border-right: 10px solid #bda782 }
+.color-4 .arrow-left { border-left: 10px solid #bda782 }*/
+
+/* COLOR 5 */
+/*.color-5 .first { background: #ff5755 }
+.color-5 .second { background: #d84a49 }
+.color-5:hover .first { background: #d84a49 }
+.color-5:hover .second { background: #ff5755 }
+.color-5 .arrow-right { border-right: 10px solid #d84a49 }
+.color-5 .arrow-left { border-left: 10px solid #d84a49 }*/
+
+/* COLOR 6 */
+/*.color-6 .first { background: #A93536 }
+.color-6 .second { background: #822f2f }
+.color-6:hover .first { background: #822f2f }
+.color-6:hover .second { background: #A93536 }
+.color-6 .arrow-right { border-right: 10px solid #822f2f }
+.color-6 .arrow-left { border-left: 10px solid #822f2f }*/
+
+/* RESPONSIVE */
+
+/* BELOW 768px */
+@media only screen and (max-width: 768px) { 
+    .sq-side-menu { width: 150px }
+    .sq-side-menu .first,
+    .sq-side-menu .second { width: 100px }
+    .sq-side-menu ul li:hover .first { margin-left: -130px }
+    .sq-side-menu ul li:hover .second .content { font-size: 120% }
+    .sq-active .first { margin-left: -130px !important }
+    .sq-active .second .content { font-size: 120% !important }
+}
+
+/* BELOW 480px */
+@media only screen and (max-width: 480px) { 
+    .sq-side-menu { width: 90px }
+    .sq-side-menu .first,
+    .sq-side-menu .second {
+        width: 65px;
+        padding: 0 10px;
+    }
+    .sq-side-menu ul li:hover .first { margin-left: -80px }
+    .sq-side-menu .first .content { font-size: 150% }
+    .sq-side-menu ul li:hover .second .content { font-size: 100% }
+    .sq-active .first { margin-left: -80px !important }
+    .sq-active .second .content { font-size: 100% !important }
+    .arrow-left,
+    .arrow-right { display: none }
+}
+

@@ -1,0 +1,870 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Examples using grep</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Regular expressions"
+HREF="chap_04.html"><LINK
+REL="PREVIOUS"
+TITLE="Regular expressions"
+HREF="sect_04_01.html"><LINK
+REL="NEXT"
+TITLE="Pattern matching using Bash features"
+HREF="sect_04_03.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_04_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 4. Regular expressions</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_04_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_04_02"
+></A
+>4.2. Examples using grep</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_04_02_01"
+></A
+>4.2.1. What is grep?</H2
+><P
+><B
+CLASS="command"
+>grep</B
+> searches the input files for lines containing a match to a given pattern list.  When it finds a match in a line, it copies the line to standard output (by default), or whatever other sort of output you have requested with options.</P
+><P
+>Though <B
+CLASS="command"
+>grep</B
+> expects to do the matching on text, it has no limits on input line length other than available memory, and it can match arbitrary characters within a line.  If the final byte of an input file is not a <EM
+>newline</EM
+>, <B
+CLASS="command"
+>grep</B
+> silently supplies one.  Since newline is also a separator for the list of patterns, there is no way to match newline characters in a text.</P
+><P
+>Some examples:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="parameter"
+><I
+>root</I
+></TT
+> <TT
+CLASS="filename"
+>/etc/passwd</TT
+></B
+>
+root:x:0:0:root:/root:/bin/bash
+operator:x:11:0:operator:/root:/sbin/nologin
+
+<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="option"
+>-n</TT
+> <TT
+CLASS="parameter"
+><I
+>root</I
+></TT
+> <TT
+CLASS="filename"
+>/etc/passwd</TT
+></B
+>
+1:root:x:0:0:root:/root:/bin/bash
+12:operator:x:11:0:operator:/root:/sbin/nologin
+
+<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="option"
+>-v</TT
+> <TT
+CLASS="parameter"
+><I
+>bash</I
+></TT
+> <TT
+CLASS="filename"
+>/etc/passwd </TT
+></B
+>| <B
+CLASS="command"
+>grep <TT
+CLASS="option"
+>-v</TT
+> <TT
+CLASS="parameter"
+><I
+>nologin</I
+></TT
+></B
+>
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+news:x:9:13:news:/var/spool/news:
+mailnull:x:47:47::/var/spool/mqueue:/dev/null
+xfs:x:43:43:X Font Server:/etc/X11/fs:/bin/false
+rpc:x:32:32:Portmapper RPC user:/:/bin/false
+nscd:x:28:28:NSCD Daemon:/:/bin/false
+named:x:25:25:Named:/var/named:/bin/false
+squid:x:23:23::/var/spool/squid:/dev/null
+ldap:x:55:55:LDAP User:/var/lib/ldap:/bin/false
+apache:x:48:48:Apache:/var/www:/bin/false
+
+<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="option"
+>-c</TT
+> <TT
+CLASS="parameter"
+><I
+>false</I
+></TT
+> <TT
+CLASS="filename"
+>/etc/passwd</TT
+></B
+>
+7
+
+<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="option"
+>-i</TT
+> <TT
+CLASS="parameter"
+><I
+>ps</I
+></TT
+> <TT
+CLASS="filename"
+>~/.bash*</TT
+></B
+> | <B
+CLASS="command"
+>grep <TT
+CLASS="option"
+>-v</TT
+> <TT
+CLASS="parameter"
+><I
+>history</I
+></TT
+></B
+>
+/home/cathy/.bashrc:PS1="\[\033[1;44m\]$USER is in \w\[\033[0m\] "
+
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>With the first command, user <EM
+>cathy</EM
+> displays the lines from <TT
+CLASS="filename"
+>/etc/passwd</TT
+> containing the string <EM
+>root</EM
+>.</P
+><P
+>Then she displays the line numbers containing this search string.</P
+><P
+>With the third command she checks which users are not using <B
+CLASS="command"
+>bash</B
+>, but accounts with the <B
+CLASS="command"
+>nologin</B
+> shell are not displayed.</P
+><P
+>Then she counts the number of accounts that have <TT
+CLASS="filename"
+>/bin/false</TT
+> as the shell.</P
+><P
+>The last command displays the lines from all the files in her home directory starting with <TT
+CLASS="filename"
+>~/.bash</TT
+>, excluding matches containing the string <EM
+>history</EM
+>, so as to exclude matches from <TT
+CLASS="filename"
+>~/.bash_history</TT
+> which might contain the same string, in upper or lower cases.  Note that the search is for the <EM
+>string</EM
+> <SPAN
+CLASS="QUOTE"
+>"ps"</SPAN
+>, and not for the <EM
+>command</EM
+> <B
+CLASS="command"
+>ps</B
+>.</P
+><P
+>Now let's see what else we can do with grep, using regular expressions.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_04_02_02"
+></A
+>4.2.2. Grep and regular expressions</H2
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>If you are not on Linux</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>We use GNU <B
+CLASS="command"
+>grep</B
+> in these examples, which supports extended regular expressions.  GNU <B
+CLASS="command"
+>grep</B
+> is the default on Linux systems.  If you are working on proprietary systems, check with the <TT
+CLASS="option"
+>-V</TT
+> option which version you are using.  GNU <B
+CLASS="command"
+>grep</B
+> can be downloaded from <A
+HREF="http://gnu.org/directory/"
+TARGET="_top"
+>http://gnu.org/directory/</A
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_04_02_02_01"
+></A
+>4.2.2.1. Line and word anchors</H3
+><P
+>From the previous example, we now exclusively want to display lines starting with the string <SPAN
+CLASS="QUOTE"
+>"root"</SPAN
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="parameter"
+><I
+>^root</I
+></TT
+> <TT
+CLASS="filename"
+>/etc/passwd</TT
+></B
+>
+root:x:0:0:root:/root:/bin/bash
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>If we want to see which accounts have no shell assigned whatsoever, we search for lines ending in <SPAN
+CLASS="QUOTE"
+>":"</SPAN
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="parameter"
+><I
+>:$</I
+></TT
+> <TT
+CLASS="filename"
+>/etc/passwd</TT
+></B
+>
+news:x:9:13:news:/var/spool/news:
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>To check that <TT
+CLASS="varname"
+>PATH</TT
+> is exported in <TT
+CLASS="filename"
+>~/.bashrc</TT
+>, first select <SPAN
+CLASS="QUOTE"
+>"export"</SPAN
+> lines and then search for lines starting with the string <SPAN
+CLASS="QUOTE"
+>"PATH"</SPAN
+>, so as not to display <TT
+CLASS="varname"
+>MANPATH</TT
+> and other possible paths:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="parameter"
+><I
+>export</I
+></TT
+> <TT
+CLASS="filename"
+>~/.bashrc</TT
+></B
+> | <B
+CLASS="command"
+>grep <TT
+CLASS="parameter"
+><I
+>'\&#60;PATH'</I
+></TT
+></B
+>
+  export PATH="/bin:/usr/lib/mh:/lib:/usr/bin:/usr/local/bin:/usr/ucb:/usr/dbin:$PATH"
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Similarly, <EM
+>\&#62;</EM
+> matches the end of a word.</P
+><P
+>If you want to find a string that is a separate word (enclosed by spaces), it is better use the <TT
+CLASS="option"
+>-w</TT
+>, as in this example where we are displaying information for the root partition:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="option"
+>-w</TT
+> <TT
+CLASS="parameter"
+><I
+>/</I
+></TT
+> <TT
+CLASS="filename"
+>/etc/fstab</TT
+></B
+>
+LABEL=/                 /                       ext3    defaults        1 1
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>If this option is not used, all the lines from the file system table will be displayed.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_04_02_02_02"
+></A
+>4.2.2.2. Character classes</H3
+><P
+>A <EM
+>bracket expression</EM
+> is a list of characters enclosed by <SPAN
+CLASS="QUOTE"
+>"["</SPAN
+> and <SPAN
+CLASS="QUOTE"
+>"]"</SPAN
+>.  It matches any single character in that list; if the first character of the list is the caret, <SPAN
+CLASS="QUOTE"
+>"^"</SPAN
+>, then it matches any character NOT in the list.  For example, the regular expression <SPAN
+CLASS="QUOTE"
+>"[0123456789]"</SPAN
+> matches any single digit.</P
+><P
+>Within a bracket expression, a <EM
+>range expression</EM
+> consists of two characters separated by a hyphen.  It matches any single character that sorts between the two characters, inclusive, using the locale's collating sequence and character set.  For example, in the default C locale, <SPAN
+CLASS="QUOTE"
+>"[a-d]"</SPAN
+> is equivalent to <SPAN
+CLASS="QUOTE"
+>"[abcd]"</SPAN
+>.  Many locales sort characters in dictionary order, and in these locales <SPAN
+CLASS="QUOTE"
+>"[a-d]"</SPAN
+> is typically not equivalent to <SPAN
+CLASS="QUOTE"
+>"[abcd]"</SPAN
+>; it might be equivalent to <SPAN
+CLASS="QUOTE"
+>"[aBbCcDd]"</SPAN
+>, for example.  To obtain the traditional interpretation of bracket expressions, you can use the C locale by setting the <TT
+CLASS="varname"
+>LC_ALL</TT
+> environment variable to the value <SPAN
+CLASS="QUOTE"
+>"C"</SPAN
+>.</P
+><P
+>Finally, certain named classes of characters are predefined within bracket expressions.  See the <B
+CLASS="command"
+>grep</B
+> man or info pages for more information about these predefined expressions.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="parameter"
+><I
+>[yf]</I
+></TT
+> <TT
+CLASS="filename"
+>/etc/group</TT
+></B
+>
+sys:x:3:root,bin,adm
+tty:x:5:
+mail:x:12:mail,postfix
+ftp:x:50:
+nobody:x:99:
+floppy:x:19:
+xfs:x:43:
+nfsnobody:x:65534:
+postfix:x:89:
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>In the example, all the lines containing either a <SPAN
+CLASS="QUOTE"
+>"y"</SPAN
+> or <SPAN
+CLASS="QUOTE"
+>"f"</SPAN
+> character are displayed.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_04_02_02_04"
+></A
+>4.2.2.3. Wildcards</H3
+><P
+>Use the <SPAN
+CLASS="QUOTE"
+>"."</SPAN
+> for a single character match.  If you want to get a list of all five-character English dictionary words starting with <SPAN
+CLASS="QUOTE"
+>"c"</SPAN
+> and ending in <SPAN
+CLASS="QUOTE"
+>"h"</SPAN
+> (handy for solving crosswords):</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="parameter"
+><I
+>'\&#60;c...h\&#62;'</I
+></TT
+> <TT
+CLASS="filename"
+>/usr/share/dict/words</TT
+></B
+>
+catch
+clash
+cloth
+coach
+couch
+cough
+crash
+crush
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>If you want to display lines containing the literal dot character, use the <TT
+CLASS="option"
+>-F</TT
+> option to <B
+CLASS="command"
+>grep</B
+>.</P
+><P
+>For matching multiple characters, use the asterisk.  This example selects all words starting with <SPAN
+CLASS="QUOTE"
+>"c"</SPAN
+> and ending in <SPAN
+CLASS="QUOTE"
+>"h"</SPAN
+> from the system's dictionary:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="parameter"
+><I
+>'\&#60;c.*h\&#62;'</I
+></TT
+> <TT
+CLASS="filename"
+>/usr/share/dict/words</TT
+></B
+>
+caliph
+cash
+catch
+cheesecloth
+cheetah
+--output omitted--
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>If you want to find the literal asterisk character in a file or output, use single quotes.  Cathy in the example below first tries finding the asterisk character in <TT
+CLASS="filename"
+>/etc/profile</TT
+> without using quotes, which does not return any lines.  Using quotes, output is generated:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="parameter"
+><I
+>*</I
+></TT
+> <TT
+CLASS="filename"
+>/etc/profile</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="parameter"
+><I
+>'*'</I
+></TT
+> <TT
+CLASS="filename"
+>/etc/profile</TT
+></B
+>
+for i in /etc/profile.d/*.sh ; do
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_04_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_04_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Regular expressions</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_04.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Pattern matching using Bash features</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

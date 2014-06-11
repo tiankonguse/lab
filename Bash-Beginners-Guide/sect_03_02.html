@@ -1,0 +1,2365 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Variables</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The Bash environment"
+HREF="chap_03.html"><LINK
+REL="PREVIOUS"
+TITLE="Shell initialization files"
+HREF="sect_03_01.html"><LINK
+REL="NEXT"
+TITLE="Quoting characters"
+HREF="sect_03_03.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_03_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 3. The Bash environment</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_03_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_03_02"
+></A
+>3.2. Variables</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_02_01"
+></A
+>3.2.1. Types of variables</H2
+><P
+>As seen in the examples above, shell variables are in uppercase
+characters by convention.  Bash keeps a list of two types of variables:</P
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_03_02_01_01"
+></A
+>3.2.1.1. Global variables</H3
+><P
+>Global variables or environment variables are available in all shells.  The <B
+CLASS="command"
+>env</B
+> or <B
+CLASS="command"
+>printenv</B
+> commands can be used to display environment variables.  These programs come with the <EM
+>sh-utils</EM
+> package.</P
+><P
+>Below is a typical output:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>printenv</B
+>
+CC=gcc
+CDPATH=.:~:/usr/local:/usr:/
+CFLAGS=-O2 -fomit-frame-pointer
+COLORTERM=gnome-terminal
+CXXFLAGS=-O2 -fomit-frame-pointer
+DISPLAY=:0
+DOMAIN=hq.garrels.be
+e=
+TOR=vi
+FCEDIT=vi
+FIGNORE=.o:~
+G_BROKEN_FILENAMES=1
+GDK_USE_XFT=1
+GDMSESSION=Default
+GNOME_DESKTOP_SESSION_ID=Default
+GTK_RC_FILES=/etc/gtk/gtkrc:/nethome/franky/.gtkrc-1.2-gnome2
+GWMCOLOR=darkgreen
+GWMTERM=xterm
+HISTFILESIZE=5000
+history_control=ignoredups
+HISTSIZE=2000
+HOME=/nethome/franky
+HOSTNAME=octarine.hq.garrels.be
+INPUTRC=/etc/inputrc
+IRCNAME=franky
+JAVA_HOME=/usr/java/j2sdk1.4.0
+LANG=en_US
+LDFLAGS=-s
+LD_LIBRARY_PATH=/usr/lib/mozilla:/usr/lib/mozilla/plugins
+LESSCHARSET=latin1
+LESS=-edfMQ
+LESSOPEN=|/usr/bin/lesspipe.sh %s
+LEX=flex
+LOCAL_MACHINE=octarine
+LOGNAME=franky
+LS_COLORS=no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:ex=01;32:*.cmd=01;32:*.exe=01;32:*.com=01;32:*.btm=01;32:*.bat=01;32:*.sh=01;32:*.csh=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.bz=01;31:*.tz=01;31:*.rpm=01;31:*.cpio=01;31:*.jpg=01;35:*.gif=01;35:*.bmp=01;35:*.xbm=01;35:*.xpm=01;35:*.png=01;35:*.tif=01;35:
+MACHINES=octarine
+MAILCHECK=60
+MAIL=/var/mail/franky
+MANPATH=/usr/man:/usr/share/man/:/usr/local/man:/usr/X11R6/man
+MEAN_MACHINES=octarine
+MOZ_DIST_BIN=/usr/lib/mozilla
+MOZILLA_FIVE_HOME=/usr/lib/mozilla
+MOZ_PROGRAM=/usr/lib/mozilla/mozilla-bin
+MTOOLS_FAT_COMPATIBILITY=1
+MYMALLOC=0
+NNTPPORT=119
+NNTPSERVER=news
+NPX_PLUGIN_PATH=/plugin/ns4plugin/:/usr/lib/netscape/plugins
+OLDPWD=/nethome/franky
+OS=Linux
+PAGER=less
+PATH=/nethome/franky/bin.Linux:/nethome/franky/bin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:/usr/bin:/usr/sbin:/bin:/sbin:.
+PS1=\[\033[1;44m\]franky is in \w\[\033[0m\]
+PS2=More input&#62;
+PWD=/nethome/franky
+SESSION_MANAGER=local/octarine.hq.garrels.be:/tmp/.ICE-unix/22106
+SHELL=/bin/bash
+SHELL_LOGIN=--login
+SHLVL=2
+SSH_AGENT_PID=22161
+SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass
+SSH_AUTH_SOCK=/tmp/ssh-XXmhQ4fC/agent.22106
+START_WM=twm
+TERM=xterm
+TYPE=type
+USERNAME=franky
+USER=franky
+_=/usr/bin/printenv
+VISUAL=vi
+WINDOWID=20971661
+XAPPLRESDIR=/nethome/franky/app-defaults
+XAUTHORITY=/nethome/franky/.Xauthority
+XENVIRONMENT=/nethome/franky/.Xdefaults
+XFILESEARCHPATH=/usr/X11R6/lib/X11/%L/%T/%N%C%S:/usr/X11R6/lib/X11/%l/%T/%N%C%S:/usr/X11R6/lib/X11/%T/%N%C%S:/usr/X11R6/lib/X11/%L/%T/%N%S:/usr/X11R6/lib/X11/%l/%T/%N%S:/usr/X11R6/lib/X11/%T/%N%S
+XKEYSYMDB=/usr/X11R6/lib/X11/XKeysymDB
+XMODIFIERS=@im=none
+XTERMID=
+XWINHOME=/usr/X11R6
+X=X11R6
+YACC=bison -y
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_03_02_01_02"
+></A
+>3.2.1.2. Local variables</H3
+><P
+>Local variables are only available in the current shell.  Using the <B
+CLASS="command"
+>set</B
+> built-in command without any options will display a list of all variables (including environment variables) and functions.  The output will be sorted according to the current locale and displayed in a reusable format.</P
+><P
+>Below is a diff file made by comparing <B
+CLASS="command"
+>printenv</B
+> and <B
+CLASS="command"
+>set</B
+> output, after leaving out the functions which are also displayed by the <B
+CLASS="command"
+>set</B
+> command:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>diff <TT
+CLASS="filename"
+>set.sorted</TT
+> <TT
+CLASS="filename"
+>printenv.sorted</TT
+></B
+> | <B
+CLASS="command"
+>grep <TT
+CLASS="parameter"
+><I
+>"&#60;"</I
+></TT
+></B
+> | <B
+CLASS="command"
+>awk <TT
+CLASS="parameter"
+><I
+>'{ print $2 }'</I
+></TT
+></B
+>
+BASE=/nethome/franky/.Shell/hq.garrels.be/octarine.aliases
+BASH=/bin/bash
+BASH_VERSINFO=([0]="2"
+BASH_VERSION='2.05b.0(1)-release'
+COLUMNS=80
+DIRSTACK=()
+DO_FORTUNE=
+EUID=504
+GROUPS=()
+HERE=/home/franky
+HISTFILE=/nethome/franky/.bash_history
+HOSTTYPE=i686
+IFS=$'
+LINES=24
+MACHTYPE=i686-pc-linux-gnu
+OPTERR=1
+OPTIND=1
+OSTYPE=linux-gnu
+PIPESTATUS=([0]="0")
+PPID=10099
+PS4='+
+PWD_REAL='pwd
+SHELLOPTS=braceexpand:emacs:hashall:histexpand:history:interactive-comments:monitor
+THERE=/home/franky
+UID=504
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Awk</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>the GNU Awk programming language is explained in <A
+HREF="chap_06.html"
+>Chapter 6</A
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_03_02_01_03"
+></A
+>3.2.1.3. Variables by content</H3
+><P
+>Apart from dividing variables in local and global variables, we can also divide them in categories according to the sort of content the variable contains.  In this respect, variables come in 4 types:</P
+><P
+></P
+><UL
+><LI
+><P
+>String variables</P
+></LI
+><LI
+><P
+>Integer variables</P
+></LI
+><LI
+><P
+>Constant variables</P
+></LI
+><LI
+><P
+>Array variables</P
+></LI
+></UL
+><P
+>We'll discuss these types in <A
+HREF="chap_10.html"
+>Chapter 10</A
+>.  For now, we will work with integer and string values for our variables.</P
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_02_02"
+></A
+>3.2.2. Creating variables</H2
+><P
+>Variables are case sensitive and capitalized by default.  Giving local variables a lowercase name is a convention which is sometimes applied.  However, you are free to use the names you want or to mix cases.  Variables can also contain digits, but a name starting with a digit is not allowed:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>prompt&#62;</TT
+> <B
+CLASS="command"
+>export <TT
+CLASS="varname"
+>1number</TT
+>=<TT
+CLASS="parameter"
+><I
+>1</I
+></TT
+></B
+>
+bash: export: `1number=1': not a valid identifier
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>To set a variable in the shell, use</P
+><P
+><B
+CLASS="command"
+><TT
+CLASS="varname"
+>VARNAME</TT
+>="value"</B
+> </P
+><P
+>Putting spaces around the equal sign will cause errors.  It is a good habit to quote content strings when assigning values to variables: this will reduce the chance that you make errors.</P
+><P
+>Some examples using upper and lower cases, numbers and spaces:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>MYVAR1</TT
+>=<TT
+CLASS="parameter"
+><I
+>"2"</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$MYVAR1</TT
+></B
+>
+2
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>first_name</TT
+>=<TT
+CLASS="parameter"
+><I
+>"Franky"</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$first_name</TT
+></B
+>
+Franky
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>full_name</TT
+>=<TT
+CLASS="parameter"
+><I
+>"Franky M. Singh"</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$full_name</TT
+></B
+>
+Franky M. Singh
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>MYVAR-2</TT
+>=<TT
+CLASS="parameter"
+><I
+>"2"</I
+></TT
+></B
+>
+bash: MYVAR-2=2: command not found
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>MYVAR1</TT
+> =<TT
+CLASS="parameter"
+><I
+>"2"</I
+></TT
+></B
+>
+bash: MYVAR1: command not found
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>MYVAR1</TT
+>= <TT
+CLASS="parameter"
+><I
+>"2"</I
+></TT
+></B
+>
+bash: 2: command not found
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>unset <TT
+CLASS="varname"
+>MYVAR1</TT
+> <TT
+CLASS="varname"
+>first_name</TT
+> <TT
+CLASS="varname"
+>full_name</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$MYVAR1</TT
+> <TT
+CLASS="varname"
+>$first_name</TT
+> <TT
+CLASS="varname"
+>$full_name</TT
+></B
+>
+&#60;--no output--&#62;
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_02_03"
+></A
+>3.2.3. Exporting variables</H2
+><P
+>A variable created like the ones in the example above is only available to the current shell.  It is a local variable: child processes of the current shell will not be aware of this variable.  In order to pass variables to a subshell, we need to <EM
+>export</EM
+> them using the <B
+CLASS="command"
+>export</B
+> built-in command.  Variables that are exported are referred to as environment variables.  Setting and exporting is usually done in one step:</P
+><P
+><B
+CLASS="command"
+>export <TT
+CLASS="varname"
+>VARNAME</TT
+>="<TT
+CLASS="parameter"
+><I
+>value</I
+></TT
+>"</B
+> </P
+><P
+>A subshell can change variables it inherited from the parent, but the changes made by the child don't affect the parent.  This is demonstrated in the example:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>full_name</TT
+>=<TT
+CLASS="parameter"
+><I
+>"Franky M. Singh"</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>bash</B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$full_name</TT
+></B
+>
+
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>exit</B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>export <TT
+CLASS="varname"
+>full_name</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>bash</B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$full_name</TT
+></B
+>
+Franky M. Singh
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>export <TT
+CLASS="varname"
+>full_name</TT
+>=<TT
+CLASS="parameter"
+><I
+>"Charles the Great"</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$full_name</TT
+></B
+>
+Charles the Great
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>exit</B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$full_name</TT
+></B
+>
+Franky M. Singh
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>When first trying to read the value of <TT
+CLASS="varname"
+>full_name</TT
+> in a subshell, it is not there (<B
+CLASS="command"
+>echo</B
+> shows a null string).  The subshell quits, and <TT
+CLASS="varname"
+>full_name</TT
+> is exported in the parent - a variable can be exported after it has been assigned a value.  Then a new subshell is started, in which the variable exported from the parent is visible.  The variable is changed to hold another name, but the value for this variable in the parent stays the same.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_02_04"
+></A
+>3.2.4. Reserved variables</H2
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_03_02_04_01"
+></A
+>3.2.4.1. Bourne shell reserved variables</H3
+><P
+>Bash uses certain shell variables in the same way as the Bourne shell.  In some cases, Bash assigns a default value to the variable.  The table below gives an overview of these plain shell variables:</P
+><DIV
+CLASS="table"
+><A
+NAME="table_03_01"
+></A
+><P
+><B
+>Table 3-1. Reserved Bourne shell variables</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Variable name</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Definition</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>CDPATH</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>A colon-separated list of directories used as a search path for the <B
+CLASS="command"
+>cd</B
+> built-in command.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>HOME</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The current user's home directory; the default for the <B
+CLASS="command"
+>cd</B
+> built-in.  The value of this variable is also used by tilde expansion.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>IFS</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>A list of characters that separate fields; used when the shell splits words as part of expansion.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>MAIL</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>If this parameter is set to a file name and the <TT
+CLASS="varname"
+>MAILPATH</TT
+> variable is not set, Bash informs the user of the arrival of mail in the specified file.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>MAILPATH</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>A colon-separated list of file names which the shell periodically checks for new mail.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>OPTARG</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The value of the last option argument processed by the <B
+CLASS="command"
+>getopts</B
+> built-in.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>OPTIND</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The index of the last option argument processed by the <B
+CLASS="command"
+>getopts</B
+> built-in.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>PATH</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>A colon-separated list of directories in which the shell looks for commands.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>PS1</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The primary prompt string.  The default value is <SPAN
+CLASS="QUOTE"
+>"'\s-\v\$ '"</SPAN
+>.  </TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>PS2</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The secondary prompt string.  The default value is <SPAN
+CLASS="QUOTE"
+>"'&#62; '"</SPAN
+>.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_03_02_04_02"
+></A
+>3.2.4.2. Bash reserved variables</H3
+><P
+>These variables are set or used by Bash, but other shells do not normally treat them specially.</P
+><DIV
+CLASS="table"
+><A
+NAME="table_03_02"
+></A
+><P
+><B
+>Table 3-2. Reserved Bash variables</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Variable name</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Definition</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>auto_resume</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>This variable controls how the shell interacts with the user and job control.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>BASH</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The full pathname used to execute the current instance of Bash.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>BASH_ENV</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>If this variable is set when Bash is invoked to execute a shell script, its value is expanded and used as the name of a startup file to read before executing the script.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>BASH_VERSION</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The version number of the current instance of Bash.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>BASH_VERSINFO</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>A read-only array variable whose members hold version information for this instance of Bash.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>COLUMNS</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Used by the <B
+CLASS="command"
+>select</B
+> built-in to determine the terminal width when printing selection lists.  Automatically set upon receipt of a <EM
+>SIGWINCH</EM
+> signal.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>COMP_CWORD</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>An index into <TT
+CLASS="varname"
+>${COMP_WORDS}</TT
+> of the word containing the current cursor position.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>COMP_LINE</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The current command line.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>COMP_POINT</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The index of the current cursor position relative to the beginning of the current command.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>COMP_WORDS</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>An array variable consisting of the individual words in the current command line.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>COMPREPLY</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>An array variable from which Bash reads the possible completions generated by a shell function invoked by the programmable completion facility.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>DIRSTACK</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>An array variable containing the current contents of the directory stack.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>EUID</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The numeric effective user ID of the current user.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>FCEDIT</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The editor used as a default by the <TT
+CLASS="option"
+>-e</TT
+> option to the <B
+CLASS="command"
+>fc</B
+> built-in command.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>FIGNORE</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>A colon-separated list of suffixes to ignore when performing file name completion.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>FUNCNAME</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The name of any currently-executing shell function.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>GLOBIGNORE</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>A colon-separated list of patterns defining the set of file names to be ignored by file name expansion.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>GROUPS</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>An array variable containing the list of groups of which the current user is a member.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>histchars</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Up to three characters which control history expansion, quick substitution, and <EM
+>tokenization</EM
+>.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>HISTCMD</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The history number, or index in the history list, of the current command.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>HISTCONTROL</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Defines whether a command is added to the history file.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>HISTFILE</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The name of the file to which the command history is saved.  The default value is <TT
+CLASS="filename"
+>~/.bash_history</TT
+>.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>HISTFILESIZE</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The maximum number of lines contained in the history file, defaults to 500.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>HISTIGNORE</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>A colon-separated list of patterns used to decide which command lines should be saved in the history list.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>HISTSIZE</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The maximum number of commands to remember on the history list, default is 500.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>HOSTFILE</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Contains the name of a file in the same format as <TT
+CLASS="filename"
+>/etc/hosts</TT
+> that should be read when the shell needs to complete a hostname.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>HOSTNAME</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The name of the current host.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>HOSTTYPE</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>A string describing the machine Bash is running on.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>IGNOREEOF</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Controls the action of the shell on receipt of an <EM
+>EOF</EM
+> character as the sole input.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>INPUTRC</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The name of the Readline initialization file, overriding the default <TT
+CLASS="filename"
+>/etc/inputrc</TT
+>.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>LANG</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Used to determine the locale category for any category not specifically selected with a variable starting with <TT
+CLASS="varname"
+>LC_</TT
+>.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>LC_ALL</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>This variable overrides the value of <TT
+CLASS="varname"
+>LANG</TT
+> and any other <TT
+CLASS="varname"
+>LC_</TT
+> variable specifying a locale category.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>LC_COLLATE</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>This variable determines the collation order used when sorting the results of file name expansion, and determines the behavior of range expressions, equivalence classes, and collating sequences within file name expansion and pattern matching.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>LC_CTYPE</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>This variable determines the interpretation of characters and the behavior of character classes within file name expansion and pattern matching.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>LC_MESSAGES</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>This variable determines the locale used to translate double-quoted strings preceded by a <SPAN
+CLASS="QUOTE"
+>"$"</SPAN
+> sign.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>LC_NUMERIC</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>This variable determines the locale category used for number formatting.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>LINENO</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The line number in the script or shell function currently executing.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>LINES</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Used by the <B
+CLASS="command"
+>select</B
+> built-in to determine the column length for printing selection lists.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>MACHTYPE</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>A string that fully describes the system type on which Bash is executing, in the standard GNU CPU-COMPANY-SYSTEM format.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>MAILCHECK</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>How often (in seconds) that the shell should check for mail in the files specified in the <TT
+CLASS="varname"
+>MAILPATH</TT
+> or <TT
+CLASS="varname"
+>MAIL</TT
+> variables.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>OLDPWD</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The previous working directory as set by the <B
+CLASS="command"
+>cd</B
+> built-in.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>OPTERR</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>If set to the value 1, Bash displays error messages generated by the <B
+CLASS="command"
+>getopts</B
+> built-in.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>OSTYPE</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>A string describing the operating system Bash is running on.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>PIPESTATUS</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>An array variable containing a list of exit status values from the processes in the most recently executed foreground pipeline (which may contain only a single command).</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>POSIXLY_CORRECT</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>If this variable is in the environment when <B
+CLASS="command"
+>bash</B
+> starts, the shell enters POSIX mode.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>PPID</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The process ID of the shell's parent process.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>PROMPT_COMMAND</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>If set, the value is interpreted as a command to execute before the printing of each primary prompt (<TT
+CLASS="varname"
+>PS1</TT
+>).</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>PS3</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The value of this variable is used as the prompt for the <B
+CLASS="command"
+>select</B
+> command.  Defaults to <SPAN
+CLASS="QUOTE"
+>"'#? '"</SPAN
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>PS4</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The value is the prompt printed before the command line is echoed when the <TT
+CLASS="option"
+>-x</TT
+> option is set; defaults to <SPAN
+CLASS="QUOTE"
+>"'+ '"</SPAN
+>.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>PWD</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The current working directory as set by the <B
+CLASS="command"
+>cd</B
+> built-in command.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>RANDOM</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Each time this parameter is referenced, a random integer between 0 and 32767 is generated.  Assigning a value to this variable seeds the random number generator.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>REPLY</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The default variable for the <B
+CLASS="command"
+>read</B
+> built-in.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>SECONDS</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>This variable expands to the number of seconds since the shell was started.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>SHELLOPTS</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>A colon-separated list of enabled shell options.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>SHLVL</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Incremented by one each time a new instance of Bash is started.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>TIMEFORMAT</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The value of this parameter is used as a format string specifying
+     how the timing information for pipelines prefixed with the <B
+CLASS="command"
+>time</B
+> reserved word should be displayed.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>TMOUT</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>If set to a value greater than zero, <TT
+CLASS="varname"
+>TMOUT</TT
+> is treated as the default timeout for the <B
+CLASS="command"
+>read</B
+> built-in.  In an interative shell, the value is interpreted as the number of seconds to wait for input after issuing the primary prompt when the shell is interactive.  Bash terminates after that number of seconds if input does not arrive.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>UID</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The numeric, real user ID of the current user.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>Check the Bash man, info or doc pages for extended information.  Some variables are read-only, some are set automatically and some lose their meaning when set to a different value than the default.</P
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_02_05"
+></A
+>3.2.5. Special parameters</H2
+><P
+>The shell treats several parameters specially.  These parameters may only be referenced; assignment to them is not allowed.</P
+><DIV
+CLASS="table"
+><A
+NAME="table_03_03"
+></A
+><P
+><B
+>Table 3-3. Special bash variables</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Character</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Definition</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="varname"
+>$*</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Expands to the positional parameters, starting from one.  When the expansion occurs within double quotes, it expands to a single word with the value of each parameter separated by the first character of the <TT
+CLASS="varname"
+>IFS</TT
+> special variable.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="varname"
+>$@</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Expands to the positional parameters, starting from one.  When the expansion occurs within double quotes, each parameter expands to a separate word.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="varname"
+>$#</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Expands to the number of positional parameters in decimal.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="varname"
+>$?</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Expands to the exit status of the most recently executed foreground pipeline.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="varname"
+>$-</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>A hyphen expands to the current option flags as specified upon invocation, by the <B
+CLASS="command"
+>set</B
+> built-in command, or those set by the shell itself (such as the <TT
+CLASS="option"
+>-i</TT
+>).</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="varname"
+>$$</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Expands to the process ID of the shell.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="varname"
+>$!</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Expands to the process ID of the most recently executed background (asynchronous) command.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="varname"
+>$0</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Expands to the name of the shell or shell script.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="varname"
+>$_</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The underscore variable is set at shell startup and contains the absolute file name of the shell or script being executed as passed in the argument list.  Subsequently, it expands to the last argument to the previous command, after expansion.  It is also set to the full pathname of each command executed and placed in the environment exported to that command.  When checking mail, this parameter holds the name of the mail file.
+</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>$* vs. $@</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>The implementation of <SPAN
+CLASS="QUOTE"
+>"$*"</SPAN
+> has always been a problem and realistically should have been replaced with the behavior of <SPAN
+CLASS="QUOTE"
+>"$@"</SPAN
+>.  In almost every case where coders use <SPAN
+CLASS="QUOTE"
+>"$*"</SPAN
+>, they mean <SPAN
+CLASS="QUOTE"
+>"$@"</SPAN
+>.  <SPAN
+CLASS="QUOTE"
+>"$*"</SPAN
+> Can cause bugs and even security holes in your software.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>The positional parameters are the words following the name of a shell script.  They are put into the variables <TT
+CLASS="varname"
+>$1</TT
+>, <TT
+CLASS="varname"
+>$2</TT
+>, <TT
+CLASS="varname"
+>$3</TT
+> and so on.  As long as needed, variables are added to an internal array.  <TT
+CLASS="varname"
+>$#</TT
+> holds the total number of parameters, as is demonstrated with this simple script:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+
+# positional.sh
+# This script reads 3 positional parameters and prints them out.
+
+POSPAR1="$1"
+POSPAR2="$2"
+POSPAR3="$3"
+
+echo "$1 is the first positional parameter, \$1."
+echo "$2 is the second positional parameter, \$2."
+echo "$3 is the third positional parameter, \$3."
+echo
+echo "The total number of positional parameters is $#."
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Upon execution one could give any numbers of arguments:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>positional.sh <TT
+CLASS="parameter"
+><I
+>one two three four five</I
+></TT
+></B
+>
+one is the first positional parameter, $1.
+two is the second positional parameter, $2.
+three is the third positional parameter, $3.
+
+The total number of positional parameters is 5.
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>positional.sh <TT
+CLASS="parameter"
+><I
+>one two</I
+></TT
+></B
+>
+one is the first positional parameter, $1.
+two is the second positional parameter, $2.
+ is the third positional parameter, $3.
+
+The total number of positional parameters is 2.
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>More on evaluating these parameters is in <A
+HREF="chap_07.html"
+>Chapter 7</A
+> and <A
+HREF="sect_09_07.html"
+>Section 9.7</A
+>.</P
+><P
+>Some examples on the other special parameters:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="parameter"
+><I
+>dictionary</I
+></TT
+> <TT
+CLASS="filename"
+>/usr/share/dict/words</TT
+></B
+>
+dictionary
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$_</TT
+></B
+>
+/usr/share/dict/words
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$$</TT
+></B
+>
+10662
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>mozilla &#38;</B
+>
+[1] 11064
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$!</TT
+></B
+>
+11064
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$0</TT
+></B
+>
+bash
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$?</TT
+></B
+>
+0
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>ls <TT
+CLASS="filename"
+>doesnotexist</TT
+></B
+>
+ls: doesnotexist: No such file or directory
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$?</TT
+></B
+>
+1
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>User <EM
+>franky</EM
+> starts entering the <B
+CLASS="command"
+>grep</B
+> command, which results in the assignment of the <TT
+CLASS="varname"
+>_</TT
+> variable.  The process ID of his shell is 10662.  After putting a job in the background, the <TT
+CLASS="varname"
+>!</TT
+> holds the process ID of the backgrounded job.  The shell running is <B
+CLASS="command"
+>bash</B
+>.  When a mistake is made, <TT
+CLASS="varname"
+>?</TT
+> holds an exit code different from 0 (zero).</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_02_06"
+></A
+>3.2.6. Script recycling with variables</H2
+><P
+>Apart from making the script more readable, variables will also enable you to faster apply a script in another environment or for another purpose.  Consider the following example, a very simple script that makes a backup of <EM
+>franky</EM
+>'s home directory to a remote server:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+
+# This script makes a backup of my home directory.
+
+cd /home
+
+# This creates the archive
+tar cf /var/tmp/home_franky.tar franky &#62; /dev/null 2&#62;&#38;1
+
+# First remove the old bzip2 file.  Redirect errors because this generates some if the archive
+# does not exist.  Then create a new compressed file.
+rm /var/tmp/home_franky.tar.bz2 2&#62; /dev/null
+bzip2 /var/tmp/home_franky.tar
+
+# Copy the file to another host - we have ssh keys for making this work without intervention.
+scp /var/tmp/home_franky.tar.bz2 bordeaux:/opt/backup/franky &#62; /dev/null 2&#62;&#38;1
+
+# Create a timestamp in a logfile.
+date &#62;&#62; /home/franky/log/home_backup.log
+echo backup succeeded &#62;&#62; /home/franky/log/home_backup.log
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>First of all, you are more likely to make errors if you name files and directories manually each time you need them.  Secondly, suppose <EM
+>franky</EM
+> wants to give this script to <EM
+>carol</EM
+>, then carol will have to do quite some editing before she can use the script to back up her home directory.  The same is true if <EM
+>franky</EM
+> wants to use this script for backing up other directories.  For easy recycling, make all files, directories, usernames, servernames etcetera variable.  Thus, you only need to edit a value once, without having to go through the entire script to check where a parameter occurs.  This is an example:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+                                                                                                 
+# This script makes a backup of my home directory.
+
+# Change the values of the variables to make the script work for you:
+BACKUPDIR=/home
+BACKUPFILES=franky
+TARFILE=/var/tmp/home_franky.tar
+BZIPFILE=/var/tmp/home_franky.tar.bz2
+SERVER=bordeaux
+REMOTEDIR=/opt/backup/franky
+LOGFILE=/home/franky/log/home_backup.log
+
+cd $BACKUPDIR
+
+# This creates the archive
+tar cf $TARFILE $BACKUPFILES &#62; /dev/null 2&#62;&#38;1
+                                                                                                 
+# First remove the old bzip2 file.  Redirect errors because this generates some if the archive 
+# does not exist.  Then create a new compressed file.
+rm $BZIPFILE 2&#62; /dev/null
+bzip2 $TARFILE
+
+# Copy the file to another host - we have ssh keys for making this work without intervention.
+scp $BZIPFILE $SERVER:$REMOTEDIR &#62; /dev/null 2&#62;&#38;1
+
+# Create a timestamp in a logfile.
+date &#62;&#62; $LOGFILE
+echo backup succeeded &#62;&#62; $LOGFILE
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Large directories and low bandwidth</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>The above is purely an example that everybody can understand, using a small directory and a host on the same subnet.  Depending on your bandwidth, the size of the directory and the location of the remote server, it can take an awful lot of time to make backups using this mechanism.  For larger directories and lower bandwidth, use <B
+CLASS="command"
+>rsync</B
+> to keep the directories at both ends synchronized.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_03_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_03_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Shell initialization files</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_03.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Quoting characters</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,682 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Developing good scripts</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Bash and Bash scripts"
+HREF="chap_01.html"><LINK
+REL="PREVIOUS"
+TITLE="Building blocks"
+HREF="sect_01_04.html"><LINK
+REL="NEXT"
+TITLE="Summary"
+HREF="sect_01_06.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_01_04.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 1. Bash and Bash scripts</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_01_06.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_01_05"
+></A
+>1.5. Developing good scripts</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_01_05_01"
+></A
+>1.5.1. Properties of good scripts</H2
+><P
+>This guide is mainly about the last shell building block, scripts.  Some general considerations before we continue:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>A script should run without errors.</P
+></LI
+><LI
+><P
+>It should perform the task for which it is intended.</P
+></LI
+><LI
+><P
+>Program logic is clearly defined and apparent.</P
+></LI
+><LI
+><P
+>A script does not do unnecessary work.</P
+></LI
+><LI
+><P
+>Scripts should be reusable.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_01_05_02"
+></A
+>1.5.2. Structure</H2
+><P
+>The structure of a shell script is very flexible.  Even though in Bash a lot of freedom is granted, you must ensure correct logic, flow control and efficiency so that users executing the script can do so easily and correctly.</P
+><P
+>When starting on a new script, ask yourself the following questions:</P
+><P
+></P
+><UL
+><LI
+><P
+>Will I be needing any information from the user or from the user's environment?</P
+></LI
+><LI
+><P
+>How will I store that information?</P
+></LI
+><LI
+><P
+>Are there any files that need to be created?  Where and with which permissions and ownerships?</P
+></LI
+><LI
+><P
+>What commands will I use?  When using the script on different systems, do all these systems have these commands in the required versions?</P
+></LI
+><LI
+><P
+>Does the user need any notifications?  When and why?</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_01_05_03"
+></A
+>1.5.3. Terminology</H2
+><P
+>The table below gives an overview of programming terms that you need to be familiar with:</P
+><DIV
+CLASS="table"
+><A
+NAME="table_01_01"
+></A
+><P
+><B
+>Table 1-1. Overview of programming terms</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Term</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>What is it?</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Command control</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Testing exit status of a command in order to determine whether a portion of the program should be executed.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Conditional branch</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Logical point in the program when a condition determines what happens next.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Logic flow</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The overall design of the program.  Determines logical sequence of tasks so that the result is successful and controlled.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Loop</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Part of the program that is performed zero or more times.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>User input</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Information provided by an external source while the program is running, can be stored and recalled when needed.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_01_05_04"
+></A
+>1.5.4. A word on order and logic</H2
+><P
+>In order to speed up the developing process, the logical order of a program should be thought over in advance.  This is your first step when developing a script.</P
+><P
+>A number of methods can be used; one of the most common is working with lists.  Itemizing the list of tasks involved in a program allows you to describe each process.  Individual tasks can be referenced by their item number.</P
+><P
+>Using your own spoken language to pin down the tasks to be executed by your program will help you to create an understandable form of your program.  Later, you can replace the everyday language statements with shell language words and constructs.</P
+><P
+>The example below shows such a logic flow design.  It describes the rotation of log files.  This example shows a possible repetitive loop, controlled by the number of base log files you want to rotate:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Do you want to rotate logs?</P
+><P
+></P
+><OL
+TYPE="a"
+><LI
+><P
+>If yes:</P
+><P
+></P
+><OL
+TYPE="i"
+><LI
+><P
+>Enter directory name containing the logs to be rotated.</P
+></LI
+><LI
+><P
+>Enter base name of the log file.</P
+></LI
+><LI
+><P
+>Enter number of days logs should be kept.</P
+></LI
+><LI
+><P
+>Make settings permanent in user's crontab file.</P
+></LI
+></OL
+></LI
+><LI
+><P
+>If no, go to step 3.</P
+></LI
+></OL
+></LI
+><LI
+><P
+>Do you want to rotate another set of logs?</P
+><P
+></P
+><OL
+TYPE="a"
+><LI
+><P
+>If yes: repeat step 1.</P
+></LI
+><LI
+><P
+>If no: go to step 3.</P
+></LI
+></OL
+></LI
+><LI
+><P
+>Exit</P
+></LI
+></OL
+><P
+>The user should provide information for the program to do something.  Input from the user must be obtained and stored.  The user should be notified that his crontab will change.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_01_05_05"
+></A
+>1.5.5. An example Bash script: mysystem.sh</H2
+><P
+>The <TT
+CLASS="filename"
+>mysystem.sh</TT
+> script below executes some well-known commands (<B
+CLASS="command"
+>date</B
+>, <B
+CLASS="command"
+>w</B
+>, <B
+CLASS="command"
+>uname</B
+>, <B
+CLASS="command"
+>uptime</B
+>) to display information about you and your machine.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>tom:~&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="option"
+>-n</TT
+> <TT
+CLASS="filename"
+>mysystem.sh</TT
+></B
+>
+     1  #!/bin/bash
+     2  clear
+     3  echo "This is information provided by mysystem.sh.  Program starts now."
+     4
+     5  echo "Hello, $USER"
+     6  echo
+     7
+     8  echo "Today's date is `date`, this is week `date +"%V"`."
+     9  echo
+    10
+    11  echo "These users are currently connected:"
+    12  w | cut -d " " -f 1 - | grep -v USER | sort -u
+    13  echo
+    14
+    15  echo "This is `uname -s` running on a `uname -m` processor."
+    16  echo
+    17
+    18  echo "This is the uptime information:"
+    19  uptime
+    20  echo
+    21
+    22  echo "That's all folks!"
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>A script always starts with the same two characters, <SPAN
+CLASS="QUOTE"
+>"#!"</SPAN
+>.  After that, the shell that will execute the commands following the first line is defined.  This script starts with clearing the screen on line 2.  Line 3 makes it print a message, informing the user about what is going to happen.  Line 5 greets the user.  Lines 6, 9, 13, 16 and 20 are only there for orderly output display purposes.  Line 8 prints the current date and the number of the week.  Line 11 is again an informative message, like lines 3, 18 and 22.  Line 12 formats the output of the <B
+CLASS="command"
+>w</B
+>; line 15 shows operating system and CPU information.  Line 19 gives the uptime and load information.</P
+><P
+>Both <B
+CLASS="command"
+>echo</B
+> and <B
+CLASS="command"
+>printf</B
+> are Bash built-in commands.  The first always exits with a 0 status, and simply prints arguments followed by an end of line character on the standard output, while the latter allows for definition of a formatting string and gives a non-zero exit status code upon failure.</P
+><P
+>This is the same script using the <B
+CLASS="command"
+>printf</B
+> built-in:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>tom:~&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>mysystem.sh</TT
+></B
+>
+#!/bin/bash
+clear
+printf "This is information provided by mysystem.sh.  Program starts now.\n"
+
+printf "Hello, $USER.\n\n"
+
+printf "Today's date is `date`, this is week `date +"%V"`.\n\n"
+
+printf "These users are currently connected:\n"
+w | cut -d " " -f 1 - | grep -v USER | sort -u
+printf "\n"
+
+printf "This is `uname -s` running on a `uname -m` processor.\n\n"
+
+printf "This is the uptime information:\n"
+uptime
+printf "\n"
+
+printf "That's all folks!\n"
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Creating user friendly scripts by means of inserting messages is treated in <A
+HREF="chap_08.html"
+>Chapter 8</A
+>.</P
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Standard location of the Bourne Again shell</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>This implies that the <B
+CLASS="command"
+>bash</B
+> program is installed in <TT
+CLASS="filename"
+>/bin</TT
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Warning"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>If stdout is not available</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>If you execute a script from cron, supply full path names and redirect output and errors.  Since the shell runs in non-interactive mode, any errors will cause the script to exit prematurely if you don't think about this.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>The following chapters will discuss the details of the above scripts.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_01_05_06"
+></A
+>1.5.6. Example init script</H2
+><P
+>An init script starts system services on UNIX and Linux machines.  The system log daemon, the power management daemon, the name and mail daemons are common examples.  These scripts, also known as startup scripts, are stored in a specific location on your system, such as <TT
+CLASS="filename"
+>/etc/rc.d/init.d</TT
+> or <TT
+CLASS="filename"
+>/etc/init.d</TT
+>.  Init, the initial process, reads its configuration files and decides which services to start or stop in each run level.  A run level is a configuration of processes; each system has a single user run level, for instance, for performing administrative tasks, for which the system has to be in an unused state as much as possible, such as recovering a critical file system from a backup.  Reboot and shutdown run levels are usually also configured.</P
+><P
+>The tasks to be executed upon starting a service or stopping it are listed in the startup scripts.  It is one of the system administrator's tasks to configure <B
+CLASS="command"
+>init</B
+>, so that services are started and stopped at the correct moment.  When confronted with this task, you need a good understanding of the startup and shutdown procedures on your system.  We therefore advise that you read the man pages for <B
+CLASS="command"
+>init</B
+> and <TT
+CLASS="filename"
+>inittab</TT
+> before starting on your own initialization scripts.</P
+><P
+>Here is a very simple example, that will play a sound upon starting and stopping your machine:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+
+# This script is for /etc/rc.d/init.d
+# Link in rc3.d/S99audio-greeting and rc0.d/K01audio-greeting
+
+case "$1" in
+'start')
+  cat /usr/share/audio/at_your_service.au &#62; /dev/audio
+  ;;
+'stop')
+  cat /usr/share/audio/oh_no_not_again.au &#62; /dev/audio
+  ;;
+esac
+exit 0
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>The <B
+CLASS="command"
+>case</B
+> statement often used in this kind of script is described in <A
+HREF="sect_07_02.html#sect_07_02_05"
+>Section 7.2.5</A
+>.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_01_04.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_01_06.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Building blocks</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_01.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Summary</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

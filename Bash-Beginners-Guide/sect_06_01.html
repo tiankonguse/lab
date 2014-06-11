@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Getting started with gawk</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The GNU awk programming language"
+HREF="chap_06.html"><LINK
+REL="PREVIOUS"
+TITLE="The GNU awk programming language"
+HREF="chap_06.html"><LINK
+REL="NEXT"
+TITLE="The print program"
+HREF="sect_06_02.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chap_06.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 6. The GNU awk programming language</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_06_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_06_01"
+></A
+>6.1. Getting started with gawk</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_06_01_01"
+></A
+>6.1.1. What is gawk?</H2
+><P
+><SPAN
+CLASS="application"
+>Gawk</SPAN
+> is the GNU version of the commonly available UNIX <B
+CLASS="command"
+>awk</B
+> program, another popular stream editor.  Since the <B
+CLASS="command"
+>awk</B
+> program is often just a link to <B
+CLASS="command"
+>gawk</B
+>, we will refer to it as <B
+CLASS="command"
+>awk</B
+>.</P
+><P
+>The basic function of <B
+CLASS="command"
+>awk</B
+> is to search files for lines or other text units containing one or more patterns.  When a line matches one of the patterns, special actions are performed on that line.</P
+><P
+>Programs in <B
+CLASS="command"
+>awk</B
+> are different from programs in most other languages, because <B
+CLASS="command"
+>awk</B
+> programs are <SPAN
+CLASS="QUOTE"
+>"data-driven"</SPAN
+>: you describe the data you want to work with and then what to do when you
+find it.  Most other languages are <SPAN
+CLASS="QUOTE"
+>"procedural."</SPAN
+>  You have to describe, in great detail, every step the program is to take.  When working with procedural languages, it is usually much harder to clearly describe the data your program will process.  For this reason, <B
+CLASS="command"
+>awk</B
+> programs are often refreshingly easy to read and write.</P
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>What does it really mean?</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Back in the 1970s, three programmers got together to create this language.  Their names were Aho, Kernighan and Weinberger.  They took the first character of each of their names and put them together.  So the name of the language might just as well have been <SPAN
+CLASS="QUOTE"
+>"wak"</SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_06_01_02"
+></A
+>6.1.2. Gawk commands</H2
+><P
+>When you run <B
+CLASS="command"
+>awk</B
+>, you specify an <B
+CLASS="command"
+>awk</B
+> <EM
+>program</EM
+> that tells <B
+CLASS="command"
+>awk</B
+> what to do.  The program consists of a series of <EM
+>rules</EM
+>.  (It may also
+contain function definitions, loops, conditions and other programming constructs, advanced features that we will ignore for now.)  Each rule specifies one pattern to search for and one action to perform upon finding the pattern.</P
+><P
+>There are several ways to run <B
+CLASS="command"
+>awk</B
+>.  If the program is short, it is easiest to run it on the command line:</P
+><P
+><B
+CLASS="command"
+>awk PROGRAM <TT
+CLASS="filename"
+>inputfile(s)</TT
+></B
+> </P
+><P
+>If multiple changes have to be made, possibly regularly and on multiple files, it is easier to put the <B
+CLASS="command"
+>awk</B
+> commands in a script.  This is read like this:</P
+><P
+><B
+CLASS="command"
+>awk <TT
+CLASS="option"
+>-f</TT
+> <TT
+CLASS="filename"
+>PROGRAM-FILE</TT
+> <TT
+CLASS="filename"
+>inputfile(s)</TT
+></B
+> </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chap_06.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_06_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The GNU awk programming language</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_06.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The print program</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

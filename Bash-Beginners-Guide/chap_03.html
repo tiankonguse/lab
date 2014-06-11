@@ -1,0 +1,394 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>The Bash environment</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Exercises"
+HREF="sect_02_06.html"><LINK
+REL="NEXT"
+TITLE="Shell initialization files"
+HREF="sect_03_01.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_02_06.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_03_01.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="chap_03"
+></A
+>Chapter 3. The Bash environment</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+>3.1. <A
+HREF="sect_03_01.html"
+>Shell initialization files</A
+></DT
+><DD
+><DL
+><DT
+>3.1.1. <A
+HREF="sect_03_01.html#sect_03_01_01"
+>System-wide configuration files</A
+></DT
+><DT
+>3.1.2. <A
+HREF="sect_03_01.html#sect_03_01_02"
+>Individual user configuration files</A
+></DT
+><DT
+>3.1.3. <A
+HREF="sect_03_01.html#sect_03_01_03"
+>Changing shell configuration files</A
+></DT
+></DL
+></DD
+><DT
+>3.2. <A
+HREF="sect_03_02.html"
+>Variables</A
+></DT
+><DD
+><DL
+><DT
+>3.2.1. <A
+HREF="sect_03_02.html#sect_03_02_01"
+>Types of variables</A
+></DT
+><DT
+>3.2.2. <A
+HREF="sect_03_02.html#sect_03_02_02"
+>Creating variables</A
+></DT
+><DT
+>3.2.3. <A
+HREF="sect_03_02.html#sect_03_02_03"
+>Exporting variables</A
+></DT
+><DT
+>3.2.4. <A
+HREF="sect_03_02.html#sect_03_02_04"
+>Reserved variables</A
+></DT
+><DT
+>3.2.5. <A
+HREF="sect_03_02.html#sect_03_02_05"
+>Special parameters</A
+></DT
+><DT
+>3.2.6. <A
+HREF="sect_03_02.html#sect_03_02_06"
+>Script recycling with variables</A
+></DT
+></DL
+></DD
+><DT
+>3.3. <A
+HREF="sect_03_03.html"
+>Quoting characters</A
+></DT
+><DD
+><DL
+><DT
+>3.3.1. <A
+HREF="sect_03_03.html#sect_03_03_01"
+>Why?</A
+></DT
+><DT
+>3.3.2. <A
+HREF="sect_03_03.html#sect_03_03_02"
+>Escape characters</A
+></DT
+><DT
+>3.3.3. <A
+HREF="sect_03_03.html#sect_03_03_03"
+>Single quotes</A
+></DT
+><DT
+>3.3.4. <A
+HREF="sect_03_03.html#sect_03_03_04"
+>Double quotes</A
+></DT
+><DT
+>3.3.5. <A
+HREF="sect_03_03.html#sect_03_03_05"
+>ANSI-C quoting</A
+></DT
+><DT
+>3.3.6. <A
+HREF="sect_03_03.html#sect_03_03_06"
+>Locales</A
+></DT
+></DL
+></DD
+><DT
+>3.4. <A
+HREF="sect_03_04.html"
+>Shell expansion</A
+></DT
+><DD
+><DL
+><DT
+>3.4.1. <A
+HREF="sect_03_04.html#sect_03_04_0"
+>General</A
+></DT
+><DT
+>3.4.2. <A
+HREF="sect_03_04.html#sect_03_04_01"
+>Brace expansion</A
+></DT
+><DT
+>3.4.3. <A
+HREF="sect_03_04.html#sect_03_04_02"
+>Tilde expansion</A
+></DT
+><DT
+>3.4.4. <A
+HREF="sect_03_04.html#sect_03_04_03"
+>Shell parameter and variable expansion</A
+></DT
+><DT
+>3.4.5. <A
+HREF="sect_03_04.html#sect_03_04_04"
+>Command substitution</A
+></DT
+><DT
+>3.4.6. <A
+HREF="sect_03_04.html#sect_03_04_05"
+>Arithmetic expansion</A
+></DT
+><DT
+>3.4.7. <A
+HREF="sect_03_04.html#sect_03_04_06"
+>Process substitution</A
+></DT
+><DT
+>3.4.8. <A
+HREF="sect_03_04.html#sect_03_04_07"
+>Word splitting</A
+></DT
+><DT
+>3.4.9. <A
+HREF="sect_03_04.html#sect_03_04_08"
+>File name expansion</A
+></DT
+></DL
+></DD
+><DT
+>3.5. <A
+HREF="sect_03_05.html"
+>Aliases</A
+></DT
+><DD
+><DL
+><DT
+>3.5.1. <A
+HREF="sect_03_05.html#sect_03_05_01"
+>What are aliases?</A
+></DT
+><DT
+>3.5.2. <A
+HREF="sect_03_05.html#sect_03_05_02"
+>Creating and removing aliases</A
+></DT
+></DL
+></DD
+><DT
+>3.6. <A
+HREF="sect_03_06.html"
+>More Bash options</A
+></DT
+><DD
+><DL
+><DT
+>3.6.1. <A
+HREF="sect_03_06.html#sect_03_06_01"
+>Displaying options</A
+></DT
+><DT
+>3.6.2. <A
+HREF="sect_03_06.html#sect_03_06_02"
+>Changing options</A
+></DT
+></DL
+></DD
+><DT
+>3.7. <A
+HREF="sect_03_07.html"
+>Summary</A
+></DT
+><DT
+>3.8. <A
+HREF="sect_03_08.html"
+>Exercises</A
+></DT
+></DL
+></DIV
+><BLOCKQUOTE
+CLASS="ABSTRACT"
+><DIV
+CLASS="abstract"
+><A
+NAME="AEN1676"
+></A
+><P
+></P
+><P
+>In this chapter we will discuss the various ways in which the Bash environment can be influenced:</P
+><P
+><P
+></P
+><UL
+><LI
+><P
+>Editing shell initialization files</P
+></LI
+><LI
+><P
+>Using variables</P
+></LI
+><LI
+><P
+>Using different quote styles</P
+></LI
+><LI
+><P
+>Perform arithmetic calculations</P
+></LI
+><LI
+><P
+>Assigning aliases</P
+></LI
+><LI
+><P
+>Using expansion and substitution</P
+></LI
+></UL
+></P
+><P
+></P
+></DIV
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_02_06.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_03_01.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Exercises</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Shell initialization files</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

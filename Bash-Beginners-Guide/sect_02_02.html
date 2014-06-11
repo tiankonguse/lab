@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Script basics</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Writing and debugging scripts"
+HREF="chap_02.html"><LINK
+REL="PREVIOUS"
+TITLE="Creating and running a script"
+HREF="sect_02_01.html"><LINK
+REL="NEXT"
+TITLE="Debugging Bash scripts"
+HREF="sect_02_03.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_02_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 2. Writing and debugging scripts</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_02_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_02_02"
+></A
+>2.2. Script basics</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_02_02_01"
+></A
+>2.2.1. Which shell will run the script?</H2
+><P
+>When running a script in a subshell, you should define which shell should run the script.  The shell type in which you wrote the script might not be the default on your system, so commands you entered might result in errors when executed by the wrong shell.</P
+><P
+>The first line of the script determines the shell to start.  The first two characters of the first line should be <EM
+>#!</EM
+>, then follows the path to the shell that should interpret the commands that follow.  Blank lines are also considered to be lines, so don't start your script with an empty line.</P
+><P
+>For the purpose of this course, all scripts will start with the line</P
+><P
+><B
+CLASS="command"
+>#!/bin/bash</B
+> </P
+><P
+>As noted before, this implies that the Bash executable can be found in <TT
+CLASS="filename"
+>/bin</TT
+>.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_02_02_02"
+></A
+>2.2.2. Adding comments</H2
+><P
+>You should be aware of the fact that you might not be the only person reading your code.  A lot of users and system administrators run scripts that were written by other people.  If they want to see how you did it, comments are useful to enlighten the reader.</P
+><P
+>Comments also make your own life easier.  Say that you had to read a lot of man pages in order to achieve a particular result with some command that you used in your script.   You won't remember how it worked if you need to change your script after a few weeks or months, unless you have commented what you did, how you did it and/or why you did it.</P
+><P
+>Take the <TT
+CLASS="filename"
+>script1.sh</TT
+> example and copy it to <TT
+CLASS="filename"
+>commented-script1.sh</TT
+>, which we edit so that the comments reflect what the script does.  Everything the shell encounters after a hash mark on a line is ignored and only visible upon opening the shell script file:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+# This script clears the terminal, displays a greeting and gives information
+# about currently connected users.  The two example variables are set and displayed.
+
+clear				# clear terminal window
+
+echo "The script starts now."
+
+echo "Hi, $USER!"		# dollar sign is used to get content of variable
+echo
+
+echo "I will now fetch you a list of connected users:"
+echo							
+w				# show who is logged on and
+echo				# what they are doing
+
+echo "I'm setting two variables now."
+COLOUR="black"					# set a local shell variable
+VALUE="9"					# set a local shell variable
+echo "This is a string: $COLOUR"		# display content of variable 
+echo "And this is a number: $VALUE"		# display content of variable
+echo
+
+echo "I'm giving you back your prompt now."
+echo
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>In a decent script, the first lines are usually comment about what to expect.  Then each big chunk of commands will be commented as needed for clarity's sake.  Linux init scripts, as an example, in your system's <TT
+CLASS="filename"
+>init.d</TT
+> directory, are usually well commented since they have to be readable and editable by everyone running Linux.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_02_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_02_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Creating and running a script</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_02.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Debugging Bash scripts</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

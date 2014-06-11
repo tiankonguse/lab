@@ -1,0 +1,403 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Executing commands</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Bash and Bash scripts"
+HREF="chap_01.html"><LINK
+REL="PREVIOUS"
+TITLE="Advantages of the Bourne Again SHell"
+HREF="sect_01_02.html"><LINK
+REL="NEXT"
+TITLE="Building blocks"
+HREF="sect_01_04.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_01_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 1. Bash and Bash scripts</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_01_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_01_03"
+></A
+>1.3. Executing commands</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_01_03_01"
+></A
+>1.3.1. General</H2
+><P
+>Bash determines the type of program that is to be executed.  Normal programs are system commands that exist in compiled form on your system.  When such a program is executed, a new process is created because Bash makes an exact copy of itself.  This child process has the same environment as its parent, only the process ID number is different.  This procedure is called <EM
+>forking</EM
+>.</P
+><P
+>After the forking process, the address space of the child process is overwritten with the new process data.  This is done through an <EM
+>exec</EM
+> call to the system.</P
+><P
+>The <EM
+>fork-and-exec</EM
+> mechanism thus switches an old command with a new, while the environment in which the new program is executed remains the same, including configuration of input and output devices, environment variables and priority.  This mechanism is used to create all UNIX processes, so it also applies to the Linux operating system.  Even the first process, <B
+CLASS="command"
+>init</B
+>, with process ID 1, is forked during the boot procedure in the so-called <EM
+>bootstrapping</EM
+> procedure.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_01_03_02"
+></A
+>1.3.2. Shell built-in commands</H2
+><P
+>Built-in commands are contained within the shell itself.  When the name of a built-in command is used as the first word of a simple command, the shell executes the command directly, without creating a new process.  Built-in commands are necessary to implement functionality impossible or inconvenient to obtain with separate utilities.</P
+><P
+>Bash supports 3 types of built-in commands:</P
+><P
+></P
+><UL
+><LI
+><P
+>Bourne Shell built-ins:</P
+><P
+><B
+CLASS="command"
+>:</B
+>, <B
+CLASS="command"
+>.</B
+>, <B
+CLASS="command"
+>break</B
+>, <B
+CLASS="command"
+>cd</B
+>, <B
+CLASS="command"
+>continue</B
+>, <B
+CLASS="command"
+>eval</B
+>, <B
+CLASS="command"
+>exec</B
+>, <B
+CLASS="command"
+>exit</B
+>, <B
+CLASS="command"
+>export</B
+>, <B
+CLASS="command"
+>getopts</B
+>, <B
+CLASS="command"
+>hash</B
+>, <B
+CLASS="command"
+>pwd</B
+>, <B
+CLASS="command"
+>readonly</B
+>, <B
+CLASS="command"
+>return</B
+>, <B
+CLASS="command"
+>set</B
+>, <B
+CLASS="command"
+>shift</B
+>, <B
+CLASS="command"
+>test</B
+>, <B
+CLASS="command"
+>[</B
+>, <B
+CLASS="command"
+>times</B
+>, <B
+CLASS="command"
+>trap</B
+>, <B
+CLASS="command"
+>umask</B
+> and <B
+CLASS="command"
+>unset</B
+>.</P
+></LI
+><LI
+><P
+>Bash built-in commands:</P
+><P
+><B
+CLASS="command"
+>alias</B
+>, <B
+CLASS="command"
+>bind</B
+>, <B
+CLASS="command"
+>builtin</B
+>, <B
+CLASS="command"
+>command</B
+>, <B
+CLASS="command"
+>declare</B
+>, <B
+CLASS="command"
+>echo</B
+>, <B
+CLASS="command"
+>enable</B
+>, <B
+CLASS="command"
+>help</B
+>, <B
+CLASS="command"
+>let</B
+>, <B
+CLASS="command"
+>local</B
+>, <B
+CLASS="command"
+>logout</B
+>, <B
+CLASS="command"
+>printf</B
+>, <B
+CLASS="command"
+>read</B
+>, <B
+CLASS="command"
+>shopt</B
+>, <B
+CLASS="command"
+>type</B
+>, <B
+CLASS="command"
+>typeset</B
+>, <B
+CLASS="command"
+>ulimit</B
+> and <B
+CLASS="command"
+>unalias</B
+>.</P
+></LI
+><LI
+><P
+>Special built-in commands:</P
+><P
+>When Bash is executing in POSIX mode, the special built-ins differ from other built-in commands in three respects:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Special built-ins are found before shell functions during command lookup.</P
+></LI
+><LI
+><P
+>If a special built-in returns an error status, a non-interactive shell exits.</P
+></LI
+><LI
+><P
+>Assignment statements preceding the command stay in effect in the shell environment after the command completes.</P
+></LI
+></OL
+><P
+>The POSIX special built-ins are <B
+CLASS="command"
+>:</B
+>, <B
+CLASS="command"
+>.</B
+>, <B
+CLASS="command"
+>break</B
+>, <B
+CLASS="command"
+>continue</B
+>, <B
+CLASS="command"
+>eval</B
+>, <B
+CLASS="command"
+>exec</B
+>, <B
+CLASS="command"
+>exit</B
+>, <B
+CLASS="command"
+>export</B
+>, <B
+CLASS="command"
+>readonly</B
+>, <B
+CLASS="command"
+>return</B
+>, <B
+CLASS="command"
+>set</B
+>, <B
+CLASS="command"
+>shift</B
+>, <B
+CLASS="command"
+>trap</B
+> and <B
+CLASS="command"
+>unset</B
+>.</P
+></LI
+></UL
+><P
+>Most of these built-ins will be discussed in the next chapters.  For those commands for which this is not the case, we refer to the Info pages.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_01_03_03"
+></A
+>1.3.3. Executing programs from a script</H2
+><P
+>When the program being executed is a shell script, bash will create a new bash process using a <EM
+>fork</EM
+>.  This subshell reads the lines from the shell script one line at a time.  Commands on each line are read, interpreted and executed as if they would have come directly from the keyboard.</P
+><P
+>While the subshell processes each line of the script, the parent shell waits for its child process to finish.  When there are no more lines in the shell script to read, the subshell terminates.  The parent shell awakes and displays a new prompt.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_01_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_01_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Advantages of the Bourne Again SHell</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_01.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Building blocks</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

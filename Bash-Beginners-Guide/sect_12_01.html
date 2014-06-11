@@ -1,0 +1,667 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Signals</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Catching signals"
+HREF="chap_12.html"><LINK
+REL="PREVIOUS"
+TITLE="Catching signals"
+HREF="chap_12.html"><LINK
+REL="NEXT"
+TITLE="Traps"
+HREF="sect_12_02.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chap_12.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 12. Catching signals</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_12_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_12_01"
+></A
+>12.1. Signals</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_12_01_01"
+></A
+>12.1.1. Introduction</H2
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_12_01_01_01"
+></A
+>12.1.1.1. Finding the signal man page</H3
+><P
+>Your system contains a man page listing all the available signals, but depending on your operating system, it might be opened in a different way.  On most Linux systems, this will be <B
+CLASS="command"
+>man <TT
+CLASS="option"
+>7</TT
+> signal</B
+>.  When in doubt, locate the exact man page and section using commands like</P
+><P
+><B
+CLASS="command"
+>man <TT
+CLASS="option"
+>-k</TT
+> signal | grep <TT
+CLASS="option"
+>list</TT
+></B
+> </P
+><P
+>or</P
+><P
+><B
+CLASS="command"
+>apropos signal | grep <TT
+CLASS="option"
+>list</TT
+></B
+> </P
+><P
+>Signal names can be found using <B
+CLASS="command"
+>kill -l</B
+>.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_12_01_01_02"
+></A
+>12.1.1.2. Signals to your Bash shell</H3
+><P
+>In the absence of any traps, an interactive Bash shell ignores <EM
+>SIGTERM</EM
+> and <EM
+>SIGQUIT</EM
+>.  <EM
+>SIGINT</EM
+> is caught and handled, and if job control is active, <EM
+>SIGTTIN</EM
+>, <EM
+>SIGTTOU</EM
+> and <EM
+>SIGTSTP</EM
+> are also ignored.  Commands that are run as the result of a command substitution also ignore these signals, when keyboard generated.</P
+><P
+><EM
+>SIGHUP</EM
+> by default exits a shell.  An interactive shell will send a <EM
+>SIGHUP</EM
+> to all jobs, running or stopped; see the documentation on the <B
+CLASS="command"
+>disown</B
+> built-in if you want to disable this default behavior for a particular process.  Use the <TT
+CLASS="option"
+>huponexit</TT
+> option for killing all jobs upon receiving a <EM
+>SIGHUP</EM
+> signal, using the <B
+CLASS="command"
+>shopt</B
+> built-in.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_12_01_01_03"
+></A
+>12.1.1.3. Sending signals using the shell</H3
+><P
+>The following signals can be sent using the Bash shell:</P
+><DIV
+CLASS="table"
+><A
+NAME="tab_12_01"
+></A
+><P
+><B
+>Table 12-1. Control signals in Bash</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Standard key combination</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><B
+CLASS="keycap"
+>Ctrl</B
+>+<B
+CLASS="keycap"
+>C</B
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The interrupt signal, sends SIGINT to the job running in the foreground.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><B
+CLASS="keycap"
+>Ctrl</B
+>+<B
+CLASS="keycap"
+>Y</B
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The <EM
+>delayed suspend</EM
+> character.  Causes a running process to be stopped when it attempts to read input from the terminal.  Control is returned to the shell, the user can foreground, background or kill the process.  Delayed suspend is only available on operating systems supporting this feature.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><B
+CLASS="keycap"
+>Ctrl</B
+>+<B
+CLASS="keycap"
+>Z</B
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The <EM
+>suspend</EM
+> signal, sends a <EM
+>SIGTSTP</EM
+> to a running program, thus stopping it and returning control to the shell.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Terminal settings</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Check your <B
+CLASS="command"
+>stty</B
+> settings.  Suspend and resume of output is usually disabled if you are using <SPAN
+CLASS="QUOTE"
+>"modern"</SPAN
+> terminal emulations.  The standard <B
+CLASS="command"
+>xterm</B
+> supports <B
+CLASS="keycap"
+>Ctrl</B
+>+<B
+CLASS="keycap"
+>S</B
+> and <B
+CLASS="keycap"
+>Ctrl</B
+>+<B
+CLASS="keycap"
+>Q</B
+> by default.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_12_01_02"
+></A
+>12.1.2. Usage of signals with kill</H2
+><P
+>Most modern shells, Bash included, have a built-in <B
+CLASS="command"
+>kill</B
+> function.  In Bash, both signal names and numbers are accepted as options, and arguments may be job or process IDs.  An exit status can be reported using the <TT
+CLASS="option"
+>-l</TT
+> option: zero when at least one signal was successfully sent, non-zero if an error occurred.</P
+><P
+>Using the <B
+CLASS="command"
+>kill</B
+> command from <TT
+CLASS="filename"
+>/usr/bin</TT
+>, your system might enable extra options, such as the ability to kill processes from other than your own user ID and specifying processes by name, like with <B
+CLASS="command"
+>pgrep</B
+> and <B
+CLASS="command"
+>pkill</B
+>.</P
+><P
+>Both <B
+CLASS="command"
+>kill</B
+> commands send the <EM
+>TERM</EM
+> signal if none is given.</P
+><P
+>This is a list of the most common signals:</P
+><DIV
+CLASS="table"
+><A
+NAME="tab_12_02"
+></A
+><P
+><B
+>Table 12-2. Common kill signals</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Signal name</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Signal value</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Effect</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>SIGHUP</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>1</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Hangup</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>SIGINT</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>2</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Interrupt from keyboard</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>SIGKILL</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>9</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Kill signal</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>SIGTERM</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>15</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Termination signal</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>SIGSTOP</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>17,19,23</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Stop the process</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>SIGKILL and SIGSTOP</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><EM
+>SIGKILL</EM
+> and <EM
+>SIGSTOP</EM
+> can not be caught, blocked or ignored.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>When killing a process or series of processes, it is common sense to start trying with the least dangerous signal, <EM
+>SIGTERM</EM
+>.  That way, programs that care about an orderly shutdown get the chance to follow the procedures that they have been designed to execute when getting the <EM
+>SIGTERM</EM
+> signal, such as cleaning up and closing open files.  If you send a <EM
+>SIGKILL</EM
+> to a process, you remove any chance for the process to do a tidy cleanup and shutdown, which might have unfortunate consequences.</P
+><P
+>But if a clean termination does not work, the <EM
+>INT</EM
+> or<EM
+>KILL</EM
+> signals might be the only way.  For instance, when a process does not die using <B
+CLASS="keycap"
+>Ctrl</B
+>+<B
+CLASS="keycap"
+>C</B
+>, it is best to use the <B
+CLASS="command"
+>kill <TT
+CLASS="option"
+>-9</TT
+></B
+> on that process ID:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>maud: ~&#62;</TT
+> <B
+CLASS="command"
+>ps <TT
+CLASS="option"
+>-ef</TT
+> | grep <TT
+CLASS="parameter"
+><I
+>stuck_process</I
+></TT
+></B
+>
+maud    5607   2214  0 20:05 pts/5    00:00:02 stuck_process
+
+<TT
+CLASS="prompt"
+>maud: ~&#62;</TT
+> <B
+CLASS="command"
+>kill <TT
+CLASS="option"
+>-9</TT
+> <TT
+CLASS="parameter"
+><I
+>5607</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>maud: ~&#62;</TT
+> <B
+CLASS="command"
+>ps <TT
+CLASS="option"
+>-ef</TT
+> | grep <TT
+CLASS="parameter"
+><I
+>stuck_process</I
+></TT
+></B
+>
+maud    5614    2214 0 20:15 pts/5    00:00:00 grep stuck_process
+[1]+ Killed		stuck_process
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>When a process starts up several instances, <B
+CLASS="command"
+>killall</B
+> might be easier.  It takes the same option as the <B
+CLASS="command"
+>kill</B
+> command, but applies on all instances of a given process.  Test this command before using it in a production environment, since it might not work as expected on some of the commercial Unices.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chap_12.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_12_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Catching signals</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_12.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Traps</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,649 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Creating and running a script</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Writing and debugging scripts"
+HREF="chap_02.html"><LINK
+REL="PREVIOUS"
+TITLE="Writing and debugging scripts"
+HREF="chap_02.html"><LINK
+REL="NEXT"
+TITLE="Script basics"
+HREF="sect_02_02.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chap_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 2. Writing and debugging scripts</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_02_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_02_01"
+></A
+>2.1. Creating and running a script</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_02_01_01"
+></A
+>2.1.1. Writing and naming</H2
+><P
+>A shell script is a sequence of commands for which you have a repeated use.  This sequence is typically executed by entering the name of the script on the command line.  Alternatively, you can use scripts to automate tasks using the cron facility.  Another use for scripts is in the UNIX boot and shutdown procedure, where operation of daemons and services are defined in init scripts.</P
+><P
+>To create a shell script, open a new empty file in your editor.  Any text editor will do: <B
+CLASS="command"
+>vim</B
+>, <B
+CLASS="command"
+>emacs</B
+>, <B
+CLASS="command"
+>gedit</B
+>, <B
+CLASS="command"
+>dtpad</B
+> et cetera are all valid.  You might want to chose a more advanced editor like <B
+CLASS="command"
+>vim</B
+> or <B
+CLASS="command"
+>emacs</B
+>, however, because these can be configured to recognize shell and Bash syntax and can be a great help in preventing those errors that beginners frequently make, such as forgetting brackets and semi-colons.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Syntax highlighting in vim</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>In order to activate syntax highlighting in <B
+CLASS="command"
+>vim</B
+>, use the command</P
+><P
+><B
+CLASS="command"
+>:syntax enable</B
+> </P
+><P
+>or</P
+><P
+><B
+CLASS="command"
+>:sy enable</B
+> </P
+><P
+>or</P
+><P
+><B
+CLASS="command"
+>:syn enable</B
+> </P
+><P
+>You can add this setting to your <TT
+CLASS="filename"
+>.vimrc</TT
+> file to make it permanent.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Put UNIX commands in the new empty file, like you would enter them on the command line.   As discussed in the previous chapter (see <A
+HREF="sect_01_03.html"
+>Section 1.3</A
+>), commands can be shell functions, shell built-ins, UNIX commands and other scripts.</P
+><P
+>Give your script a sensible name that gives a hint about what the script does.  Make sure that your script name does not conflict with existing commands.  In order to ensure that no confusion can rise, script names often end in <TT
+CLASS="filename"
+>.sh</TT
+>; even so, there might be other scripts on your system with the same name as the one you chose.  Check using <B
+CLASS="command"
+>which</B
+>, <B
+CLASS="command"
+>whereis</B
+> and other commands for finding information about programs and files:</P
+><P
+><B
+CLASS="command"
+>which <TT
+CLASS="option"
+>-a</TT
+> <TT
+CLASS="filename"
+>script_name</TT
+></B
+> </P
+><P
+><B
+CLASS="command"
+>whereis <TT
+CLASS="filename"
+>script_name</TT
+></B
+> </P
+><P
+><B
+CLASS="command"
+>locate <TT
+CLASS="filename"
+>script_name</TT
+></B
+> </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_02_01_02"
+></A
+>2.1.2. script1.sh</H2
+><P
+>In this example we use the <B
+CLASS="command"
+>echo</B
+> Bash built-in to inform the user about what is going to happen, before the task that will create the output is executed.  It is strongly advised to inform users about what a script is doing, in order to prevent them from becoming nervous <EM
+>because the script is not doing anything</EM
+>.  We will return to the subject of notifying users in <A
+HREF="chap_08.html"
+>Chapter 8</A
+>.</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN1409"
+></A
+><P
+><B
+>Figure 2-1. script1.sh</B
+></P
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="images/script1.sh.png"></P
+></DIV
+></DIV
+><P
+>Write this script for yourself as well.  It might be a good idea to create a directory <TT
+CLASS="filename"
+>~/scripts</TT
+> to hold your scripts.  Add the directory to the contents of the <TT
+CLASS="varname"
+>PATH</TT
+> variable:</P
+><P
+><B
+CLASS="command"
+>export <TT
+CLASS="varname"
+>PATH</TT
+>="<TT
+CLASS="varname"
+>$PATH</TT
+>:<TT
+CLASS="filename"
+>~/scripts</TT
+>"</B
+> </P
+><P
+>If you are just getting started with Bash, use a text editor that uses different colours for different shell constructs.  Syntax highlighting is supported by <B
+CLASS="command"
+>vim</B
+>, <B
+CLASS="command"
+>gvim</B
+>, <B
+CLASS="command"
+>(x)emacs</B
+>, <B
+CLASS="command"
+>kwrite</B
+> and many other editors; check the documentation of your favorite editor.</P
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Different prompts</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>The prompts throughout this course vary depending on the author's mood.  This resembles much more real life situations than the standard educational <EM
+>$</EM
+> prompt.  The only convention we stick to, is that the <EM
+>root</EM
+> prompt ends in a hash mark (#).</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_02_01_03"
+></A
+>2.1.3. Executing the script</H2
+><P
+>The script should have execute permissions for the correct owners in order to be runnable.  When setting permissions, check that you really obtained the permissions that you want.  When this is done, the script can run like any other command:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>chmod <TT
+CLASS="option"
+>u+x</TT
+> <TT
+CLASS="filename"
+>script1.sh</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>ls <TT
+CLASS="option"
+>-l</TT
+> <TT
+CLASS="filename"
+>script1.sh</TT
+></B
+>
+-rwxrw-r--    1 willy	willy		456 Dec 24 17:11 script1.sh
+
+<TT
+CLASS="prompt"
+>willy:~&#62;</TT
+> <B
+CLASS="command"
+>script1.sh</B
+>
+The script starts now.
+Hi, willy!
+
+I will now fetch you a list of connected users:
+
+  3:38pm  up 18 days,  5:37,  4 users,  load average: 0.12, 0.22, 0.15
+USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU  WHAT
+root     tty2     -                Sat 2pm  4:25m  0.24s  0.05s  -bash
+willy	 :0       -                Sat 2pm   ?     0.00s   ?     -
+willy    pts/3    -                Sat 2pm  3:33m 36.39s 36.39s  BitchX willy ir
+willy    pts/2    -                Sat 2pm  3:33m  0.13s  0.06s  /usr/bin/screen
+
+I'm setting two variables now.
+This is a string: black
+And this is a number: 9
+
+I'm giving you back your prompt now.
+
+<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$COLOUR</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$VALUE</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>This is the most common way to execute a script.  It is preferred to execute the script like this in a subshell.  The variables, functions and aliases created in this subshell are only known to the particular bash session of that subshell.  When that shell exits and the parent regains control, everything is cleaned up and all changes to the state of the shell made by the script, are forgotten.</P
+><P
+>If you did not put the <TT
+CLASS="filename"
+>scripts</TT
+> directory in your <TT
+CLASS="varname"
+>PATH</TT
+>, and <TT
+CLASS="filename"
+>.</TT
+> (the current directory) is not in the <TT
+CLASS="varname"
+>PATH</TT
+> either, you can activate the script like this:</P
+><P
+><B
+CLASS="command"
+>./script_name.sh</B
+> </P
+><P
+>A script can also explicitly be executed by a given shell, but generally we only do this if we want to obtain special behavior, such as checking if the script works with another shell or printing traces for debugging:</P
+><P
+><B
+CLASS="command"
+>rbash <TT
+CLASS="filename"
+>script_name.sh</TT
+></B
+> </P
+><P
+><B
+CLASS="command"
+>sh <TT
+CLASS="filename"
+>script_name.sh</TT
+></B
+> </P
+><P
+><B
+CLASS="command"
+>bash <TT
+CLASS="option"
+>-x</TT
+> <TT
+CLASS="filename"
+>script_name.sh</TT
+></B
+> </P
+><P
+>The specified shell will start as a subshell of your current shell and execute the script.  This is done when you want the script to start up with specific options or under specific conditions which are not specified in the script.</P
+><P
+>If you don't want to start a new shell but execute the script in the current shell, you <EM
+>source</EM
+> it:</P
+><P
+><B
+CLASS="command"
+>source <TT
+CLASS="filename"
+>script_name.sh</TT
+></B
+> </P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>source = .</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>The Bash <B
+CLASS="command"
+>source</B
+> built-in is a synonym for the Bourne shell <B
+CLASS="command"
+>.</B
+> (dot) command.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>The script does not need execute permission in this case.  Commands are executed in the current shell context, so any changes made to your environment will be visible when the script finishes execution:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>source <TT
+CLASS="filename"
+>script1.sh</TT
+></B
+>
+--output ommitted--
+
+<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$VALUE</TT
+></B
+>
+9
+
+<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chap_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_02_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Writing and debugging scripts</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_02.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Script basics</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

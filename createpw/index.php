@@ -70,7 +70,7 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
 		<div class="create-pw-load-inner">
 			正在生成密码 <br /> <img
 				src="./loading.gif"
-				style="height: 30px;" />
+				style="height: 30px;" alt="loading"/>
 		</div>
 	</div>
 	<script src="<?php echo DOMAIN_JS;?>main.js"></script>

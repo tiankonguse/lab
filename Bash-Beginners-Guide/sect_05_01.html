@@ -1,0 +1,403 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Introduction</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The GNU sed stream editor"
+HREF="chap_05.html"><LINK
+REL="PREVIOUS"
+TITLE="The GNU sed stream editor"
+HREF="chap_05.html"><LINK
+REL="NEXT"
+TITLE="Interactive editing"
+HREF="sect_05_02.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chap_05.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 5. The GNU sed stream editor</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_05_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_05_01"
+></A
+>5.1. Introduction</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_05_01_01"
+></A
+>5.1.1. What is sed?</H2
+><P
+>A <SPAN
+CLASS="application"
+>Stream EDitor</SPAN
+> is used to perform basic transformations on text read from a file or a pipe.  The result is sent to standard output.  The syntax for the <B
+CLASS="command"
+>sed</B
+> command has no output file specification, but results can be saved to a file using output redirection.  The editor does not modify the original input.</P
+><P
+>What distinguishes <B
+CLASS="command"
+>sed</B
+> from other editors, such as <B
+CLASS="command"
+>vi</B
+> and <B
+CLASS="command"
+>ed</B
+>, is its ability to filter text that it gets from a pipeline feed.  You do not need to interact with the editor while it is running; that is why <B
+CLASS="command"
+>sed</B
+> is sometimes called a <EM
+>batch editor</EM
+>.  This feature allows use of editing commands in scripts, greatly easing repetitive editing tasks.  When facing replacement of text in a large number of files, <B
+CLASS="command"
+>sed</B
+> is a great help.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_05_01_02"
+></A
+>5.1.2. sed commands</H2
+><P
+>The <B
+CLASS="command"
+>sed</B
+> program can perform text pattern substitutions and deletions using regular expressions, like the ones used with the <B
+CLASS="command"
+>grep</B
+> command; see <A
+HREF="sect_04_02.html"
+>Section 4.2</A
+>.</P
+><P
+>The editing commands are similar to the ones used in the <B
+CLASS="command"
+>vi</B
+> editor:</P
+><DIV
+CLASS="table"
+><A
+NAME="tab_05_01"
+></A
+><P
+><B
+>Table 5-1. Sed editing commands</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Command</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Result</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>a\</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Append text below current line.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>c\</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Change text in the current line with new text.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>d</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Delete text.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>i\</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Insert text above current line.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>p</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Print text.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>r</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Read a file.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>s</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Search and replace text.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>w</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Write to a file.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>Apart from editing commands, you can give options to <B
+CLASS="command"
+>sed</B
+>.  An overview is in the table below:</P
+><DIV
+CLASS="table"
+><A
+NAME="tab_05_02"
+></A
+><P
+><B
+>Table 5-2. Sed options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Option</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Effect</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="option"
+>-e SCRIPT</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Add the commands in SCRIPT to the set of commands to be run while processing the input.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="option"
+>-f</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Add the commands contained in the file SCRIPT-FILE to the set of commands to be run while processing the input.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="option"
+>-n</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Silent mode.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="option"
+>-V</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Print version information and exit.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>The <B
+CLASS="command"
+>sed</B
+> info pages contain more information; we only list the most frequently used commands and options here.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chap_05.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_05_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The GNU sed stream editor</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_05.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Interactive editing</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

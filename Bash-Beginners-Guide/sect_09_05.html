@@ -1,0 +1,481 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Break and continue</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Repetitive tasks"
+HREF="chap_09.html"><LINK
+REL="PREVIOUS"
+TITLE="I/O redirection and loops"
+HREF="sect_09_04.html"><LINK
+REL="NEXT"
+TITLE="Making menus with the select built-in"
+HREF="sect_09_06.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_09_04.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 9. Repetitive tasks</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_09_06.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_09_05"
+></A
+>9.5. Break and continue</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_09_05_01"
+></A
+>9.5.1. The break built-in</H2
+><P
+>The <B
+CLASS="command"
+>break</B
+> statement is used to exit the current loop before its normal ending.  This is done when you don't know in advance how many times the loop will have to execute, for instance because it is dependent on user input.</P
+><P
+>The example below demonstrates a <B
+CLASS="command"
+>while</B
+> loop that can be interrupted.  This is a slightly improved version of the <TT
+CLASS="filename"
+>wisdom.sh</TT
+> script from <A
+HREF="sect_09_02.html#sect_09_02_02_03"
+>Section 9.2.2.3</A
+>.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+
+# This script provides wisdom
+# You can now exit in a decent way.
+
+FORTUNE=/usr/games/fortune
+
+while true; do
+echo "On which topic do you want advice?"
+echo "1.  politics"
+echo "2.  startrek"
+echo "3.  kernelnewbies"
+echo "4.  sports"
+echo "5.  bofh-excuses"
+echo "6.  magic"
+echo "7.  love"
+echo "8.  literature"
+echo "9.  drugs"
+echo "10. education"
+echo
+
+echo -n "Enter your choice, or 0 for exit: "
+read choice
+echo
+
+case $choice in
+     1)
+     $FORTUNE politics
+     ;;
+     2)
+     $FORTUNE startrek
+     ;;
+     3)
+     $FORTUNE kernelnewbies
+     ;;
+     4)
+     echo "Sports are a waste of time, energy and money."
+     echo "Go back to your keyboard."
+     echo -e "\t\t\t\t -- \"Unhealthy is my middle name\" Soggie."
+     ;;
+     5)
+     $FORTUNE bofh-excuses
+     ;;
+     6)
+     $FORTUNE magic
+     ;;
+     7)
+     $FORTUNE love
+     ;;
+     8)
+     $FORTUNE literature
+     ;;
+     9)
+     $FORTUNE drugs
+     ;;
+     10)
+     $FORTUNE education
+     ;;
+     0)
+     echo "OK, see you!"
+     break
+     ;;
+     *)
+     echo "That is not a valid choice, try a number from 0 to 10."
+     ;;
+esac  
+done
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Mind that <B
+CLASS="command"
+>break</B
+> exits the loop, not the script.  This can be demonstrated by adding an <B
+CLASS="command"
+>echo</B
+> command at the end of the script.  This <B
+CLASS="command"
+>echo</B
+> will also be executed upon input that causes <B
+CLASS="command"
+>break</B
+> to be executed (when the user types <SPAN
+CLASS="QUOTE"
+>"0"</SPAN
+>).</P
+><P
+>In nested loops, <B
+CLASS="command"
+>break</B
+> allows for specification of which loop to exit.  See the Bash <B
+CLASS="command"
+>info</B
+> pages for more.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_09_05_02"
+></A
+>9.5.2. The continue built-in</H2
+><P
+>The <B
+CLASS="command"
+>continue</B
+> statement resumes iteration of an enclosing <B
+CLASS="command"
+>for</B
+>, <B
+CLASS="command"
+>while</B
+>, <B
+CLASS="command"
+>until</B
+> or <B
+CLASS="command"
+>select</B
+> loop.</P
+><P
+>When used in a <B
+CLASS="command"
+>for</B
+> loop, the controlling variable takes on the value of the next element in the list.  When used in a <B
+CLASS="command"
+>while</B
+> or <B
+CLASS="command"
+>until</B
+> construct, on the other hand, execution resumes with <B
+CLASS="command"
+>TEST-COMMAND</B
+> at the top of the loop.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_09_05_03"
+></A
+>9.5.3. Examples</H2
+><P
+>In the following example, file names are converted to lower case.  If no conversion needs to be done, a <B
+CLASS="command"
+>continue</B
+> statement restarts execution of the loop.  These commands don't eat much system resources, and most likely, similar problems can be solved using <B
+CLASS="command"
+>sed</B
+> and <B
+CLASS="command"
+>awk</B
+>.  However, it is useful to know about this kind of construction when executing heavy jobs, that might not even be necessary when tests are inserted at the correct locations in a script, sparing system resources.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[carol@octarine ~/test]</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>tolower.sh</TT
+></B
+>
+#!/bin/bash
+
+# This script converts all file names containing upper case characters into file# names containing only lower cases.
+
+LIST="$(ls)"
+
+for name in "$LIST"; do
+
+if [[ "$name" != *[[:upper:]]* ]]; then
+continue
+fi
+
+ORIG="$name"
+NEW=`echo $name | tr 'A-Z' 'a-z'`
+
+mv "$ORIG" "$NEW"
+echo "new name for $ORIG is $NEW"
+done
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>This script has at least one disadvantage: it overwrites existing files.  The <TT
+CLASS="option"
+>noclobber</TT
+> option to Bash is only useful when redirection occurs.  The <TT
+CLASS="option"
+>-b</TT
+> option to the <B
+CLASS="command"
+>mv</B
+> command provides more security, but is only safe in case of one accidental overwrite, as is demonstrated in this test:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[carol@octarine ~/test]</TT
+> <B
+CLASS="command"
+>rm <TT
+CLASS="filename"
+>*</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[carol@octarine ~/test]</TT
+> <B
+CLASS="command"
+>touch <TT
+CLASS="filename"
+>test Test TEST</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[carol@octarine ~/test]</TT
+> <B
+CLASS="command"
+>bash <TT
+CLASS="option"
+>-x</TT
+> <TT
+CLASS="filename"
+>tolower.sh</TT
+></B
+>
+++ ls
++ LIST=test
+Test
+TEST
++ [[ test != *[[:upper:]]* ]]
++ continue
++ [[ Test != *[[:upper:]]* ]]
++ ORIG=Test
+++ echo Test
+++ tr A-Z a-z
++ NEW=test
++ mv -b Test test
++ echo 'new name for Test is test'
+new name for Test is test
++ [[ TEST != *[[:upper:]]* ]]
++ ORIG=TEST
+++ echo TEST
+++ tr A-Z a-z
++ NEW=test
++ mv -b TEST test
++ echo 'new name for TEST is test'
+new name for TEST is test
+
+<TT
+CLASS="prompt"
+>[carol@octarine ~/test]</TT
+> <B
+CLASS="command"
+>ls <TT
+CLASS="option"
+>-a</TT
+></B
+>
+./  ../  test  test~
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>The <B
+CLASS="command"
+>tr</B
+> is part of the <EM
+>textutils</EM
+> package; it can perform all kinds of character transformations.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_09_04.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_09_06.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>I/O redirection and loops</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_09.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Making menus with the select built-in</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

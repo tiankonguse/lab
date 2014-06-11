@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Exercises</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Conditional statements"
+HREF="chap_07.html"><LINK
+REL="PREVIOUS"
+TITLE="Summary"
+HREF="sect_07_04.html"><LINK
+REL="NEXT"
+TITLE="Writing interactive scripts"
+HREF="chap_08.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_07_04.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 7. Conditional statements</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chap_08.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_07_05"
+></A
+>7.5. Exercises</H1
+><P
+>Here are some ideas to get you started using <B
+CLASS="command"
+>if</B
+> in scripts:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Use an <B
+CLASS="command"
+>if/then/elif/else</B
+> construct that prints information about the current month.  The script should print the number of days in this month, and give information about leap years if the current month is February.</P
+></LI
+><LI
+><P
+>Do the same, using a <B
+CLASS="command"
+>case</B
+> statement and an alternative use of the <B
+CLASS="command"
+>date</B
+> command.</P
+></LI
+><LI
+><P
+>Modify <TT
+CLASS="filename"
+>/etc/profile</TT
+> so that you get a special greeting message when you connect to your system as <EM
+>root</EM
+>.</P
+></LI
+><LI
+><P
+>Edit the <TT
+CLASS="filename"
+>leaptest.sh</TT
+> script from <A
+HREF="sect_07_02.html#sect_07_02_04"
+>Section 7.2.4</A
+> so that it requires one argument, the year.  Test that exactly one argument is supplied.</P
+></LI
+><LI
+><P
+>Write a script called <TT
+CLASS="filename"
+>whichdaemon.sh</TT
+> that checks if the <B
+CLASS="command"
+>httpd</B
+> and <B
+CLASS="command"
+>init</B
+> daemons are running on your system.  If an <B
+CLASS="command"
+>httpd</B
+> is running, the script should print a message like, <SPAN
+CLASS="QUOTE"
+>"This machine is running a web server."</SPAN
+>  Use <B
+CLASS="command"
+>ps</B
+> to check on processes.</P
+></LI
+><LI
+><P
+>Write a script that makes a backup of your home directory on a remote machine using <B
+CLASS="command"
+>scp</B
+>.  The script should report in a log file, for instance <TT
+CLASS="filename"
+>~/log/homebackup.log</TT
+>.  If you don't have a second machine to copy the backup to, use <B
+CLASS="command"
+>scp</B
+> to test copying it to the localhost.  This requires SSH keys between the two hosts, or else you have to supply a password.  The creation of SSH keys is explained in <B
+CLASS="command"
+>man <TT
+CLASS="parameter"
+><I
+>ssh-keygen</I
+></TT
+></B
+>.</P
+><LI
+><P
+>Adapt the script from the first example in <A
+HREF="sect_07_03.html#sect_07_03_01"
+>Section 7.3.1</A
+> to include the case of exactly 90% disk space usage, and lower than 10% disk space usage.</P
+></LI
+><P
+>The script should use <B
+CLASS="command"
+>tar <TT
+CLASS="option"
+>cf</TT
+></B
+> for the creation of the backup and <B
+CLASS="command"
+>gzip</B
+> or <B
+CLASS="command"
+>bzip2</B
+> for compressing the <TT
+CLASS="filename"
+>.tar</TT
+> file.  Put all filenames in variables.  Put the name of the remote server and the remote directory in a variable.  This will make it easier to re-use the script or to make changes to it in the future.</P
+><P
+>The script should check for the existence of a compressed archive.  If this exists, remove it first in order to prevent output generation.</P
+><P
+>The script should also check for available diskspace.  Keep in mind that at any given moment you could have the data in your home directory, the data in the <TT
+CLASS="filename"
+>.tar</TT
+> file and the data in the compressed archive all together on your disk.  If there is not enough diskspace, exit with an error message in the log file.</P
+><P
+>The script should clean up the compressed archive before it exits.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_07_04.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chap_08.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Summary</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_07.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Writing interactive scripts</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,396 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Regular expressions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Regular expressions"
+HREF="chap_04.html"><LINK
+REL="PREVIOUS"
+TITLE="Regular expressions"
+HREF="chap_04.html"><LINK
+REL="NEXT"
+TITLE="Examples using grep"
+HREF="sect_04_02.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chap_04.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 4. Regular expressions</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_04_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_04_01"
+></A
+>4.1. Regular expressions</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_04_01_01"
+></A
+>4.1.1. What are regular expressions?</H2
+><P
+>A <EM
+>regular expression</EM
+> is a pattern that describes a set of strings.  Regular expressions are constructed analogously to arithmetic expressions by using various operators to combine smaller expressions.</P
+><P
+>The fundamental building blocks are the regular expressions that match a single character.  Most characters, including all letters and digits, are regular expressions that match themselves.  Any metacharacter with special meaning may be quoted by preceding it with a backslash.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_04_01_02"
+></A
+>4.1.2. Regular expression metacharacters</H2
+><P
+>A regular expression may be followed by one of several repetition operators (metacharacters):</P
+><DIV
+CLASS="table"
+><A
+NAME="table_04_01"
+></A
+><P
+><B
+>Table 4-1. Regular expression operators</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Operator</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Effect</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>.</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Matches any single character.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>?</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The preceding item is optional and will be matched, at most, once.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>*</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The preceding item will be matched zero or more times.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>+</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The preceding item will be matched one or more times.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>{N}</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The preceding item is matched exactly N times.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>{N,}</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The preceding item is matched N or more times.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>{N,M}</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The preceding item is matched at least N times, but not more than M times.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>-</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>represents the range if it's not first or last in a list or the ending point of a range in a list.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>^</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Matches the empty string at the beginning of a line; also represents the characters not in the range of a list.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>$</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Matches the empty string at the end of a line.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\b</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Matches the empty string at the edge of a word.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\B</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Matches the empty string provided it's not at the edge of a word.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\&#60;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Match the empty string at the beginning of word.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\&#62;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Match the empty string at the end of word.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>Two regular expressions may be concatenated; the resulting regular expression matches any string formed by concatenating two substrings that respectively match the concatenated subexpressions.</P
+><P
+>Two regular expressions may be joined by the infix operator <SPAN
+CLASS="QUOTE"
+>"|"</SPAN
+>; the resulting regular expression matches any string matching either subexpression.</P
+><P
+>Repetition takes precedence over concatenation, which in turn takes precedence over alternation.  A whole subexpression may be enclosed in parentheses to override these precedence rules.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_04_01_03"
+></A
+>4.1.3. Basic versus extended regular expressions</H2
+><P
+>In basic regular expressions the metacharacters <SPAN
+CLASS="QUOTE"
+>"?"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"+"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"{"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"|"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"("</SPAN
+>, and <SPAN
+CLASS="QUOTE"
+>")"</SPAN
+> lose their special meaning; instead use the backslashed versions <SPAN
+CLASS="QUOTE"
+>"\?"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"\+"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"\{"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"\|"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"\("</SPAN
+>, and <SPAN
+CLASS="QUOTE"
+>"\)"</SPAN
+>.</P
+><P
+>Check in your system documentation whether commands using regular expressions support extended expressions.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chap_04.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_04_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Regular expressions</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_04.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Examples using grep</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

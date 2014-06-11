@@ -1,0 +1,1724 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Introduction to if</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Conditional statements"
+HREF="chap_07.html"><LINK
+REL="PREVIOUS"
+TITLE="Conditional statements"
+HREF="chap_07.html"><LINK
+REL="NEXT"
+TITLE="More advanced if usage"
+HREF="sect_07_02.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chap_07.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 7. Conditional statements</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_07_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_07_01"
+></A
+>7.1. Introduction to if</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_07_01_01"
+></A
+>7.1.1. General</H2
+><P
+>At times you need to specify different courses of action to be taken in a shell script, depending on the success or failure of a command.  The <B
+CLASS="command"
+>if</B
+> construction allows you to specify such conditions.</P
+><P
+>The most compact syntax of the <B
+CLASS="command"
+>if</B
+> command is:</P
+><P
+><B
+CLASS="command"
+>if TEST-COMMANDS; then CONSEQUENT-COMMANDS; fi</B
+> </P
+><P
+>The <B
+CLASS="command"
+>TEST-COMMAND</B
+> list is executed, and if its return status is zero, the <B
+CLASS="command"
+>CONSEQUENT-COMMANDS</B
+> list is executed.  The return status is the exit status of the last command executed, or zero if no condition tested true.</P
+><P
+>The <B
+CLASS="command"
+>TEST-COMMAND</B
+> often involves numerical or string comparison tests, but it can also be any command that returns a status of zero when it succeeds and some other status when it fails.  Unary expressions are often used to examine the status of a file.  If the <TT
+CLASS="filename"
+>FILE</TT
+> argument to one of the primaries is of the form <TT
+CLASS="filename"
+>/dev/fd/N</TT
+>, then file descriptor <SPAN
+CLASS="QUOTE"
+>"N"</SPAN
+> is checked.  <TT
+CLASS="filename"
+>stdin</TT
+>, <TT
+CLASS="filename"
+>stdout</TT
+> and <TT
+CLASS="filename"
+>stderr</TT
+> and their respective file descriptors may also be used for tests.</P
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_07_01_01_01"
+></A
+>7.1.1.1. Expressions used with if</H3
+><P
+>The table below contains an overview of the so-called <SPAN
+CLASS="QUOTE"
+>"primaries"</SPAN
+> that make up the <B
+CLASS="command"
+>TEST-COMMAND</B
+> command or list of commands.  These primaries are put between square brackets to indicate the test of a conditional expression.</P
+><DIV
+CLASS="table"
+><A
+NAME="tab_07_01"
+></A
+><P
+><B
+>Table 7-1. Primary expressions</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Primary</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-a</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-b</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and is a block-special file.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-c</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and is a character-special file.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-d</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and is a directory.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-e</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-f</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and is a regular file.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-g</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and its SGID bit is set.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-h</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and is a symbolic link.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-k</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and its sticky bit is set.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-p</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and is a named pipe (FIFO).</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-r</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and is readable.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-s</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and has a size greater than zero.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-t</TT
+> <TT
+CLASS="filename"
+>FD</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if file descriptor <TT
+CLASS="filename"
+>FD</TT
+> is open and refers to a terminal.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-u</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and its SUID (set user ID) bit is set.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-w</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and is writable.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-x</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and is executable.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-O</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and is owned by the effective user ID.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-G</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and is owned by the effective group ID.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-L</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and is a symbolic link.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-N</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and has been modified since it was last read.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-S</TT
+> <TT
+CLASS="filename"
+>FILE</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE</TT
+> exists and is a socket.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="filename"
+>FILE1</TT
+> <TT
+CLASS="option"
+>-nt</TT
+> <TT
+CLASS="filename"
+>FILE2</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE1</TT
+> has been changed more recently than <TT
+CLASS="filename"
+>FILE2</TT
+>, or if <TT
+CLASS="filename"
+>FILE1</TT
+> exists and <TT
+CLASS="filename"
+>FILE2</TT
+> does not.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="filename"
+>FILE1</TT
+> <TT
+CLASS="option"
+>-ot</TT
+> <TT
+CLASS="filename"
+>FILE2</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE1</TT
+> is older than <TT
+CLASS="filename"
+>FILE2</TT
+>, or is <TT
+CLASS="filename"
+>FILE2</TT
+> exists and <TT
+CLASS="filename"
+>FILE1</TT
+> does not.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="filename"
+>FILE1</TT
+> <TT
+CLASS="option"
+>-ef</TT
+> <TT
+CLASS="filename"
+>FILE2</TT
+> ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <TT
+CLASS="filename"
+>FILE1</TT
+> and <TT
+CLASS="filename"
+>FILE2</TT
+> refer to the same device and inode numbers.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ <TT
+CLASS="option"
+>-o</TT
+> OPTIONNAME ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if shell option <SPAN
+CLASS="QUOTE"
+>"OPTIONNAME"</SPAN
+> is enabled.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="option"
+>[ -z</TT
+> STRING ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True of the length if <SPAN
+CLASS="QUOTE"
+>"STRING"</SPAN
+> is zero.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="option"
+>[ -n</TT
+> STRING ] or [ STRING ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if the length of <SPAN
+CLASS="QUOTE"
+>"STRING"</SPAN
+> is non-zero.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ STRING1 == STRING2 ] </TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if the strings are equal.  <SPAN
+CLASS="QUOTE"
+>"="</SPAN
+> may be used instead of <SPAN
+CLASS="QUOTE"
+>"=="</SPAN
+> for strict POSIX compliance.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ STRING1 != STRING2 ] </TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if the strings are not equal.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ STRING1 &#60; STRING2 ] </TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <SPAN
+CLASS="QUOTE"
+>"STRING1"</SPAN
+> sorts before <SPAN
+CLASS="QUOTE"
+>"STRING2"</SPAN
+> lexicographically in the current locale.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ STRING1 &#62; STRING2 ] </TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <SPAN
+CLASS="QUOTE"
+>"STRING1"</SPAN
+> sorts after <SPAN
+CLASS="QUOTE"
+>"STRING2"</SPAN
+> lexicographically in the current locale.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ ARG1 OP ARG2 ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><SPAN
+CLASS="QUOTE"
+>"OP"</SPAN
+> is one of <TT
+CLASS="option"
+>-eq</TT
+>, <TT
+CLASS="option"
+>-ne</TT
+>, <TT
+CLASS="option"
+>-lt</TT
+>, <TT
+CLASS="option"
+>-le</TT
+>, <TT
+CLASS="option"
+>-gt</TT
+> or <TT
+CLASS="option"
+>-ge</TT
+>.  These arithmetic binary operators return true if <SPAN
+CLASS="QUOTE"
+>"ARG1"</SPAN
+> is equal to, not equal to, less than, less than or equal to, greater than, or greater than or equal to <SPAN
+CLASS="QUOTE"
+>"ARG2"</SPAN
+>, respectively.  <SPAN
+CLASS="QUOTE"
+>"ARG1"</SPAN
+> and <SPAN
+CLASS="QUOTE"
+>"ARG2"</SPAN
+> are integers.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>Expressions may be combined using the following operators, listed in decreasing order of precedence:</P
+><DIV
+CLASS="table"
+><A
+NAME="tab_07_02"
+></A
+><P
+><B
+>Table 7-2. Combining expressions</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Operation</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Effect</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ ! EXPR ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if <B
+CLASS="command"
+>EXPR</B
+> is false.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ ( EXPR ) ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Returns the value of <B
+CLASS="command"
+>EXPR</B
+>.  This may be used to override the normal precedence of operators.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ EXPR1 -a EXPR2 ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if both <B
+CLASS="command"
+>EXPR1</B
+> and <B
+CLASS="command"
+>EXPR2</B
+> are true.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ EXPR1 -o EXPR2 ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>True if either <B
+CLASS="command"
+>EXPR1</B
+> or <B
+CLASS="command"
+>EXPR2</B
+> is true.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>The <B
+CLASS="command"
+>[</B
+> (or <B
+CLASS="command"
+>test</B
+>) built-in evaluates conditional expressions using a set of rules based on the number of arguments.  More information about this subject can be found in the Bash documentation.  Just like the <B
+CLASS="command"
+>if</B
+> is closed with <B
+CLASS="command"
+>fi</B
+>, the opening square bracket should be closed after the conditions have been listed.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_07_01_01_02"
+></A
+>7.1.1.2. Commands following the then statement</H3
+><P
+>The <B
+CLASS="command"
+>CONSEQUENT-COMMANDS</B
+> list that follows the <B
+CLASS="command"
+>then</B
+> statement can be any valid UNIX command, any executable program, any executable shell script or any shell statement, with the exception of the closing <B
+CLASS="command"
+>fi</B
+>.  It is important to remember that the <B
+CLASS="command"
+>then</B
+> and <B
+CLASS="command"
+>fi</B
+> are considered to be separated statements in the shell.  Therefore, when issued on the command line, they are separated by a semi-colon.</P
+><P
+>In a script, the different parts of the <B
+CLASS="command"
+>if</B
+> statement are usually well-separated.  Below, a couple of simple examples.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_07_01_01_03"
+></A
+>7.1.1.3. Checking files</H3
+><P
+>The first example checks for the existence of a file:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>anny ~&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>msgcheck.sh</TT
+></B
+>
+#!/bin/bash
+
+echo "This scripts checks the existence of the messages file."
+echo "Checking..."
+if [ -f /var/log/messages ]
+  then
+    echo "/var/log/messages exists."
+fi
+echo
+echo "...done."
+
+<TT
+CLASS="prompt"
+>anny ~&#62;</TT
+> <B
+CLASS="command"
+>./msgcheck.sh</B
+>
+This scripts checks the existence of the messages file.
+Checking...
+/var/log/messages exists.
+
+...done.
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_07_01_01_04"
+></A
+>7.1.1.4. Checking shell options</H3
+><P
+>To add in your Bash configuration files:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;# These lines will print a message if the noclobber option is set:
+
+if [ -o noclobber ]
+  then
+	echo "Your files are protected against accidental overwriting using redirection."
+fi
+
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>The environment</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>The above example will work when entered on the command line:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>anny ~&#62;</TT
+> <B
+CLASS="command"
+>if <TT
+CLASS="parameter"
+><I
+>[ -o noclobber ]</I
+></TT
+> ; then echo ; echo <TT
+CLASS="parameter"
+><I
+>"your files are protected
+against overwriting."</I
+></TT
+> ; echo ; fi</B
+>
+
+your files are protected against overwriting.
+
+<TT
+CLASS="prompt"
+>anny ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>However, if you use testing of conditions that depend on the environment, you might get different results when you enter the same command in a script, because the script will open a new shell, in which expected variables and options might not be set automatically.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_07_01_02"
+></A
+>7.1.2. Simple applications of if</H2
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_07_01_02_01"
+></A
+>7.1.2.1. Testing exit status</H3
+><P
+>The <TT
+CLASS="varname"
+>?</TT
+> variable holds the exit status of the previously executed command (the most recently completed foreground process).</P
+><P
+>The following example shows a simple test:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>anny ~&#62;</TT
+> <B
+CLASS="command"
+>if <TT
+CLASS="parameter"
+><I
+>[ $? -eq 0 ]</I
+></TT
+></B
+>
+<TT
+CLASS="prompt"
+>More input&#62;</TT
+> <B
+CLASS="command"
+>then echo <TT
+CLASS="parameter"
+><I
+>'That was a good job!'</I
+></TT
+></B
+>
+<TT
+CLASS="prompt"
+>More input&#62;</TT
+> <B
+CLASS="command"
+>fi</B
+>
+That was a good job!
+
+<TT
+CLASS="prompt"
+>anny ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>The following example demonstrates that <B
+CLASS="command"
+>TEST-COMMANDS</B
+> might be any UNIX command that returns an exit status, and that <B
+CLASS="command"
+>if</B
+> again returns an exit status of zero:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>anny ~&#62;</TT
+> <B
+CLASS="command"
+>if <TT
+CLASS="parameter"
+><I
+>! grep $USER</I
+></TT
+> <TT
+CLASS="filename"
+>/etc/passwd</TT
+></B
+>
+<TT
+CLASS="prompt"
+>More input&#62;</TT
+> <B
+CLASS="command"
+>then echo <TT
+CLASS="parameter"
+><I
+>"your user account is not managed locally"</I
+></TT
+>; fi</B
+>
+your user account is not managed locally
+
+<TT
+CLASS="prompt"
+>anny &#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$?</TT
+></B
+>
+0
+
+<TT
+CLASS="prompt"
+>anny &#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>The same result can be obtained as follows:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>anny &#62;</TT
+> <B
+CLASS="command"
+>grep <TT
+CLASS="varname"
+>$USER</TT
+> <TT
+CLASS="filename"
+>/etc/passwd</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>anny &#62;</TT
+> <B
+CLASS="command"
+>if <TT
+CLASS="parameter"
+><I
+>[ $? -ne 0 ]</I
+></TT
+> ; then echo <TT
+CLASS="parameter"
+><I
+>"not a local account"</I
+></TT
+> ; fi</B
+>
+not a local account
+
+<TT
+CLASS="prompt"
+>anny &#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_07_01_02_02"
+></A
+>7.1.2.2. Numeric comparisons</H3
+><P
+>The examples below use numerical comparisons:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>anny &#62;</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>num</TT
+>=<TT
+CLASS="parameter"
+><I
+>`wc -l work.txt`</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>anny &#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$num</TT
+></B
+>
+201
+
+<TT
+CLASS="prompt"
+>anny &#62;</TT
+> <B
+CLASS="command"
+>if <TT
+CLASS="parameter"
+><I
+>[ "$num" -gt "150" ]</I
+></TT
+></B
+>
+<TT
+CLASS="prompt"
+>More input&#62;</TT
+> <B
+CLASS="command"
+>then echo ; echo <TT
+CLASS="parameter"
+><I
+>"you've worked hard enough for today."</I
+></TT
+></B
+>
+<TT
+CLASS="prompt"
+>More input&#62;</TT
+> <B
+CLASS="command"
+>echo ; fi</B
+>
+
+you've worked hard enough for today.
+
+
+<TT
+CLASS="prompt"
+>anny &#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>This script is executed by cron every Sunday.  If the week number is even, it reminds you to put out the garbage cans:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+
+# Calculate the week number using the date command:
+
+WEEKOFFSET=$[ $(date +"%V") % 2 ]
+
+# Test if we have a remainder.  If not, this is an even week so send a message.
+# Else, do nothing.
+
+if [ $WEEKOFFSET -eq "0" ]; then
+  echo "Sunday evening, put out the garbage cans." | mail -s "Garbage cans out" your@your_domain.org
+fi
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_07_01_02_03"
+></A
+>7.1.2.3. String comparisons</H3
+><P
+>An example of comparing strings for testing the user ID:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;if [ "$(whoami)" != 'root' ]; then
+        echo "You have no permission to run $0 as non-root user."
+        exit 1;
+fi
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>With Bash, you can shorten this type of construct.  The compact equivalent of the above test is as follows:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;[ "$(whoami)" != 'root' ] &#38;&#38; ( echo you are using a non-privileged account; exit 1 )
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Similar to the <SPAN
+CLASS="QUOTE"
+>"&#38;&#38;"</SPAN
+> expression which indicates what to do if the test proves true, <SPAN
+CLASS="QUOTE"
+>"||"</SPAN
+> specifies what to do if the test is false.</P
+><P
+>Regular expressions may also be used in comparisons:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>anny &#62;</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>gender</TT
+>=<TT
+CLASS="parameter"
+><I
+>"female"</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>anny &#62;</TT
+> <B
+CLASS="command"
+>if <TT
+CLASS="parameter"
+><I
+>[[ "$gender" == f* ]]</I
+></TT
+></B
+>
+<TT
+CLASS="prompt"
+>More input&#62;</TT
+> <B
+CLASS="command"
+>then echo <TT
+CLASS="parameter"
+><I
+>"Pleasure to meet you, Madame."</I
+></TT
+>; fi</B
+>
+Pleasure to meet you, Madame.
+
+<TT
+CLASS="prompt"
+>anny &#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Real Programmers</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Most programmers will prefer to use the <B
+CLASS="command"
+>test</B
+> built-in command, which is equivalent to using square brackets for comparison, like this:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;test "$(whoami)" != 'root' &#38;&#38; (echo you are using a non-privileged account; exit 1)
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>No exit?</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>If you invoke the <B
+CLASS="command"
+>exit</B
+> in a subshell, it will not pass variables to the parent.  Use { and } instead of ( and ) if you do not want Bash to fork a subshell.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>See the info pages for Bash for more information on pattern matching with the <SPAN
+CLASS="QUOTE"
+>"(( EXPRESSION ))"</SPAN
+> and <SPAN
+CLASS="QUOTE"
+>"[[ EXPRESSION ]]"</SPAN
+> constructs.</P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chap_07.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_07_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Conditional statements</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_07.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>More advanced if usage</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

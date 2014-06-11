@@ -1,0 +1,386 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Aliases</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The Bash environment"
+HREF="chap_03.html"><LINK
+REL="PREVIOUS"
+TITLE="Shell expansion"
+HREF="sect_03_04.html"><LINK
+REL="NEXT"
+TITLE="More Bash options"
+HREF="sect_03_06.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_03_04.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 3. The Bash environment</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_03_06.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_03_05"
+></A
+>3.5. Aliases</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_05_01"
+></A
+>3.5.1. What are aliases?</H2
+><P
+>An alias allows a string to be substituted for a word when it is used as the first word of a simple command.  The shell maintains a list of aliases that may be set and unset with the <B
+CLASS="command"
+>alias</B
+> and <B
+CLASS="command"
+>unalias</B
+> built-in commands.  Issue the <B
+CLASS="command"
+>alias</B
+> without options to display a list of aliases known to the current shell.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky: ~&#62;</TT
+> <B
+CLASS="command"
+>alias</B
+>
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias PAGER='less -r'
+alias Txterm='export TERM=xterm'
+alias XARGS='xargs -r'
+alias cdrecord='cdrecord -dev 0,0,0 -speed=8'
+alias e='vi'
+alias egrep='grep -E'
+alias ewformat='fdformat -n /dev/fd0u1743; ewfsck'
+alias fgrep='grep -F'
+alias ftp='ncftp -d15'
+alias h='history 10'
+alias fformat='fdformat /dev/fd0H1440'
+alias j='jobs -l'
+alias ksane='setterm -reset'
+alias ls='ls -F --color=auto'
+alias m='less'
+alias md='mkdir'
+alias od='od -Ax -ta -txC'
+alias p='pstree -p'
+alias ping='ping -vc1'
+alias sb='ssh blubber'
+alias sl='ls'
+alias ss='ssh octarine'
+alias tar='gtar'
+alias tmp='cd /tmp'
+alias unaliasall='unalias -a'
+alias vi='eval `resize`;vi'
+alias vt100='export TERM=vt100'
+alias which='type'
+alias xt='xterm -bg black -fg white &#38;'
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Aliases are useful for specifying the default version of a command that exists in several versions on your system, or to specify default options to a command.  Another use for aliases is for correcting incorrect spelling.</P
+><P
+>The first word of each simple command, if unquoted, is checked to see if it has an alias.  If so, that word is replaced by the text of the alias.  The alias name and the replacement text may contain any valid shell input, including shell metacharacters, with the exception that the alias name may not contain <SPAN
+CLASS="QUOTE"
+>"="</SPAN
+>.  The first word of the replacement text is tested for aliases, but a word that is identical to an alias being expanded is not expanded a second time.  This means that one may alias <B
+CLASS="command"
+>ls</B
+> to <B
+CLASS="command"
+>ls <TT
+CLASS="option"
+>-F</TT
+></B
+>, for instance, and Bash will not try to recursively expand the replacement text. If the last character of the alias value is a space or tab character, then the next command word following the alias is also checked for alias expansion.</P
+><P
+>Aliases are not expanded when the shell is not interactive, unless
+the <TT
+CLASS="option"
+>expand_aliases</TT
+> option is set using the <B
+CLASS="command"
+>shopt</B
+> shell built-in.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_05_02"
+></A
+>3.5.2. Creating and removing aliases</H2
+><P
+>Aliases are created using the <B
+CLASS="command"
+>alias</B
+> shell built-in.  For permanent use, enter the <B
+CLASS="command"
+>alias</B
+> in one of your shell initialization files; if you just enter the alias on the command line, it is only recognized within the current shell.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>alias <TT
+CLASS="parameter"
+><I
+>dh='df -h'</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>dh</B
+>
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/hda7             1.3G  272M 1018M  22% /
+/dev/hda1             121M  9.4M  105M   9% /boot
+/dev/hda2              13G  8.7G  3.7G  70% /home
+/dev/hda3              13G  5.3G  7.1G  43% /opt
+none                  243M     0  243M   0% /dev/shm
+/dev/hda6             3.9G  3.2G  572M  85% /usr
+/dev/hda5             5.2G  4.3G  725M  86% /var
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>unalias <TT
+CLASS="parameter"
+><I
+>dh</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>dh</B
+>
+bash: dh: command not found
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Bash always reads at least one complete line of input before executing any of the commands on that line.  Aliases are expanded when a command is read, not when it is executed.  Therefore, an alias definition appearing on the same line as another command does not take effect until the next line of input is read.  The commands following the alias definition on that line are not affected by the new alias.  This behavior is also an issue when functions are executed. Aliases are expanded when a function definition is read, not when the function is executed, because a function definition is itself a compound command.  As a consequence, aliases defined in a function are not available until after that function is executed.  To be safe, always put alias definitions on a separate line, and do not use <B
+CLASS="command"
+>alias</B
+> in compound commands.</P
+><P
+>Aliases are not inherited by child processes.  Bourne shell (<B
+CLASS="command"
+>sh</B
+>) does not recognize aliases.</P
+><P
+>More about functions is in <A
+HREF="chap_11.html"
+>Chapter 11</A
+>.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Functions are faster</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Aliases are looked up after functions and thus resolving is slower.  While aliases are easier to understand, shell functions are preferred over aliases for almost every purpose.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_03_04.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_03_06.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Shell expansion</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_03.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>More Bash options</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

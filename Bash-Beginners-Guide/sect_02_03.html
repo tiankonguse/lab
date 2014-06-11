@@ -1,0 +1,578 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Debugging Bash scripts</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Writing and debugging scripts"
+HREF="chap_02.html"><LINK
+REL="PREVIOUS"
+TITLE="Script basics"
+HREF="sect_02_02.html"><LINK
+REL="NEXT"
+TITLE="Summary"
+HREF="sect_02_05.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_02_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 2. Writing and debugging scripts</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_02_05.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_02_03"
+></A
+>2.3. Debugging Bash scripts</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_02_03_01"
+></A
+>2.3.1. Debugging on the entire script</H2
+><P
+>When things don't go according to plan, you need to determine what exactly causes the script to fail.  Bash provides extensive debugging features.  The most common is to start up the subshell with the <TT
+CLASS="option"
+>-x</TT
+> option, which will run the entire script in debug mode.  Traces of each command plus its arguments are printed to standard output after the commands have been expanded but before they are executed.</P
+><P
+>This is the <TT
+CLASS="filename"
+>commented-script1.sh</TT
+> script ran in debug mode.  Note again that the added comments are not visible in the output of the script.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>bash <TT
+CLASS="option"
+>-x</TT
+> <TT
+CLASS="filename"
+>script1.sh</TT
+></B
+>
++ clear
+
++ echo 'The script starts now.'
+The script starts now.
++ echo 'Hi, willy!'
+Hi, willy!
++ echo
+
++ echo 'I will now fetch you a list of connected users:'
+I will now fetch you a list of connected users:
++ echo
+
++ w
+  4:50pm  up 18 days,  6:49,  4 users,  load average: 0.58, 0.62, 0.40
+USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU  WHAT
+root     tty2     -                Sat 2pm  5:36m  0.24s  0.05s  -bash
+willy	 :0       -                Sat 2pm   ?     0.00s   ?     -
+willy	 pts/3    -                Sat 2pm 43:13  36.82s 36.82s  BitchX willy ir
+willy    pts/2    -                Sat 2pm 43:13   0.13s  0.06s  /usr/bin/screen
++ echo
+
++ echo 'I'\''m setting two variables now.'
+I'm setting two variables now.
++ COLOUR=black
++ VALUE=9
++ echo 'This is a string: '
+This is a string:
++ echo 'And this is a number: '
+And this is a number:
++ echo
+
++ echo 'I'\''m giving you back your prompt now.'
+I'm giving you back your prompt now.
++ echo
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>There is now a full-fledged debugger for Bash, available at <A
+HREF="http://bashdb.sourceforge.net"
+TARGET="_top"
+>SourceForge</A
+>.  These debugging features are available in most modern versions of Bash, starting from 3.x.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_02_03_02"
+></A
+>2.3.2. Debugging on part(s) of the script</H2
+><P
+>Using the <B
+CLASS="command"
+>set</B
+> Bash built-in you can run in normal mode those portions of the script of which you are sure they are without fault, and display debugging information only for troublesome zones.  Say we are not sure what the <B
+CLASS="command"
+>w</B
+> command will do in the example <TT
+CLASS="filename"
+>commented-script1.sh</TT
+>, then we could enclose it in the script like this:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;set -x			# activate debugging from here
+w
+set +x			# stop debugging from here
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Output then looks like this:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>willy: ~/scripts&#62;</TT
+> <B
+CLASS="command"
+>script1.sh</B
+>
+The script starts now.
+Hi, willy!
+
+I will now fetch you a list of connected users:
+
++ w
+  5:00pm  up 18 days,  7:00,  4 users,  load average: 0.79, 0.39, 0.33
+USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU  WHAT
+root     tty2     -                Sat 2pm  5:47m  0.24s  0.05s  -bash
+willy    :0       -                Sat 2pm   ?     0.00s   ?     -
+willy    pts/3    -                Sat 2pm 54:02  36.88s 36.88s  BitchX willyke
+willy    pts/2    -                Sat 2pm 54:02   0.13s  0.06s  /usr/bin/screen
++ set +x
+
+I'm setting two variables now.
+This is a string:
+And this is a number:
+
+I'm giving you back your prompt now.
+
+<TT
+CLASS="prompt"
+>willy: ~/scripts&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>You can switch debugging mode on and off as many times as you want within the same script.</P
+><P
+>The table below gives an overview of other useful Bash options:</P
+><DIV
+CLASS="table"
+><A
+NAME="table_02_01"
+></A
+><P
+><B
+>Table 2-1. Overview of set debugging options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Short notation</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Long notation</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Result</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>set -f</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>set -o noglob</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Disable file name generation using metacharacters (globbing).</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>set -v</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>set -o verbose</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Prints shell input lines as they are read.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>set -x</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>set -o xtrace</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Print command traces before executing command.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>The dash is used to activate a shell option and a plus to deactivate it.  Don't let this confuse you!</P
+><P
+>In the example below, we demonstrate these options on the command line:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>set <TT
+CLASS="option"
+>-v</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>ls</B
+>
+ls 
+commented-scripts.sh	script1.sh
+
+<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>set <TT
+CLASS="option"
+>+v</TT
+></B
+>
+set +v
+
+<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>ls <TT
+CLASS="parameter"
+><I
+>*</I
+></TT
+></B
+>
+commented-scripts.sh    script1.sh
+
+<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>set <TT
+CLASS="option"
+>-f</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>ls <TT
+CLASS="filename"
+>*</TT
+></B
+>
+ls: *: No such file or directory
+
+<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>touch <TT
+CLASS="filename"
+>*</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>ls</B
+>
+*   commented-scripts.sh    script1.sh
+
+<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>rm <TT
+CLASS="filename"
+>*</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>ls</B
+>
+commented-scripts.sh    script1.sh
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Alternatively, these modes can be specified in the script itself, by adding the desired options to the first line shell declaration.  Options can be combined, as is usually the case with UNIX commands:</P
+><P
+><B
+CLASS="command"
+>#!/bin/bash <TT
+CLASS="option"
+>-xv</TT
+></B
+> </P
+><P
+>Once you found the buggy part of your script, you can add <B
+CLASS="command"
+>echo</B
+> statements before each command of which you are unsure, so that you will see exactly where and why things don't work.  In the example <TT
+CLASS="filename"
+>commented-script1.sh</TT
+> script, it could be done like this, still assuming that the displaying of users gives us problems:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;echo "debug message: now attempting to start w command"; w
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>In more advanced scripts, the <B
+CLASS="command"
+>echo</B
+> can be inserted to display the content of variables at different stages in the script, so that flaws can be detected:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;echo "Variable VARNAME is now set to $VARNAME."
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_02_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_02_05.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Script basics</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_02.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Summary</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

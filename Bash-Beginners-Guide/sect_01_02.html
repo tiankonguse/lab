@@ -1,0 +1,1083 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Advantages of the Bourne Again SHell</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Bash and Bash scripts"
+HREF="chap_01.html"><LINK
+REL="PREVIOUS"
+TITLE="Common shell programs"
+HREF="sect_01_01.html"><LINK
+REL="NEXT"
+TITLE="Executing commands"
+HREF="sect_01_03.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_01_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 1. Bash and Bash scripts</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_01_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_01_02"
+></A
+>1.2. Advantages of the Bourne Again SHell</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_01_02_01"
+></A
+>1.2.1. Bash is the GNU shell</H2
+><P
+>The GNU project (GNU's Not UNIX) provides tools for UNIX-like system administration which are free software and comply to UNIX standards.</P
+><P
+>Bash is an sh-compatible shell that incorporates useful features from the Korn shell (ksh) and C shell (csh). It is intended to conform to the IEEE POSIX P1003.2/ISO 9945.2 Shell and Tools standard. It offers functional improvements over sh for both programming and interactive use; these include command line editing, unlimited size command history, job control, shell functions and aliases, indexed arrays of unlimited size, and integer arithmetic in any base from two to sixty-four. Bash can run most sh scripts without modification.</P
+><P
+>Like the other GNU projects, the bash initiative was started to preserve, protect and promote the freedom to use, study, copy, modify and redistribute software.  It is generally known that such conditions stimulate creativity.  This was also the case with the bash program, which has a lot of extra features that other shells can't offer.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_01_02_02"
+></A
+>1.2.2. Features only found in bash</H2
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_02_02_01"
+></A
+>1.2.2.1. Invocation</H3
+><P
+>In addition to the single-character shell command line options which can generally be configured using the <B
+CLASS="command"
+>set</B
+> shell built-in command, there are several multi-character options that you can use.  We will come across a couple of the more popular options in this and the following chapters; the complete list can be found in the Bash info pages, <SPAN
+CLASS="guimenu"
+>Bash features</SPAN
+>-&gt;<SPAN
+CLASS="guimenuitem"
+>Invoking Bash</SPAN
+>.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_02_02_02"
+></A
+>1.2.2.2. Bash startup files</H3
+><P
+>Startup files are scripts that are read and executed by Bash when it starts.  The following subsections describe different ways to start the shell, and the startup files that are read consequently.</P
+><DIV
+CLASS="sect4"
+><H4
+CLASS="sect4"
+><A
+NAME="sect_01_02_02_02_01"
+></A
+>1.2.2.2.1. Invoked as an interactive login shell, or with `--login'</H4
+><P
+>Interactive means you can enter commands.  The shell is not running because a script has been activated.  A login shell means that you got the shell after authenticating to the system, usually by giving your user name and password.</P
+><P
+>Files read:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="filename"
+>/etc/profile</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>~/.bash_profile</TT
+>, <TT
+CLASS="filename"
+>~/.bash_login</TT
+> or <TT
+CLASS="filename"
+>~/.profile</TT
+>: first existing readable file is read</P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>~/.bash_logout</TT
+> upon logout.</P
+></LI
+></UL
+><P
+>Error messages are printed if configuration files exist but are not readable.  If a file does not exist, bash searches for the next.</P
+></DIV
+><DIV
+CLASS="sect4"
+><H4
+CLASS="sect4"
+><A
+NAME="sect_01_02_02_02_02"
+></A
+>1.2.2.2.2. Invoked as an interactive non-login shell</H4
+><P
+>A non-login shell means that you did not have to authenticate to the system.  For instance, when you open a terminal using an icon, or a menu item, that is a non-login shell.</P
+><P
+>Files read:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="filename"
+>~/.bashrc</TT
+></P
+></LI
+></UL
+><P
+>This file is usually referred to in <TT
+CLASS="filename"
+>~/.bash_profile</TT
+>:</P
+><P
+><B
+CLASS="command"
+>if <TT
+CLASS="function"
+>[ -f <TT
+CLASS="filename"
+>~/.bashrc</TT
+> ]</TT
+>; then . <TT
+CLASS="filename"
+>~/.bashrc</TT
+>; fi</B
+> </P
+><P
+>See <A
+HREF="chap_07.html"
+>Chapter 7</A
+> for more information on the <B
+CLASS="command"
+>if</B
+> construct.</P
+></DIV
+><DIV
+CLASS="sect4"
+><H4
+CLASS="sect4"
+><A
+NAME="sect_01_02_02_02_03"
+></A
+>1.2.2.2.3. Invoked non-interactively</H4
+><P
+>All scripts use non-interactive shells.  They are programmed to do certain tasks and cannot be instructed to do other jobs than those for which they are programmed.</P
+><P
+>Files read:</P
+><P
+></P
+><UL
+><LI
+><P
+>defined by <TT
+CLASS="varname"
+>BASH_ENV</TT
+></P
+></LI
+></UL
+><P
+><TT
+CLASS="varname"
+>PATH</TT
+> is not used to search for this file, so if you want to use it, best refer to it by giving the full path and file name.</P
+></DIV
+><DIV
+CLASS="sect4"
+><H4
+CLASS="sect4"
+><A
+NAME="sect_01_02_02_02_04"
+></A
+>1.2.2.2.4. Invoked with the sh command</H4
+><P
+>Bash tries to behave as the historical Bourne <B
+CLASS="command"
+>sh</B
+> program while conforming to the POSIX standard as well.</P
+><P
+>Files read:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="filename"
+>/etc/profile</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>~/.profile</TT
+></P
+></LI
+></UL
+><P
+>When invoked interactively, the <TT
+CLASS="varname"
+>ENV</TT
+> variable can point to extra startup information.</P
+></DIV
+><DIV
+CLASS="sect4"
+><H4
+CLASS="sect4"
+><A
+NAME="sect_01_02_02_02_05"
+></A
+>1.2.2.2.5. POSIX mode</H4
+><P
+>This option is enabled either using the <B
+CLASS="command"
+>set</B
+> built-in:</P
+><P
+><B
+CLASS="command"
+>set <TT
+CLASS="option"
+>-o posix</TT
+></B
+> </P
+><P
+>or by calling the <B
+CLASS="command"
+>bash</B
+> program with the <TT
+CLASS="option"
+>--posix</TT
+> option.  Bash will then try to behave as compliant as possible to the POSIX standard for shells.  Setting the <TT
+CLASS="varname"
+>POSIXLY_CORRECT</TT
+> variable does the same.</P
+><P
+>Files read:</P
+><P
+></P
+><UL
+><LI
+><P
+>defined by <TT
+CLASS="varname"
+>ENV</TT
+> variable.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect4"
+><H4
+CLASS="sect4"
+><A
+NAME="sect_01_02_02_02_06"
+></A
+>1.2.2.2.6. Invoked remotely</H4
+><P
+>Files read when invoked by <B
+CLASS="command"
+>rshd</B
+>:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="filename"
+>~/.bashrc</TT
+></P
+></LI
+></UL
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Warning"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Avoid use of r-tools</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Be aware of the dangers when using tools such as <B
+CLASS="command"
+>rlogin</B
+>, <B
+CLASS="command"
+>telnet</B
+>, <B
+CLASS="command"
+>rsh</B
+> and <B
+CLASS="command"
+>rcp</B
+>.  They are intrinsically insecure because confidential data is sent over the network unencrypted.  If you need tools for remote execution, file transfer and so on, use an implementation of Secure SHell, generally known as SSH, freely available from <A
+HREF="http://www.openssh.org"
+TARGET="_top"
+>http://www.openssh.org</A
+>.  Different client programs are available for non-UNIX systems as well, see your local software mirror.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect4"
+><H4
+CLASS="sect4"
+><A
+NAME="sect_01_02_02_02_07"
+></A
+>1.2.2.2.7. Invoked when UID is not equal to EUID</H4
+><P
+>No startup files are read in this case.</P
+></DIV
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_02_02_03"
+></A
+>1.2.2.3. Interactive shells</H3
+><DIV
+CLASS="sect4"
+><H4
+CLASS="sect4"
+><A
+NAME="sect_01_02_02_03_01"
+></A
+>1.2.2.3.1. What is an interactive shell?</H4
+><P
+>An interactive shell generally reads from, and writes to, a user's terminal: input and output are connected to a terminal.  Bash interactive behavior is started when the <B
+CLASS="command"
+>bash</B
+> command is called upon without non-option arguments, except when the option is a string to read from or when the shell is invoked to read from standard input, which allows for positional parameters to be set (see <A
+HREF="chap_03.html"
+>Chapter 3</A
+> ).</P
+></DIV
+><DIV
+CLASS="sect4"
+><H4
+CLASS="sect4"
+><A
+NAME="sect_01_02_02_03_02"
+></A
+>1.2.2.3.2. Is this shell interactive?</H4
+><P
+>Test by looking at the content of the special parameter <TT
+CLASS="varname"
+>-</TT
+>, it contains an 'i' when the shell is interactive:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>eddy:~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$-</TT
+></B
+>
+himBH
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>In non-interactive shells, the prompt, <TT
+CLASS="varname"
+>PS1</TT
+>, is unset.</P
+></DIV
+><DIV
+CLASS="sect4"
+><H4
+CLASS="sect4"
+><A
+NAME="sect_01_02_02_03_03"
+></A
+>1.2.2.3.3. Interactive shell behavior</H4
+><P
+>Differences in interactive mode:</P
+><P
+></P
+><UL
+><LI
+><P
+>Bash reads startup files.</P
+></LI
+><LI
+><P
+>Job control enabled by default.</P
+></LI
+><LI
+><P
+>Prompts are set, <TT
+CLASS="varname"
+>PS2</TT
+> is enabled for multi-line commands, it is usually set to <SPAN
+CLASS="QUOTE"
+>"&#62;"</SPAN
+>.  This is also the prompt you get when the shell thinks you entered an unfinished command, for instance when you forget quotes, command structures that cannot be left out, etc.</P
+></LI
+><LI
+><P
+>Commands are by default read from the command line using <B
+CLASS="command"
+>readline</B
+>.</P
+></LI
+><LI
+><P
+>Bash interprets the shell option <TT
+CLASS="option"
+>ignoreeof</TT
+> instead of exiting immediately upon receiving EOF (End Of File).</P
+></LI
+><LI
+><P
+>Command history and history expansion are enabled by default.  History is saved in the file pointed to by <TT
+CLASS="varname"
+>HISTFILE</TT
+> when the shell exits.  By default, <TT
+CLASS="varname"
+>HISTFILE</TT
+> points to <TT
+CLASS="filename"
+>~/.bash_history</TT
+>.</P
+></LI
+><LI
+><P
+>Alias expansion is enabled.</P
+></LI
+><LI
+><P
+>In the absence of traps, the <TT
+CLASS="option"
+>SIGTERM</TT
+> signal is ignored.</P
+></LI
+><LI
+><P
+>In the absence of traps, <TT
+CLASS="option"
+>SIGINT</TT
+> is caught and handled.  Thus, typing <B
+CLASS="keycap"
+>Ctrl</B
+>+<B
+CLASS="keycap"
+>C</B
+>, for example, will not quit your interactive shell.</P
+></LI
+><LI
+><P
+>Sending <TT
+CLASS="option"
+>SIGHUP</TT
+> signals to all jobs on exit is configured with the <TT
+CLASS="option"
+>huponexit</TT
+> option.</P
+></LI
+><LI
+><P
+>Commands are executed upon read.</P
+></LI
+><LI
+><P
+>Bash checks for mail periodically.</P
+></LI
+><LI
+><P
+>Bash can be configured to exit when it encounters unreferenced variables.  In interactive mode this behavior is disabled.</P
+></LI
+><LI
+><P
+>When shell built-in commands encounter redirection errors, this will not cause the shell to exit.</P
+></LI
+><LI
+><P
+>Special built-ins returning errors when used in POSIX mode don't cause the shell to exit.  The built-in commands are listed in <A
+HREF="sect_01_03.html#sect_01_03_02"
+>Section 1.3.2</A
+>.</P
+></LI
+><LI
+><P
+>Failure of <B
+CLASS="command"
+>exec</B
+> will not exit the shell.</P
+></LI
+><LI
+><P
+>Parser syntax errors don't cause the shell to exit.</P
+></LI
+><LI
+><P
+>Simple spell check for the arguments to the <B
+CLASS="command"
+>cd</B
+> built-in is enabled by default.</P
+></LI
+><LI
+><P
+>Automatic exit after the length of time specified in the <TT
+CLASS="varname"
+>TMOUT</TT
+> variable has passed, is enabled.</P
+></LI
+></UL
+><P
+>More information:</P
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="sect_03_02.html"
+>Section 3.2</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="sect_03_06.html"
+>Section 3.6</A
+></P
+></LI
+><LI
+><P
+>See <A
+HREF="chap_12.html"
+>Chapter 12</A
+> for more about signals.</P
+></LI
+><LI
+><P
+><A
+HREF="sect_03_04.html"
+>Section 3.4</A
+> discusses the various expansions performed upon entering a command.</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_02_02_04"
+></A
+>1.2.2.4. Conditionals</H3
+><P
+>Conditional expressions are used by the <B
+CLASS="command"
+>[[</B
+> compound command and by the <B
+CLASS="command"
+>test</B
+> and <B
+CLASS="command"
+>[</B
+> built-in commands.</P
+><P
+>Expressions may be unary or binary.  Unary expressions are often used to examine the status of a file.  You only need one object, for instance a file, to do the operation on.</P
+><P
+>There are string operators and numeric comparison operators as well; these are binary operators, requiring two objects to do the operation on.  If the <TT
+CLASS="option"
+>FILE</TT
+> argument to one of the primaries is in the form <TT
+CLASS="filename"
+>/dev/fd/N</TT
+>, then file descriptor N is checked.  If the <TT
+CLASS="option"
+>FILE</TT
+> argument to one of the primaries is one of <TT
+CLASS="filename"
+>/dev/stdin</TT
+>, <TT
+CLASS="filename"
+>/dev/stdout</TT
+> or <TT
+CLASS="filename"
+>/dev/stderr</TT
+>, then file descriptor 0, 1 or 2 respectively is checked.</P
+><P
+>Conditionals are discussed in detail in <A
+HREF="chap_07.html"
+>Chapter 7</A
+>.</P
+><P
+>More information about the file descriptors in <A
+HREF="sect_08_02.html#sect_08_02_03"
+>Section 8.2.3</A
+>.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_02_02_05"
+></A
+>1.2.2.5. Shell arithmetic</H3
+><P
+>The shell allows arithmetic expressions to be evaluated, as one of
+the shell expansions or by the <B
+CLASS="command"
+>let</B
+> built-in.</P
+><P
+>Evaluation is done in fixed-width integers with no check for overflow, though division by 0 is trapped and flagged as an error.  The operators and their precedence and associativity are the same as in the C language, see <A
+HREF="chap_03.html"
+>Chapter 3</A
+>.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_02_02_06"
+></A
+>1.2.2.6. Aliases</H3
+><P
+>Aliases allow a string to be substituted for a word when it is used as the first word of a simple command.  The shell maintains a list of aliases that may be set and unset with the <B
+CLASS="command"
+>alias</B
+> and <B
+CLASS="command"
+>unalias</B
+> commands.</P
+><P
+>Bash always reads at least one complete line of input before executing any of the commands on that line.  Aliases are expanded when a command is read, not when it is executed.  Therefore, an alias definition appearing on the same line as another command does not take effect until the next line of input is read.  The commands following the alias definition on that line are not affected by the new alias.</P
+><P
+>Aliases are expanded when a function definition is read, not when the function is executed, because a function definition is itself a compound command.  As a consequence, aliases defined in a function are not available until after that function is executed.</P
+><P
+>We will discuss aliases in detail in <A
+HREF="sect_03_05.html"
+>Section 3.5</A
+>.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_02_02_07"
+></A
+>1.2.2.7. Arrays</H3
+><P
+>Bash provides one-dimensional array variables.  Any variable may be used as an array; the <B
+CLASS="command"
+>declare</B
+> built-in will explicitly declare an array.  There is no maximum limit on the size of an array, nor any requirement that members be indexed or assigned contiguously.  Arrays are zero-based.  See <A
+HREF="chap_10.html"
+>Chapter 10</A
+>.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_02_02_08"
+></A
+>1.2.2.8. Directory stack</H3
+><P
+>The directory stack is a list of recently-visited directories.  The <B
+CLASS="command"
+>pushd</B
+> built-in adds directories to the stack as it changes the current directory, and the <B
+CLASS="command"
+>popd</B
+> built-in removes specified directories from the stack and changes the current directory to the directory removed.</P
+><P
+>Content can be displayed issuing the <B
+CLASS="command"
+>dirs</B
+> command or by checking the content of the <TT
+CLASS="varname"
+>DIRSTACK</TT
+> variable.</P
+><P
+>More information about the workings of this mechanism can be found in the Bash info pages.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_02_02_09"
+></A
+>1.2.2.9. The prompt</H3
+><P
+>Bash makes playing with the prompt even more fun.  See the section <EM
+>Controlling the Prompt</EM
+> in the Bash info pages.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_02_02_10"
+></A
+>1.2.2.10. The restricted shell</H3
+><P
+>When invoked as <B
+CLASS="command"
+>rbash</B
+> or with the <TT
+CLASS="option"
+>--restricted</TT
+> or <TT
+CLASS="option"
+>-r</TT
+> option, the following happens:</P
+><P
+></P
+><UL
+><LI
+><P
+>The <B
+CLASS="command"
+>cd</B
+> built-in is disabled.</P
+></LI
+><LI
+><P
+>Setting or unsetting <TT
+CLASS="varname"
+>SHELL</TT
+>, <TT
+CLASS="varname"
+>PATH</TT
+>, <TT
+CLASS="varname"
+>ENV</TT
+> or <TT
+CLASS="varname"
+>BASH_ENV</TT
+> is not possible.</P
+></LI
+><LI
+><P
+>Command names can no longer contain slashes.</P
+></LI
+><LI
+><P
+>Filenames containing a slash are not allowed with the <B
+CLASS="command"
+>.</B
+> (<B
+CLASS="command"
+>source</B
+>) built-in command.</P
+></LI
+><LI
+><P
+>The <B
+CLASS="command"
+>hash</B
+> built-in does not accept slashes with the <TT
+CLASS="option"
+>-p</TT
+> option.</P
+></LI
+><LI
+><P
+>Import of functions at startup is disabled.</P
+></LI
+><LI
+><P
+><TT
+CLASS="varname"
+>SHELLOPTS</TT
+> is ignored at startup.</P
+></LI
+><LI
+><P
+>Output redirection using <B
+CLASS="command"
+>&#62;</B
+>, <B
+CLASS="command"
+>&#62;|</B
+>, <B
+CLASS="command"
+>&#62;&#60;</B
+>, <B
+CLASS="command"
+>&#62;&#38;</B
+>, <B
+CLASS="command"
+>&#38;&#62;</B
+> and <B
+CLASS="command"
+>&#62;&#62;</B
+> is disabled.</P
+></LI
+><LI
+><P
+>The <B
+CLASS="command"
+>exec</B
+> built-in is disabled.</P
+></LI
+><LI
+><P
+>The <TT
+CLASS="option"
+>-f</TT
+> and <TT
+CLASS="option"
+>-d</TT
+> options are disabled for the <B
+CLASS="command"
+>enable</B
+> built-in.</P
+></LI
+><LI
+><P
+>A default <TT
+CLASS="varname"
+>PATH</TT
+> cannot be specified with the <B
+CLASS="command"
+>command</B
+> built-in.</P
+></LI
+><LI
+><P
+>Turning off restricted mode is not possible.</P
+></LI
+></UL
+><P
+>When a command that is found to be a shell script is executed, <B
+CLASS="command"
+>rbash</B
+> turns off any restrictions in the shell spawned to execute the script.</P
+><P
+>More information:</P
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="sect_03_02.html"
+>Section 3.2</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="sect_03_06.html"
+>Section 3.6</A
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="guimenu"
+>Info Bash</SPAN
+>-&gt;<SPAN
+CLASS="guisubmenu"
+>Basic Shell Features</SPAN
+>-&gt;<SPAN
+CLASS="guimenuitem"
+>Redirections</SPAN
+></P
+></LI
+><LI
+><P
+><A
+HREF="sect_08_02.html#sect_08_02_03"
+>Section 8.2.3</A
+>: advanced redirection</P
+></LI
+></UL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_01_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_01_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Common shell programs</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_01.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Executing commands</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

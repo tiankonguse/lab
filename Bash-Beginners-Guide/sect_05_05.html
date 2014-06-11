@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Exercises</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The GNU sed stream editor"
+HREF="chap_05.html"><LINK
+REL="PREVIOUS"
+TITLE="Summary"
+HREF="sect_05_04.html"><LINK
+REL="NEXT"
+TITLE="The GNU awk programming language"
+HREF="chap_06.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_05_04.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 5. The GNU sed stream editor</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chap_06.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_05_05"
+></A
+>5.5. Exercises</H1
+><P
+>These exercises are meant to further demonstrate what <B
+CLASS="command"
+>sed</B
+> can do.</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Print a list of files in your <TT
+CLASS="filename"
+>scripts</TT
+> directory, ending in <SPAN
+CLASS="QUOTE"
+>".sh"</SPAN
+>.  Mind that you might have to unalias <B
+CLASS="command"
+>ls</B
+>.  Put the result in a temporary file.</P
+></LI
+><LI
+><P
+>Make a list of files in <TT
+CLASS="filename"
+>/usr/bin</TT
+> that have the letter <SPAN
+CLASS="QUOTE"
+>"a"</SPAN
+> as the second character.  Put the result in a temporary file.</P
+></LI
+><LI
+><P
+>Delete the first 3 lines of each temporary file.</P
+></LI
+><LI
+><P
+>Print to standard output only the lines containing the pattern <SPAN
+CLASS="QUOTE"
+>"an"</SPAN
+>.</P
+></LI
+><LI
+><P
+>Create a file holding <B
+CLASS="command"
+>sed</B
+> commands to perform the previous two tasks.  Add an extra command to this file that adds a string like <SPAN
+CLASS="QUOTE"
+>"*** This might have something to do with man and man pages ***"</SPAN
+> in the line preceding every occurence of the string <SPAN
+CLASS="QUOTE"
+>"man"</SPAN
+>.  Check the results.</P
+></LI
+><LI
+><P
+>A long listing of the root directory, <TT
+CLASS="filename"
+>/</TT
+>, is used for input.  Create a file holding <B
+CLASS="command"
+>sed</B
+> commands that check for symbolic links and plain files.  If a file is a symbolic link, precede it with a line like <SPAN
+CLASS="QUOTE"
+>"--This is a symlink--"</SPAN
+>.  If the file is a plain file, add a string on the same line, adding a comment like <SPAN
+CLASS="QUOTE"
+>"&#60;--- this is a plain file"</SPAN
+>.</P
+></LI
+><LI
+><P
+>Create a script that shows lines containing trailing white spaces from a file.  This script should use a <B
+CLASS="command"
+>sed</B
+> script and show sensible information to the user.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_05_04.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chap_06.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Summary</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_05.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The GNU awk programming language</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

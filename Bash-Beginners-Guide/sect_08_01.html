@@ -1,0 +1,560 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Displaying user messages</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Writing interactive scripts"
+HREF="chap_08.html"><LINK
+REL="PREVIOUS"
+TITLE="Writing interactive scripts"
+HREF="chap_08.html"><LINK
+REL="NEXT"
+TITLE="Catching user input"
+HREF="sect_08_02.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chap_08.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 8. Writing interactive scripts</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_08_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_08_01"
+></A
+>8.1. Displaying user messages</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_08_01_01"
+></A
+>8.1.1. Interactive or not?</H2
+><P
+>Some scripts run without any interaction from the user at all.  Advantages of non-interactive scripts include:</P
+><P
+></P
+><UL
+><LI
+><P
+>The script runs in a predictable way every time.</P
+></LI
+><LI
+><P
+>The script can run in the background.</P
+></LI
+></UL
+><P
+>Many scripts, however, require input from the user, or give output to the user as the script is running.  The advantages of interactive scripts are, among others:</P
+><P
+></P
+><UL
+><LI
+><P
+>More flexible scripts can be built.</P
+></LI
+><LI
+><P
+>Users can customize the script as it runs or make it behave in different ways.</P
+></LI
+><LI
+><P
+>The script can report its progress as it runs.</P
+></LI
+></UL
+><P
+>When writing interactive scripts, never hold back on comments.  A script that prints appropriate messages is much more user-friendly and can be more easily debugged.  A script might do a perfect job, but you will get a whole lot of support calls if it does not inform the user about what it is doing.  So include messages that tell the user to wait for output because a calculation is being done.  If possible, try to give an indication of how long the user will have to wait.  If the waiting should regularly take a long time when executing a certain task, you might want to consider integrating some processing indication in the output of your script.</P
+><P
+>When prompting the user for input, it is also better to give too much than too little information about the kind of data to be entered.  This applies to the checking of arguments and the accompanying usage message as well.</P
+><P
+>Bash has the <B
+CLASS="command"
+>echo</B
+> and <B
+CLASS="command"
+>printf</B
+> commands to provide comments for users, and although you should be familiar with at least the use of <B
+CLASS="command"
+>echo</B
+> by now, we will discuss some more examples in the next sections.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_08_01_02"
+></A
+>8.1.2. Using the echo built-in command</H2
+><P
+>The <B
+CLASS="command"
+>echo</B
+> built-in command outputs its arguments, separated by spaces and terminated with a newline character.  The return status is always zero.  <B
+CLASS="command"
+>echo</B
+> takes a couple of options:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="option"
+>-e</TT
+>: interprets backslash-escaped characters.</P
+></LI
+><LI
+><P
+><TT
+CLASS="option"
+>-n</TT
+>: suppresses the trailing newline.</P
+></LI
+></UL
+><P
+>As an example of adding comments, we will make the <TT
+CLASS="filename"
+>feed.sh</TT
+> and <TT
+CLASS="filename"
+>penguin.sh</TT
+> from <A
+HREF="sect_07_02.html#sect_07_02_01_02"
+>Section 7.2.1.2</A
+> a bit better:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>michel ~/test&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>penguin.sh</TT
+></B
+>
+#!/bin/bash
+
+# This script lets you present different menus to Tux.  He will only be happy
+# when given a fish.  To make it more fun, we added a couple more animals.
+
+if [ "$menu" == "fish" ]; then
+  if [ "$animal" == "penguin" ]; then
+    echo -e "Hmmmmmm fish... Tux happy!\n"
+  elif [ "$animal" == "dolphin" ]; then
+    echo -e "\a\a\aPweetpeettreetppeterdepweet!\a\a\a\n"
+  else
+    echo -e "*prrrrrrrt*\n"
+  fi
+else
+  if [ "$animal" == "penguin" ]; then
+    echo -e "Tux don't like that.  Tux wants fish!\n"
+    exit 1
+  elif [ "$animal" == "dolphin" ]; then
+    echo -e "\a\a\a\a\a\aPweepwishpeeterdepweet!\a\a\a"
+    exit 2
+  else
+    echo -e "Will you read this sign?!  Don't feed the "$animal"s!\n"
+    exit 3
+  fi
+fi
+
+<TT
+CLASS="prompt"
+>michel ~/test&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>feed.sh</TT
+></B
+>
+#!/bin/bash
+# This script acts upon the exit status given by penguin.sh
+
+if [ "$#" != "2" ]; then
+  echo -e "Usage of the feed script:\t$0 food-on-menu animal-name\n"
+  exit 1
+else
+
+  export menu="$1"
+  export animal="$2"
+
+  echo -e "Feeding $menu to $animal...\n"
+
+  feed="/nethome/anny/testdir/penguin.sh"
+
+  $feed $menu $animal
+
+result="$?"
+
+  echo -e "Done feeding.\n"
+
+case "$result" in
+
+  1)
+    echo -e "Guard: \"You'd better give'm a fish, less they get violent...\"\n"
+    ;;
+  2)
+    echo -e "Guard: \"No wonder they flee our planet...\"\n"
+    ;;
+  3)
+    echo -e "Guard: \"Buy the food that the Zoo provides at the entry, you ***\"\n"
+    echo -e "Guard: \"You want to poison them, do you?\"\n"
+    ;;
+  *)
+    echo -e "Guard: \"Don't forget the guide!\"\n"
+    ;;
+  esac
+
+fi
+
+echo "Leaving..."
+echo -e "\a\a\aThanks for visiting the Zoo, hope to see you again soon!\n"
+
+<TT
+CLASS="prompt"
+>michel ~/test&#62;</TT
+> <B
+CLASS="command"
+>feed.sh <TT
+CLASS="parameter"
+><I
+>apple camel</I
+></TT
+></B
+>
+Feeding apple to camel...
+
+Will you read this sign?!  Don't feed the camels!
+
+Done feeding.
+
+Guard: "Buy the food that the Zoo provides at the entry, you ***"
+
+Guard: "You want to poison them, do you?"
+
+Leaving...
+Thanks for visiting the Zoo, hope to see you again soon!
+
+<TT
+CLASS="prompt"
+>michel ~/test&#62;</TT
+> <B
+CLASS="command"
+>feed.sh <TT
+CLASS="parameter"
+><I
+>apple</I
+></TT
+></B
+>
+Usage of the feed script:       ./feed.sh food-on-menu animal-name
+
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>More about escape characters can be found in <A
+HREF="sect_03_03.html#sect_03_03_02"
+>Section 3.3.2</A
+>.  The following table gives an overview of sequences recognized by the <B
+CLASS="command"
+>echo</B
+> command:</P
+><DIV
+CLASS="table"
+><A
+NAME="tab_08_01"
+></A
+><P
+><B
+>Table 8-1. Escape sequences used by the echo command</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Sequence</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\a</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Alert (bell).</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\b</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Backspace.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\c</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Suppress trailing newline.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\e</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Escape.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\f</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Form feed.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\n</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Newline.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\r</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Carriage return.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\t</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Horizontal tab.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\v</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Vertical tab.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\\</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Backslash.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\0NNN</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The eight-bit character whose value is the octal value NNN (zero to three octal digits).</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\NNN</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The eight-bit character whose value is the octal value NNN (one to three octal digits).</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\xHH</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The eight-bit character whose value is the hexadecimal value (one or two hexadecimal digits).</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>For more information about the <B
+CLASS="command"
+>printf</B
+> command and the way it allows you to format output, see the Bash info pages.  Keep in mind that there might be differences between different versions of Bash.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chap_08.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_08_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Writing interactive scripts</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_08.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Catching user input</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

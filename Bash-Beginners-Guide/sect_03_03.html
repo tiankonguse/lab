@@ -1,0 +1,409 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Quoting characters</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The Bash environment"
+HREF="chap_03.html"><LINK
+REL="PREVIOUS"
+TITLE="Variables"
+HREF="sect_03_02.html"><LINK
+REL="NEXT"
+TITLE="Shell expansion"
+HREF="sect_03_04.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_03_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 3. The Bash environment</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_03_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_03_03"
+></A
+>3.3. Quoting characters</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_03_01"
+></A
+>3.3.1. Why?</H2
+><P
+>A lot of keys have special meanings in some context or other.  Quoting is used to remove the special meaning of characters or words: quotes can disable special treatment for special characters, they can prevent reserved words from being recognized as such and they can disable parameter expansion.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_03_02"
+></A
+>3.3.2. Escape characters</H2
+><P
+>Escape characters are used to remove the special meaning from a single character.  A non-quoted backslash, \, is used as an escape character in Bash.  It preserves the literal value of the next character that follows, with the exception of <EM
+>newline</EM
+>.  If a newline character appears immediately after the backslash, it marks the continuation of a line when it is longer that the width of the terminal; the backslash is removed from the input stream and effectively ignored.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>date</TT
+>=<TT
+CLASS="parameter"
+><I
+>20021226</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$date</TT
+></B
+>
+20021226
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="parameter"
+><I
+>\$date</I
+></TT
+></B
+>
+$date
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>In this example, the variable <TT
+CLASS="varname"
+>date</TT
+> is created and set to hold a value.  The first <B
+CLASS="command"
+>echo</B
+> displays the value of the variable, but for the second, the dollar sign is escaped.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_03_03"
+></A
+>3.3.3. Single quotes</H2
+><P
+>Single quotes ('') are used to preserve the literal value of each character enclosed within the quotes.  A single quote may not occur between single quotes, even when preceded by a backslash.</P
+><P
+>We continue with the previous example:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="parameter"
+><I
+>'$date'</I
+></TT
+></B
+>
+$date
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_03_04"
+></A
+>3.3.4. Double quotes</H2
+><P
+>Using double quotes the literal value of all characters enclosed is preserved, except for the dollar sign, the backticks (backward single quotes, ``) and the backslash.</P
+><P
+>The dollar sign and the backticks retain their special meaning within the double quotes.</P
+><P
+>The backslash retains its meaning only when followed by dollar, backtick, double quote, backslash or newline.  Within double quotes, the backslashes are removed from the input stream when followed by one of these characters.  Backslashes preceding characters that don't have a special meaning are left unmodified for processing by the shell interpreter.</P
+><P
+>A double quote may be quoted within double quotes by preceding it with a backslash.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>"$date"</TT
+></B
+>
+20021226
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="parameter"
+><I
+>"`date`"</I
+></TT
+></B
+>
+Sun Apr 20 11:22:06 CEST 2003
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="parameter"
+><I
+>"I'd say: \"Go for it!\""</I
+></TT
+></B
+>
+I'd say: "Go for it!"
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="parameter"
+><I
+>"\"</I
+></TT
+></B
+>
+<TT
+CLASS="prompt"
+>More input&#62;</TT
+><B
+CLASS="command"
+>"</B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="parameter"
+><I
+>"\\"</I
+></TT
+></B
+>
+\
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_03_05"
+></A
+>3.3.5. ANSI-C quoting</H2
+><P
+>Words in the form <SPAN
+CLASS="QUOTE"
+>"$'STRING'"</SPAN
+> are treated in a special way.  The word expands to a string, with backslash-escaped characters replaced as specified by the ANSI-C standard.  Backslash escape sequences can be found in the Bash documentation.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_03_06"
+></A
+>3.3.6. Locales</H2
+><P
+>A double-quoted string preceded by a dollar sign will cause the string to be translated according to the current locale.  If the current locale is <SPAN
+CLASS="QUOTE"
+>"C"</SPAN
+> or <SPAN
+CLASS="QUOTE"
+>"POSIX"</SPAN
+>, the dollar sign is ignored.  If the string is translated and replaced, the replacement is double-quoted.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_03_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_03_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Variables</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_03.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Shell expansion</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

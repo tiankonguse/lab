@@ -1,0 +1,245 @@
+/*below given CSS is only for full-width layout. DO NOT use with other layouts on this template*/
+
+#welcome{
+padding-top: 200px;
+   background: url('../images/bg/07.jpg') center center repeat;
+    background-size: cover;
+}
+
+.ticker-wrap{
+    margin-top: 0px;
+}
+#news_ticker {
+height: 240px;
+overflow: hidden;
+padding: 3px;
+position: relative;
+}
+.ticker-list{
+text-align: center;
+width: 100%;
+padding: 0px;
+list-style: none;
+-webkit-animation: ticker 10s cubic-bezier(1, 0, .5, 0) infinite;
+-moz-animation: ticker 10s cubic-bezier(1, 0, .5, 0) infinite;
+-ms-animation: ticker 10s cubic-bezier(1, 0, .5, 0) infinite;
+animation: ticker 10s cubic-bezier(1, 0, .5, 0) infinite;
+}
+.ticker-list:hover {
+-webkit-animation-play-state: paused;
+-moz-animation-play-state: paused;
+-ms-animation-play-state: paused;
+animation-play-state: paused;
+}
+.ticker-list li {line-height: 220px;}
+#news_ticker a {
+color: #fff;
+text-decoration: none;
+font-size: 130px;
+}
+
+.btn-next-standard{
+    background: rgba(255,255,255,0);
+    border: 1px solid #fff;
+    border-radius: 0px;
+    box-shadow: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    margin: 0 auto 7px;
+    padding: 15px 30px  !important;
+    text-decoration: none;
+    text-shadow: none;
+    transition: all 1.25s ease;
+    -moz-transition: all 1.25s ease;
+    -webkit-transition: all 1.25s ease;
+    font-size: 24px;
+    line-height: 31px;
+    font-family:"Open_Sans_L";
+    
+    font-weight: 200;
+    border-radius: 5px;
+}
+
+.btn-next-standard:hover{
+    background: rgba(255,255,255,1);
+    border: 1px solid #fff;
+    border-radius: 0px;
+    box-shadow: none;
+    color: #000;
+    cursor: pointer;
+    margin: 0 auto 7px;
+    padding: 15px 30px  !important;
+    text-decoration: none;
+    text-shadow: none;
+    transition: all 1.25s ease;
+    -moz-transition: all 1.25s ease;
+    -webkit-transition: all 1.25s ease;
+    font-size: 24px;
+    line-height: 31px;
+    font-family:"Open_Sans_L";
+    
+    font-weight: 200;
+    border-radius: 5px;
+}
+#mast-nav{
+	margin-top: 35px;
+}
+#mast-nav li > a{
+	font-size: 14px;
+	line-height: 21px;
+    font-family:"Open_Sans_L";
+    font-weight: 200;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.page-heading, .page-heading-alt{
+  font-size: 72px;
+  line-height: 79px;
+  text-transform: uppercase;
+}  
+
+.page-section {
+    min-height: 500px;
+    padding-bottom: 120px;
+    padding-top: 120px;
+}
+
+
+@media (min-width: 1200px) {
+    .col-md-12,.container
+    {
+        width:980px;
+    }
+    .page-heading, .page-heading-alt
+    {
+    font-size: 64px;
+    line-height: 71px;
+   }  
+   .skill-wrap > div{
+   	margin-left: 35px;
+   }
+}
+
+@media (max-width: 1024px) {
+         .page-heading, .page-heading-alt{
+        font-size: 56px;
+        line-height: 63px;
+    }
+    #news_ticker a{
+        font-size: 96px;
+    }
+    #news_ticker a{
+        font-size: 96px;
+    }
+    #mast-nav li > a{
+        font-size: 12px;
+    }
+}
+@media (max-width: 960px) {
+         .page-heading, .page-heading-alt{
+        font-size: 56px;
+        line-height: 63px;
+    }
+    #news_ticker a{
+        font-size: 96px;
+    }
+    #news_ticker a{
+        font-size: 96px;
+    }
+    #mast-nav li > a{
+        font-size: 12px;
+    }
+}
+@media (max-width: 800px) {
+         .page-heading, .page-heading-alt{
+        font-size: 56px;
+        line-height: 63px;
+    }
+    #news_ticker a{
+        font-size: 96px;
+    }
+    #news_ticker a{
+        font-size: 96px;
+    }
+    #mast-nav li > a{
+        font-size: 12px;
+    }
+}
+@media (max-width: 768px) {
+         .page-heading, .page-heading-alt{
+        font-size: 56px;
+        line-height: 63px;
+    }
+    #news_ticker a{
+    	font-size: 96px;
+    }
+    #news_ticker a{
+    	font-size: 96px;
+    }
+    #mast-nav li > a{
+        font-size: 12px;
+    }
+}
+@media (max-width: 640px) {
+         .page-heading, .page-heading-alt{
+        font-size: 42px;
+        line-height: 49px;
+    }
+    #standard-nav{
+    	display: none;
+    }
+    #news_ticker a{
+    	font-size: 72px;
+    }
+}
+
+@media (max-width: 600px) {
+         .page-heading, .page-heading-alt{
+        font-size: 42px;
+        line-height: 49px;
+    }
+    #standard-nav{
+        display: none;
+    }
+    #news_ticker a{
+        font-size: 64px;
+    }
+}
+@media (max-width:480px) {
+     .page-heading, .page-heading-alt{
+        font-size: 36px;
+        line-height: 43px;
+    }
+    #standard-nav{
+    	display: none;
+    }
+    #news_ticker a{
+    	font-size: 64px;
+    }
+}
+@media (max-width:360px) {    
+    .page-heading, .page-heading-alt{
+        font-size: 24px;
+        line-height: 31px;
+    }
+    #standard-nav{
+    	display: none;
+    }
+    #news_ticker a{
+    	font-size: 48px;
+    }
+}
+@media (max-width:320px) {    
+    .page-heading, .page-heading-alt{
+        font-size: 24px;
+        line-height: 31px;
+    }
+    #standard-nav{
+        display: none;
+    }
+    #news_ticker a{
+        font-size: 36px;
+    }
+}

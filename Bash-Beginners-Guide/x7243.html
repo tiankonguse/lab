@@ -1,0 +1,558 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Common features</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Shell Features"
+HREF="app3.html"><LINK
+REL="PREVIOUS"
+TITLE="Shell Features"
+HREF="app3.html"><LINK
+REL="NEXT"
+TITLE="Differing features"
+HREF="x7369.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="app3.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix A. Shell Features</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x7369.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN7243"
+></A
+>A.1. Common features</H1
+><P
+>&#13;The following features are standard in every shell.  Note that the stop, suspend, jobs, bg and fg commands are only available on systems that support job control.
+</P
+><DIV
+CLASS="table"
+><A
+NAME="AEN7246"
+></A
+><P
+><B
+>Table A-1. Common Shell Features</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Command</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>&#62;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Redirect output</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>&#62;&#62;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Append to file</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>&#60;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Redirect input</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>&#60;&#60;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>"Here" document (redirect input)</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>|</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Pipe output</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>&#38;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Run process in background.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Separate commands on same line</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>*</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Match any character(s) in filename</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>?</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Match single character in filename</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>[ ]</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Match any characters enclosed</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>( )</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Execute in subshell</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>` `</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Substitute output of enclosed command</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>" "</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Partial quote (allows variable and command expansion)</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>' '</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Full quote (no expansion)</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>\</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Quote following character</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>$var</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Use value for variable</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>$$</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Process id</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>$0</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Command name</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>$n</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>nth argument (n from 0 to 9)</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="literal"
+>#</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Begin comment</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>bg</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Background execution</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>break</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Break from loop statements</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>cd</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Change directories</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>continue</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Resume a program loop</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>echo</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Display output</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>eval</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Evaluate arguments</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>exec</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Execute a new shell</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>fg</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Foreground execution</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>jobs</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Show active jobs</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>kill</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Terminate running jobs</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>newgrp</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Change to a new group</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>shift</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Shift positional parameters</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>stop</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Suspend a background job</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>suspend</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Suspend a foreground job</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>time</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Time a command</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>umask</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Set or list file permissions</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>unset</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Erase variable or function definitions</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>wait</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Wait for a background job to finish</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="app3.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x7369.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Shell Features</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="app3.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Differing features</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

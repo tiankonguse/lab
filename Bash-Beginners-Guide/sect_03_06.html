@@ -1,0 +1,481 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>More Bash options</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The Bash environment"
+HREF="chap_03.html"><LINK
+REL="PREVIOUS"
+TITLE="Aliases"
+HREF="sect_03_05.html"><LINK
+REL="NEXT"
+TITLE="Summary"
+HREF="sect_03_07.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_03_05.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 3. The Bash environment</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_03_07.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_03_06"
+></A
+>3.6. More Bash options</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_06_01"
+></A
+>3.6.1. Displaying options</H2
+><P
+>We already discussed a couple of Bash options that are useful for debugging your scripts.  In this section, we will take a more in-depth view of the Bash options.</P
+><P
+>Use the <TT
+CLASS="option"
+>-o</TT
+> option to <B
+CLASS="command"
+>set</B
+> to display all shell options:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>willy:~&#62;</TT
+> <B
+CLASS="command"
+>set <TT
+CLASS="option"
+>-o</TT
+></B
+>
+allexport		off
+braceexpand		on
+emacs			on
+errexit			off
+hashall			on
+histexpand		on
+history			on
+ignoreeof		off
+interactive-comments	on
+keyword			off
+monitor			on
+noclobber		off
+noexec			off
+noglob			off
+nolog			off
+notify			off
+nounset			off
+onecmd			off
+physical		off
+posix			off
+privileged		off
+verbose			off
+vi			off
+xtrace			off
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>See the Bash Info pages, section <SPAN
+CLASS="guimenu"
+>Shell Built-in Commands</SPAN
+>-&gt;<SPAN
+CLASS="guimenuitem"
+>The Set Built-in</SPAN
+> for a description of each option.  A lot of options have one-character shorthands: the <TT
+CLASS="option"
+>xtrace</TT
+> option, for instance, is equal to specifying <B
+CLASS="command"
+>set <TT
+CLASS="option"
+>-x</TT
+></B
+>.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_06_02"
+></A
+>3.6.2. Changing options</H2
+><P
+>Shell options can either be set different from the default upon calling the shell, or be set during shell operation.  They may also be included in the shell resource configuration files.</P
+><P
+>The following command executes a script in POSIX-compatible mode:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>willy:~/scripts&#62;</TT
+> <B
+CLASS="command"
+>bash <TT
+CLASS="option"
+>--posix</TT
+> <TT
+CLASS="filename"
+>script.sh</TT
+></B
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>For changing the current environment temporarily, or for use in a script,
+we would rather use <B
+CLASS="command"
+>set</B
+>.  Use <EM
+>-</EM
+> (dash) for enabling an option, <EM
+>+</EM
+> for disabling:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>willy:~/test&#62;</TT
+> <B
+CLASS="command"
+>set <TT
+CLASS="option"
+>-o</TT
+> <TT
+CLASS="parameter"
+><I
+>noclobber</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>willy:~/test&#62;</TT
+> <B
+CLASS="command"
+>touch <TT
+CLASS="filename"
+>test</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>willy:~/test&#62;</TT
+> <B
+CLASS="command"
+>date &#62; <TT
+CLASS="filename"
+>test</TT
+></B
+>
+bash: test: cannot overwrite existing file
+
+<TT
+CLASS="prompt"
+>willy:~/test&#62;</TT
+> <B
+CLASS="command"
+>set <TT
+CLASS="option"
+>+o</TT
+> <TT
+CLASS="parameter"
+><I
+>noclobber</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>willy:~/test&#62;</TT
+> <B
+CLASS="command"
+>date &#62; <TT
+CLASS="filename"
+>test</TT
+></B
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>The above example demonstrates the <TT
+CLASS="option"
+>noclobber</TT
+> option, which prevents existing files from being overwritten by redirection operations.  The same goes for one-character options, for instance <TT
+CLASS="option"
+>-u</TT
+>, which will treat unset variables as an error when set, and exits a non-interactive shell upon
+encountering such errors:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>willy:~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$VAR</TT
+></B
+>
+
+
+<TT
+CLASS="prompt"
+>willy:~&#62;</TT
+> <B
+CLASS="command"
+>set <TT
+CLASS="option"
+>-u</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>willy:~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$VAR</TT
+></B
+>
+bash: VAR: unbound variable
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>This option is also useful for detecting incorrect content assignment to variables: the same error will also occur, for instance, when assigning a character string to a variable that was declared explicitly as one holding only integer values.</P
+><P
+>One last example follows, demonstrating the <TT
+CLASS="option"
+>noglob</TT
+> option, which prevents special characters from being expanded:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>willy:~/testdir&#62;</TT
+> <B
+CLASS="command"
+>set <TT
+CLASS="option"
+>-o</TT
+> <TT
+CLASS="parameter"
+><I
+>noglob</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>willy:~/testdir&#62;</TT
+> <B
+CLASS="command"
+>touch <TT
+CLASS="filename"
+>*</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>willy:~/testdir&#62;</TT
+> <B
+CLASS="command"
+>ls <TT
+CLASS="option"
+>-l</TT
+> <TT
+CLASS="filename"
+>*</TT
+></B
+>
+-rw-rw-r--    1 willy    willy		0 Feb 27 13:37 *
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_03_05.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_03_07.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Aliases</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_03.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Summary</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

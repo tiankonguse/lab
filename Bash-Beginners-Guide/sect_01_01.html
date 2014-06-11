@@ -1,0 +1,315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Common shell programs</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Bash and Bash scripts"
+HREF="chap_01.html"><LINK
+REL="PREVIOUS"
+TITLE="Bash and Bash scripts"
+HREF="chap_01.html"><LINK
+REL="NEXT"
+TITLE="Advantages of the Bourne Again SHell"
+HREF="sect_01_02.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chap_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 1. Bash and Bash scripts</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_01_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_01_01"
+></A
+>1.1. Common shell programs</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_01_01_01"
+></A
+>1.1.1. General shell functions</H2
+><P
+>The UNIX shell program interprets user commands, which are either directly entered by the user, or which can be read from a file called the shell script or shell program.  Shell scripts are interpreted, not compiled.  The shell reads commands from the script line per line and searches for those commands on the system (see <A
+HREF="sect_01_02.html"
+>Section 1.2</A
+>), while a compiler converts a program into machine readable form, an executable file - which may then be used in a shell script.</P
+><P
+>Apart from passing commands to the kernel, the main task of a shell is providing a user environment, which can be configured individually using shell resource configuration files.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_01_01_02"
+></A
+>1.1.2. Shell types</H2
+><P
+>Just like people know different languages and dialects, your UNIX system will usually offer a variety of shell types:</P
+><P
+></P
+><UL
+><LI
+><P
+><B
+CLASS="command"
+>sh</B
+> or Bourne Shell: the original shell still
+used on UNIX systems and in UNIX-related environments.  This is the basic shell, a small program with few features.  While this is not the standard shell, it is still available on every Linux system for compatibility with UNIX programs.</P
+></LI
+><LI
+><P
+><B
+CLASS="command"
+>bash</B
+> or Bourne Again shell: the standard GNU
+shell, intuitive and flexible.  Probably most advisable for beginning users while being at the same time a powerful tool for the advanced and professional user.  On Linux, <B
+CLASS="command"
+>bash</B
+> is the standard shell for common users.  This shell is a so-called <EM
+>superset</EM
+> of the Bourne shell, a set
+of add-ons and plug-ins.  This means that the Bourne Again shell is compatible with the Bourne shell: commands that work in <B
+CLASS="command"
+>sh</B
+>, also work in
+<B
+CLASS="command"
+>bash</B
+>.  However, the reverse is not always the case.  All examples and exercises in this book use <B
+CLASS="command"
+>bash</B
+>.</P
+></LI
+><LI
+><P
+><B
+CLASS="command"
+>csh</B
+> or C shell: the syntax of this shell resembles that of the C programming language.  Sometimes asked for by programmers.</P
+></LI
+><LI
+><P
+><B
+CLASS="command"
+>tcsh</B
+> or TENEX C shell: a superset of the common C shell, enhancing user-friendliness and speed.  That is why some also call it the Turbo C shell.</P
+></LI
+><LI
+><P
+><B
+CLASS="command"
+>ksh</B
+> or the Korn shell: sometimes appreciated
+by people with a UNIX background.  A superset of the Bourne shell; with standard configuration a nightmare for beginning users.</P
+></LI
+></UL
+><P
+>The file <TT
+CLASS="filename"
+>/etc/shells</TT
+> gives an overview of known shells on a Linux system:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>mia:~&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>/etc/shells</TT
+></B
+>
+/bin/bash
+/bin/sh
+/bin/tcsh
+/bin/csh
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Your default shell is set in the <TT
+CLASS="filename"
+>/etc/passwd</TT
+> file, like this line for user <EM
+>mia</EM
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;mia:L2NOfqdlPrHwE:504:504:Mia Maya:/home/mia:/bin/bash
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>To switch from one shell to another, just enter the name of the new shell
+in the active terminal.  The system finds the directory where the name occurs using the <TT
+CLASS="varname"
+>PATH</TT
+> settings, and since a shell is an executable file (program), the current shell activates it and it gets executed.  A new prompt is usually shown, because each shell has its typical appearance:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>mia:~&#62;</TT
+> <B
+CLASS="command"
+>tcsh</B
+>
+[mia@post21 ~]$
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chap_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_01_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Bash and Bash scripts</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_01.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Advantages of the Bourne Again SHell</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

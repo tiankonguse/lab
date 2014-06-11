@@ -1,0 +1,429 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Building blocks</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Bash and Bash scripts"
+HREF="chap_01.html"><LINK
+REL="PREVIOUS"
+TITLE="Executing commands"
+HREF="sect_01_03.html"><LINK
+REL="NEXT"
+TITLE="Developing good scripts"
+HREF="sect_01_05.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_01_03.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 1. Bash and Bash scripts</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_01_05.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_01_04"
+></A
+>1.4. Building blocks</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_01_04_01"
+></A
+>1.4.1. Shell building blocks</H2
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_04_01_01"
+></A
+>1.4.1.1. Shell syntax</H3
+><P
+>If input is not commented, the shell reads it and divides it into words and operators, employing quoting rules to define the meaning of each character of input.  Then these words and operators are translated into commands and other constructs, which return an exit status available for inspection or processing.  The above fork-and-exec scheme is only applied after the shell has analyzed input in the following way:</P
+><P
+></P
+><UL
+><LI
+><P
+>The shell reads its input from a file, from a string or from the user's terminal.</P
+></LI
+><LI
+><P
+>Input is broken up into words and operators, obeying the quoting rules, see <A
+HREF="chap_03.html"
+>Chapter 3</A
+>.  These tokens are separated by <EM
+>metacharacters</EM
+>.  Alias expansion is performed.</P
+></LI
+><LI
+><P
+>The shell <EM
+>parses</EM
+> (analyzes and substitutes) the tokens into simple and compound commands.</P
+></LI
+><LI
+><P
+>Bash performs various shell expansions, breaking the expanded tokens into lists of filenames and commands and arguments.</P
+></LI
+><LI
+><P
+>Redirection is performed if necessary, redirection operators and their operands are removed from the argument list.</P
+></LI
+><LI
+><P
+>Commands are executed.</P
+></LI
+><LI
+><P
+>Optionally the shell waits for the command to complete and collects its exit status.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_04_01_02"
+></A
+>1.4.1.2. Shell commands</H3
+><P
+>A simple shell command such as <B
+CLASS="command"
+>touch <TT
+CLASS="filename"
+>file1</TT
+> <TT
+CLASS="filename"
+>file2</TT
+> <TT
+CLASS="filename"
+>file3</TT
+></B
+> consists of the command itself followed by arguments, separated by spaces.</P
+><P
+>More complex shell commands are composed of simple commands arranged together in a variety of ways: in a pipeline in which the output of one command becomes the input of a second, in a loop or conditional construct, or in some other grouping.  A couple of examples:</P
+><P
+><B
+CLASS="command"
+>ls | more</B
+> </P
+><P
+><B
+CLASS="command"
+>gunzip <TT
+CLASS="filename"
+>file.tar.gz</TT
+> | tar <TT
+CLASS="option"
+>xvf</TT
+> <TT
+CLASS="parameter"
+><I
+>-</I
+></TT
+></B
+> </P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_04_01_03"
+></A
+>1.4.1.3. Shell functions</H3
+><P
+>Shell functions are a way to group commands for later execution using a single name for the group.  They are executed just like a <SPAN
+CLASS="QUOTE"
+>"regular"</SPAN
+> command.  When the name of a shell function is used as a simple command name, the list of commands associated with that function name is executed.</P
+><P
+>Shell functions are executed in the current shell context; no new process is created to interpret them.</P
+><P
+>Functions are explained in <A
+HREF="chap_11.html"
+>Chapter 11</A
+>.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_04_01_04"
+></A
+>1.4.1.4. Shell parameters</H3
+><P
+>A parameter is an entity that stores values.  It can be a name, a number or a special value.  For the shell's purpose, a variable is a parameter that stores a name.  A variable has a value and zero or more attributes.  Variables are created with the <B
+CLASS="command"
+>declare</B
+> shell built-in command.</P
+><P
+>If no value is given, a variable is assigned the null string.  Variables can only be removed with the <B
+CLASS="command"
+>unset</B
+> built-in.</P
+><P
+>Assigning variables is discussed in <A
+HREF="sect_03_02.html"
+>Section 3.2</A
+>, advanced use of variables in <A
+HREF="chap_10.html"
+>Chapter 10</A
+>.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_04_01_05"
+></A
+>1.4.1.5. Shell expansions</H3
+><P
+>Shell expansion is performed after each command line has been split into tokens.  These are the expansions performed:</P
+><P
+></P
+><UL
+><LI
+><P
+>Brace expansion</P
+></LI
+><LI
+><P
+>Tilde expansion</P
+></LI
+><LI
+><P
+>Parameter and variable expansion</P
+></LI
+><LI
+><P
+>Command substitution</P
+></LI
+><LI
+><P
+>Arithmetic expansion</P
+></LI
+><LI
+><P
+>Word splitting</P
+></LI
+><LI
+><P
+>Filename expansion</P
+></LI
+></UL
+><P
+>We'll discuss these expansion types in detail in <A
+HREF="sect_03_04.html"
+>Section 3.4</A
+>.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_04_01_06"
+></A
+>1.4.1.6. Redirections</H3
+><P
+>Before a command is executed, its input and output may be redirected using a special notation interpreted by the shell.  Redirection may also be used to open and close files for the current shell execution environment.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_04_01_07"
+></A
+>1.4.1.7. Executing commands</H3
+><P
+>When executing a command, the words that the parser has marked as variable assignments (preceding the command name) and redirections are saved for later reference.  Words that are not variable assignments or redirections are expanded; the first remaining word after expansion is taken to be the name of the command and the rest are arguments to that command.  Then redirections are performed, then strings assigned to variables are expanded.  If no command name results, variables will affect the current shell environment.</P
+><P
+>An important part of the tasks of the shell is to search for commands.  Bash does this as follows:</P
+><P
+></P
+><UL
+><LI
+><P
+>Check whether the command contains slashes.  If not, first check with the function list to see if it contains a command by the name we are looking for.</P
+></LI
+><LI
+><P
+>If command is not a function, check for it in the built-in list.</P
+></LI
+><LI
+><P
+>If command is neither a function nor a built-in, look for it analyzing the directories listed in <TT
+CLASS="varname"
+>PATH</TT
+>.  Bash uses a <EM
+>hash table</EM
+> (data storage area in memory) to remember the full path names of executables so extensive <TT
+CLASS="varname"
+>PATH</TT
+> searches can be avoided.</P
+></LI
+><LI
+><P
+>If the search is unsuccessful, bash prints an error message and returns an exit status of 127.</P
+></LI
+><LI
+><P
+>If the search was successful or if the command contains slashes, the shell executes the command in a separate execution environment.</P
+></LI
+><LI
+><P
+>If execution fails because the file is not executable and not a directory, it is assumed to be a shell script.</P
+></LI
+><LI
+><P
+>If the command was not begun asynchronously, the shell waits for the command to complete and collects its exit status.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_01_04_01_08"
+></A
+>1.4.1.8. Shell scripts</H3
+><P
+>When a file containing shell commands is used as the first non-option argument when invoking Bash (without <TT
+CLASS="option"
+>-c</TT
+> or <TT
+CLASS="option"
+>-s</TT
+>, this will create a non-interactive shell.  This shell first searches for the script file in the current directory, then looks in <TT
+CLASS="varname"
+>PATH</TT
+> if the file cannot be found there.</P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_01_03.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_01_05.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Executing commands</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_01.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Developing good scripts</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

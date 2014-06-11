@@ -1,0 +1,634 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Types of variables</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="More on variables"
+HREF="chap_10.html"><LINK
+REL="PREVIOUS"
+TITLE="More on variables"
+HREF="chap_10.html"><LINK
+REL="NEXT"
+TITLE="Array variables"
+HREF="sect_10_02.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chap_10.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 10. More on variables</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_10_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_10_01"
+></A
+>10.1. Types of variables</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_10_01_01"
+></A
+>10.1.1. General assignment of values</H2
+><P
+>As we already saw, Bash understands many different kinds of variables or parameters.  Thus far, we haven't bothered much with what kind of variables we assigned, so our variables could hold any value that we assigned to them.  A simple command line example demonstrates this:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>VARIABLE</TT
+>=<TT
+CLASS="parameter"
+><I
+>12</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$VARIABLE</TT
+></B
+>
+12
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>VARIABLE</TT
+>=<TT
+CLASS="parameter"
+><I
+>string</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$VARIABLE</TT
+></B
+>
+string
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>There are cases when you want to avoid this kind of behavior, for instance when handling telephone and other numbers.  Apart from integers and variables, you may also want to specify a variable that is a constant.  This is often done at the beginning of a script, when the value of the constant is declared.  After that, there are only references to the constant variable name, so that when the constant needs to be changed, it only has to be done once.  A variable may also be a series of variables of any type, a so-called <EM
+>array</EM
+> of variables (<TT
+CLASS="varname"
+>VAR0</TT
+><TT
+CLASS="varname"
+>VAR1</TT
+>, <TT
+CLASS="varname"
+>VAR2</TT
+>, ... <TT
+CLASS="varname"
+>VARN</TT
+>).</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_10_01_02"
+></A
+>10.1.2. Using the declare built-in</H2
+><P
+>Using a <B
+CLASS="command"
+>declare</B
+> statement, we can limit the value assignment to variables.</P
+><P
+>The syntax for <B
+CLASS="command"
+>declare</B
+> is the following:</P
+><P
+><B
+CLASS="command"
+>declare <TT
+CLASS="option"
+>OPTION(s)</TT
+> <TT
+CLASS="varname"
+>VARIABLE</TT
+>=value</B
+> </P
+><P
+>The following options are used to determine the type of data the variable can hold and to assign it attributes:</P
+><DIV
+CLASS="table"
+><A
+NAME="tab_10_01"
+></A
+><P
+><B
+>Table 10-1. Options to the declare built-in</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Option</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="option"
+>-a</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Variable is an array.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="option"
+>-f</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Use function names only.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="option"
+>-i</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>The variable is to be treated as an integer; arithmetic evaluation is performed when the variable is assigned a value (see <A
+HREF="sect_03_04.html#sect_03_04_05"
+>Section 3.4.6</A
+>).</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="option"
+>-p</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Display the attributes and values of each variable.  When <TT
+CLASS="option"
+>-p</TT
+> is used, additional options are ignored.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="option"
+>-r</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Make variables read-only.  These variables cannot then be assigned values by subsequent assignment statements, nor can they be unset.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="option"
+>-t</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Give each variable the <EM
+>trace</EM
+> attribute.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="option"
+>-x</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Mark each variable for export to subsequent commands via the environment.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>Using <TT
+CLASS="option"
+>+</TT
+> instead of <TT
+CLASS="option"
+>-</TT
+> turns off the attribute instead.  When used in a function, <B
+CLASS="command"
+>declare</B
+> creates local variables.</P
+><P
+>The following example shows how assignment of a type to a variable influences the value.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>declare <TT
+CLASS="option"
+>-i</TT
+> <TT
+CLASS="varname"
+>VARIABLE</TT
+>=<TT
+CLASS="parameter"
+><I
+>12</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>VARIABLE</TT
+>=<TT
+CLASS="parameter"
+><I
+>string</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$VARIABLE</TT
+></B
+>
+0
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>declare <TT
+CLASS="option"
+>-p</TT
+> <TT
+CLASS="varname"
+>VARIABLE</TT
+></B
+>
+declare -i VARIABLE="0"
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Note that Bash has an option to declare a numeric value, but none for declaring string values.  This is because, by default, if no specifications are given, a variable can hold any type of data:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>OTHERVAR</TT
+>=<TT
+CLASS="parameter"
+><I
+>blah</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>declare <TT
+CLASS="option"
+>-p</TT
+> <TT
+CLASS="varname"
+>OTHERVAR</TT
+></B
+>
+declare -- OTHERVAR="blah"
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>As soon as you restrict assignment of values to a variable, it can only hold that type of data.  Possible restrictions are either integer, constant or array.</P
+><P
+>See the Bash info pages for information on return status.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_10_01_03"
+></A
+>10.1.3. Constants</H2
+><P
+>In Bash, constants are created by making a variable read-only.  The <B
+CLASS="command"
+>readonly</B
+> built-in marks each specified variable as unchangeable.  The syntax is:</P
+><P
+><B
+CLASS="command"
+>readonly <TT
+CLASS="option"
+>OPTION</TT
+> <TT
+CLASS="varname"
+>VARIABLE(s)</TT
+></B
+> </P
+><P
+>The values of these variables can then no longer be changed by subsequent assignment.  If the <TT
+CLASS="option"
+>-f</TT
+> option is given, each variable refers to a shell function; see <A
+HREF="chap_11.html"
+>Chapter 11</A
+>.  If <TT
+CLASS="option"
+>-a</TT
+> is specified, each variable refers to an array of variables.  If no arguments are given, or if <TT
+CLASS="option"
+>-p</TT
+> is supplied, a list of all read-only variables is displayed.  Using the <TT
+CLASS="option"
+>-p</TT
+> option, the output can be reused as input.</P
+><P
+>The return status is zero, unless an invalid option was specified, one of the variables or functions does not exist, or <TT
+CLASS="option"
+>-f</TT
+> was supplied for a variable name instead of for a function name.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+>readonly <TT
+CLASS="varname"
+>TUX</TT
+>=<TT
+CLASS="parameter"
+><I
+>penguinpower</I
+></TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>[bob in ~]</TT
+> <B
+CLASS="command"
+><TT
+CLASS="varname"
+>TUX</TT
+>=<TT
+CLASS="parameter"
+><I
+>Mickeysoft</I
+></TT
+></B
+>
+bash: TUX: readonly variable
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chap_10.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_10_02.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>More on variables</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_10.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Array variables</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

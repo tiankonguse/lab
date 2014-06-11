@@ -1,0 +1,826 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Gawk variables</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The GNU awk programming language"
+HREF="chap_06.html"><LINK
+REL="PREVIOUS"
+TITLE="The print program"
+HREF="sect_06_02.html"><LINK
+REL="NEXT"
+TITLE="Summary"
+HREF="sect_06_04.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_06_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 6. The GNU awk programming language</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_06_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_06_03"
+></A
+>6.3. Gawk variables</H1
+><P
+>As <B
+CLASS="command"
+>awk</B
+> is processing the input file, it uses several variables.  Some are editable, some are read-only.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_06_03_01"
+></A
+>6.3.1. The input field separator</H2
+><P
+>The <EM
+>field separator</EM
+>, which is either a single character or a regular expression, controls the way <B
+CLASS="command"
+>awk</B
+> splits up an input record into fields.  The input record is scanned for character sequences that match the separator definition; the fields themselves are the text between the matches.</P
+><P
+>The field separator is represented by the built-in variable <TT
+CLASS="varname"
+>FS</TT
+>.  Note that this is something different from the <TT
+CLASS="varname"
+>IFS</TT
+> variable used by POSIX-compliant shells.</P
+><P
+>The value of the field separator variable can be changed in the <B
+CLASS="command"
+>awk</B
+> program with the assignment operator <B
+CLASS="command"
+>=</B
+>.  Often the right time to do this is at the beginning of execution before any input has been processed, so that the very first record is read with the proper separator.  To do this, use the special <B
+CLASS="command"
+>BEGIN</B
+> pattern.</P
+><P
+>In the example below, we build a command that displays all the users on your system with a description:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly is in ~&#62;</TT
+> <B
+CLASS="command"
+>awk <TT
+CLASS="parameter"
+><I
+>'BEGIN { FS=":" } { print $1 "\t" $5 }'</I
+></TT
+> <TT
+CLASS="filename"
+>/etc/passwd</TT
+></B
+>
+--output omitted--
+kelly	Kelly Smith
+franky	Franky B.
+eddy	Eddy White
+willy	William Black
+cathy	Catherine the Great
+sandy	Sandy Li Wong
+
+<TT
+CLASS="prompt"
+>kelly is in ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>In an <B
+CLASS="command"
+>awk</B
+> script, it would look like this:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly is in ~&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>printnames.awk</TT
+></B
+>
+BEGIN { FS=":" }
+{ print $1 "\t" $5 }
+
+<TT
+CLASS="prompt"
+>kelly is in ~&#62;</TT
+> <B
+CLASS="command"
+>awk <TT
+CLASS="option"
+>-f</TT
+> <TT
+CLASS="filename"
+>printnames.awk /etc/passwd</TT
+></B
+>
+--output omitted--
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Choose input field separators carefully to prevent problems.  An example to illustrate this: say you get input in the form of lines that look like this:</P
+><P
+><SPAN
+CLASS="QUOTE"
+>"Sandy L. Wong, 64 Zoo St., Antwerp, 2000X"</SPAN
+></P
+><P
+>You write a command line or a script, which prints out the name of the person in that record:</P
+><P
+><B
+CLASS="command"
+>awk 'BEGIN { FS="," } { print $1, $2, $3 }' <TT
+CLASS="filename"
+>inputfile</TT
+></B
+> </P
+><P
+>But a person might have a PhD, and it might be written like this:</P
+><P
+><SPAN
+CLASS="QUOTE"
+>"Sandy L. Wong, PhD, 64 Zoo St., Antwerp, 2000X"</SPAN
+></P
+><P
+>Your <B
+CLASS="command"
+>awk</B
+> will give the wrong output for this line.  If needed, use an extra <B
+CLASS="command"
+>awk</B
+> or <B
+CLASS="command"
+>sed</B
+> to uniform data input formats.</P
+><P
+>The default input field separator is one or more whitespaces or tabs.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_06_03_02"
+></A
+>6.3.2. The output separators</H2
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_06_03_02_01"
+></A
+>6.3.2.1. The output field separator</H3
+><P
+>Fields are normally separated by spaces in the output.  This becomes apparent when you use the correct syntax for the <B
+CLASS="command"
+>print</B
+> command, where arguments are separated by commas:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly@octarine ~/test&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>test</TT
+></B
+>
+record1         data1
+record2         data2
+
+<TT
+CLASS="prompt"
+>kelly@octarine ~/test&#62;</TT
+> <B
+CLASS="command"
+>awk <TT
+CLASS="parameter"
+><I
+>'{ print $1 $2}'</I
+></TT
+> <TT
+CLASS="filename"
+>test</TT
+></B
+>
+record1data1
+record2data2
+
+<TT
+CLASS="prompt"
+>kelly@octarine ~/test&#62;</TT
+> <B
+CLASS="command"
+>awk <TT
+CLASS="parameter"
+><I
+>'{ print $1, $2}'</I
+></TT
+> <TT
+CLASS="filename"
+>test</TT
+></B
+>
+record1 data1
+record2 data2
+
+<TT
+CLASS="prompt"
+>kelly@octarine ~/test&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>If you don't put in the commas, <B
+CLASS="command"
+>print</B
+> will treat the items to output as one argument, thus omitting the use of the default <EM
+>output separator</EM
+>, <TT
+CLASS="varname"
+>OFS</TT
+>.</P
+><P
+>Any character string may be used as the output field separator by setting this built-in variable.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_06_03_02_02"
+></A
+>6.3.2.2. The output record separator</H3
+><P
+>The output from an entire <B
+CLASS="command"
+>print</B
+> statement is called an <EM
+>output record</EM
+>.  Each <B
+CLASS="command"
+>print</B
+> command results in one output record, and then outputs a string called the <EM
+>output record separator</EM
+>, <TT
+CLASS="varname"
+>ORS</TT
+>.  The default value for this variable is <SPAN
+CLASS="QUOTE"
+>"\n"</SPAN
+>, a newline character.  Thus, each <B
+CLASS="command"
+>print</B
+> statement generates a separate line.</P
+><P
+>To change the way output fields and records are separated, assign new values to <TT
+CLASS="varname"
+>OFS</TT
+> and <TT
+CLASS="varname"
+>ORS</TT
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly@octarine ~/test&#62;</TT
+> <B
+CLASS="command"
+>awk <TT
+CLASS="parameter"
+><I
+>'BEGIN { OFS=";" ; ORS="\n--&#62;\n" } \
+{ print $1,$2}'</I
+></TT
+> <TT
+CLASS="filename"
+>test</TT
+></B
+>
+record1;data1
+--&#62;
+record2;data2
+--&#62;
+
+<TT
+CLASS="prompt"
+>kelly@octarine ~/test&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>If the value of <TT
+CLASS="varname"
+>ORS</TT
+> does not contain a newline, the program's output is run together on a single line.</P
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_06_03_03"
+></A
+>6.3.3. The number of records</H2
+><P
+>The built-in <TT
+CLASS="varname"
+>NR</TT
+> holds the number of records that are processed.  It is incremented after reading a new input line.  You can use it at the end to count the total number of records, or in each output record:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly@octarine ~/test&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>processed.awk</TT
+></B
+>
+BEGIN { OFS="-" ; ORS="\n--&#62; done\n" }
+{ print "Record number " NR ":\t" $1,$2 }
+END { print "Number of records processed: " NR }
+
+<TT
+CLASS="prompt"
+>kelly@octarine ~/test&#62;</TT
+> <B
+CLASS="command"
+>awk <TT
+CLASS="option"
+>-f</TT
+> <TT
+CLASS="filename"
+>processed.awk test</TT
+></B
+>
+Record number 1:        record1-data1
+--&#62; done
+Record number 2:        record2-data2
+--&#62; done
+Number of records processed: 2
+--&#62; done
+
+<TT
+CLASS="prompt"
+>kelly@octarine ~/test&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_06_03_04"
+></A
+>6.3.4. User defined variables</H2
+><P
+>Apart from the built-in variables, you can define your own.  When <B
+CLASS="command"
+>awk</B
+> encounters a reference to a variable which does not exist (which is not predefined), the variable is created and initialized to a null string.  For all subsequent references, the value of the variable is whatever value was assigned last.  Variables can be a string or a numeric value.  Content of input fields can also be assigned to variables.</P
+><P
+>Values can be assigned directly using the <B
+CLASS="command"
+>=</B
+> operator, or you can use the current value of the variable in combination with other operators:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly@octarine ~&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>revenues</TT
+></B
+>
+20021009        20021013        consultancy     BigComp         2500
+20021015        20021020        training        EduComp         2000
+20021112        20021123        appdev          SmartComp       10000
+20021204        20021215        training        EduComp         5000
+
+<TT
+CLASS="prompt"
+>kelly@octarine ~&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>total.awk</TT
+></B
+>
+{ total=total + $5 }
+{ print "Send bill for " $5 " dollar to " $4 }
+END { print "---------------------------------\nTotal revenue: " total }
+
+<TT
+CLASS="prompt"
+>kelly@octarine ~&#62;</TT
+> <B
+CLASS="command"
+>awk <TT
+CLASS="option"
+>-f</TT
+> <TT
+CLASS="filename"
+>total.awk test</TT
+></B
+>
+Send bill for 2500 dollar to BigComp
+Send bill for 2000 dollar to EduComp
+Send bill for 10000 dollar to SmartComp
+Send bill for 5000 dollar to EduComp
+---------------------------------
+Total revenue: 19500
+
+<TT
+CLASS="prompt"
+>kelly@octarine ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>C-like shorthands like <B
+CLASS="command"
+><TT
+CLASS="varname"
+>VAR</TT
+>+= value</B
+> are also accepted.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_06_03_05"
+></A
+>6.3.5. More examples</H2
+><P
+>The example from <A
+HREF="sect_05_03.html#sect_05_03_02"
+>Section 5.3.2</A
+> becomes much easier when we use an <B
+CLASS="command"
+>awk</B
+> script:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly@octarine ~/html&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>make-html-from-text.awk</TT
+></B
+>
+BEGIN { print "&#60;html&#62;\n&#60;head&#62;&#60;title&#62;Awk-generated HTML&#60;/title&#62;&#60;/head&#62;\n&#60;body bgcolor=\"#ffffff\"&#62;\n&#60;pre&#62;" }
+{ print $0 }
+END { print "&#60;/pre&#62;\n&#60;/body&#62;\n&#60;/html&#62;" }
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>And the command to execute is also much more straightforward when using <B
+CLASS="command"
+>awk</B
+> instead of <B
+CLASS="command"
+>sed</B
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>kelly@octarine ~/html&#62;</TT
+> <B
+CLASS="command"
+>awk <TT
+CLASS="option"
+>-f</TT
+> <TT
+CLASS="filename"
+>make-html-from-text.awk testfile</TT
+> &#62; <TT
+CLASS="filename"
+>file.html</TT
+></B
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Awk examples on your system</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>We refer again to the directory containing the initscripts on your system.  Enter a command similar to the following to see more practical examples of the widely spread usage of the <B
+CLASS="command"
+>awk</B
+> command:</P
+><P
+><B
+CLASS="command"
+>grep <TT
+CLASS="parameter"
+><I
+>awk</I
+></TT
+> <TT
+CLASS="filename"
+>/etc/init.d/*</TT
+></B
+> </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_06_03_06"
+></A
+>6.3.6. The printf program</H2
+><P
+>For more precise control over the output format than what is normally provided by <B
+CLASS="command"
+>print</B
+>, use <B
+CLASS="command"
+>printf</B
+>.  The <B
+CLASS="command"
+>printf</B
+> command can be used to specify the field width to use for each item, as well as various formatting choices for numbers (such as what output base to use, whether to print an exponent, whether to print a sign, and how many digits to print after the decimal point).  This is done by supplying a string, called the <EM
+>format string</EM
+>, that controls how and where to print the other arguments.</P
+><P
+>The syntax is the same as for the C-language <B
+CLASS="command"
+>printf</B
+> statement; see your C introduction guide.  The <B
+CLASS="command"
+>gawk</B
+> info pages contain full explanations.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_06_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_06_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The print program</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_06.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Summary</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,872 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Interactive editing</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The GNU sed stream editor"
+HREF="chap_05.html"><LINK
+REL="PREVIOUS"
+TITLE="Introduction"
+HREF="sect_05_01.html"><LINK
+REL="NEXT"
+TITLE="Non-interactive editing"
+HREF="sect_05_03.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_05_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 5. The GNU sed stream editor</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_05_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_05_02"
+></A
+>5.2. Interactive editing</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_05_02_01"
+></A
+>5.2.1. Printing lines containing a pattern</H2
+><P
+>This is something you can do with <B
+CLASS="command"
+>grep</B
+>, of course, but you can't do a <SPAN
+CLASS="QUOTE"
+>"find and replace"</SPAN
+> using that command.  This is just to get you started.</P
+><P
+>This is our example text file:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="option"
+>-n</TT
+> <TT
+CLASS="filename"
+>example</TT
+></B
+>
+     1  This is the first line of an example text.
+     2  It is a text with erors.
+     3  Lots of erors.
+     4  So much erors, all these erors are making me sick.
+     5  This is a line not containing any errors.
+     6  This is the last line.
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>We want <B
+CLASS="command"
+>sed</B
+> to find all the lines containing our search pattern, in this case <SPAN
+CLASS="QUOTE"
+>"erors"</SPAN
+>.  We use the <B
+CLASS="command"
+>p</B
+> to obtain the result:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>sed  <TT
+CLASS="parameter"
+><I
+>'/erors/p'</I
+></TT
+> <TT
+CLASS="filename"
+>example</TT
+></B
+>
+This is the first line of an example text.
+It is a text with erors.
+It is a text with erors.
+Lots of erors.
+Lots of erors.
+So much erors, all these erors are making me sick.
+So much erors, all these erors are making me sick.
+This is a line not containing any errors.
+This is the last line.
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>As you notice, <B
+CLASS="command"
+>sed</B
+> prints the entire file, but the lines containing the search string are printed twice.  This is not what we want.  In order to only print those lines matching our pattern, use the <TT
+CLASS="option"
+>-n</TT
+> option:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>sed <TT
+CLASS="option"
+>-n</TT
+> <TT
+CLASS="parameter"
+><I
+>'/erors/p'</I
+></TT
+> <TT
+CLASS="filename"
+>example</TT
+></B
+>
+It is a text with erors.
+Lots of erors.
+So much erors, all these erors are making me sick.
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_05_02_02"
+></A
+>5.2.2. Deleting lines of input containing a pattern</H2
+><P
+>We use the same example text file.  Now we only want to see the lines <EM
+>not</EM
+> containing the search string:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>sed <TT
+CLASS="parameter"
+><I
+>'/erors/d'</I
+></TT
+> <TT
+CLASS="filename"
+>example</TT
+></B
+>
+This is the first line of an example text.
+This is a line not containing any errors.
+This is the last line.
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>The <B
+CLASS="command"
+>d</B
+> command results in excluding lines from being displayed.</P
+><P
+>Matching lines starting with a given pattern and ending in a second pattern are showed like this:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>sed <TT
+CLASS="option"
+>-n</TT
+> <TT
+CLASS="parameter"
+><I
+>'/^This.*errors.$/p'</I
+></TT
+> <TT
+CLASS="filename"
+>example</TT
+></B
+>
+This is a line not containing any errors.
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Note that the last dot needs to be escaped in order to actually match.  In our example the expression just matches any character, including the last dot.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_05_02_03"
+></A
+>5.2.3. Ranges of lines</H2
+><P
+>This time we want to take out the lines containing the errors.  In the example these are lines 2 to 4.  Specify this range to address, together with the <B
+CLASS="command"
+>d</B
+> command:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>sed <TT
+CLASS="parameter"
+><I
+>'2,4d'</I
+></TT
+> <TT
+CLASS="filename"
+>example</TT
+></B
+>
+This is the first line of an example text.
+This is a line not containing any errors.
+This is the last line.
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>To print the file starting from a certain line until the end of the file, use a command similar to this:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>sed <TT
+CLASS="parameter"
+><I
+>'3,$d'</I
+></TT
+> <TT
+CLASS="filename"
+>example</TT
+></B
+>
+This is the first line of an example text.
+It is a text with erors.
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>This only prints the first two lines of the example file.</P
+><P
+>The following command prints the first line containing the pattern <SPAN
+CLASS="QUOTE"
+>"a text"</SPAN
+>, up to and including the next line containing the pattern <SPAN
+CLASS="QUOTE"
+>"a line"</SPAN
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>sed <TT
+CLASS="option"
+>-n</TT
+> <TT
+CLASS="parameter"
+><I
+>'/a text/,/This/p'</I
+></TT
+> <TT
+CLASS="filename"
+>example</TT
+></B
+>
+It is a text with erors.
+Lots of erors.
+So much erors, all these erors are making me sick.
+This is a line not containing any errors.
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_05_02_04"
+></A
+>5.2.4. Find and replace with sed</H2
+><P
+>In the example file, we will now search and replace the errors instead of only (de)selecting the lines containing the search string.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>sed <TT
+CLASS="parameter"
+><I
+>'s/erors/errors/'</I
+></TT
+> <TT
+CLASS="filename"
+>example</TT
+></B
+>
+This is the first line of an example text.
+It is a text with errors.
+Lots of errors.
+So much errors, all these erors are making me sick.
+This is a line not containing any errors.
+This is the last line.
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>As you can see, this is not exactly the desired effect: in line 4, only the first occurrence of the search string has been replaced, and there is still an 'eror' left.  Use the <B
+CLASS="command"
+>g</B
+> command to indicate to <B
+CLASS="command"
+>sed</B
+> that it should examine the entire line instead of stopping at the first occurrence of your string:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>sed <TT
+CLASS="parameter"
+><I
+>'s/erors/errors/g'</I
+></TT
+> <TT
+CLASS="filename"
+>example</TT
+></B
+>
+This is the first line of an example text.
+It is a text with errors.
+Lots of errors.
+So much errors, all these errors are making me sick.
+This is a line not containing any errors.
+This is the last line.
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>To insert a string at the beginning of each line of a file, for instance for quoting:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>sed <TT
+CLASS="parameter"
+><I
+>'s/^/&#62; /'</I
+></TT
+> <TT
+CLASS="filename"
+>example</TT
+></B
+>
+&#62; This is the first line of an example text.
+&#62; It is a text with erors.
+&#62; Lots of erors.
+&#62; So much erors, all these erors are making me sick.
+&#62; This is a line not containing any errors.
+&#62; This is the last line.
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Insert some string at the end of each line:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>sed <TT
+CLASS="parameter"
+><I
+>'s/$/EOL/'</I
+></TT
+> <TT
+CLASS="filename"
+>example</TT
+></B
+>
+This is the first line of an example text.EOL
+It is a text with erors.EOL
+Lots of erors.EOL
+So much erors, all these erors are making me sick.EOL
+This is a line not containing any errors.EOL
+This is the last line.EOL
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Multiple find and replace commands are separated with individual <TT
+CLASS="option"
+>-e</TT
+> options:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+> <B
+CLASS="command"
+>sed <TT
+CLASS="option"
+>-e</TT
+> <TT
+CLASS="parameter"
+><I
+>'s/erors/errors/g'</I
+></TT
+> <TT
+CLASS="option"
+>-e</TT
+> <TT
+CLASS="parameter"
+><I
+>'s/last/final/g'</I
+></TT
+> <TT
+CLASS="filename"
+>example</TT
+></B
+>
+This is the first line of an example text.
+It is a text with errors.
+Lots of errors.
+So much errors, all these errors are making me sick.
+This is a line not containing any errors.
+This is the final line.
+
+<TT
+CLASS="prompt"
+>sandy ~&#62;</TT
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Keep in mind that by default <B
+CLASS="command"
+>sed</B
+> prints its results to the standard output, most likely your terminal window.  If you want to save the output to a file, redirect it:</P
+><P
+><B
+CLASS="command"
+>sed <TT
+CLASS="option"
+>option</TT
+> <TT
+CLASS="function"
+>'some/expression'</TT
+> <TT
+CLASS="filename"
+>file_to_process</TT
+> &#62; <TT
+CLASS="filename"
+>sed_output_in_a_file</TT
+></B
+> </P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>More examples</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Plenty of <B
+CLASS="command"
+>sed</B
+> examples can be found in the startup scripts for your machine, which are usually in <TT
+CLASS="filename"
+>/etc/init.d</TT
+> or <TT
+CLASS="filename"
+>/etc/rc.d/init.d</TT
+>.  Change into the directory containing the initscripts on your system and issue the following command:</P
+><P
+><B
+CLASS="command"
+>grep <TT
+CLASS="parameter"
+><I
+>sed</I
+></TT
+> <TT
+CLASS="filename"
+>*</TT
+></B
+> </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_05_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_05_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Introduction</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_05.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Non-interactive editing</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

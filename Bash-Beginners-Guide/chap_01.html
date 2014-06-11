@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Bash and Bash scripts</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Organization of this document"
+HREF="intro_10.html"><LINK
+REL="NEXT"
+TITLE="Common shell programs"
+HREF="sect_01_01.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="intro_10.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_01_01.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="chap_01"
+></A
+>Chapter 1. Bash and Bash scripts</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+>1.1. <A
+HREF="sect_01_01.html"
+>Common shell programs</A
+></DT
+><DD
+><DL
+><DT
+>1.1.1. <A
+HREF="sect_01_01.html#sect_01_01_01"
+>General shell functions</A
+></DT
+><DT
+>1.1.2. <A
+HREF="sect_01_01.html#sect_01_01_02"
+>Shell types</A
+></DT
+></DL
+></DD
+><DT
+>1.2. <A
+HREF="sect_01_02.html"
+>Advantages of the Bourne Again SHell</A
+></DT
+><DD
+><DL
+><DT
+>1.2.1. <A
+HREF="sect_01_02.html#sect_01_02_01"
+>Bash is the GNU shell</A
+></DT
+><DT
+>1.2.2. <A
+HREF="sect_01_02.html#sect_01_02_02"
+>Features only found in bash</A
+></DT
+></DL
+></DD
+><DT
+>1.3. <A
+HREF="sect_01_03.html"
+>Executing commands</A
+></DT
+><DD
+><DL
+><DT
+>1.3.1. <A
+HREF="sect_01_03.html#sect_01_03_01"
+>General</A
+></DT
+><DT
+>1.3.2. <A
+HREF="sect_01_03.html#sect_01_03_02"
+>Shell built-in commands</A
+></DT
+><DT
+>1.3.3. <A
+HREF="sect_01_03.html#sect_01_03_03"
+>Executing programs from a script</A
+></DT
+></DL
+></DD
+><DT
+>1.4. <A
+HREF="sect_01_04.html"
+>Building blocks</A
+></DT
+><DT
+>1.5. <A
+HREF="sect_01_05.html"
+>Developing good scripts</A
+></DT
+><DD
+><DL
+><DT
+>1.5.1. <A
+HREF="sect_01_05.html#sect_01_05_01"
+>Properties of good scripts</A
+></DT
+><DT
+>1.5.2. <A
+HREF="sect_01_05.html#sect_01_05_02"
+>Structure</A
+></DT
+><DT
+>1.5.3. <A
+HREF="sect_01_05.html#sect_01_05_03"
+>Terminology</A
+></DT
+><DT
+>1.5.4. <A
+HREF="sect_01_05.html#sect_01_05_04"
+>A word on order and logic</A
+></DT
+><DT
+>1.5.5. <A
+HREF="sect_01_05.html#sect_01_05_05"
+>An example Bash script: mysystem.sh</A
+></DT
+><DT
+>1.5.6. <A
+HREF="sect_01_05.html#sect_01_05_06"
+>Example init script</A
+></DT
+></DL
+></DD
+><DT
+>1.6. <A
+HREF="sect_01_06.html"
+>Summary</A
+></DT
+><DT
+>1.7. <A
+HREF="sect_01_07.html"
+>Exercises</A
+></DT
+></DL
+></DIV
+><BLOCKQUOTE
+CLASS="ABSTRACT"
+><DIV
+CLASS="abstract"
+><A
+NAME="AEN311"
+></A
+><P
+></P
+><P
+>In this introduction module we</P
+><P
+><P
+></P
+><UL
+><LI
+><P
+>Describe some common shells</P
+></LI
+><LI
+><P
+>Point out GNU Bash advantages and features</P
+></LI
+><LI
+><P
+>Describe the shell's building blocks</P
+></LI
+><LI
+><P
+>Discuss Bash initialization files</P
+></LI
+><LI
+><P
+>See how the shell executes commands</P
+></LI
+><LI
+><P
+>Look into some simple script examples</P
+></LI
+></UL
+></P
+><P
+></P
+></DIV
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="intro_10.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_01_01.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Organization of this document</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Common shell programs</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

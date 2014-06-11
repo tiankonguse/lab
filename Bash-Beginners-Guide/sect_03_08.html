@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Exercises</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The Bash environment"
+HREF="chap_03.html"><LINK
+REL="PREVIOUS"
+TITLE="Summary"
+HREF="sect_03_07.html"><LINK
+REL="NEXT"
+TITLE="Regular expressions"
+HREF="chap_04.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_03_07.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 3. The Bash environment</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chap_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_03_08"
+></A
+>3.8. Exercises</H1
+><P
+>For this exercise, you will need to read the <B
+CLASS="command"
+>useradd</B
+> man pages, because we are going to use the <TT
+CLASS="filename"
+>/etc/skel</TT
+> directory to hold default shell configuration files, which are copied to the home directory of each newly added user.</P
+><P
+>First we will do some general exercises on setting and displaying variables.</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Create 3 variables, <TT
+CLASS="varname"
+>VAR1</TT
+>, <TT
+CLASS="varname"
+>VAR2</TT
+> and <TT
+CLASS="varname"
+>VAR3</TT
+>; initialize them to hold the values <SPAN
+CLASS="QUOTE"
+>"thirteen"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"13"</SPAN
+> and <SPAN
+CLASS="QUOTE"
+>"Happy Birthday"</SPAN
+> respectively.</P
+></LI
+><LI
+><P
+>Display the values of all three variables.</P
+></LI
+><LI
+><P
+>Are these local or global variables?</P
+></LI
+><LI
+><P
+>Remove <TT
+CLASS="varname"
+>VAR3</TT
+>.</P
+></LI
+><LI
+><P
+>Can you see the two remaining variables in a new terminal window?</P
+></LI
+><LI
+><P
+>Edit <TT
+CLASS="filename"
+>/etc/profile</TT
+> so that all users are greeted upon login (test this).</P
+></LI
+><LI
+><P
+>For the <EM
+>root</EM
+> account, set the prompt to something like <SPAN
+CLASS="QUOTE"
+>"Danger!! root is doing stuff in \w"</SPAN
+>, preferably in a bright color such as red or pink or in reverse video mode.</P
+></LI
+><LI
+><P
+>Make sure that newly created users also get a nice personalized prompt which informs them on which system in which directory they are working.  Test your changes by adding a new user and logging in as that user.</P
+></LI
+><LI
+><P
+>Write a script in which you assign two integer values to two variables.  The script should calculate the surface of a rectangle which has these proportions.  It should be aired with comments and generate elegant output.</P
+></LI
+></OL
+><P
+>Don't forget to <B
+CLASS="command"
+>chmod</B
+> your scripts!</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_03_07.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chap_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Summary</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_03.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Regular expressions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

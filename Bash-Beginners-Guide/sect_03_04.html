@@ -1,0 +1,1137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Shell expansion</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The Bash environment"
+HREF="chap_03.html"><LINK
+REL="PREVIOUS"
+TITLE="Quoting characters"
+HREF="sect_03_03.html"><LINK
+REL="NEXT"
+TITLE="Aliases"
+HREF="sect_03_05.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_03_03.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 3. The Bash environment</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_03_05.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_03_04"
+></A
+>3.4. Shell expansion</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_04_0"
+></A
+>3.4.1. General</H2
+><P
+>After the command has been split into <EM
+>tokens</EM
+> (see <A
+HREF="sect_01_04.html#sect_01_04_01_01"
+>Section 1.4.1.1</A
+>), these tokens or words are expanded or resolved.  There are eight kinds of expansion performed, which we will discuss in the next sections, in the order that they are expanded.</P
+><P
+>After all expansions, quote removal is performed.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_04_01"
+></A
+>3.4.2. Brace expansion</H2
+><P
+>Brace expansion is a mechanism by which arbitrary strings may be generated.  Patterns to be brace-expanded take the form of an optional <EM
+>PREAMBLE</EM
+>, followed by a series of comma-separated strings between a pair of braces, followed by an optional <EM
+>POSTSCRIPT</EM
+>.  The preamble is prefixed to each string contained within the braces, and the postscript is then appended to each resulting string, expanding left to right.</P
+><P
+>Brace expansions may be nested.  The results of each expanded string are not sorted; left to right order is preserved:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="parameter"
+><I
+>sp{el,il,al}l</I
+></TT
+></B
+>
+spell spill spall
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Brace expansion is performed before any other expansions, and any characters special to other expansions are preserved in the result.  It is strictly textual.  Bash does not apply any syntactic interpretation to the context of the expansion or the text between the braces.  To avoid conflicts with parameter expansion, the string <SPAN
+CLASS="QUOTE"
+>"${"</SPAN
+> is not considered eligible for brace expansion.</P
+><P
+>A correctly-formed brace expansion must contain unquoted opening and closing braces, and at least one unquoted comma.  Any incorrectly formed brace expansion is left unchanged.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_04_02"
+></A
+>3.4.3. Tilde expansion</H2
+><P
+>If a word begins with an unquoted tilde character (<SPAN
+CLASS="QUOTE"
+>"~"</SPAN
+>), all of the characters up to the first unquoted slash (or all characters, if there is no unquoted slash) are considered a <EM
+>tilde-prefix</EM
+>.  If none of the characters in the tilde-prefix are quoted, the characters in the tilde-prefix following the tilde are treated as a possible login name.  If this login name is the null string, the tilde is replaced with the value of the <TT
+CLASS="varname"
+>HOME</TT
+> shell variable.  If <TT
+CLASS="varname"
+>HOME</TT
+> is unset, the home directory of the user executing the shell is substituted instead.  Otherwise, the tilde-prefix is replaced with the home directory associated with the specified login name.</P
+><P
+>If the tilde-prefix is <SPAN
+CLASS="QUOTE"
+>"~+"</SPAN
+>, the value of the shell variable <TT
+CLASS="varname"
+>PWD</TT
+> replaces the tilde-prefix.  If the tilde-prefix is <SPAN
+CLASS="QUOTE"
+>"~-"</SPAN
+>, the value of the shell variable <TT
+CLASS="varname"
+>OLDPWD</TT
+>, if it is set, is substituted.</P
+><P
+>If the characters following the tilde in the tilde-prefix consist of a number N, optionally prefixed by a <SPAN
+CLASS="QUOTE"
+>"+"</SPAN
+> or a <SPAN
+CLASS="QUOTE"
+>"-"</SPAN
+>, the tilde-prefix is replaced with the corresponding element from the directory stack, as it would be displayed by the <B
+CLASS="command"
+>dirs</B
+> built-in invoked with the characters following tilde in the tilde-prefix as an argument.  If the tilde-prefix, without the tilde, consists of a number without a leading <SPAN
+CLASS="QUOTE"
+>"+"</SPAN
+> or <SPAN
+CLASS="QUOTE"
+>"-"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"+"</SPAN
+> is assumed.</P
+><P
+>If the login name is invalid, or the tilde expansion fails, the word
+is left unchanged.</P
+><P
+>Each variable assignment is checked for unquoted tilde-prefixes immediately following a <SPAN
+CLASS="QUOTE"
+>":"</SPAN
+> or <SPAN
+CLASS="QUOTE"
+>"="</SPAN
+>.  In these cases, tilde expansion is also performed.  Consequently, one may use file names with tildes in assignments to <TT
+CLASS="varname"
+>PATH</TT
+>, <TT
+CLASS="varname"
+>MAILPATH</TT
+>, and <TT
+CLASS="varname"
+>CDPATH</TT
+>, and the shell assigns the expanded value.</P
+><P
+>Example:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>export <TT
+CLASS="varname"
+>PATH</TT
+>=<TT
+CLASS="parameter"
+><I
+>"$PATH:~/testdir"</I
+></TT
+></B
+>
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+><TT
+CLASS="filename"
+>~/testdir</TT
+> will be expanded to <TT
+CLASS="varname"
+>$HOME</TT
+><TT
+CLASS="filename"
+>/testdir</TT
+>, so if <TT
+CLASS="varname"
+>$HOME</TT
+> is <TT
+CLASS="filename"
+>/var/home/franky</TT
+>, the directory <TT
+CLASS="filename"
+>/var/home/franky/testdir</TT
+> will be added to the content of the <TT
+CLASS="varname"
+>PATH</TT
+> variable.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_04_03"
+></A
+>3.4.4. Shell parameter and variable expansion</H2
+><P
+>The <SPAN
+CLASS="QUOTE"
+>"$"</SPAN
+> character introduces parameter expansion, command substitution, or arithmetic expansion.  The parameter name or symbol to be expanded may be enclosed in braces, which are optional but serve to protect the variable to be expanded from characters immediately following it which could be interpreted as part of the name.</P
+><P
+>When braces are used, the matching ending brace is the first <SPAN
+CLASS="QUOTE"
+>"}"</SPAN
+> not escaped by a backslash or within a quoted string, and not within an embedded arithmetic expansion, command substitution, or parameter expansion.</P
+><P
+>The basic form of parameter expansion is <SPAN
+CLASS="QUOTE"
+>"${PARAMETER}"</SPAN
+>.  The value of <SPAN
+CLASS="QUOTE"
+>"PARAMETER"</SPAN
+> is substituted.  The braces are required when <SPAN
+CLASS="QUOTE"
+>"PARAMETER"</SPAN
+> is a positional parameter with more than one digit, or when <SPAN
+CLASS="QUOTE"
+>"PARAMETER"</SPAN
+> is followed by a character that is not to be interpreted as part of its name.</P
+><P
+>If the first character of <SPAN
+CLASS="QUOTE"
+>"PARAMETER"</SPAN
+> is an exclamation point,  Bash uses the value of the variable formed from the rest of <SPAN
+CLASS="QUOTE"
+>"PARAMETER"</SPAN
+> as the name of the variable; this variable is then expanded and that value is used in the rest of the substitution, rather than the value of <SPAN
+CLASS="QUOTE"
+>"PARAMETER"</SPAN
+> itself.  This is known as <EM
+>indirect expansion</EM
+>.</P
+><P
+>You are certainly familiar with straight parameter expansion, since it happens all the time, even in the simplest of cases, such as the one above or the following:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$SHELL</TT
+></B
+>
+/bin/bash
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>The following is an example of indirect expansion:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>${!N*}</TT
+></B
+>
+NNTPPORT NNTPSERVER NPX_PLUGIN_PATH
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Note that this is not the same as <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$N*</TT
+></B
+>.</P
+><P
+>The following construct allows for creation of the named variable if it does not yet exist:</P
+><P
+><B
+CLASS="command"
+>${<TT
+CLASS="varname"
+>VAR</TT
+>:=<TT
+CLASS="parameter"
+><I
+>value</I
+></TT
+>}</B
+> </P
+><P
+>Example:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="varname"
+>$FRANKY</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="parameter"
+><I
+>${FRANKY:=Franky}</I
+></TT
+></B
+>
+Franky
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Special parameters, among others the positional parameters, may not be assigned this way, however.</P
+><P
+>We will further discuss the use of the curly braces for treatment of variables in <A
+HREF="chap_10.html"
+>Chapter 10</A
+>.  More information can also be found in the Bash info pages.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_04_04"
+></A
+>3.4.5. Command substitution</H2
+><P
+>Command substitution allows the output of a command to replace the
+command itself.  Command substitution occurs when a command is enclosed like this:</P
+><P
+><B
+CLASS="command"
+>$(command)</B
+> </P
+><P
+>or like this using backticks:</P
+><P
+><B
+CLASS="command"
+>`command`</B
+> </P
+><P
+>Bash performs the expansion by executing COMMAND and replacing the command substitution with the standard output of the command, with any trailing newlines deleted.  Embedded newlines are not deleted, but they may be removed during word splitting.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="parameter"
+><I
+>`date`</I
+></TT
+></B
+>
+Thu Feb 6 10:06:20 CET 2003
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>When the old-style backquoted form of substitution is used, backslash retains its literal meaning except when followed by <SPAN
+CLASS="QUOTE"
+>"$"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"`"</SPAN
+>, or <SPAN
+CLASS="QUOTE"
+>"\"</SPAN
+>.  The first backticks not preceded by a backslash terminates the command substitution.  When using the <SPAN
+CLASS="QUOTE"
+>"$(COMMAND)"</SPAN
+> form, all characters between the parentheses make up the command; none are treated specially.</P
+><P
+>Command substitutions may be nested.  To nest when using the backquoted form, escape the inner backticks with backslashes.</P
+><P
+>If the substitution appears within double quotes, word splitting and file name expansion are not performed on the results.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_04_05"
+></A
+>3.4.6. Arithmetic expansion</H2
+><P
+>Arithmetic expansion allows the evaluation of an arithmetic expression and the substitution of the result.  The format for arithmetic expansion is:</P
+><P
+><B
+CLASS="command"
+>$(( EXPRESSION ))</B
+> </P
+><P
+>The expression is treated as if it were within double quotes, but a double quote inside the parentheses is not treated specially.  All tokens in the expression undergo parameter expansion, command substitution, and quote removal.  Arithmetic substitutions may be nested.</P
+><P
+>Evaluation of arithmetic expressions is done in fixed-width integers with no check for overflow - although division by zero is trapped and recognized as an error.  The operators are roughly the same as in the C programming language.  In order of decreasing precedence, the list looks like this:</P
+><DIV
+CLASS="table"
+><A
+NAME="table_03_04"
+></A
+><P
+><B
+>Table 3-4. Arithmetic operators</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Operator</TH
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>VAR++ and VAR--</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>variable post-increment and post-decrement</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>++VAR and --VAR</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>variable pre-increment and pre-decrement</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>- and +</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>unary minus and plus</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>! and ~</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>logical and bitwise negation</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>**</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>exponentiation</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>*, / and %</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>multiplication, division, remainder</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>+ and -</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>addition, subtraction</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>&#60;&#60; and &#62;&#62;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>left and right bitwise shifts</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>&#60;=, &#62;=, &#60; and &#62;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>comparison operators</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>== and !=</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>equality and inequality</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>&#38;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>bitwise AND</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>^</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>bitwise exclusive OR</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>|</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>bitwise OR</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>&#38;&#38;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>logical AND</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>||</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>logical OR</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>expr ? expr : expr</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>conditional evaluation</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>=, *=, /=, %=, +=, -=, &#60;&#60;=, &#62;&#62;=, &#38;=, ^= and |=</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>assignments</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>,</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>separator between expressions</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>Shell variables are allowed as operands; parameter expansion is performed before the expression is evaluated.  Within an expression, shell variables may also be referenced by name without using the parameter expansion syntax.  The value of a variable is evaluated as an arithmetic expression when it is referenced.  A shell variable need not have its integer attribute turned on to be used in an expression.</P
+><P
+>Constants with a leading 0 (zero) are interpreted as octal numbers.  A
+leading <SPAN
+CLASS="QUOTE"
+>"0x"</SPAN
+> or <SPAN
+CLASS="QUOTE"
+>"0X"</SPAN
+> denotes hexadecimal.  Otherwise, numbers take the form <SPAN
+CLASS="QUOTE"
+>"[BASE'#']N"</SPAN
+>, where <SPAN
+CLASS="QUOTE"
+>"BASE"</SPAN
+> is a decimal number between 2 and 64 representing the arithmetic base, and N is a number in that base.  If <SPAN
+CLASS="QUOTE"
+>"BASE'#'"</SPAN
+> is omitted, then base 10 is used.  The digits greater than 9 are represented by the lowercase letters, the uppercase letters, <SPAN
+CLASS="QUOTE"
+>"@"</SPAN
+>, and <SPAN
+CLASS="QUOTE"
+>"_"</SPAN
+>, in that order.  If <SPAN
+CLASS="QUOTE"
+>"BASE"</SPAN
+> is less than or equal to 36, lowercase and uppercase letters may be used interchangably to represent numbers between 10 and 35.</P
+><P
+>Operators are evaluated in order of precedence.  Sub-expressions in parentheses are evaluated first and may override the precedence rules above.</P
+><P
+>Wherever possible, Bash users should try to use the syntax with square brackets:</P
+><P
+><B
+CLASS="command"
+>$[ EXPRESSION ]</B
+> </P
+><P
+>However, this will only calculate the result of <EM
+>EXPRESSION</EM
+>, and do no tests:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>franky ~&#62;</TT
+> <B
+CLASS="command"
+>echo <TT
+CLASS="parameter"
+><I
+>$[365*24]</I
+></TT
+></B
+>
+8760
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>See <A
+HREF="sect_07_01.html#sect_07_01_02_02"
+>Section 7.1.2.2</A
+>, among others, for practical examples in scripts.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_04_06"
+></A
+>3.4.7. Process substitution</H2
+><P
+>Process substitution is supported on systems that support named pipes (FIFOs) or the <TT
+CLASS="filename"
+>/dev/fd</TT
+> method of naming open files.  It takes the form of</P
+><P
+><B
+CLASS="command"
+>&#60;(LIST)</B
+> </P
+><P
+>or</P
+><P
+><B
+CLASS="command"
+>&#62;(LIST)</B
+> </P
+><P
+>The process <TT
+CLASS="varname"
+>LIST</TT
+> is run with its input or output connected to a FIFO or some file in <TT
+CLASS="filename"
+>/dev/fd</TT
+>.  The name of this file is passed as an argument to the current command as the result of the expansion.  If the <SPAN
+CLASS="QUOTE"
+>"&#62;(LIST)"</SPAN
+> form is used, writing to the file will provide input for <TT
+CLASS="varname"
+>LIST</TT
+>.  If the <SPAN
+CLASS="QUOTE"
+>"&#60;(LIST)"</SPAN
+> form is used, the file passed as an argument should be read to obtain the output of <TT
+CLASS="varname"
+>LIST</TT
+>.  Note that no space may appear between the &#60; or &#62; signs and the left parenthesis, otherwise the construct would be interpreted as a redirection.</P
+><P
+>When available, process substitution is performed simultaneously with parameter and variable expansion, command substitution, and arithmetic expansion.</P
+><P
+>More information in <A
+HREF="sect_08_02.html#sect_08_02_03"
+>Section 8.2.3</A
+>.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_04_07"
+></A
+>3.4.8. Word splitting</H2
+><P
+>The shell scans the results of parameter expansion, command substitution, and arithmetic expansion that did not occur within double quotes for word splitting.</P
+><P
+>The shell treats each character of <TT
+CLASS="varname"
+>$IFS</TT
+> as a delimiter, and splits the results of the other expansions into words on these characters.  If <TT
+CLASS="varname"
+>IFS</TT
+> is unset, or its value is exactly <SPAN
+CLASS="QUOTE"
+>"'&#60;space&#62;&#60;tab&#62;&#60;newline&#62;'"</SPAN
+>, the default, then any sequence of <TT
+CLASS="varname"
+>IFS</TT
+> characters serves to delimit words.  If <TT
+CLASS="varname"
+>IFS</TT
+> has a value other than the default, then sequences of the whitespace characters <SPAN
+CLASS="QUOTE"
+>"space"</SPAN
+> and <SPAN
+CLASS="QUOTE"
+>"Tab"</SPAN
+> are ignored at the beginning and end of the word, as long as the whitespace character is in the value of <TT
+CLASS="varname"
+>IFS</TT
+> (an <TT
+CLASS="varname"
+>IFS</TT
+> whitespace character).  Any character in <TT
+CLASS="varname"
+>IFS</TT
+> that is not <TT
+CLASS="varname"
+>IFS</TT
+> whitespace, along with any adjacent <TT
+CLASS="varname"
+>IF</TT
+> whitespace characters, delimits a field.  A sequence of <TT
+CLASS="varname"
+>IFS</TT
+> whitespace characters is also treated as a delimiter.  If the value of <TT
+CLASS="varname"
+>IFS</TT
+> is null, no word splitting occurs.</P
+><P
+>Explicit null arguments (<SPAN
+CLASS="QUOTE"
+>""""</SPAN
+> or <SPAN
+CLASS="QUOTE"
+>"''"</SPAN
+>) are retained.  Unquoted implicit null arguments, resulting from the expansion of parameters that have no values, are removed.  If a parameter with no value is expanded within double quotes, a null argument results and is retained.</P
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Expansion and word splitting</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>If no expansion occurs, no splitting is performed.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_03_04_08"
+></A
+>3.4.9. File name expansion</H2
+><P
+>After word splitting, unless the <TT
+CLASS="option"
+>-f</TT
+> option has been set (see <A
+HREF="sect_02_03.html#sect_02_03_02"
+>Section 2.3.2</A
+>), Bash scans each word for the characters <SPAN
+CLASS="QUOTE"
+>"*"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"?"</SPAN
+>, and <SPAN
+CLASS="QUOTE"
+>"["</SPAN
+>.  If one of these characters appears, then the word is regarded as a <EM
+>PATTERN</EM
+>, and replaced with an alphabetically sorted list of file names matching the pattern. If no matching file names are found, and the shell option <TT
+CLASS="option"
+>nullglob</TT
+> is disabled, the word is left unchanged.  If the <TT
+CLASS="option"
+>nullglob</TT
+> option is set, and no matches are found, the word is removed.  If the shell option <TT
+CLASS="option"
+>nocaseglob</TT
+> is enabled, the match is performed without regard to the case of alphabetic characters.</P
+><P
+>When a pattern is used for file name generation, the character <SPAN
+CLASS="QUOTE"
+>"."</SPAN
+> at the start of a file name or immediately following a slash must be matched explicitly, unless the shell option <TT
+CLASS="option"
+>dotglob</TT
+> is set.  When matching a file name, the slash character must always be matched explicitly.  In other cases, the <SPAN
+CLASS="QUOTE"
+>"."</SPAN
+> character is not treated specially.</P
+><P
+>The <TT
+CLASS="varname"
+>GLOBIGNORE</TT
+> shell variable may be used to restrict the set of file names matching a pattern.  If <TT
+CLASS="varname"
+>GLOBIGNORE</TT
+> is set, each matching file name that also matches one of the patterns in <TT
+CLASS="varname"
+>GLOBIGNORE</TT
+> is removed from the list of matches.  The file names <TT
+CLASS="filename"
+>.</TT
+> and <TT
+CLASS="filename"
+>..</TT
+> are always ignored, even when <TT
+CLASS="varname"
+>GLOBIGNORE</TT
+> is set.  However, setting <TT
+CLASS="varname"
+>GLOBIGNORE</TT
+> has the effect of enabling the <TT
+CLASS="option"
+>dotglob</TT
+> shell option, so all other file names beginning with a <SPAN
+CLASS="QUOTE"
+>"."</SPAN
+> will match.  To get the old behavior of ignoring file names beginning with a <SPAN
+CLASS="QUOTE"
+>"."</SPAN
+>, make <SPAN
+CLASS="QUOTE"
+>".*"</SPAN
+> one of the patterns in <TT
+CLASS="varname"
+>GLOBIGNORE</TT
+>.  The <TT
+CLASS="option"
+>dotglob</TT
+> option is disabled when <TT
+CLASS="varname"
+>GLOBIGNORE</TT
+> is unset.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_03_03.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_03_05.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Quoting characters</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_03.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Aliases</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

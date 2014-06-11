@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Making menus with the select built-in</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Repetitive tasks"
+HREF="chap_09.html"><LINK
+REL="PREVIOUS"
+TITLE="Break and continue"
+HREF="sect_09_05.html"><LINK
+REL="NEXT"
+TITLE="The shift built-in"
+HREF="sect_09_07.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_09_05.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 9. Repetitive tasks</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_09_07.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_09_06"
+></A
+>9.6. Making menus with the select built-in</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_09_06_01"
+></A
+>9.6.1. General</H2
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_09_06_01_01"
+></A
+>9.6.1.1. Use of select</H3
+><P
+>The <B
+CLASS="command"
+>select</B
+> construct allows easy menu generation.  The syntax is quite similar to that of the <B
+CLASS="command"
+>for</B
+> loop:</P
+><P
+><B
+CLASS="command"
+>select <TT
+CLASS="varname"
+>WORD</TT
+> [in <TT
+CLASS="varname"
+>LIST</TT
+>]; do RESPECTIVE-COMMANDS; done</B
+> </P
+><P
+><TT
+CLASS="varname"
+>LIST</TT
+> is expanded, generating a list of items.  The expansion is printed to standard error; each item is preceded by a number.  If <B
+CLASS="command"
+>in <TT
+CLASS="varname"
+>LIST</TT
+></B
+> is not present, the positional parameters are printed, as if <B
+CLASS="command"
+>in <TT
+CLASS="varname"
+>$@</TT
+></B
+> would have been specified.  <TT
+CLASS="varname"
+>LIST</TT
+> is only printed once.</P
+><P
+>Upon printing all the items, the <TT
+CLASS="varname"
+>PS3</TT
+> prompt is printed and one line from standard input is read.  If this line consists of a number corresponding to one of the items, the value of <TT
+CLASS="varname"
+>WORD</TT
+> is set to the name of that item.  If the line is empty, the items and the <TT
+CLASS="varname"
+>PS3</TT
+> prompt are displayed again.  If an <EM
+>EOF</EM
+> (End Of File) character is read, the loop exits.  Since most users don't have a clue which key combination is used for the EOF sequence, it is more user-friendly to have a <B
+CLASS="command"
+>break</B
+> command as one of the items.  Any other value of the read line will set <TT
+CLASS="varname"
+>WORD</TT
+> to be a null string.</P
+><P
+>The read line is saved in the <TT
+CLASS="varname"
+>REPLY</TT
+> variable.</P
+><P
+>The <B
+CLASS="command"
+>RESPECTIVE-COMMANDS</B
+> are executed after each selection until the number representing the <B
+CLASS="command"
+>break</B
+> is read.  This exits the loop.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_09_06_01_02"
+></A
+>9.6.1.2. Examples</H3
+><P
+>This is a very simple example, but as you can see, it is not very user-friendly:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[carol@octarine testdir]</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>private.sh</TT
+></B
+>
+#!/bin/bash
+
+echo "This script can make any of the files in this directory private."
+echo "Enter the number of the file you want to protect:"
+
+select FILENAME in *;
+do
+     echo "You picked $FILENAME ($REPLY), it is now only accessible to you."
+     chmod go-rwx "$FILENAME"
+done
+
+<TT
+CLASS="prompt"
+>[carol@octarine testdir]</TT
+> <B
+CLASS="command"
+>./private.sh</B
+>
+This script can make any of the files in this directory private.
+Enter the number of the file you want to protect:
+1) archive-20030129
+2) bash
+3) private.sh
+#? 1
+You picked archive-20030129 (1)
+#?
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Setting the <TT
+CLASS="varname"
+>PS3</TT
+> prompt and adding a possibility to quit makes it better:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+
+echo "This script can make any of the files in this directory private."
+echo "Enter the number of the file you want to protect:"
+
+PS3="Your choice: "
+QUIT="QUIT THIS PROGRAM - I feel safe now."
+touch "$QUIT"
+
+select FILENAME in *;
+do
+  case $FILENAME in
+        "$QUIT")
+          echo "Exiting."
+          break
+          ;;
+        *)
+          echo "You picked $FILENAME ($REPLY)"
+          chmod go-rwx "$FILENAME"
+          ;;
+  esac
+done
+rm "$QUIT"
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_09_06_02"
+></A
+>9.6.2. Submenus</H2
+><P
+>Any statement within a <B
+CLASS="command"
+>select</B
+> construct can be another <B
+CLASS="command"
+>select</B
+> loop, enabling (a) submenu(s) within a menu.</P
+><P
+>By default, the <TT
+CLASS="varname"
+>PS3</TT
+> variable is not changed when entering a nested <B
+CLASS="command"
+>select</B
+> loop.  If you want a different prompt in the submenu, be sure to set it at the appropriate time(s).</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_09_05.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_09_07.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Break and continue</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_09.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The shift built-in</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

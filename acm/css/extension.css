@@ -1,0 +1,308 @@
+@charset "utf-8";
+
+/* 
+This stylesheet contains some additional UI enhancements for Foundation. 
+These are thankfully derived from Twitter's Bootstrap Framework.
+
+Extended and Integrated by Designova Webtech.
+http://www.designova.net
+
+
+Icons are by Glyphicons.
+
+*/
+
+/* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+
+.clearfix:before,
+.clearfix:after {
+  content: '.';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+
+.clearfix {
+  zoom: 1;
+}
+a img{
+	border:none !important;
+}
+/* -------------------------------------------------- 
+	:: Framework Core Extended: DO NOT OVERWRITE
+---------------------------------------------------*/
+a:focus { outline: none; }
+/*Introduced an outer wrapper for main sections */
+.master { padding: 0; margin:0; width:100% auto; }
+
+/*Additional Spacing: These are addon classes for manual spacing of elements */
+.module {margin:20px;}
+
+.add-top { margin-top: 40px !important; }
+.remove-top { margin-top: 0 !important; }
+.half-top { margin-top: 15px !important; }
+
+.add-top-more{ margin-top: 80px !important;}
+
+.add-top-half { margin-top: 10px !important; }
+.add-bottom-half { margin-bottom: 10px !important; }
+.add-left-half { margin-left: 10px !important; }
+.add-right-half { margin-right: 10px !important; }
+
+.add-top-mid { margin-top: 30px !important;}
+
+.add-left { margin-left: 30px !important; }
+.remove-left { margin-left: 0 !important; }
+.half-left { margin-left: 15px !important; }
+
+.add-right { margin-right: 30px !important; }
+.remove-right { margin-right: 0 !important; }
+.half-right { margin-right: 15px !important; }
+
+.add-left-medium { margin-left: 30px !important; }
+.add-right-medium { margin-right: 30px !important; }
+
+.add-bottom { margin-bottom: 40px !important; }
+.remove-bottom { margin-bottom: 0 !important; }
+.half-bottom { margin-bottom: 15px !important; }
+.add-bottom-extra { margin-bottom: 60px !important; }
+
+
+
+.pad-top-half { padding-top: 10px !important; }
+.pad-left-half { padding-left: 10px !important; }
+.pad-right-half { padding-right: 10px !important; }
+.pad-bottom-half { padding-bottom: 10px !important; }
+.pad-top { padding-top: 20px !important; }
+.pad-left { padding-left: 20px !important; }
+.pad-right { padding-right: 20px !important; }
+.pad-bottom { padding-bottom: 20px !important; }
+.pad-top-medium { padding-top: 30px !important; }
+.pad-left-medium { padding-left: 30px !important; }
+.pad-right-medium { padding-right: 30px !important; }
+.pad-bottom-medium { padding-bottom: 30px !important; }
+.pad-bottom-medium-plus { padding-bottom: 40px !important; }
+.pad-top-large { padding-top: 50px !important; }
+.pad-top-extra { padding-top: 70px !important; }
+.pad-left-extra { padding-left: 70px !important; }
+.pad-right-extra { padding-right: 70px !important; }
+.pad-bottom-extra { padding-bottom: 70px !important; }
+.pad-top-extra-large { padding-top: 90px !important; }
+.pad-left-extra-large { padding-left: 90px !important; }
+.pad-right-extra-large { padding-right: 90px !important; }
+.pad-bottom-extra-large { padding-bottom: 90px !important; }
+.pad-bottom-extra-large-plus { padding-bottom: 120px !important; }
+
+.pad-hor { padding-left: 20px !important; padding-right: 20px !important; }
+
+.pad-top-main{
+	padding-top:60px;
+}
+.pad-bottom-main{
+  padding-bottom:60px;
+}
+.add-top-main-alt{
+	padding-top:125px;
+}
+.pull-top{
+  margin-top: -52px !important;
+}
+.pull-top-medium{
+  margin-top: -20px !important;
+}
+/*END*/
+
+
+/* =============================================================================
+   Basic CSS3 Enhancements : Defaults (can be over-written on theme.css)
+   ========================================================================== */
+
+.box-shadow{
+	box-shadow: 0px 0px 5px rgba(0,0,0,0.8);
+	-webkit-box-shadow: 0px 0px 5px rgba(0,0,0,0.8);
+	-moz-box-shadow: 0px 0px 5px rgba(0,0,0,0.8);
+}
+
+.text-shadow{
+	text-shadow: 2px 1px 2px rgba(0,0,0,0.8);
+}
+.text-shadow-white{
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+.text-shadow-off{
+	text-shadow:none !important;
+}
+.rounded{
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+.rounded-top{
+	border-top-right-radius: 10px;
+	-moz-border-radius-topright: 10px;
+	-webkit-border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-webkit-border-top-left-radius: 10px;
+}
+.rounded-bottom{
+	border-bottom-right-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+}
+.rounded-topleft{
+	border-top-left-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-webkit-border-top-left-radius: 10px;
+}
+.rounded-topright{
+	border-top-right-radius: 10px;
+	-moz-border-radius-topright: 10px;
+	-webkit-border-top-right-radius: 10px;
+}
+.rounded-bottomleft{
+	border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+}
+.rounded-bottomright{
+	border-bottom-right-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+}
+.rounded-left{
+	border-top-left-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-webkit-border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+}
+.rounded-right{
+	border-bottom-right-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+	-moz-border-radius-topright: 10px;
+	-webkit-border-top-right-radius: 10px;
+}
+
+
+
+
+/* =============================================================================
+   Advanced CSS3 Enhancements :
+   ========================================================================== */
+
+.drop-shadow {
+   position:relative;
+   width:90%;
+   border-radius: 0 0 120px 120px / 0 0 6px 6px;
+}
+
+.drop-shadow:before,
+.drop-shadow:after {
+   content:"";
+   position:absolute;
+   z-index:-1;
+   bottom:15px;
+   left:10px;
+   width:50%;
+   height:20%;
+   max-width:300px;
+   -webkit-box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+   -moz-box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+   box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+   -webkit-transform:rotate(-3deg);
+   -moz-transform:rotate(-3deg);
+   -o-transform:rotate(-3deg);
+   transform:rotate(-3deg);
+}
+
+.drop-shadow:after{
+   right:10px;
+   left:auto;
+   -webkit-transform:rotate(3deg);
+   -moz-transform:rotate(3deg);
+   -o-transform:rotate(3deg);
+   transform:rotate(3deg);
+ }
+ 
+ /***Enhanced Text Shadows*****/
+ /*refer: http://www.midwinter-dg.com/permalink-7-great-css-based-text-effects-using-the-text-shadow-property_2011-03-03.html */
+ 
+ .text-shadow-letterpress {
+  text-shadow: 0px 1px 1px #4d4d4d;
+  color: #222;
+  font: 80px 'LeagueGothicRegular';
+}
+
+.text-shadow-cloud{
+  text-shadow: 0px 0px 10px rgba(255,255,255,0.6), 0px 0px 30px rgba(255,255,255,0.4), 0px 0px 50px rgba(255,255,255,0.3), 0px 0px 180px rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0);
+  font: 80px 'ChunkFiveRegular';
+}
+
+.text-shadow-embossed{
+        text-shadow: -1px -1px 1px #fff, 1px 1px 1px #000;
+        color: #9c8468;
+        opacity: 0.3;
+        font: 80px 'Museo700';
+}
+
+.text-shadow-citylights{
+        color: #fff;
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff2d95, 0 0 30px #ff2d95, 0 0 40px #ff2d95, 0 0 50px #ff2d95, 0 0 75px #ff2d95;
+        letter-spacing: 5px;
+        font: 80px 'MisoRegular';
+}
+
+.text-shadow-burning{
+        color: #fff;
+        text-shadow: 0px -1px 4px white, 0px -2px 10px yellow, 0px -10px 20px #ff8000, 0px -18px 40px red;
+        font: 80px 'BlackJackRegular';
+}
+
+.text-shadow-retro{
+        color: #d7ceb2;
+        text-shadow: 3px 3px 0px #2c2e38, 5px 5px 0px #5c5f72;
+        font: 80px 'BazarMedium';
+        letter-spacing: 10px;
+}
+
+#text-shadow-3d{
+        color: #fff;
+        text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
+        font: 80px 'ChunkFiveRegular';
+}
+
+
+.border-top{
+  padding-top: 10px;
+  border-top: solid 1px #aaa;
+}
+.border-bottom{
+  padding-bottom: 10px;
+  border-bottom: solid 2px #CD0202;
+}
+.border-bottom-high{
+  border-bottom: solid 5px #f50000;
+}
+.notifier{
+  font-size: 24px !important;
+}

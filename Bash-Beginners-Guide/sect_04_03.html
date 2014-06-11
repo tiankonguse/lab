@@ -1,0 +1,409 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Pattern matching using Bash features</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Regular expressions"
+HREF="chap_04.html"><LINK
+REL="PREVIOUS"
+TITLE="Examples using grep"
+HREF="sect_04_02.html"><LINK
+REL="NEXT"
+TITLE="Summary"
+HREF="sect_04_04.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_04_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 4. Regular expressions</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_04_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_04_03"
+></A
+>4.3. Pattern matching using Bash features</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_04_03_01"
+></A
+>4.3.1. Character ranges</H2
+><P
+>Apart from <B
+CLASS="command"
+>grep</B
+> and regular expressions, there's a good deal of pattern matching that you can do directly in the shell, without having to use an external program.</P
+><P
+>As you already know, the asterisk (*) and the question mark (?) match any string or any single character, respectively.  Quote these special characters to match them literally:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>touch <TT
+CLASS="filename"
+>"*"</TT
+></B
+>
+
+<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>ls <TT
+CLASS="filename"
+>"*"</TT
+></B
+>
+*
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>But you can also use the square braces to match any enclosed character or range of characters, if pairs of characters are separated by a hyphen.  An example:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>ls <TT
+CLASS="option"
+>-ld</TT
+> <TT
+CLASS="filename"
+>[a-cx-z]*</TT
+></B
+>
+drwxr-xr-x    2 cathy	 cathy		4096 Jul 20  2002 app-defaults/
+drwxrwxr-x    4 cathy    cathy          4096 May 25  2002 arabic/
+drwxrwxr-x    2 cathy    cathy          4096 Mar  4 18:30 bin/
+drwxr-xr-x    7 cathy    cathy          4096 Sep  2  2001 crossover/
+drwxrwxr-x    3 cathy    cathy          4096 Mar 22  2002 xml/
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>This lists all files in <EM
+>cathy</EM
+>'s home directory, starting with <SPAN
+CLASS="QUOTE"
+>"a"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"b"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"c"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"x"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"y"</SPAN
+> or <SPAN
+CLASS="QUOTE"
+>"z"</SPAN
+>.</P
+><P
+>If the first character within the braces is <SPAN
+CLASS="QUOTE"
+>"!"</SPAN
+> or <SPAN
+CLASS="QUOTE"
+>"^"</SPAN
+>, any character not enclosed will be matched.  To match the dash (<SPAN
+CLASS="QUOTE"
+>"-"</SPAN
+>), include it as the first or last character in the set.  The sorting depends on the current locale and of the value of the <TT
+CLASS="varname"
+>LC_COLLATE</TT
+> variable, if it is set.  Mind that other locales might interpret <SPAN
+CLASS="QUOTE"
+>"[a-cx-z]"</SPAN
+> as <SPAN
+CLASS="QUOTE"
+>"[aBbCcXxYyZz]"</SPAN
+> if sorting is done in dictionary order.  If you want to be sure to have the traditional interpretation of ranges, force this behavior by setting <TT
+CLASS="varname"
+>LC_COLLATE</TT
+> or <TT
+CLASS="varname"
+>LC_ALL</TT
+> to <SPAN
+CLASS="QUOTE"
+>"C"</SPAN
+>.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_04_03_02"
+></A
+>4.3.2. Character classes</H2
+><P
+>Character classes can be specified within the square braces, using the syntax <B
+CLASS="command"
+>[:CLASS:]</B
+>, where CLASS is defined in the POSIX standard and has one of the values</P
+><P
+><SPAN
+CLASS="QUOTE"
+>"alnum"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"alpha"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"ascii"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"blank"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"cntrl"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"digit"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"graph"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"lower"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"print"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"punct"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"space"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"upper"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"word"</SPAN
+> or <SPAN
+CLASS="QUOTE"
+>"xdigit"</SPAN
+>.</P
+><P
+>Some examples:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>ls <TT
+CLASS="option"
+>-ld</TT
+> <TT
+CLASS="filename"
+>[[:digit:]]*</TT
+></B
+>
+drwxrwxr-x    2 cathy	cathy		4096 Apr 20 13:45 2/
+
+<TT
+CLASS="prompt"
+>cathy ~&#62;</TT
+> <B
+CLASS="command"
+>ls <TT
+CLASS="option"
+>-ld</TT
+> <TT
+CLASS="filename"
+>[[:upper:]]*</TT
+></B
+>
+drwxrwxr--    3 cathy   cathy           4096 Sep 30  2001 Nautilus/
+drwxrwxr-x    4 cathy   cathy           4096 Jul 11  2002 OpenOffice.org1.0/
+-rw-rw-r--    1 cathy   cathy         997376 Apr 18 15:39 Schedule.sdc
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>When the <TT
+CLASS="option"
+>extglob</TT
+> shell option is enabled (using the <B
+CLASS="command"
+>shopt</B
+> built-in), several extended pattern matching operators are recognized.  Read more in the Bash info pages, section <SPAN
+CLASS="guimenu"
+>Basic shell features</SPAN
+>-&gt;<SPAN
+CLASS="guisubmenu"
+>Shell Expansions</SPAN
+>-&gt;<SPAN
+CLASS="guisubmenu"
+>Filename Expansion</SPAN
+>-&gt;<SPAN
+CLASS="guimenuitem"
+>Pattern Matching</SPAN
+>.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_04_02.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_04_04.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Examples using grep</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_04.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Summary</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

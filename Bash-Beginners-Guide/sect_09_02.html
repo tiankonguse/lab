@@ -1,0 +1,494 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>The while loop</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Repetitive tasks"
+HREF="chap_09.html"><LINK
+REL="PREVIOUS"
+TITLE="The for loop"
+HREF="sect_09_01.html"><LINK
+REL="NEXT"
+TITLE="The until loop"
+HREF="sect_09_03.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_09_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 9. Repetitive tasks</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_09_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_09_02"
+></A
+>9.2. The while loop</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_09_02_01"
+></A
+>9.2.1. What is it?</H2
+><P
+>The <B
+CLASS="command"
+>while</B
+> construct allows for repetitive execution of a list of commands, as long as the command controlling the <B
+CLASS="command"
+>while</B
+> loop executes successfully (exit status of zero).  The syntax is:</P
+><P
+><B
+CLASS="command"
+>while CONTROL-COMMAND; do CONSEQUENT-COMMANDS; done</B
+> </P
+><P
+><B
+CLASS="command"
+>CONTROL-COMMAND</B
+> can be any command(s) that can exit with a success or failure status.  The <B
+CLASS="command"
+>CONSEQUENT-COMMANDS</B
+> can be any program, script or shell construct.</P
+><P
+>As soon as the <B
+CLASS="command"
+>CONTROL-COMMAND</B
+> fails, the loop exits.  In a script, the command following the <B
+CLASS="command"
+>done</B
+> statement is executed.</P
+><P
+>The return status is the exit status of the last <B
+CLASS="command"
+>CONSEQUENT-COMMANDS</B
+> command, or zero if none was executed.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_09_02_02"
+></A
+>9.2.2. Examples</H2
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_09_02_02_01"
+></A
+>9.2.2.1. Simple example using while</H3
+><P
+>Here is an example for the impatient:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+
+# This script opens 4 terminal windows.
+
+i="0"
+
+while [ $i -lt 4 ]
+do
+xterm &#38;
+i=$[$i+1]
+done
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_09_02_02_02"
+></A
+>9.2.2.2. Nested while loops</H3
+><P
+>The example below was written to copy pictures that are made with a webcam to a web directory.  Every five minutes a picture is taken.  Every hour, a new directory is created, holding the images for that hour.  Every day, a new directory is created containing 24 subdirectories.  The script runs in the background.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+
+# This script copies files from my homedirectory into the webserver directory.
+# (use scp and SSH keys for a remote directory)
+# A new directory is created every hour.
+
+PICSDIR=/home/carol/pics
+WEBDIR=/var/www/carol/webcam
+
+while true; do 
+	DATE=`date +%Y%m%d`
+	HOUR=`date +%H`
+	mkdir $WEBDIR/"$DATE"
+	
+	while [ $HOUR -ne "00" ]; do 
+		DESTDIR=$WEBDIR/"$DATE"/"$HOUR"
+		mkdir "$DESTDIR"
+		mv $PICDIR/*.jpg "$DESTDIR"/
+		sleep 3600
+		HOUR=`date +%H`
+	done
+done
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Note the use of the <B
+CLASS="command"
+>true</B
+> statement.  This means: continue execution until we are forcibly interrupted (with <B
+CLASS="command"
+>kill</B
+> or <B
+CLASS="keycap"
+>Ctrl</B
+>+<B
+CLASS="keycap"
+>C</B
+>).</P
+><P
+>This small script can be used for simulation testing; it generates files:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+
+# This generates a file every 5 minutes
+
+while true; do
+touch pic-`date +%s`.jpg
+sleep 300
+done
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Note the use of the <B
+CLASS="command"
+>date</B
+> command to generate all kinds of file and directory names.  See the man page for more.</P
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Use the system</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>The previous example is for the sake of demonstration.  Regular checks can easily be achieved using the system's <EM
+>cron</EM
+> facility.  Do not forget to redirect output and errors when using scripts that are executed from your crontab!</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_09_02_02_03"
+></A
+>9.2.2.3. Using keyboard input to control the while loop</H3
+><P
+>This script can be interrupted by the user when a <B
+CLASS="keycap"
+>Ctrl</B
+>+<B
+CLASS="keycap"
+>C</B
+> sequence is entered:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+
+# This script provides wisdom
+
+FORTUNE=/usr/games/fortune
+
+while true; do
+echo "On which topic do you want advice?"
+cat &#60;&#60; topics
+politics
+startrek
+kernelnewbies
+sports
+bofh-excuses
+magic
+love
+literature
+drugs
+education
+topics
+
+echo
+echo -n "Make your choice: "
+read topic
+echo
+echo "Free advice on the topic of $topic: "
+echo
+$FORTUNE $topic
+echo
+
+done
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>A <EM
+>here</EM
+> document is used to present the user with possible choices.  And again, the <B
+CLASS="command"
+>true</B
+> test repeats the commands from the <B
+CLASS="command"
+>CONSEQUENT-COMMANDS</B
+> list over and over again.</P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="sect_09_02_02_04"
+></A
+>9.2.2.4. Calculating an average</H3
+><P
+>This script calculates the average of user input, which is tested before it is processed: if input is not within range, a message is printed.  If <B
+CLASS="keycap"
+>q</B
+> is pressed, the loop exits:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;#!/bin/bash
+
+# Calculate the average of a series of numbers.
+
+SCORE="0"
+AVERAGE="0"
+SUM="0"
+NUM="0"
+
+while true; do
+
+  echo -n "Enter your score [0-100%] ('q' for quit): "; read SCORE;
+
+  if (("$SCORE" &#60; "0"))  || (("$SCORE" &#62; "100")); then
+    echo "Be serious.  Common, try again: "
+  elif [ "$SCORE" == "q" ]; then
+    echo "Average rating: $AVERAGE%."
+    break
+  else
+    SUM=$[$SUM + $SCORE]
+    NUM=$[$NUM + 1]
+    AVERAGE=$[$SUM / $NUM]
+  fi
+
+done
+
+echo "Exiting."
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Note how the variables in the last lines are left unquoted in order to do arithmetic.</P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_09_01.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_09_03.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The for loop</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_09.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The until loop</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

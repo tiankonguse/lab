@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>I/O redirection and loops</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Bash Guide for Beginners"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Repetitive tasks"
+HREF="chap_09.html"><LINK
+REL="PREVIOUS"
+TITLE="The until loop"
+HREF="sect_09_03.html"><LINK
+REL="NEXT"
+TITLE="Break and continue"
+HREF="sect_09_05.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Bash Guide for Beginners</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sect_09_03.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 9. Repetitive tasks</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sect_09_05.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="sect_09_04"
+></A
+>9.4. I/O redirection and loops</H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_09_04_01"
+></A
+>9.4.1. Input redirection</H2
+><P
+>Instead of controlling a loop by testing the result of a command or by user input, you can specify a file from which to read input that controls the loop.  In such cases, <B
+CLASS="command"
+>read</B
+> is often the controlling command.  As long as input lines are fed into the loop, execution of the loop commands continues.  As soon as all the input lines are read the loop exits.</P
+><P
+>Since the loop construct is considered to be one command structure (such as <B
+CLASS="command"
+>while TEST-COMMAND; do CONSEQUENT-COMMANDS; done</B
+>), the redirection should occur after the <B
+CLASS="command"
+>done</B
+> statement, so that it complies with the form</P
+><P
+><B
+CLASS="command"
+>command &#60; <TT
+CLASS="filename"
+>file</TT
+></B
+> </P
+><P
+>This kind of redirection also works with other kinds of loops.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect_09_04_02"
+></A
+>9.4.2. Output redirection</H2
+><P
+>In the example below, output of the <B
+CLASS="command"
+>find</B
+> command is used as input for the <B
+CLASS="command"
+>read</B
+> command controlling a <B
+CLASS="command"
+>while</B
+> loop:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="screen"
+>&#13;<TT
+CLASS="prompt"
+>[carol@octarine ~/testdir]</TT
+> <B
+CLASS="command"
+>cat <TT
+CLASS="filename"
+>archiveoldstuff.sh</TT
+></B
+>
+#!/bin/bash
+
+# This script creates a subdirectory in the current directory, to which old
+# files are moved.
+# Might be something for cron (if slightly adapted) to execute weekly or 
+# monthly.
+
+ARCHIVENR=`date +%Y%m%d`
+DESTDIR="$PWD/archive-$ARCHIVENR"
+
+mkdir "$DESTDIR"
+
+# using quotes to catch file names containing spaces, using read -d for more 
+# fool-proof usage:
+find "$PWD" -type f -a -mtime +5 | while read -d $'\000' file
+
+do
+gzip "$file"; mv "$file".gz "$DESTDIR"
+echo "$file archived"
+done
+</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Files are compressed before they are moved into the archive directory.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sect_09_03.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sect_09_05.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The until loop</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chap_09.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Break and continue</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
