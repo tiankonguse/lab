@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>我们毕业了</title>
+        <link rel="stylesheet" type="text/css" href="css/ziti.css" />
+    </head>
+    <body>
+        <div id="head">
+            <div class="demo">
+                <p><span>我</span><span>们</span><span>毕</span><span>业</span><span>了</span></p>
+            </div>
+
+        </div>
+
+        <div id="wrapper">
+
+            <div>
+                <img width="500" height="707" src="./img/left.png" alt="tiankonguse's word" style="float: left;">
+                <img width="500" height="707" src="./img/info.png" alt="tiankonguse's info" style="float: right;">
+
+                <div class="desc" style="display:none">
+                    <h1>再次毕业了</h1>
+                    <ul>
+                        <li>时光匆匆</li>
+                        <li>当我想伸手去抓它的时候</li>
+                        <li>它却悄悄地从手指溜掉了</li>
+                    </ul>
+                </div>
+
+                <div class="clean"></div>
+            </div>
+
+            <div class="music" id="musicPlayerWrap">
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="clean"></div>
+    <div class="foot">
+        <div class="foot_desc">
+            <h1>hello, erery one.</h1>
+            <p>毕业是一把残忍的杀猪刀，不管我们是否长大成熟，它都会狠狠的砍下那一刀。</p>
+            <p>手边的幸福，大家都明白却还是没有去珍惜。</p>
+            <p>还记得曾经许下的承偌吗？</p>
+            <p>还记得曾经的梦想吗？</p>
+            <P>不要害怕未来，勇敢的选择自己的道路，前进吧!</p>
+            <p>我们要记着人生的道路上遇到的每一个人。</p>
+        </div>
+
+    </div>
+
+    <div class="menu">
+        <div class="menu-item">
+            <a href="wall.php" target="_blank">毕业墙</a>
+        </div>
+        <div class="menu-item">
+            <a href="photo.php" target="_blank">毕业照片</a>
+        </div>
+    </div>
+
+    <div id="snow">
+        <script type="text/javascript" src="js/snow.js"></script>
+        <script type="text/javascript">
+            lyz.snow({stopdiv:'snow',speed:3,num:80});
+        </script>  
+    </div>
+    <script>
+        (function(){
+            var player= document.createElement("audio");
+            player.id = "musicEngine";
+            document.getElementById("musicPlayerWrap").appendChild(player);
+            var song = [
+            "./audios/pengyou.mp3",
+            "./audios/tongzhuodeni.mp3",
+            "./audios/nanianxiatian.mp3",
+            "./audios/womendoushihaohaizi.mp3",
+            "./audios/zhizihuakai.mp3"
+            ];
+            var num = song.length;
+            player.controls = "controls";
+            play(); 
+            var timer = setInterval(function(){
+                if(player.ended){
+                    play();
+                }
+            },1000);
+
+            function play(){
+                if(player.src == ""){
+                    player.index = parseInt(Math.random()*num);
+                    }else{
+                    player.index++;
+                }
+
+                if(player.index == num){
+                    player.index = 0;
+                }
+
+                player.src = song[player.index];
+                player.play();
+            }
+        })(); 
+    </script>
+</body>
+</html>
