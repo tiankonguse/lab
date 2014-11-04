@@ -99,7 +99,8 @@ var MAIN_DOMAIN = "<?php echo MAIN_DOMAIN; ?>";
             return false;
         });
     })();
-	</script>
+    </script>
+    <script src="<?php echo DOMAIN_JS; ?>/main.js"></script>
 </body>
 </html>
 

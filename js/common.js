@@ -71,6 +71,13 @@ function scrollToTop(ele){
     this.initEvent();
 }
 
+function showMessage(message) {
+    "use strict";
+    var $message = $("#_message");
+    $message.find(".modal-body>p").text(message);
+    $message.addClass("in");
+    $("._message.modal-backdrop.hide").addClass("in");
+}
 
 scrollToTop.prototype = {
     initEvent : function(){
