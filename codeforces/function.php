@@ -12,7 +12,11 @@ define('ENTER','http://codeforces.com/enter');
 define('HOME','http://codeforces.com');
 define('SETTING',"http://codeforces.com/settings/general");
 
+
+# simple_html_dom document 
+# http://simplehtmldom.sourceforge.net/manual.htm
 include_once ("simple_html_dom.php");
+
 
 function post($url, $data = array(), $referer = "", $header = array()){
 	$t = time() * 1000;
