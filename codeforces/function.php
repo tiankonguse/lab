@@ -3,15 +3,17 @@
 ini_set("display_errors",1);
 ini_set("error_reporting",E_ALL);
 
-! defined ( "username" ) &&  define('username','13944097701');
-! defined ( "password" ) &&  define('password', 0);
 ! defined ( "OUTPUT_SUCCESS" ) && define('OUTPUT_SUCCESS','0');
 ! defined ( "OUTPUT_ERROR" ) && define('OUTPUT_ERROR','1');
 
 define('ENTER','http://codeforces.com/enter');
 define('HOME','http://codeforces.com');
 define('SETTING',"http://codeforces.com/settings/general");
+define('PROFILE',"http://codeforces.com/profile/");
+define('CONTESTS',"http://codeforces.com/contests");
 
+$username = "vatirk";
+$password = "kritav";
 
 # simple_html_dom document 
 # http://simplehtmldom.sourceforge.net/manual.htm
@@ -19,8 +21,9 @@ include_once ("simple_html_dom.php");
 
 
 function post($url, $data = array(), $referer = "", $header = array()){
+    global $username;
 	$t = time() * 1000;
-	$cookie = dirname(__FILE__).'/cookie.txt';
+	$cookie = dirname(__FILE__).'/cookie.' . $username . '.txt';
 
 	$curl = curl_init("$url?t=$t&_=$t");
 	curl_setopt($curl, CURLOPT_HEADER, 0);
@@ -89,9 +92,11 @@ function tta(){
 
 
 function myprint($ret){
+    echo "--------------------------------------------------<br><br>";
     echo "<pre>";
     echo htmlentities($ret);
     echo "</pre>";
+    echo "--------------------------------------------------<br><br>";
 }  
     
 function getCsrfToken($ret){
@@ -118,8 +123,8 @@ function getCsrfToken($ret){
     
     return "";    
 }
-    
-    
+
+ 
 function login($username, $password){
 
     $ret = post(ENTER);
@@ -147,159 +152,58 @@ function login($username, $password){
     
     
     $ret = post(SETTING, array(), HOME);
-
-
-    //myprint($ret);
-    
 }
 
-/*
-------WebKitFormBoundaryvqP1gmt6BGTL7bHc
-Content-Disposition: form-data; name="sourceFile"; filename=""
-Content-Type: application/octet-stream
-
-contestId
-472
-
-submittedProblemIndex 
-A
-
-programTypeId 
-
-1 "GNU C++ 4.7"
-5 "Java 6"
-23 "Java 7"
-36 "Java 8"
-13 "Perl 5.12"
-6 "PHP 5.3"
-7 "Python 2.7"
-31 "Python 3.3"
-8 "Ruby 2"
-34 "JavaScript V8 3"
-*/
-function submit($contestId, $problem, $lang, $source){
-    $submitUrl = "http://codeforces.com/contest/".$contestId."/submit";
+function getRegisterUrl($ret){
+    $html = str_get_html($ret);
     
-    $ret = post($submitUrl);
+    $links = array();
     
-    $csrf = getCsrfToken($ret);
-
-    $_tta = tta();
-    
-    $data = array(
-			'csrf_token' => $csrf,
-			'action' => "submitSolutionFormSubmitted",
-			'_tta' => $_tta,
-			'submittedProblemIndex' => $problem,
-			'programTypeId' => $lang,
-			'contestId' => $contestId,
-			'source' => $source
-	);
-    
-
-    
-    $header = array();
-    $header[] = "Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryYNYmdyfCkN5wxdOg";
-    
-    $newSubmitUrl = $submitUrl."?csrf_token=".$csrf;
-    $ret = post($newSubmitUrl, $data, $submitUrl, $header);
-    
-    myprint($ret);
-    
-    $ret = post("http://codeforces.com/contest/".$contestId."/my", array(), $newSubmitUrl);
-    
-    myprint($ret);
-}
-
-
-
-login("tiankonguse", "shen1000");
-
-$source = '#include<cstdio>
-#include<cstdlib>
-#include<cstring>
-#include<iostream>
-#include<string>
-#include<queue>
-#include<map>
-#include<cmath>
-#include<stack>
-#include<algorithm>
-#include<functional>
-#include<stdarg.h>
-using namespace std;
-#ifdef __int64
-typedef __int64 LL;
-#else
-typedef long long LL;
-#endif
-
-const int debug = 0;
-typedef unsigned uint;
-typedef unsigned char uchar;
-
-const int N = 400100;
-const int OneNumMax = 1<<16;
-char str1[N];
-char str2[N];
-
-int p1,p2,len,q;
-int ans = 0;
-int end;
-uint* a;
-uint* b;
-uchar A[8][N];
-uchar B[8][N];
-int oneNum[OneNumMax];
-
-void bulid(const char * const q, uchar A[32][N]) {
-    int l = strlen(q);
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; i + j < l; j++) {
-            if(q[i+j] == \'1\') {
-                A[i][j>>3] |= (1U << (j & 7));
-            }
+    $linksDom  = $html->find(".red-link");
+    if($linksDom != null){
+        foreach($linksDom as $linkDom){
+            $link = "http://codeforces.com". $linkDom->getAttribute("href");
+            $links[] = $link;            
         }
     }
+    
+    return $links;
 }
 
-inline uint countbits(uint x) {
-    return oneNum[x >> 16] + oneNum[x & ((1 << 16) - 1)];
+function register($username, $password){
+    login($username, $password);
+    
+    $ret = post(CONTESTS, array(), HOME);
+    
+    $urls = getRegisterUrl($ret);
+    
+    
+    
+    foreach($urls as $url){
+        var_dump($url);
+        $ret = post($url, array(), HOME);
+            
+        $csrf = getCsrfToken($ret);
+
+        $_tta = tta();
+        
+        $data = array(
+                'csrf_token' => $csrf,
+                'action' => "formSubmitted",
+                '_tta' => $_tta,
+                'takePartAs' => "personal",
+                'backUrl' => ""
+        );
+        
+        $header = array();
+        $header[] = "Content-Type: application/x-www-form-urlencoded";
+        var_dump($data);
+        
+        $ret = post($url, $data, $url, $header);
+        
+        echo "try register " . $url . "<br/>";
+        
+    }
 }
 
-int main() {
-    int q;
-    for(int i = 1; i < OneNumMax; ++i) {
-        oneNum[i] = oneNum[i >> 1] + (i & 1);
-    }
-
-
-    memset(A,0,sizeof(A));
-    memset(B,0,sizeof(B));
-
-    scanf("%s",str1);
-    scanf("%s",str2);
-    bulid(str1,A);
-    bulid(str2,B);
-    scanf("%d",&q);
-    while(q--) {
-        scanf("%d%d%d",&p1,&p2,&len);
-
-        ans = 0;
-        a = (uint*)(A[p1&7] + (p1>>3));
-        b = (uint*)(B[p2&7] + (p2>>3));
-        end = p1 + len;
-        while(len >= 32) {
-            ans += countbits(*a++ ^ *b++);
-            len -= 32;
-        }
-
-        ans += countbits((*a ^ *b) & ((1U << len) - 1));
-
-        printf("%d\n",ans);
-    }
-
-    return 0;
-}';
-
-submit("472", "A", "a", $source);
+register($username, $password);
