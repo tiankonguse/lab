@@ -88,7 +88,7 @@ function get_file_type() {
             break;
         } case HOST_WEIYUN : {
             //腾讯微云
-            preg_match('"file_suffix":"([a-z0-9]+)"|i', $src, $res);
+            preg_match('|"file_suffix":"([a-z0-9]+)"|i', $src, $res);
             return $res ? ".".$res[1] : exit(ERRCODE(ERR_NO_FILE_TYPE));
             break;
         }
