@@ -20,9 +20,8 @@ if($match){
     // 匹配源码里面的音乐地址并跳转
     $src = curl_get_contents ( $url );
     preg_match ( '|http://.+file.+sign[^"]+|', $src, $res );
-    $songurl = html_entity_decode ( $res [0] );
-
-    if ($songurl) {
+    if (count($res)) {
+	    $songurl = html_entity_decode ( $res [0] );
         header ( "location:$songurl" );
     } else {
         preg_match ( '|url3[^h]+([^"]*)|', $src, $res );
