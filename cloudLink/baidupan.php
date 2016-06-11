@@ -1,5 +1,8 @@
 <?php
-
+$debug = 0;
+if(isset($_GET["debug"])){
+    $debug = 1;
+}
 // 构造百度网盘分享网址
 $uri = $_SERVER ["REQUEST_URI"];
 
@@ -15,7 +18,6 @@ if(preg_match ( '|\/(\d+)\/(\d+)\.|', $uri, $res )){
 }else{
     $match = false;
 }
-
 if($match){
     // 匹配源码里面的音乐地址并跳转
     $src = curl_get_contents ( $url );
@@ -25,9 +27,17 @@ if($match){
         header ( "location:$songurl" );
     } else {
         preg_match ( '|url3[^h]+([^"]*)|', $src, $res );
-        $res [1] = str_replace ( "\\", "", $res [1] );
-        $imgurl = html_entity_decode ( $res [1] );
-        header ( "location:$imgurl" );
+        if(count($res) >= 2){
+            $res [1] = str_replace ( "\\", "", $res [1] );
+            $imgurl = html_entity_decode ( $res [1] );
+            header ( "location:$imgurl" );
+        }else{
+           echo "error"; 
+        }
+
+        if($debug == 1){
+        }else{
+        }
     }
 }else{
 
@@ -45,4 +55,3 @@ function curl_get_contents($url) {
     curl_close ( $curl );
     return $src;
 }
-?>

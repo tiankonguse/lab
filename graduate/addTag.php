@@ -14,6 +14,9 @@ $tag = trim($tag);
 if(strlen($tag) == 0){
     die("LENGTH 0");
 }
+if(strlen($tag) > 64){
+    die("LENGTH too  long");
+}
 
 $tags = readTags();
 
