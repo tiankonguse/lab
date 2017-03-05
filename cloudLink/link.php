@@ -73,7 +73,6 @@ function get_uk($src){
 
 function get_shareid($src){
     $shareid = 0;
-    
     preg_match('/"shareid".(\d+),/', $src, $res);
     $shareid = $res[1];
     return $shareid;
@@ -113,7 +112,9 @@ function curl_get_contents($url) {
     curl_setopt($curl, CURLOPT_HEADER, 1);
     curl_setopt($curl, CURLOPT_REFERER, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_USERAGENT, "BlackBerry/3.6.0");
+    curl_setopt($curl, CURLOPT_USERAGENT, "BlackBerry/3.6.1");
+    curl_setopt($curl, CURLOPT_COOKIEFILE, "./cookie.tmp");
+    curl_setopt($curl, CURLOPT_COOKIEJAR, "./cookie.tmp");
     curl_setopt($curl, CURLOPT_TIMEOUT, 10);
     $src = curl_exec($curl);
     curl_close($curl);

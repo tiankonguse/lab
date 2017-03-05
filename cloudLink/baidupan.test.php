@@ -1,5 +1,8 @@
 <?php
-
+$debug = 0;
+if(isset($_GET["debug"])){
+    $debug = 1;
+}
 // 构造百度网盘分享网址
 $uri = $_SERVER ["REQUEST_URI"];
 
@@ -15,7 +18,6 @@ if(preg_match ( '|\/(\d+)\/(\d+)\.|', $uri, $res )){
 }else{
     $match = false;
 }
-
 if($match){
     // 匹配源码里面的音乐地址并跳转
     $src = curl_get_contents ( $url );
@@ -25,10 +27,17 @@ if($match){
         header ( "location:$songurl" );
     } else {
         preg_match ( '|url3[^h]+([^"]*)|', $src, $res );
-	var_dump($url, $res);exit(0);
-        $res [1] = str_replace ( "\\", "", $res [1] );
-        $imgurl = html_entity_decode ( $res [1] );
-        header ( "location:$imgurl" );
+        if(count($res) >= 2){
+            $res [1] = str_replace ( "\\", "", $res [1] );
+            $imgurl = html_entity_decode ( $res [1] );
+            header ( "location:$imgurl" );
+        }else{
+           echo "error"; 
+        }
+
+        if($debug == 1){
+        }else{
+        }
     }
 }else{
 
@@ -39,11 +48,13 @@ if($match){
 function curl_get_contents($url) {
     $curl = curl_init ( $url );
     curl_setopt ( $curl, CURLOPT_HEADER, 1 );
+    curl_setopt($curl, CURLOPT_REFERER, $url);
     curl_setopt ( $curl, CURLOPT_RETURNTRANSFER, 1 );
-    curl_setopt ( $curl, CURLOPT_USERAGENT, "BlackBerry/3.6.0" );
+    curl_setopt ( $curl, CURLOPT_USERAGENT, "BlackBerry/3.6.1" );
+    curl_setopt($curl, CURLOPT_COOKIEFILE, "./cookie.tmp");
+    curl_setopt($curl, CURLOPT_COOKIEJAR, "./cookie.tmp");
     curl_setopt ( $curl, CURLOPT_TIMEOUT, 10 );
     $src = curl_exec ( $curl );
     curl_close ( $curl );
     return $src;
 }
-?>
